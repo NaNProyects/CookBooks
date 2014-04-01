@@ -1,0 +1,43 @@
+Usuarios [U]
+========
+U1) Registrarse en la aplicación
+U2) Iniciar sesión
+U3) Cerrar sesión
+U4) Recuperar contraseña
+U5) Modificar perfil
+U6) Eliminar cuenta
+
+Libros (usuarios) [LU]
+=============
+LU1) Buscar un libro
+LU2) Ver perfil de un libro
+LU3) Hojear un libro //depende de 13)
+LU4) Ver perfil de un autor
+LU5) Ver historial de compras
+LU6) Ver la página de ayuda
+LU7) Enviar un formulario de contacto
+
+Carrito [C]
+=======
+C1) Agregar un libro al carrito
+C2) Quitar un libro del carrito
+C3) Ver el contenido del carrito
+C4) Confirmar carrito (comprar) //BOOM
+C5) Validar tarjeta //depende de 4)
+
+Administración [A]
+============
+A1) Ver lista de libros
+A2) Agregar un libro
+A3) Modificar datos de un libro
+A4) Eliminar un libro
+A5) Agregar un autor
+A6) Modificar datos de un autor
+A7) Eliminar un autor
+A8) Ver lista de pedidos
+A9) Marcar un pedido como enviado
+A10) Ver estadísticas de ventas
+
+
+
+
