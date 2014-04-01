@@ -11,7 +11,7 @@ Libros (usuarios) [LU]
 =============
 LU1) Buscar un libro
 LU2) Ver perfil de un libro
-LU3) Hojear un libro //depende de 13)
+LU3) Hojear un libro //depende de LU2)
 LU4) Ver perfil de un autor
 LU5) Ver historial de compras
 LU6) Ver la página de ayuda
@@ -23,7 +23,7 @@ C1) Agregar un libro al carrito
 C2) Quitar un libro del carrito
 C3) Ver el contenido del carrito
 C4) Confirmar carrito (comprar) //BOOM
-C5) Validar tarjeta //depende de 4)
+C5) Validar tarjeta //depende de C4)
 
 Administración [A]
 ============
