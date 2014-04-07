@@ -1,4 +1,4 @@
-Usuarios [U]
+﻿Usuarios [U]
 ========
 U1) Registrarse en la aplicación
 U2) Iniciar sesión
@@ -12,10 +12,10 @@ Libros (usuarios) [LU]
 LU1) Buscar un libro
 LU2) Ver perfil de un libro
 LU3) Hojear un libro //depende de LU2)
-LU4) Ver perfil de un autor
+LU4) Enviar un formulario de contacto
 LU5) Ver historial de compras
 LU6) Ver la página de ayuda
-LU7) Enviar un formulario de contacto
+
 
 Carrito [C]
 =======
@@ -32,11 +32,10 @@ A2) Agregar un libro
 A3) Modificar datos de un libro
 A4) Eliminar un libro
 A5) Agregar un autor
-A6) Modificar datos de un autor
-A7) Eliminar un autor
-A8) Ver lista de pedidos
-A9) Marcar un pedido como enviado
-A10) Ver estadísticas de ventas
+A6) Eliminar un autor
+A7) Ver lista de pedidos
+A8) Marcar un pedido como enviado
+A9) Ver estadísticas de ventas
 
 
 

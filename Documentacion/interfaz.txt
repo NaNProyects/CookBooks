@@ -1,0 +1,9 @@
+
+Se especificaron los colores de la interfaz como [ROJO ROJO Y ROJO] de acuerdo a los colores de la empresa, y la presencia del logo de la empresa.
+Los visitantes podrán acceder a una página de registro con la cual crearán su cuenta con su correo y una contraseña o a una de login para entrar con los datos previamente registrados. Asimismo habrá una ventana para la recuperación de la contraseña.
+Se dispondrá también de una página de ayuda y un formulario de contacto.
+Los usuarios registrados deben tener un perfil donde puedan ver y editar sus datos.
+Debe existir un mecanismo de búsqueda y una sección que muestre los resultados.
+Cada libro tendrá su perfil con información del mismo y un botón para agregarlo al carrito de compra y otro para hojearlo.
+Cada usuario podrá ver un historial de sus compras anteriores y un carrito con los libros que seleccionó actualmente. 
+El administrador también podrá ver los perfiles de los libros y además editar sus datos para lo cual dispondrá de los botones correspondientes;  tendrá una lista de todos los libros a la venta y opciones para agregar o borrar libros y una para gestionar el estado de los pedidos. También dispondrá de información de los libros más vendidos en un período determinado

@@ -1,0 +1,114 @@
+•	U1) Como usuario invitado, quiero poder registrarme indicando email, contraseña, nombre, apellido, DNI, teléfono, dirección física y número de tarjeta para poder acceder a las funcionalidades de usuario registrado.
+o	Cargar un usuario sin alguno de estos datos y comprobar que produce error
+o	Cargar un usuario con un mail ya registrado y comprobar que produce error
+o	Cargar una contraseña de comprobación diferente a la original y comprobar que produce error
+o	Enviar email inválido y comprobar que indique mail inválido
+o	Cargar campos numéricos con valores string y comprobar que indican error
+o	Cargar un usuario correctamente y verificar que existe en la base de datos con la fecha correcta
+
+
+
+
+
+
+•	U2) Como usuario registrado/administrador quiero poder iniciar sesión indicando mi mail y contraseña para poder acceder a las funcionalidades de mi tipo de usuario.
+o	Ingresar un email que no esté en el sistema y comprobar que produce error
+o	Ingresar una contraseña inválida para el mail ingresado y comprobar que produce error
+o	Ingresar un email válido con su contraseña y comprobar que se accede correctamente
+
+•	U3) Como usuario registrado/administrador quiero poder cerrar sesión para finalizar mi estadía en el sistema. / mantener mis datos seguros
+o	Cerrar la sesión y comprobar que no se ven las funciones para el tipo de cuenta
+
+•	U4) Como usuario registrado/administrador quiero poder recuperar mi contraseña  indicando mi mail y DNI en caso de haberla olvidado
+o	Ingresar un DNI que no corresponda al mail y comprobar que produce error
+o	Ingresar un mail que no está en el sistema y comprobar que produce error
+o	Ingresar un mail y DNI correctos y comprobar que se puede cambiar la contraseña
+
+•	U5) Como usuario registrado/administrador quiero poder modificar mi perfil para cambiar mis datos personales
+o	Enviar el formulario sin alguno de los datos y comprobar que produce error
+o	Cargar un mail ya registrado y comprobar que produce error
+o	Cargar una contraseña de comprobación diferente a la original y comprobar que produce error
+o	Cargar un mail inválido y comprobar que produce error
+o	Cargar campos numéricos con valores string y comprobar que indican error
+o	Modificar un usuario y verificar que se actualizó en la base de datos
+
+•	U6) Como usuario registrado quiero poder eliminar mi cuenta para sacar mis datos del sistema
+o	Intentar eliminar una cuenta con pedidos pendientes y comprobar que produce error
+o	Intentar eliminar una cuenta y comprobar que no permite inicio de sesión
+
+•	LU1) Como usuario quiero poder buscar un libro para encontrar el libro que quiero
+o	Introducir un término de búsqueda que tenga resultados y comprobar que los retorna correctamente
+o	Introducir un término de búsqueda que no produzca resultados y comprobar que indique que no hay resultados
+
+•	LU2) Como usuario quiero poder ver el perfil de un libro para ver la información que tiene asociada
+o	Ingresar al perfil de un libro y comprobar que las opciones mostradas sean las correspondientes al tipo de usuario 
+
+•	LU3) Como usuario quiero poder hojear un libro para ver si me interesa
+o	Solicitar hojear un libro y comprobar que se muestra correctamente 
+
+•	[LU4) Como usuario quiero poder ver el perfil de un autor para ver que libros escribió]
+
+•	LU5) Como usuario registrado quiero poder ver mi historial de compras para ver qué libros compré y su estado
+o	Comprar un libro y verificar que aparece como pendiente en el historial
+o	Confirmar envío de un libro y ver que se refleje el cambio de estado
+o	Realizar tres compras consecutivas y comprobar que se registran correctamente
+
+•	LU6) Como usuario quiero poder ver la página de ayuda para comprender la funcionalidad del sistema
+o	Abrir la página de ayuda y comprobar que se muestra correctamente
+
+•	LU7) Como usuario quiero poder enviar un formulario de contacto con mi mail y un mensaje para comunicarme con los administradores del sistema
+o	Enviar el formulario sin alguno de los datos y comprobar que se produce error 
+o	Cargar un mail inválido y comprobar que se produce error
+o	Enviar un formulario con todos los datos y comprobar que llegó al buzón del administrador
+
+•	C1) Como usuario registrado quiero poder agregar un libro a mi carrito de compras para comprarlo después
+o	Seleccionar un libro que ya está en el carrito y comprobar que produce error
+o	Seleccionar un libro para agregar al carrito y comprobar que se agregó exitosamente
+
+•	C2) Como usuario registrado quiero poder quitar un libro de mi carrito de compras para quitarlo de mi selección de compra
+o	Eliminar un libro del carrito y comprobar que desaparece.
+
+•	C3) Como usuario registrado quiero poder ver el contenido de mi carrito de compras para saber el contenido antes de realizar la compra
+o	Ingresar a un carrito de compras vacío y comprobar que lo está
+o	Agregar tres libros al carrito y comprobar que se muestran correctamente
+o	Eliminar el segundo libro y comprobar que sigue funciona correctamente
+
+•	C4) Como usuario registrado quiero poder confirmar mi carrito de compras para hacer efectiva la compra
+o	Intentar confirmar un carrito vacío y comprobar que produce error
+o	Confirmar un carrito con libros y comprobar que pide la tarjeta
+
+
+•	C5) Como usuario registrado quiero poder confirmar mi número de tarjeta para la validarla antes de comprar
+o	Intentar enviar un número de tarjeta que no corresponda con el perfil de usuario y  comprobar que produce error
+o	Ingresar un número de tarjeta correcto y comprobar que aparece la compra como pendiente en el historial de compras, como pendiente en el registro de ventas, y el carrito está vacío.
+
+•	A1) Como administrador quiero poder ver la lista de todos los libros para verlos y gestionarlos
+o	Solicitar la lista de libros y comprobar que aparecen todos. 
+
+•	A2) Como administrador quiero poder agregar un libro indicando título, autor, ISBN, precio, reseña, género y texto de vistazo para que los usuarios registrados puedan comprarlo
+o	Cargar un libro sin alguno de estos datos y comprobar que produce error
+o	Cargar un libro con un ISBN ya registrado y comprobar que produce error
+o	Cargar precio con valores string y comprobar que indica error
+o	Cargar un libro correctamente y verificar que existe en la base de datos y figura en la lista de libros
+
+•	A3) Como administrador quiero poder modificar los datos de un libro para corregir o actualizar la información que vean los usuarios registrados
+o	Enviar el formulario sin alguno de los datos y comprobar que produce error
+o	Cargar campos precio con valores string y comprobar que indica error
+o	Modificar un libro y verificar que se actualizó el perfil
+
+•	A4) Como administrador quiero poder eliminar un libro desde la lista o su perfil para que no esté más disponible para la venta
+o	Eliminar un libro y comprobar que no aparece al buscarlo ni en la lista de libros
+
+•	[A5) Como administrador quiero poder agregar un autor para poder agregar libros que haya escrito]
+
+•	[A6) Como administrador quiero poder modificar los datos de un autor para corregir o actualizar la información que vean los usuarios registrados]
+
+•	[A7) Como administrador quiero poder eliminar un autor para quitarlo del sistema]
+
+•	A8) Como administrador quiero poder ver la lista de pedidos para gestionar los libros que debo enviar
+o	Hacer un pedido y verificar que aparece en la lista con el estado correspondiente 
+
+•	A9) Como administrador quiero poder marcar un libro como enviado para notificar al usuario y saber qué libros envié
+o	Marcar un libro como enviado y verificar que se le cambió el estado en la lista de pedidos y en el historial de compras del usuario
+•	A10) Como administrador quiero ver ciertas estadísticas de ventas para saber qué libro se vendió más
+o	Solicitar las estadísticas y comprobar que son correctas
