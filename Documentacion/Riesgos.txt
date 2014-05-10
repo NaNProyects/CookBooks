@@ -6,7 +6,11 @@ Aca les dejo algunos de los riesgos que hablabamos ayer. Mañana los discutiremos
 .Salida del personal - proyecto - 3
 .Fallo en la actualizacion de la base de datos - producto - 2
 .Fallo en la apertura de la base de datos - producto - 2
-.Ventana mal dimensionada - producto - 3
+.Ventana mal dimensionada - producto - 3 Jony: 4
 .Fallo en la compra del libro - producto - 2
+.Ausencia de personal clave por enfermedad - proyecto -3
+.Falta de formación en las herramientas- producto - 2
+.La fecha de entrega estará muy ajustada- proyecto - 3
+.Poca familiaridad con el lenguaje elegido - producto proyecto- 2 
 
 
