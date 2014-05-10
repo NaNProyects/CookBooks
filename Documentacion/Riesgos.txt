@@ -1,0 +1,12 @@
+Aca les dejo algunos de los riesgos que hablabamos ayer. Mañana los discutiremos en profundidad.
+
+.(Riesgo) - (Categoria) - (Grado)
+
+.Fallo en la conexion a Internet - proyecto - 3
+.Salida del personal - proyecto - 3
+.Fallo en la actualizacion de la base de datos - producto - 2
+.Fallo en la apertura de la base de datos - producto - 2
+.Ventana mal dimensionada - producto - 3
+.Fallo en la compra del libro - producto - 2
+
+
