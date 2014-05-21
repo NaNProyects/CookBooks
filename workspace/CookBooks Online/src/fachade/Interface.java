@@ -3,14 +3,22 @@ package fachade;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JPanel;
+
 import java.awt.Dimension;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import funcionalidad.CookBooks;
+
 import java.awt.Component;
 import java.awt.Toolkit;
 
 public class Interface {
+	public CookBooks contexto = new CookBooks();		
 	private JPanel center;
 	private JPanel top;
 	private JPanel left;

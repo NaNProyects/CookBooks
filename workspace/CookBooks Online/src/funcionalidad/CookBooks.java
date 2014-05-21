@@ -2,8 +2,29 @@ package funcionalidad;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 
 public class CookBooks {
+	
+	//mocks
+	private static ArrayList autores= new ArrayList();
+	private static LinkedList lista = new LinkedList();
+	private static void IniciarAutores(){
+		autores.add(new Autor(0, "pepe"));
+		autores.add(new Autor(1,"sssss"));
+		autores.add(new Autor(2,"sssss2"));
+	}	
+	
+	
+	private static void IniciarLibros(){
+		lista.add(new Libro(new Long(11111), "aaaaa", "sssss", "ddddd", "fffff", "ggggg", "wwwwwww" , "eeeeeeee",new Double(12.30)));
+		lista.add(new Libro(new Long(11112), "aaaaa2", "sssss2", "ddddd2", "fffff2", "ggggg2", "wwwwwww2" , "qqqqqqqqq", new Double(13.30)));	
+	}	
+	
+	
+	//mocks fin
+	
+	
 	//private Conexion base;
 //	private Usuario usuario;
 	public boolean eliminar(Autor unAutor) {
@@ -18,11 +39,18 @@ public class CookBooks {
 	
 	public Autor agregar(String unNombreAutor) {
 		return null;
-	
+
 	}
 	
 	public ArrayList autores() {
-		return null;
+		
+		// Mock temporal
+
+			if(autores.size() == 0){
+				IniciarAutores();
+			}
+			return autores;
+	
 	
 	}
 	
@@ -35,23 +63,37 @@ public class CookBooks {
 	
 	}
 	
-	public ArrayList libros() {
-		return null;
+	public LinkedList libros() {
+		
+		//mock temporal
+	
+		if(lista.size() == 0){
+			IniciarLibros();
+		}
+		return lista;
+
 	
 	}
 	
 	public boolean agregar(Libro unLibro) {
-		return false;
+		// Mock
+			lista.add(unLibro);				
+			return true;
+	
 	
 	}
 	
 	public boolean modificar(Libro unLibro) {
-		return false;
+		lista.remove(unLibro);
+		lista.add(unLibro);				
+		return true;
 	
 	}
 	
 	public boolean eliminar(Libro unLibro) {
-		return false;
+		// Mock
+		lista.remove(unLibro);				
+		return true;
 	
 	}
 	
