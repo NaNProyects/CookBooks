@@ -19,10 +19,10 @@ import java.awt.Toolkit;
 
 public class Interface {
 	public CookBooks contexto = new CookBooks();		
-	private JPanel center;
-	private JPanel top;
-	private JPanel left;
-	private JFrame frmCookbooksOnline;
+	protected JPanel center;
+	protected JPanel top;
+	protected JPanel left;
+	protected JFrame frmCookbooksOnline;
 
 	/**
 	 * Launch the application.

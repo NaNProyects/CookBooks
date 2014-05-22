@@ -13,7 +13,7 @@ public class MedioHome extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MedioHome(Interface inside) {
+	public MedioHome(Interface inside2) {
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 

@@ -28,26 +28,33 @@ public class Lateral extends JPanel {
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 
-		JButton btnNewButton = new JButton("Libros");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		JButton BotonLibros = new JButton("Libros");
+		BotonLibros.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				inside.centro(new MedioListaDeLibros(inside));
 			}
 		});
-		btnNewButton.setBounds(0, 11, 96, 23);
-		add(btnNewButton);
+		BotonLibros.setBounds(0, 11, 96, 23);
+		add(BotonLibros);
 		
-		JButton button = new JButton("New button");
-		button.addMouseListener(new MouseAdapter() {
+		JButton BotonAutores = new JButton("Autores");
+		BotonAutores.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				inside.centro(new MedioAutores(inside));
+				
+			}
+		});
+		BotonAutores.setBounds(0, 45, 96, 23);
+		add(BotonAutores);
+		
+		JButton button_1 = new JButton("New button");
+		button_1		.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				inside.centro(new MedioHome(inside));
 			}
 		});
-		button.setBounds(0, 45, 96, 23);
-		add(button);
-		
-		JButton button_1 = new JButton("New button");
 		button_1.setBounds(0, 79, 96, 23);
+		
 		add(button_1);
 		
 		JButton button_2 = new JButton("New button");

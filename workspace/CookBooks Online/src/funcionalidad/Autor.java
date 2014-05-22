@@ -14,7 +14,7 @@ public class Autor {
 	}
 	
 	public void nombre(String unNombre) {
-	
+		this.nombre = unNombre;
 	}
 	
 	public String nombre() {

@@ -140,7 +140,7 @@ public class MedioListaDeLibros extends JPanel {
 		while (iterador.hasNext()) {
 			Libro libro = (Libro) iterador.next();
 			model.addRow(new String[] {
-					new Integer(libro.getIsbn()).toString(), libro.getTitulo(),
+					libro.getIsbn().toString(), libro.getTitulo(),
 					libro.getAutor(), libro.getGenero(), libro.getIdioma(),
 					libro.getEditorial(),
 					new Double(libro.getPrecio()).toString() });

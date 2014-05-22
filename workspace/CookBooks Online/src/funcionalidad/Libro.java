@@ -1,7 +1,7 @@
 package funcionalidad;
 
 public class Libro {
-		private int isbn;
+		private Long isbn;
 		private String titulo;
 		private String autor; // pasar a objeto autor ?
 		private String genero;
@@ -13,7 +13,7 @@ public class Libro {
 		public Libro(Long i, String titulo, String autor, String genero,
 				String editorial,String idioma , String reseña, String vistaso, Double precio) {
 			super();
-			this.isbn = i.intValue();
+			this.isbn = i;
 			this.titulo = titulo;
 			this.autor = autor;
 			this.genero = genero;
@@ -23,10 +23,10 @@ public class Libro {
 			this.vistaso = vistaso;
 			this.precio = precio.doubleValue();
 		}
-		public int getIsbn() {
+		public Long getIsbn() {
 			return isbn;
 		}
-		public void setIsbn(int isbn) {
+		public void setIsbn(Long isbn) {
 			this.isbn = isbn;
 		}
 		public String getTitulo() {

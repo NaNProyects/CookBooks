@@ -2,12 +2,13 @@ package funcionalidad;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class CookBooks {
 	
 	//mocks
-	private static ArrayList autores= new ArrayList();
+	private static LinkedList autores= new LinkedList();
 	private static LinkedList lista = new LinkedList();
 	private static void IniciarAutores(){
 		autores.add(new Autor(0, "pepe"));
@@ -28,28 +29,58 @@ public class CookBooks {
 	//private Conexion base;
 //	private Usuario usuario;
 	public boolean eliminar(Autor unAutor) {
-		return false;
-	
+		
+		// Mock para Mock XD
+				if(lista.size() == 0){
+					IniciarLibros();
+				}
+		// Mock temporal
+		for (Iterator iterator = lista.iterator(); iterator.hasNext();) {
+			Libro lib = (Libro) iterator.next();
+			if(lib.getAutor().equals(unAutor.nombre())){
+				return false;
+			}			
+		}
+		autores.remove(unAutor);
+		return true;	
 	}
 	
 	public boolean actualizar(Autor unAutor) {
-		return false;
+		
+		// Mock temporal
+		for (Iterator iterator = autores.iterator(); iterator.hasNext();) {
+			Autor aut = (Autor) iterator.next();
+			if((aut.nombre().equals(unAutor.nombre()))&&(aut.id() != unAutor.id())){
+				return false;
+			}			
+		}
+		return true;
 	
 	}
 	
-	public Autor agregar(String unNombreAutor) {
-		return null;
-
+	public Autor agregar(String unNombreAutor) throws Exception {
+		
+		// Mock temporal
+		Autor aut;
+		for (Iterator iterator = autores.iterator(); iterator.hasNext();) {
+			aut = (Autor) iterator.next();
+			if(aut.nombre().equals(unNombreAutor)){
+				throw new Exception("El Autor ya existe");
+			}			
+		}
+		aut=new Autor((((Autor) autores.get(autores.size()-1)).id())+1, unNombreAutor);
+		autores.add(aut);
+		return aut;
 	}
 	
-	public ArrayList autores() {
+	public LinkedList autores() {
 		
 		// Mock temporal
 
 			if(autores.size() == 0){
 				IniciarAutores();
 			}
-			return autores;
+			return (LinkedList) autores.clone();
 	
 	
 	}
@@ -70,7 +101,7 @@ public class CookBooks {
 		if(lista.size() == 0){
 			IniciarLibros();
 		}
-		return lista;
+		return (LinkedList) lista.clone();
 
 	
 	}
