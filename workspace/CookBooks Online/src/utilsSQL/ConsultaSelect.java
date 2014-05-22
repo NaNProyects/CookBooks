@@ -4,16 +4,26 @@ import java.util.*;
 
 public class ConsultaSelect extends ConsultaSQL {
 
-	private ArrayList<String> atributos;
+	private ArrayList<String> atributos = new ArrayList<String>();
 
 	public ConsultaSelect(List<String> atributos, String tabla, String condicion) {
 		super(tabla);
 		this.condicion = condicion;
-		this.atributos = new ArrayList<String>(atributos);
+		this.atributos.addAll(atributos);
+	}
+
+	public ConsultaSelect(String atributo, String tabla, String condicion) {
+		super(tabla);
+		this.condicion = condicion;
+		this.atributos.add(atributo);
 	}
 
 	public ConsultaSelect(List<String> atributos, String tabla) {
 		this(atributos, tabla, "");
+	}
+
+	public ConsultaSelect(String atributo, String tabla) {
+		this(atributo, tabla, "");
 	}
 
 	@Override

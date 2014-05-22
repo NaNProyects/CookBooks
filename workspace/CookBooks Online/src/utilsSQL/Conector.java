@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 
 /**
  * Esta clase abstrae las cosas de conexion a SQL y ANDA. Asi que usemos esto. <br>
@@ -17,6 +18,7 @@ public class Conector {
 
 	private Connection objetoConexion;
 	private Statement consultor;
+	private ResultSet iterador;
 
 	/**
 	 * @param baseAConectar
@@ -40,7 +42,7 @@ public class Conector {
 		System.out.println("SQLState: " + e.getSQLState());
 		System.out.println("VendorError: " + e.getErrorCode());
 	}
-	
+
 	public void desconectar() {
 		try {
 			objetoConexion.close();
@@ -76,14 +78,12 @@ public class Conector {
 	 * @param consulta
 	 * @return
 	 */
-	public ResultSet ejecutar(ConsultaSelect consulta) {
+	public void ejecutar(ConsultaSelect consulta) {
 		try {
-			return consultor.executeQuery(consulta.toString());
+			iterador = consultor.executeQuery(consulta.toString());
 		} catch (SQLException e) {
 			Conector.informeErrorSQL(e);
-			;
 		}
-		return null;
 	}
 
 	/**
@@ -95,5 +95,24 @@ public class Conector {
 		} catch (SQLException e) {
 			Conector.informeErrorSQL(e);
 		}
+	}
+
+	public LinkedList<Cargable> iterarUn(Class<? extends Cargable> c) {
+		LinkedList<Cargable> result = new LinkedList<Cargable>();
+		try {
+			while (iterador.next()) //itera por filas
+			{
+				Cargable item = c.newInstance();
+				item.cargarCon(iterador);
+				result.add(item);
+			}
+		} catch (SQLException e) {
+			Conector.informeErrorSQL(e);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
