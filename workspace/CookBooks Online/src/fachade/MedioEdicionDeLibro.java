@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
-import com.sun.xml.internal.fastinfoset.util.StringArray;
+//import com.sun.xml.internal.fastinfoset.util.StringArray;
 
 import funcionalidad.Autor;
 import funcionalidad.Libro;

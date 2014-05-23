@@ -3,17 +3,17 @@
 #################
 
 *.pydevproject
-.project
+#.project
 .metadata
-bin/
+#bin/
 tmp/
 *.tmp
 *.bak
 *.swp
 *~.nib
 local.properties
-.classpath
-.settings/
+#.classpath
+#.settings/
 .loadpath
 
 # External tool builders
