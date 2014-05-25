@@ -8,8 +8,8 @@ import java.util.LinkedList;
 public class CookBooks {
 	
 	//mocks
-	private static LinkedList autores= new LinkedList();
-	private static LinkedList lista = new LinkedList();
+	private static LinkedList<Autor> autores= new LinkedList<Autor>();
+	private static LinkedList<Libro> lista = new LinkedList<Libro>();
 	private static void IniciarAutores(){
 		autores.add(new Autor(0, "pepe"));
 		autores.add(new Autor(1,"sssss"));
@@ -35,7 +35,7 @@ public class CookBooks {
 					IniciarLibros();
 				}
 		// Mock temporal
-		for (Iterator iterator = lista.iterator(); iterator.hasNext();) {
+		for (Iterator<Libro> iterator = lista.iterator(); iterator.hasNext();) {
 			Libro lib = (Libro) iterator.next();
 			if(lib.getAutor().equals(unAutor.nombre())){
 				return false;
@@ -48,7 +48,7 @@ public class CookBooks {
 	public boolean actualizar(Autor unAutor) {
 		
 		// Mock temporal
-		for (Iterator iterator = autores.iterator(); iterator.hasNext();) {
+		for (Iterator<Autor> iterator = autores.iterator(); iterator.hasNext();) {
 			Autor aut = (Autor) iterator.next();
 			if((aut.nombre().equals(unAutor.nombre()))&&(aut.id() != unAutor.id())){
 				return false;
@@ -62,7 +62,7 @@ public class CookBooks {
 		
 		// Mock temporal
 		Autor aut;
-		for (Iterator iterator = autores.iterator(); iterator.hasNext();) {
+		for (Iterator<Autor> iterator = autores.iterator(); iterator.hasNext();) {
 			aut = (Autor) iterator.next();
 			if(aut.nombre().equals(unNombreAutor)){
 				throw new Exception("El Autor ya existe");
@@ -73,19 +73,20 @@ public class CookBooks {
 		return aut;
 	}
 	
-	public LinkedList autores() {
+	@SuppressWarnings("unchecked")
+	public LinkedList<Autor> autores() {
 		
 		// Mock temporal
 
 			if(autores.size() == 0){
 				IniciarAutores();
 			}
-			return (LinkedList) autores.clone();
+			return (LinkedList<Autor>) autores.clone();
 	
 	
 	}
 	
-	public ArrayList pedidos() {
+	public ArrayList<Pedido> pedidos() {
 		return null;
 	
 	}
@@ -94,14 +95,15 @@ public class CookBooks {
 	
 	}
 	
-	public LinkedList libros() {
+	@SuppressWarnings("unchecked")
+	public LinkedList<Libro> libros() {
 		
 		//mock temporal
 	
 		if(lista.size() == 0){
 			IniciarLibros();
 		}
-		return (LinkedList) lista.clone();
+		return (LinkedList<Libro>) lista.clone();
 
 	
 	}
@@ -128,7 +130,7 @@ public class CookBooks {
 	
 	}
 	
-	public ArrayList buscar(String unNombreLibro) {
+	public ArrayList<Libro> buscar(String unNombreLibro) {
 		return null;
 	
 	}
@@ -175,7 +177,7 @@ public class CookBooks {
 	
 	}
 	
-	public ArrayList historialDe(Usuario unUsuario) {
+	public ArrayList<Usuario> historialDe(Usuario unUsuario) {
 		return null;
 	
 	}
@@ -201,7 +203,7 @@ public class CookBooks {
 	
 	}
 	
-	public ArrayList usuariosResgistradosEntre(Date inicio, Date fin) {
+	public ArrayList<Usuario> usuariosResgistradosEntre(Date inicio, Date fin) {
 		return null;
 	
 	}

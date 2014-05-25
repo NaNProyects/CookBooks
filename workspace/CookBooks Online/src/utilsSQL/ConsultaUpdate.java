@@ -1,19 +1,31 @@
 package utilsSQL;
 import java.util.*;
 
-public class ConsultaUpdate extends ConsultaAtributosValores {
+public class ConsultaUpdate extends ConsultaABM {
 	
+	private ArrayList<String> valores = new ArrayList<String>();
+	private ArrayList<String> atributos = new ArrayList<String>();
+
 	/**
 	 * Chequea que #atributos = #valores
 	 * @throws IllegalArgumentException
 	 */
 	public ConsultaUpdate(String tabla, String atributo, String valor, String condicion) throws IllegalArgumentException{
-		super(tabla, atributo, valor);
+		super(tabla);
+		this.atributos.add(atributo);
+		this.valores.add(valor);
+		this.condicion = condicion;
 	}
 	
 	public ConsultaUpdate(String tabla, List<String> atributos, List<String> valores, String condicion)
 			throws IllegalArgumentException{
-		super(tabla,atributos,valores);
+		super(tabla);
+		if ((atributos.size() != valores.size())) {
+			throw new IllegalArgumentException(
+					"Debe haber la misma cantidad de atributos que de valores.");
+		}
+		this.atributos.addAll(atributos);
+		this.valores.addAll(valores);
 		this.condicion = condicion;
 	}
 	

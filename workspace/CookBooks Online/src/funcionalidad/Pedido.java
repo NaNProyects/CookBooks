@@ -1,18 +1,26 @@
 package funcionalidad;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Pedido {
+import utilsSQL.Cargable;
+import utilsSQL.Conector;
+
+public class Pedido implements Cargable{
+	public Pedido() {
+		super();
+	}
+
 	private int nro;
 	private Date fecha;
 	private boolean estado;
 	private double total;
-	public Pedido(Date fecha, ArrayList libros) {
+	public Pedido(Date fecha, ArrayList<Libro> libros) {
 	
 	}
 	
-	public ArrayList libros() {
+	public ArrayList<Libro> libros() {
 		return null;
 	
 	}
@@ -44,5 +52,15 @@ public class Pedido {
 	
 	public void enviar() {
 	
+	}
+
+	public void cargarCon(ResultSet iterador) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void guardarEn(Conector base) {
+		// TODO Auto-generated method stub
+		
 	}
 }
