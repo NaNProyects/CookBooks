@@ -1,6 +1,7 @@
 package utilsSQL;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * @author Mokocchi
@@ -9,8 +10,34 @@ import java.sql.ResultSet;
  */
 public interface Cargable {
 	
-	public void cargarCon(ResultSet iterador);
+	/**
+	 * Arma el objeto sacando las columnas del iterador
+	 * @param iterador
+	 * @throws SQLException
+	 */
+	public void cargarCon(ResultSet iterador) throws SQLException;
 	
-	public void guardarEn(Conector base);
+	/**
+	 * Guarda el objeto en la base indicada.
+	 * <br>Deberia usar una {@link ConsultaABM}.
+	 * @param base en la que guardo
+	 * @throws SQLException 
+	 */
+	public void guardarEn(Conector base) throws SQLException;
+	
+	/**
+	 * Borra el objeto de la base
+	 * @param base
+	 * @throws SQLException
+	 */
+	public void borrarDe (Conector base) throws SQLException;
+	
+	/**
+	 * 
+	 * @param base
+	 * @return si el objeto esta en la base o no
+	 * @throws SQLException
+	 */
+	public boolean existeEn(Conector base) throws SQLException;
 
 }

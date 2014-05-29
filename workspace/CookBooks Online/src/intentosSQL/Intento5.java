@@ -49,6 +49,7 @@ public class Intento5 {
 		vals.add("'Depp'");
 		vals.add("'2007-09-23 00:00:00.0'");
 		cons = new ConsultaInsert("actor", att, vals);
+		System.out.println(cons);
 		listaCons.add(cons);
 
 		// insert into film_text (film, description) values ('HelloWorld', 'Una

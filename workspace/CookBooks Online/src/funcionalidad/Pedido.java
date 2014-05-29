@@ -63,4 +63,15 @@ public class Pedido implements Cargable{
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void borrarDe(Conector base) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean existeEn(Conector base) {
+		return estado;
+		// TODO Auto-generated method stub
+		
+	}
 }

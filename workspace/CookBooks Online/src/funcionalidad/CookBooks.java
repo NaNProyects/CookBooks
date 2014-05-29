@@ -1,9 +1,6 @@
 package funcionalidad;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 public class CookBooks {
 	
@@ -14,6 +11,7 @@ public class CookBooks {
 		autores.add(new Autor(0, "pepe"));
 		autores.add(new Autor(1,"sssss"));
 		autores.add(new Autor(2,"sssss2"));
+		
 	}	
 	
 	

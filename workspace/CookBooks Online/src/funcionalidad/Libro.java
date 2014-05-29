@@ -1,9 +1,15 @@
 package funcionalidad;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import utilsSQL.Cargable;
 import utilsSQL.Conector;
+import utilsSQL.ConsultaABM;
+import utilsSQL.ConsultaInsert;
+import utilsSQL.ConsultaSelect;
+import utilsSQL.ConsultaUpdate;
 
 public class Libro implements Cargable {
 	private Long isbn;
@@ -14,7 +20,7 @@ public class Libro implements Cargable {
 	private String idioma;
 	private String reseña;
 	private String vistaso;
-	private double precio;
+	private Double precio;
 
 	public Libro() {
 	}
@@ -32,6 +38,43 @@ public class Libro implements Cargable {
 		this.reseña = reseña;
 		this.vistaso = vistaso;
 		this.precio = precio.doubleValue();
+	}
+
+	public void guardarEn(Conector base) throws SQLException {
+		ConsultaABM cons;
+		String subconsultaAutor = "(select apNom from autor where apNom = '"
+				+ autor + "')";
+		ArrayList<String> atributos = new ArrayList<String>();
+		atributos.add("isbn");
+		atributos.add("titulo");
+		atributos.add("autor");
+		atributos.add("genero");
+		atributos.add("editorial");
+		atributos.add("idioma");
+		atributos.add("reseña");
+		atributos.add("vistazo");
+		atributos.add("precio");
+		ArrayList<String> valores = new ArrayList<String>();
+		valores.add(isbn.toString());
+		valores.add("'" + titulo + "'");
+		valores.add(subconsultaAutor);
+		valores.add("'" + genero + "'");
+		valores.add("'" + editorial + "'");
+		valores.add("'" + idioma + "'");
+		valores.add("'" + reseña + "'");
+		valores.add("'" + vistaso + "'");
+		valores.add(precio.toString());
+		if (isbn >= 0) {
+			cons = new ConsultaInsert("libro", atributos, valores);
+		} else { //si es negativo viene modificado
+			cons = new ConsultaUpdate("libro", atributos, valores,
+					new ConsultaSelect("*", "("
+							+ new ConsultaSelect("apNom", "autor", "isbn = "
+									+ isbn) + ") as tmp")
+							+ ")");
+		}
+		System.out.println(cons);
+			base.ejecutar(cons);
 	}
 
 	public Long getIsbn() {
@@ -106,14 +149,21 @@ public class Libro implements Cargable {
 		this.idioma = idioma;
 	}
 
-	public void cargarCon(ResultSet iterador) {
+	public void cargarCon(ResultSet iterador) throws SQLException {
 		// TODO Auto-generated method stub
-
+		
 	}
 
-	public void guardarEn(Conector base) {
+	public void borrarDe(Conector base) throws SQLException {
 		// TODO Auto-generated method stub
-
+		
 	}
+
+	public boolean existeEn(Conector base) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
 
 }

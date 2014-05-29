@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+import org.junit.experimental.theories.suppliers.TestedOn;
+
 /**
  * Esta clase abstrae las cosas de conexion a SQL y ANDA. Asi que usemos esto. <br>
  * Representa una conexion con la base, tiene un <code>consultor</code> que
@@ -19,16 +21,14 @@ public class Conector {
 	private Connection objetoConexion;
 	private Statement consultor;
 	private ResultSet iterador;
+	public String ultimoError;
+
 
 	/**
 	 * @param baseAConectar
-	 *            - Nombre String de la base
-	 * @param llave
-	 *            - Creada con
-	 *            {@link utilsSQL.Conector#llaveCon(String, String)
-	 *            llaveCon(String, String)}
+	 * @param user
+	 * @param pass
 	 * @throws SQLException
-	 *             por errores varios xD
 	 */
 	public Conector(String baseAConectar, String user, String pass)
 			throws SQLException {
@@ -43,11 +43,12 @@ public class Conector {
 		System.out.println("VendorError: " + e.getErrorCode());
 	}
 
-	public void desconectar() {
+	public void desconectar() throws SQLException {
 		try {
 			objetoConexion.close();
 		} catch (SQLException e) {
-			Conector.informeErrorSQL(e);
+			this.ultimoError = e.getMessage();
+			throw e;
 		}
 	}
 
@@ -77,27 +78,30 @@ public class Conector {
 	/**
 	 * @param consulta
 	 * @return
+	 * @throws Exception 
 	 */
 	public void ejecutar(ConsultaSelect consulta) {
 		try {
 			iterador = consultor.executeQuery(consulta.toString());
 		} catch (SQLException e) {
-			Conector.informeErrorSQL(e);
+			this.ultimoError = e.getMessage();
 		}
 	}
 
 	/**
 	 * @param consulta
+	 * @throws SQLException 
 	 */
-	public void ejecutar(ConsultaABM consulta) {
+	public void ejecutar(ConsultaABM consulta) throws SQLException {
 		try {
 			consultor.execute(consulta.toString());
 		} catch (SQLException e) {
-			Conector.informeErrorSQL(e);
+			this.ultimoError = e.getMessage();
+			throw e;
 		}
 	}
 
-	public LinkedList<Cargable> iterarUn(Class<? extends Cargable> c) {
+	public LinkedList<Cargable> iterarUn(Class<? extends Cargable> c) throws Exception {
 		LinkedList<Cargable> result = new LinkedList<Cargable>();
 		try {
 			while (iterador.next()) //itera por filas
@@ -107,12 +111,38 @@ public class Conector {
 				result.add(item);
 			}
 		} catch (SQLException e) {
-			Conector.informeErrorSQL(e);
+			this.ultimoError = e.getMessage();
+			throw e;
 		} catch (InstantiationException e) {
-			e.printStackTrace();
+			throw new Exception("No me mandaste una clase compatible");
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			new Exception("No me mandaste una clase compatible");
 		}
 		return result;
 	}
+	
+	public Integer getFirstInt() throws SQLException {
+		if(iterador.first()) {
+			return iterador.getInt(1);
+		} else {
+			return null;
+		}
+	}
+	
+	public Long getFirstLong() throws SQLException {
+		if(iterador.first()) {
+			return iterador.getLong(1);
+		} else {
+			return null;
+		}
+	}
+	
+	public String getFirstString() throws SQLException {
+		if(iterador.first()) {
+			return iterador.getString(1);
+		} else {
+			return null;
+		}
+	}
+	
 }

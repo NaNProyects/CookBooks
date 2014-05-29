@@ -76,14 +76,25 @@ public class MockActor implements Cargable {
 		return "#"+nro+":"+" "+name+" "+surname+"//"+updatedAt;
 	}
 
-	public void guardarEn(Conector base) {
+	public void guardarEn(Conector base) throws SQLException {
 		ArrayList<String> val = new ArrayList<String>();
 		val.add(nro.toString());
-		val.add(name);
-		val.add(surname);
-		val.add(updatedAt.toString());
+		val.add("'"+name+"'");
+		val.add("'"+surname+"'");
+		val.add("'"+updatedAt.toString()+"'");
 		ConsultaInsert ins = new ConsultaInsert("actor",null, val);
 		System.out.println(ins);
+		base.ejecutar(ins);
+	}
+
+	public void borrarDe(Conector base) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean existeEn(Conector base) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

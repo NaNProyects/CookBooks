@@ -20,4 +20,15 @@ public class Usuario implements Cargable{
 		
 	}
 
+	public void borrarDe(Conector base) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean existeEn(Conector base) {
+		return false;
+		// TODO Auto-generated method stub
+		
+	}
+
 }
