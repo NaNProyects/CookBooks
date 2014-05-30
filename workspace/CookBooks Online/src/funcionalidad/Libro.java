@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import utilsSQL.Cargable;
 import utilsSQL.Conector;
 import utilsSQL.ConsultaABM;
+import utilsSQL.ConsultaDelete;
 import utilsSQL.ConsultaInsert;
 import utilsSQL.ConsultaSelect;
 import utilsSQL.ConsultaUpdate;
@@ -41,40 +42,48 @@ public class Libro implements Cargable {
 	}
 
 	public void guardarEn(Conector base) throws SQLException {
-		ConsultaABM cons;
-		String subconsultaAutor = "(select apNom from autor where apNom = '"
-				+ autor + "')";
-		ArrayList<String> atributos = new ArrayList<String>();
-		atributos.add("isbn");
-		atributos.add("titulo");
-		atributos.add("autor");
-		atributos.add("genero");
-		atributos.add("editorial");
-		atributos.add("idioma");
-		atributos.add("reseña");
-		atributos.add("vistazo");
-		atributos.add("precio");
-		ArrayList<String> valores = new ArrayList<String>();
-		valores.add(isbn.toString());
-		valores.add("'" + titulo + "'");
-		valores.add(subconsultaAutor);
-		valores.add("'" + genero + "'");
-		valores.add("'" + editorial + "'");
-		valores.add("'" + idioma + "'");
-		valores.add("'" + reseña + "'");
-		valores.add("'" + vistaso + "'");
-		valores.add(precio.toString());
-		if (isbn >= 0) {
-			cons = new ConsultaInsert("libro", atributos, valores);
-		} else { //si es negativo viene modificado
-			cons = new ConsultaUpdate("libro", atributos, valores,
-					new ConsultaSelect("*", "("
-							+ new ConsultaSelect("apNom", "autor", "isbn = "
-									+ isbn) + ") as tmp")
-							+ ")");
-		}
-		System.out.println(cons);
+		try {
+			ConsultaABM cons;
+			String subconsultaAutor = "(select idAutor from autor where apNom = '"
+					+ autor + "')";
+			ArrayList<String> atributos = new ArrayList<String>();
+			atributos.add("isbn");
+			atributos.add("titulo");
+			atributos.add("autor");
+			atributos.add("genero");
+			atributos.add("editorial");
+			atributos.add("idioma");
+			atributos.add("reseña");
+			atributos.add("vistazo");
+			atributos.add("precio");
+			ArrayList<String> valores = new ArrayList<String>();
+			valores.add(isbn.toString());
+			valores.add("'" + titulo + "'");
+			valores.add(subconsultaAutor);
+			valores.add("'" + genero + "'");
+			valores.add("'" + editorial + "'");
+			valores.add("'" + idioma + "'");
+			valores.add("'" + reseña + "'");
+			valores.add("'" + vistaso + "'");
+			valores.add(precio.toString());
+			if (isbn >= 0) {
+				cons = new ConsultaInsert("libro", atributos, valores);
+			} else { // si es negativo viene modificado
+				isbn = -1 * isbn;
+				valores.set(0, isbn.toString());
+				cons = new ConsultaUpdate("libro", atributos, valores,
+						"autor IN ("
+								+ new ConsultaSelect("*", subconsultaAutor
+										+ " as tmp") + ")");
+			}
 			base.ejecutar(cons);
+		} catch (SQLException e) {
+			if (e.getErrorCode() == 1062) {
+				throw new SQLException(
+						"ERROR: Ya existe un autor con ese nombre");
+			}
+			throw e;
+		}
 	}
 
 	public Long getIsbn() {
@@ -150,20 +159,47 @@ public class Libro implements Cargable {
 	}
 
 	public void cargarCon(ResultSet iterador) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		isbn = iterador.getLong("isbn");
+		titulo = iterador.getString("titulo");
+		autor = iterador.getString("apNom");
+		genero = iterador.getString("genero");
+		editorial = iterador.getString("editorial");
+		idioma = iterador.getString("idioma");
+		reseña = iterador.getString("reseña");
+		vistaso = iterador.getString("vistazo");
+		precio = iterador.getDouble("precio");
+
 	}
 
 	public void borrarDe(Conector base) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		ConsultaSelect sel1 = new ConsultaSelect("isbn", "libro", "isbn = '"
+				+ isbn + "'");
+		ConsultaSelect sel2 = new ConsultaSelect("*", "(" + sel1 + ") as tmp");
+		ConsultaDelete del = new ConsultaDelete("libro", "isbn IN (" + sel2
+				+ ")");
+		if (this.existeEn(base)) {
+			base.ejecutar(del);
+		} else {
+			throw new SQLException("El elemento no existe");
+		}
+		if (this.existeEn(base)) {
+			throw new SQLException("El elemento no se pudo borrar");
+		}
 	}
 
 	public boolean existeEn(Conector base) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		ConsultaSelect select = new ConsultaSelect("count(*)", "libro",
+				"(isbn = " + isbn + " and titulo='" + titulo + "')");
+		base.ejecutar(select);
+		return (base.getFirstInt() != 0);
 	}
 
-
+	public boolean equals(Object obj) {
+		if (obj instanceof Libro) {
+			Libro libro = (Libro) obj;
+			return (libro.getIsbn().equals(libro.getIsbn()));
+		} else
+			return false;
+	};
 
 }

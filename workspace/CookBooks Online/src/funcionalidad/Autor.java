@@ -82,7 +82,7 @@ public class Autor implements Cargable {
 	}
 
 	public boolean existeEn(Conector base) throws SQLException {
-		ConsultaSelect select = new ConsultaSelect("count(apNom)", "autor",
+		ConsultaSelect select = new ConsultaSelect("count(*)", "autor",
 				"apNom = '" + nombre + "'");
 		base.ejecutar(select);
 		return (base.getFirstInt() != 0);

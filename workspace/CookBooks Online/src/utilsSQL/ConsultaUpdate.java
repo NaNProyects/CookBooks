@@ -42,9 +42,9 @@ public class ConsultaUpdate extends ConsultaABM {
 	 */
 	private String getValores() {
 		String result = "";
-		for (int i = 0; i < atributos.size(); i++) {
-			result+=atributos.get(i)+"="+valores.get(i)+" ";
+		for (int i = 0; i < atributos.size() - 1; i++) {
+			result+=atributos.get(i)+"="+valores.get(i)+", ";
 		}
-		return result;
+		return result+atributos.get(atributos.size()-1)+"="+valores.get(atributos.size()-1);
 	}
 }

@@ -130,8 +130,7 @@ public class AutorTest {
 		}
 
 		/*
-		 * b) si ya esta al guardar de vuelta que tire exception (todavia no se
-		 * cual por eso hago esto)
+		 * b) si ya esta al guardar de vuelta que tire exception 
 		 */
 
 		try {
@@ -149,6 +148,7 @@ public class AutorTest {
 			autor1.nombre("AUTOR DemoC");
 			autor1.guardarEn(cookbooks);
 			assertTrue(autor1.existeEn(cookbooks));
+			assertFalse(autor2.existeEn(cookbooks));
 		} catch (SQLException e) {
 			fail("auch. " + e.getMessage());
 		}
@@ -199,6 +199,8 @@ public class AutorTest {
 			assertFalse("no tiene que estar", autor1.existeEn(cookbooks));
 			autor1.guardarEn(cookbooks);
 			assertTrue("tiene que estar en la base", autor1.existeEn(cookbooks));
+			//limpio
+			autor1.borrarDe(cookbooks);
 		} catch (Exception e) {
 			fail("auch. " + e.getMessage());
 		}

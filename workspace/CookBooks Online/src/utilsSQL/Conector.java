@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
-import org.junit.experimental.theories.suppliers.TestedOn;
-
 /**
  * Esta clase abstrae las cosas de conexion a SQL y ANDA. Asi que usemos esto. <br>
  * Representa una conexion con la base, tiene un <code>consultor</code> que

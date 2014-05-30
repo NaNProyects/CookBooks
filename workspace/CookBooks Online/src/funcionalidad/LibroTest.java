@@ -3,6 +3,7 @@ package funcionalidad;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.LinkedList;
 
 import org.junit.After;
@@ -19,7 +20,8 @@ public class LibroTest {
 	private Libro libro1;
 	private Autor autor1;
 	private Libro libro2;
-	private LinkedList<Libro> lista;
+	private LinkedList<Libro> lista1 = new LinkedList<Libro>();
+	private LinkedList<Libro> lista2 = new LinkedList<Libro>();
 	private static Conector cookbooks;
 
 	@BeforeClass
@@ -40,11 +42,11 @@ public class LibroTest {
 		ConsultaDelete del = new ConsultaDelete("libro", "titulo IN (" + sel2
 				+ ")");
 		cookbooks.ejecutar(del);
+		autor1 = new Autor(-1, "AUTOR Demo");
 		if (autor1.existeEn(cookbooks))
 			autor1.borrarDe(cookbooks);
-		autor1 = new Autor(-1, "AUTOR Demo");
 		autor1.guardarEn(cookbooks);
-		libro1 = new Libro((long) -1, "LIBRO Demo", "AUTOR Demo", "generoDemo",
+		libro1 = new Libro((long) 1, "LIBRO Demo", "AUTOR Demo", "generoDemo",
 				"editorialDemo", "idiomaDemo", "reseñaDemo", "vistazoDemo", 0.0);
 	}
 
@@ -57,13 +59,109 @@ public class LibroTest {
 				+ ")");
 		try {
 			cookbooks.ejecutar(del);
+			autor1.borrarDe(cookbooks);
 		} catch (SQLException e) {
 			fail(e.getMessage());
 		}
 	}
 
 	@Test
+	@SuppressWarnings("unchecked")
+	public void testCargarCon() {
+		try { // setup
+			libro1 = new Libro((long) 2, "LIBRO Demo2", "AUTOR Demo",
+					"generoDemo", "editorialDemo", "idiomaDemo", "reseñaDemo",
+					"vistazoDemo", 0.0);
+			lista1.add(libro1);
+			libro1.guardarEn(cookbooks);
+			libro1 = new Libro((long) 3, "LIBRO Demo3", "AUTOR Demo",
+					"generoDemo", "editorialDemo", "idiomaDemo", "reseñaDemo",
+					"vistazoDemo", 0.0);
+			lista1.add(libro1);
+			libro1.guardarEn(cookbooks);
+			ConsultaSelect sel = new ConsultaSelect("*", "libro inner join autor on autor = idAutor",
+					"titulo LIKE 'LIBRO Demo%'");
+			cookbooks.ejecutar(sel);
+		} catch (SQLException e) {
+			fail("auch. " + e.getMessage());
+		}
+
+		// pruebas
+
+		try {
+			lista2.addAll((Collection<? extends Libro>) cookbooks
+					.iterarUn(Libro.class));
+		} catch (Exception e) {
+			fail("auch. " + e.getMessage());
+		}
+
+		assertTrue(
+				"es diferente la cantidad de libros que entraron que los que salieron",
+				lista1.size() == lista2.size());
+
+		for (int i = 0; i < lista1.size(); i++) {
+			assertTrue("hay un libro que no coincide",
+					lista2.contains(lista1.get(i)));
+		}
+
+		// limpiando
+		for (Libro l : lista1) {
+			try {
+				l.borrarDe(cookbooks);
+			} catch (SQLException e) {
+				fail("auch. " + e.getMessage());
+			}
+		}
+	}
+
+	@Test
+	public void testBorrar() {
+		try {
+			libro1.borrarDe(cookbooks);
+			fail("no se puede borrar algo que no está");
+		} catch (SQLException e) {
+			// OK
+		}
+
+		try {
+			libro1.guardarEn(cookbooks);
+			assertTrue("El libro tiene que estar antes",
+					libro1.existeEn(cookbooks));
+		} catch (SQLException e) {
+			fail("auch. " + e.getMessage());
+		}
+
+		try {
+			libro1.borrarDe(cookbooks);
+		} catch (SQLException e) {
+			fail("auch. " + e.getMessage());
+		}
+
+		try {
+			assertFalse("El libro ya no tiene que estar",
+					libro1.existeEn(cookbooks));
+		} catch (SQLException e) {
+			fail("auch. " + e.getMessage());
+		}
+	}
+
+	@Test
+	public void testExisteEn() {
+		try {
+			assertFalse("no tiene que estar", libro1.existeEn(cookbooks));
+			libro1.guardarEn(cookbooks);
+			assertTrue("tiene que estar en la base", libro1.existeEn(cookbooks));
+			libro1.borrarDe(cookbooks);
+		} catch (Exception e) {
+			fail("auch. " + e.getMessage());
+		}
+	}
+
+	@Test
 	public void testGuardarEn() {
+		/*
+		 * a) no exista antes, lo guardo y que este despues
+		 */
 		try {
 			assertFalse("No deberia estar en la base",
 					libro1.existeEn(cookbooks));
@@ -88,55 +186,35 @@ public class LibroTest {
 		}
 
 		/*
-		 * b) si ya esta al guardar de vuelta que tire exception (todavia no se
-		 * cual por eso hago esto)
+		 * b) si ya esta al guardar de vuelta que tire exception
 		 */
 
 		try {
-			libro2 = new Libro((long) -1, "LIBRO Demo", "AUTOR Demo", "generoDemo",
-					"editorialDemo", "idiomaDemo", "reseñaDemo", "vistazoDemo", 0.0);
+			libro2 = new Libro((long) 1, "LIBRO Demo", "AUTOR Demo",
+					"generoDemo", "editorialDemo", "idiomaDemo", "reseñaDemo",
+					"vistazoDemo", 0.0);
 			libro2.guardarEn(cookbooks);
 			fail("el libro no se puede guardar dos veces");
 		} catch (SQLException e) {
 			// OK
 		}
-		
-		
-		
-		
-	}
 
-	@Test
-	public void testCargarCon() {
-		fail("Not yet implemented");
-	}
+		/*
+		 * c) si ya esta pero tengo el numero updatea
+		 */
+		try {
+			libro1.setTitulo("Libro DemoC");
+			libro1.setIsbn(libro1.getIsbn() * -1); // invierto porque modifico
+			libro1.guardarEn(cookbooks);
+			assertTrue(libro1.existeEn(cookbooks));
+			assertFalse(libro2.existeEn(cookbooks));
+		} catch (SQLException e) {
+			fail("auch. " + e.getMessage());
+		}
 
-	@Test
-	public void testBorrar() {
+		// limpio
 		try {
 			libro1.borrarDe(cookbooks);
-			fail("no se puede borrar algo que no está");
-		} catch (SQLException e) {
-			// OK
-		}
-
-		try {
-			autor1.guardarEn(cookbooks);
-			assertTrue("El autor tiene que estar antes",
-					autor1.existeEn(cookbooks));
-		} catch (SQLException e) {
-			fail("auch. " + e.getMessage());
-		}
-
-		try {
-			autor1.borrarDe(cookbooks);
-		} catch (SQLException e) {
-			fail("auch. " + e.getMessage());
-		}
-
-		try {
-			assertFalse("El autor ya no tiene que estar",
-					autor1.existeEn(cookbooks));
 		} catch (SQLException e) {
 			fail("auch. " + e.getMessage());
 		}
