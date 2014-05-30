@@ -17,6 +17,7 @@ import utilsSQL.ConsultaDelete;
 import utilsSQL.ConsultaSelect;
 
 public class LibroTest {
+	// ALTER TABLE autor AUTO_INCREMENT = 1
 	private Libro libro1;
 	private Autor autor1;
 	private Libro libro2;
@@ -57,12 +58,8 @@ public class LibroTest {
 		ConsultaSelect sel2 = new ConsultaSelect("*", "(" + sel1 + ") as tmp");
 		ConsultaDelete del = new ConsultaDelete("libro", "titulo IN (" + sel2
 				+ ")");
-		try {
-			cookbooks.ejecutar(del);
-			autor1.borrarDe(cookbooks);
-		} catch (SQLException e) {
-			fail(e.getMessage());
-		}
+		cookbooks.ejecutar(del);
+		autor1.borrarDe(cookbooks);
 	}
 
 	@Test
@@ -79,9 +76,6 @@ public class LibroTest {
 					"vistazoDemo", 0.0);
 			lista1.add(libro1);
 			libro1.guardarEn(cookbooks);
-			ConsultaSelect sel = new ConsultaSelect("*", "libro inner join autor on autor = idAutor",
-					"titulo LIKE 'LIBRO Demo%'");
-			cookbooks.ejecutar(sel);
 		} catch (SQLException e) {
 			fail("auch. " + e.getMessage());
 		}
@@ -89,8 +83,13 @@ public class LibroTest {
 		// pruebas
 
 		try {
-			lista2.addAll((Collection<? extends Libro>) cookbooks
-					.iterarUn(Libro.class));
+			ConsultaSelect sel = new ConsultaSelect("*",
+					"libro inner join autor on autor = idAutor",
+					"titulo LIKE 'LIBRO Demo%'");
+			cookbooks.ejecutar(sel);
+			lista2 = new LinkedList<Libro>(
+					(Collection<? extends Libro>) cookbooks
+							.iterarUn(Libro.class));
 		} catch (Exception e) {
 			fail("auch. " + e.getMessage());
 		}
@@ -100,8 +99,24 @@ public class LibroTest {
 				lista1.size() == lista2.size());
 
 		for (int i = 0; i < lista1.size(); i++) {
-			assertTrue("hay un libro que no coincide",
-					lista2.contains(lista1.get(i)));
+			assertTrue("El isbn no coincide",
+					lista1.get(i).getIsbn().equals(lista2.get(i).getIsbn()));
+			assertTrue("El titulo no coincide", lista1.get(i).getTitulo()
+					.equals(lista2.get(i).getTitulo()));
+			assertTrue("El autor no coincide",
+					lista1.get(i).getAutor().equals(lista2.get(i).getAutor()));
+			assertTrue("El genero no coincide", lista1.get(i).getGenero()
+					.equals(lista2.get(i).getGenero()));
+			assertTrue("La editorial no coincide", lista1.get(i).getEditorial()
+					.equals(lista2.get(i).getEditorial()));
+			assertTrue("El idioma no coincide", lista1.get(i).getIdioma()
+					.equals(lista2.get(i).getIdioma()));
+			assertTrue("La reseña no coincide", lista1.get(i).getReseña()
+					.equals(lista2.get(i).getReseña()));
+			assertTrue("El vistazo no coincide", lista1.get(i).getVistaso()
+					.equals(lista2.get(i).getVistaso()));
+			assertTrue("El precio no coincide", lista1.get(i).getPrecio()
+					.equals(lista2.get(i).getPrecio()));
 		}
 
 		// limpiando
@@ -157,6 +172,7 @@ public class LibroTest {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testGuardarEn() {
 		/*
@@ -185,6 +201,35 @@ public class LibroTest {
 			fail("auch. " + e.getMessage());
 		}
 
+		cookbooks.ejecutar(libro1.getBuscador());
+
+		try {
+			lista1 = new LinkedList<Libro>(
+					(Collection<? extends Libro>) cookbooks
+							.iterarUn(Libro.class));
+			libro2 = lista1.element();
+			assertTrue("El isbn no coincide",
+					libro1.getIsbn().equals(libro2.getIsbn()));
+			assertTrue("El titulo no coincide",
+					libro1.getTitulo().equals(libro2.getTitulo()));
+			assertTrue("El autor no coincide",
+					libro1.getAutor().equals(libro2.getAutor()));
+			assertTrue("El genero no coincide",
+					libro1.getGenero().equals(libro2.getGenero()));
+			assertTrue("La editorial no coincide", libro1.getEditorial()
+					.equals(libro2.getEditorial()));
+			assertTrue("El idioma no coincide",
+					libro1.getIdioma().equals(libro2.getIdioma()));
+			assertTrue("La reseña no coincide",
+					libro1.getReseña().equals(libro2.getReseña()));
+			assertTrue("El vistazo no coincide",
+					libro1.getVistaso().equals(libro2.getVistaso()));
+			assertTrue("El precio no coincide",
+					libro1.getPrecio().equals(libro2.getPrecio()));
+		} catch (Exception e) {
+			fail("auch. " + e.getMessage());
+		}
+
 		/*
 		 * b) si ya esta al guardar de vuelta que tire exception
 		 */
@@ -200,15 +245,39 @@ public class LibroTest {
 		}
 
 		/*
-		 * c) si ya esta pero tengo el numero updatea
+		 * c) si ya esta invierto el numero y updatea
 		 */
 		try {
 			libro1.setTitulo("Libro DemoC");
 			libro1.setIsbn(libro1.getIsbn() * -1); // invierto porque modifico
 			libro1.guardarEn(cookbooks);
-			assertTrue(libro1.existeEn(cookbooks));
-			assertFalse(libro2.existeEn(cookbooks));
+			assertTrue("El libro no se cargo", libro1.existeEn(cookbooks));
+			cookbooks.ejecutar(libro1.getBuscador());
+			lista1 = new LinkedList<Libro>(
+					(Collection<? extends Libro>) cookbooks
+							.iterarUn(Libro.class));
+			libro2 = lista1.element();
+			assertTrue("El isbn no coincide",
+					libro1.getIsbn().equals(libro2.getIsbn()));
+			assertTrue("El titulo no coincide",
+					libro1.getTitulo().equals(libro2.getTitulo()));
+			assertTrue("El autor no coincide",
+					libro1.getAutor().equals(libro2.getAutor()));
+			assertTrue("El genero no coincide",
+					libro1.getGenero().equals(libro2.getGenero()));
+			assertTrue("La editorial no coincide", libro1.getEditorial()
+					.equals(libro2.getEditorial()));
+			assertTrue("El idioma no coincide",
+					libro1.getIdioma().equals(libro2.getIdioma()));
+			assertTrue("La reseña no coincide",
+					libro1.getReseña().equals(libro2.getReseña()));
+			assertTrue("El vistazo no coincide",
+					libro1.getVistaso().equals(libro2.getVistaso()));
+			assertTrue("El precio no coincide",
+					libro1.getPrecio().equals(libro2.getPrecio()));
 		} catch (SQLException e) {
+			fail("auch. " + e.getMessage());
+		} catch (Exception e) {
 			fail("auch. " + e.getMessage());
 		}
 

@@ -41,51 +41,6 @@ public class Libro implements Cargable {
 		this.precio = precio.doubleValue();
 	}
 
-	public void guardarEn(Conector base) throws SQLException {
-		try {
-			ConsultaABM cons;
-			String subconsultaAutor = "(select idAutor from autor where apNom = '"
-					+ autor + "')";
-			ArrayList<String> atributos = new ArrayList<String>();
-			atributos.add("isbn");
-			atributos.add("titulo");
-			atributos.add("autor");
-			atributos.add("genero");
-			atributos.add("editorial");
-			atributos.add("idioma");
-			atributos.add("reseña");
-			atributos.add("vistazo");
-			atributos.add("precio");
-			ArrayList<String> valores = new ArrayList<String>();
-			valores.add(isbn.toString());
-			valores.add("'" + titulo + "'");
-			valores.add(subconsultaAutor);
-			valores.add("'" + genero + "'");
-			valores.add("'" + editorial + "'");
-			valores.add("'" + idioma + "'");
-			valores.add("'" + reseña + "'");
-			valores.add("'" + vistaso + "'");
-			valores.add(precio.toString());
-			if (isbn >= 0) {
-				cons = new ConsultaInsert("libro", atributos, valores);
-			} else { // si es negativo viene modificado
-				isbn = -1 * isbn;
-				valores.set(0, isbn.toString());
-				cons = new ConsultaUpdate("libro", atributos, valores,
-						"autor IN ("
-								+ new ConsultaSelect("*", subconsultaAutor
-										+ " as tmp") + ")");
-			}
-			base.ejecutar(cons);
-		} catch (SQLException e) {
-			if (e.getErrorCode() == 1062) {
-				throw new SQLException(
-						"ERROR: Ya existe un autor con ese nombre");
-			}
-			throw e;
-		}
-	}
-
 	public Long getIsbn() {
 		return isbn;
 	}
@@ -142,7 +97,7 @@ public class Libro implements Cargable {
 		this.vistaso = vistaso;
 	}
 
-	public double getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
 
@@ -158,17 +113,76 @@ public class Libro implements Cargable {
 		this.idioma = idioma;
 	}
 
-	public void cargarCon(ResultSet iterador) throws SQLException {
-		isbn = iterador.getLong("isbn");
-		titulo = iterador.getString("titulo");
-		autor = iterador.getString("apNom");
-		genero = iterador.getString("genero");
-		editorial = iterador.getString("editorial");
-		idioma = iterador.getString("idioma");
-		reseña = iterador.getString("reseña");
-		vistaso = iterador.getString("vistazo");
-		precio = iterador.getDouble("precio");
+	public ConsultaSelect getBuscador() {
+		return new ConsultaSelect("*",
+				"libro inner join autor on autor = idAutor", "isbn = "
+						+ this.getIsbn());
+	}
 
+	public void guardarEn(Conector base) throws SQLException {
+		try {
+			ConsultaABM cons;
+			String subconsultaAutor = "(select idAutor from autor where apNom = '"
+					+ autor + "')";
+			ArrayList<String> atributos = new ArrayList<String>();
+			atributos.add("isbn");
+			atributos.add("titulo");
+			atributos.add("autor");
+			atributos.add("genero");
+			atributos.add("editorial");
+			atributos.add("idioma");
+			atributos.add("reseña");
+			atributos.add("vistazo");
+			atributos.add("precio");
+			ArrayList<String> valores = new ArrayList<String>();
+			valores.add(isbn.toString());
+			valores.add("'" + titulo + "'");
+			valores.add(subconsultaAutor);
+			valores.add("'" + genero + "'");
+			valores.add("'" + editorial + "'");
+			valores.add("'" + idioma + "'");
+			valores.add("'" + reseña + "'");
+			valores.add("'" + vistaso + "'");
+			valores.add(precio.toString());
+			if (isbn >= 0) {
+				cons = new ConsultaInsert("libro", atributos, valores);
+			} else { // si es negativo viene modificado
+				isbn = -1 * isbn;
+				valores.set(0, isbn.toString());
+				cons = new ConsultaUpdate("libro", atributos, valores,
+						"isbn IN ("
+								+ new ConsultaSelect("*", "("
+										+ new ConsultaSelect("isbn", "libro",
+												"isbn =" + isbn) + ")"
+										+ " as tmp") + ")");
+			}
+			base.ejecutar(cons);
+		} catch (SQLException e) {
+			if (e.getErrorCode() == 1062) {
+				throw new SQLException(
+						"ERROR: Ya existe un autor con ese nombre");
+			}
+			throw e;
+		}
+	}
+
+	public void cargarCon(ResultSet iterador) throws SQLException {
+		try {
+			isbn = iterador.getLong("isbn");
+			titulo = iterador.getString("titulo");
+			autor = iterador.getString("apNom");
+			genero = iterador.getString("genero");
+			editorial = iterador.getString("editorial");
+			idioma = iterador.getString("idioma");
+			reseña = iterador.getString("reseña");
+			vistaso = iterador.getString("vistazo");
+			precio = iterador.getDouble("precio");
+		} catch (SQLException e) {
+			if (e.getMessage().startsWith("Column")) {
+				throw new SQLException("Posiblemente falte el inner join");
+			} else
+				throw e;
+		}
 	}
 
 	public void borrarDe(Conector base) throws SQLException {
@@ -200,6 +214,10 @@ public class Libro implements Cargable {
 			return (libro.getIsbn().equals(libro.getIsbn()));
 		} else
 			return false;
+	}
+
+	public void terminar() {
+		// por ahora no es necesario
 	};
 
 }

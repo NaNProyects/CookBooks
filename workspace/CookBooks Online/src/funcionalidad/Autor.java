@@ -18,7 +18,7 @@ public class Autor implements Cargable {
 		this.nombre = nombre;
 	}
 
-	public int id() {
+	public Integer id() {
 		return id;
 
 	}
@@ -96,5 +96,13 @@ public class Autor implements Cargable {
 		} else {
 			return false;
 		}
+	}
+
+	public void terminar() {
+		// por ahora no es necesario		
+	}
+
+	public ConsultaSelect getBuscador() {
+		return new ConsultaSelect("*","autor","idAutor ="+id);
 	}
 }

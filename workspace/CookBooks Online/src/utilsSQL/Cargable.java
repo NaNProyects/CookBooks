@@ -5,8 +5,10 @@ import java.sql.SQLException;
 
 /**
  * @author Mokocchi
- * Define a los objetos que me voy a traer de la base.
- * Ademas deben definir el constructor vacio.
+ * <p>Define a los objetos que me voy a traer de la base.
+ * Ademas deben definir:
+ * <li> el constructor vacio.
+ * <li> {@link #equals(Object)}
  */
 public interface Cargable {
 	
@@ -39,5 +41,12 @@ public interface Cargable {
 	 * @throws SQLException
 	 */
 	public boolean existeEn(Conector base) throws SQLException;
+
+	/**
+	 * le da los retoques que no se puede en una pasada (xej listas)
+	 */
+	public void terminar();
+
+	public abstract ConsultaSelect getBuscador();
 
 }

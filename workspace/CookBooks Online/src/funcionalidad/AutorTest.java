@@ -65,9 +65,6 @@ public class AutorTest {
 			autor1 = new Autor(-1, "AUTOR Demo3");
 			lista1.add(autor1);
 			autor1.guardarEn(cookbooks);
-			ConsultaSelect sel = new ConsultaSelect("*", "autor",
-					"apNom LIKE 'AUTOR Demo%'");
-			cookbooks.ejecutar(sel);
 		} catch (SQLException e) {
 			fail("auch. " + e.getMessage());
 		}
@@ -75,6 +72,10 @@ public class AutorTest {
 		// pruebas
 
 		try {
+			ConsultaSelect sel = new ConsultaSelect("*", "autor",
+					"apNom LIKE 'AUTOR Demo%'");
+			cookbooks.ejecutar(sel);
+
 			lista2.addAll((Collection<? extends Autor>) cookbooks
 					.iterarUn(Autor.class));
 		} catch (Exception e) {
@@ -100,6 +101,7 @@ public class AutorTest {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testGuardarEn() {
 		/*
@@ -129,8 +131,22 @@ public class AutorTest {
 			fail("auch. " + e.getMessage());
 		}
 
+		cookbooks.ejecutar(autor1.getBuscador());
+
+		try {
+			lista1 = new LinkedList<Autor>(
+					(Collection<? extends Autor>) cookbooks
+							.iterarUn(Autor.class));
+			autor2 = lista1.element();
+			assertTrue("El id no coincide", autor1.id().equals(autor2.id()));
+			assertTrue("El nobmre no coincide",
+					autor1.nombre().equals(autor2.nombre()));
+		} catch (Exception e) {
+			fail("auch. " + e.getMessage());
+		}
+
 		/*
-		 * b) si ya esta al guardar de vuelta que tire exception 
+		 * b) si ya esta al guardar de vuelta que tire exception
 		 */
 
 		try {
@@ -147,9 +163,18 @@ public class AutorTest {
 		try {
 			autor1.nombre("AUTOR DemoC");
 			autor1.guardarEn(cookbooks);
-			assertTrue(autor1.existeEn(cookbooks));
-			assertFalse(autor2.existeEn(cookbooks));
+			assertTrue("El autor no se cargo", autor1.existeEn(cookbooks));
+			cookbooks.ejecutar(autor1.getBuscador());
+			lista1 = new LinkedList<Autor>(
+					(Collection<? extends Autor>) cookbooks
+							.iterarUn(Autor.class));
+			autor2 = lista1.element();
+			assertTrue("El id no coincide", autor1.id().equals(autor2.id()));
+			assertTrue("El nobmre no coincide",
+					autor1.nombre().equals(autor2.nombre()));
 		} catch (SQLException e) {
+			fail("auch. " + e.getMessage());
+		} catch (Exception e) {
 			fail("auch. " + e.getMessage());
 		}
 
@@ -199,7 +224,7 @@ public class AutorTest {
 			assertFalse("no tiene que estar", autor1.existeEn(cookbooks));
 			autor1.guardarEn(cookbooks);
 			assertTrue("tiene que estar en la base", autor1.existeEn(cookbooks));
-			//limpio
+			// limpio
 			autor1.borrarDe(cookbooks);
 		} catch (Exception e) {
 			fail("auch. " + e.getMessage());

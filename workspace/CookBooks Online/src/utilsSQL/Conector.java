@@ -116,6 +116,9 @@ public class Conector {
 		} catch (IllegalAccessException e) {
 			new Exception("No me mandaste una clase compatible");
 		}
+		for (Cargable cargable : result) {
+			cargable.terminar();
+		}
 		return result;
 	}
 	

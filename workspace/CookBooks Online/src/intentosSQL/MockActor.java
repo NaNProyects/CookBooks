@@ -8,6 +8,7 @@ import java.util.Date;
 import utilsSQL.Cargable;
 import utilsSQL.Conector;
 import utilsSQL.ConsultaInsert;
+import utilsSQL.ConsultaSelect;
 
 public class MockActor implements Cargable {
 
@@ -95,6 +96,15 @@ public class MockActor implements Cargable {
 	public boolean existeEn(Conector base) throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void terminar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public ConsultaSelect getBuscador() {
+		return null;
 	}
 
 }
