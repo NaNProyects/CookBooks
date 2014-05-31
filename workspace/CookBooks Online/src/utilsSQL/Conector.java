@@ -20,6 +20,7 @@ public class Conector {
 	private Statement consultor;
 	private ResultSet iterador;
 	public String ultimoError;
+	private String url; //para reconectar
 
 
 	/**
@@ -30,8 +31,9 @@ public class Conector {
 	 */
 	public Conector(String baseAConectar, String user, String pass)
 			throws SQLException {
-		objetoConexion = DriverManager.getConnection(Conector
-				.urlDesde(baseAConectar) + Conector.llaveCon(user, pass));
+		url = Conector
+				.urlDesde(baseAConectar) + Conector.llaveCon(user, pass);
+		objetoConexion = DriverManager.getConnection(url);
 		consultor = objetoConexion.createStatement();
 	}
 
@@ -48,6 +50,11 @@ public class Conector {
 			this.ultimoError = e.getMessage();
 			throw e;
 		}
+	}
+	
+	public void reconectar() throws SQLException {
+		objetoConexion = DriverManager.getConnection(url);
+		consultor = objetoConexion.createStatement();
 	}
 
 	/**
@@ -76,13 +83,15 @@ public class Conector {
 	/**
 	 * @param consulta
 	 * @return
+	 * @throws SQLException 
 	 * @throws Exception 
 	 */
-	public void ejecutar(ConsultaSelect consulta) {
+	public void ejecutar(ConsultaSelect consulta) throws SQLException {
 		try {
 			iterador = consultor.executeQuery(consulta.toString());
 		} catch (SQLException e) {
 			this.ultimoError = e.getMessage();
+			throw e;
 		}
 	}
 
@@ -114,7 +123,7 @@ public class Conector {
 		} catch (InstantiationException e) {
 			throw new Exception("No me mandaste una clase compatible");
 		} catch (IllegalAccessException e) {
-			new Exception("No me mandaste una clase compatible");
+			throw new Exception("No me mandaste una clase compatible");
 		}
 		for (Cargable cargable : result) {
 			cargable.terminar();
@@ -144,6 +153,6 @@ public class Conector {
 		} else {
 			return null;
 		}
-	}
+	} 
 	
 }

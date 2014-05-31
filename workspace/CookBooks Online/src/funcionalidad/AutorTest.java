@@ -131,9 +131,10 @@ public class AutorTest {
 			fail("auch. " + e.getMessage());
 		}
 
-		cookbooks.ejecutar(autor1.getBuscador());
+		
 
 		try {
+			cookbooks.ejecutar(autor1.getBuscador());
 			lista1 = new LinkedList<Autor>(
 					(Collection<? extends Autor>) cookbooks
 							.iterarUn(Autor.class));

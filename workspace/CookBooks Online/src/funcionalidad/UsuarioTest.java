@@ -120,9 +120,10 @@ public class UsuarioTest {
 			fail("auch. " + e.getMessage());
 		}
 
-		cookbooks.ejecutar(usuario1.getBuscador());
+		
 
 		try {
+			cookbooks.ejecutar(usuario1.getBuscador());
 			lista1 = new LinkedList<Usuario>(
 					(Collection<? extends Usuario>) cookbooks
 							.iterarUn(Usuario.class));

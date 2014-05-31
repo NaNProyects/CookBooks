@@ -26,11 +26,11 @@ public class Libro implements Cargable {
 	public Libro() {
 	}
 
-	public Libro(Long i, String titulo, String autor, String genero,
+	public Libro(Long isbn, String titulo, String autor, String genero,
 			String editorial, String idioma, String reseña, String vistaso,
 			Double precio) {
 		super();
-		this.isbn = i;
+		this.isbn = isbn;
 		this.titulo = titulo;
 		this.autor = autor;
 		this.genero = genero;
@@ -160,7 +160,7 @@ public class Libro implements Cargable {
 		} catch (SQLException e) {
 			if (e.getErrorCode() == 1062) {
 				throw new SQLException(
-						"ERROR: Ya existe un autor con ese nombre");
+						"ERROR: Ya existe un libro con ese isbn");
 			}
 			throw e;
 		}

@@ -13,6 +13,7 @@ import javax.swing.table.TableModel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.table.TableRowSorter; //TODO JOSE
 
 import funcionalidad.Autor;
 import funcionalidad.Libro;
@@ -147,6 +148,10 @@ public class MedioListaDeLibros extends JPanel {
 
 		}
 		table.setModel(model);
+		
+		 TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model); //TODO JOSE
+		 table.setRowSorter(sorter); //TODO JOSE
+
 		table.repaint();
 	}
 }

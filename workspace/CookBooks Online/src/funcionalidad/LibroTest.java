@@ -201,9 +201,10 @@ public class LibroTest {
 			fail("auch. " + e.getMessage());
 		}
 
-		cookbooks.ejecutar(libro1.getBuscador());
+		
 
 		try {
+			cookbooks.ejecutar(libro1.getBuscador());
 			lista1 = new LinkedList<Libro>(
 					(Collection<? extends Libro>) cookbooks
 							.iterarUn(Libro.class));

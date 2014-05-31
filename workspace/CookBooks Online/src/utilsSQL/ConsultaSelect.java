@@ -1,5 +1,6 @@
 package utilsSQL;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class ConsultaSelect extends ConsultaSQL {
@@ -39,7 +40,7 @@ public class ConsultaSelect extends ConsultaSQL {
 		return listarSeparandoPor(atributos, ", ");
 	}
 	
-	public void ejecutame(Conector consultor){
+	public void ejecutame(Conector consultor) throws SQLException{
 		consultor.ejecutar(this);
 	}
 }
