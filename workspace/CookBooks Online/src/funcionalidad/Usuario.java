@@ -25,6 +25,12 @@ public class Usuario implements Cargable {
 	private String email;
 	private String nombre;
 	private String apellido;
+	
+	public static Usuario anonimo() {
+		Usuario result = new Usuario();
+		result.setDni(-1);
+		return result;
+	}
 
 	public Usuario() {
 		super();

@@ -17,34 +17,37 @@ public class CookBooks {
 	// mocks fin
 
 	private Conector base;
-	private Usuario usuario;
+	private Usuario usuario = Usuario.anonimo();
 
 	@SuppressWarnings("unused")
 	private static void IniciarAutores() {
 		autores.add(new Autor(0, "pepe"));
 		autores.add(new Autor(1, "sssss"));
 		autores.add(new Autor(2, "sssss2"));
-	
+
 	}
 
+	@SuppressWarnings("unused")
 	private static void IniciarLibros() {
 		lista.add(new Libro(new Long(11111), "aaaaa", "sssss", "ddddd",
 				"fffff", "ggggg", "wwwwwww", "eeeeeeee", new Double(12.30)));
 		lista.add(new Libro(new Long(11112), "aaaaa2", "sssss2", "ddddd2",
 				"fffff2", "ggggg2", "wwwwwww2", "qqqqqqqqq", new Double(13.30)));
 	}
-	
+
 	/**
-	 * Está feito que esté acá la pass peeeero 
-	 * @throws Exception si no conseguimos conectar con la base.
-	 * Expirará? MySQLNonTransientException
-	 * TODO Por compatibilidad no tira excepción... todavía
+	 * Está feito que esté acá la pass peeeero MySQLNonTransientException TODO
+	 * Por compatibilidad no tira excepción... todavía
+	 * 
+	 * @throws Exception
+	 *             si no conseguimos conectar con la base. Expirará?
+	 * 
 	 */
 	public CookBooks() {
 		try {
 			base = new Conector("cookbooksbase", "root", "qwerty");
 		} catch (SQLException e) {
-			//throw new Exception("No se pudo contactar con la base");
+			// throw new Exception("No se pudo contactar con la base");
 		}
 	}
 
@@ -75,12 +78,7 @@ public class CookBooks {
 	/**
 	 * NO se puede actualizar un autor que viene con -1 (nuevo). <br>
 	 * Ud se compromete a mandarme un id con sentido.
-	 * CUIDADO: todos sus objetos libros quedan desactualizados, volverlos a pedir
-	 * <p>Solución:
-	 * <li> a) lo cambiás vos
-	 * <li>	b) me preguntas con un método adHoc que te tire los libros de un autor
-	 * <li>
-	 * 			c) el getter le pregunta a la base (es un bodrio)
+	 * 
 	 * @param unAutor
 	 * @return si se pudo o no
 	 */
@@ -146,7 +144,8 @@ public class CookBooks {
 		try {
 			ConsultaSelect sel = new ConsultaSelect("*", "autor");
 			base.ejecutar(sel);
-			return new LinkedList<Autor>((Collection<? extends Autor>) base.iterarUn(Autor.class));
+			return new LinkedList<Autor>(
+					(Collection<? extends Autor>) base.iterarUn(Autor.class));
 		} catch (Exception e) {
 			return new LinkedList<Autor>();
 		}
@@ -163,30 +162,35 @@ public class CookBooks {
 
 	@SuppressWarnings("unchecked")
 	public LinkedList<Libro> libros() {
-
-		// mock temporal
-
-		if (lista.size() == 0) {
-			IniciarLibros();
+		ConsultaSelect sel = new ConsultaSelect("*",
+				"libro inner join autor on idAutor = autor");
+		try {
+			base.ejecutar(sel);
+			return new LinkedList<Libro>(
+					(Collection<? extends Libro>) base.iterarUn(Libro.class));
+		} catch (Exception e) {
+			return new LinkedList<Libro>();
 		}
-		return (LinkedList<Libro>) lista.clone();
-
+		// mock temporal
+		/*
+		 * if (lista.size() == 0) { IniciarLibros(); } return
+		 * (LinkedList<Libro>) lista.clone();
+		 */
 	}
 
 	/**
 	 * Agrega un libro ya creado. Falla si el isbn ya estaba.
+	 * 
 	 * @param unLibro
 	 * @return si se pudo o no
 	 */
 	public boolean agregar(Libro unLibro) {
 		/*
-		// Mock
-		lista.add(unLibro);
-		return true;
-		*/
+		 * // Mock lista.add(unLibro); return true;
+		 */
 		try {
 			unLibro.guardarEn(base);
-			lista.add(unLibro); //TODO mock mock quien es?
+			lista.add(unLibro); // TODO mock mock quien es?
 			return true;
 		} catch (SQLException e) {
 			return false;
@@ -198,31 +202,42 @@ public class CookBooks {
 	// public boolean actualizar(Libro unLibro)
 	/**
 	 * Guarda los datos nuevos del libro en la fila con el mismo isbn
+	 * 
 	 * @param unLibro
 	 * @return si se pudo o no
 	 */
 	public boolean modificar(Libro unLibro) {
 		/*
-		lista.remove(unLibro);
-		lista.add(unLibro);
-		return true;
-		*/
-		unLibro.setIsbn(unLibro.getIsbn()*-1); //invertido = modificado
+		 * lista.remove(unLibro); lista.add(unLibro); return true;
+		 */
+		unLibro.setIsbn(unLibro.getIsbn() * -1); // invertido = modificado
 		try {
 			unLibro.guardarEn(base);
 			return true;
 		} catch (SQLException e) {
 			return false;
 		}
-		
 
 	}
 
+	/**
+	 * Por ahora es un eliminador drástico. <br>
+	 * Ya se verá con borrado lógico
+	 * 
+	 * @param unLibro
+	 * @return si se pudo
+	 */
 	public boolean eliminar(Libro unLibro) {
-		// Mock
-		lista.remove(unLibro);
-		return true;
-
+		/*
+		 * // Mock lista.remove(unLibro); return true;
+		 */
+		try {
+			unLibro.borrarDe(base);
+			lista.remove(unLibro); // TODO mock moock...
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	public ArrayList<Libro> buscar(String unNombreLibro) {
@@ -258,8 +273,7 @@ public class CookBooks {
 	}
 
 	public Usuario usuarioActual() {
-		return null;
-
+		return usuario;
 	}
 
 	public boolean agregar(Usuario unUsuario, String pass) {
@@ -321,10 +335,11 @@ public class CookBooks {
 			return "";
 		}
 	}
-	
+
 	/**
 	 * Úsese a discreción en caso de emergencia.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	public void reconectar() throws SQLException {
 		base.reconectar();
