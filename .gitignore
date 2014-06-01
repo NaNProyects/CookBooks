@@ -13,7 +13,7 @@ src/intentosSQL/
 *.swp
 *~.nib
 local.properties
-#.classpath
+.classpath
 #.settings/
 .loadpath
 
