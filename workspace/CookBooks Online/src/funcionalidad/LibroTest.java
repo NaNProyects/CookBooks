@@ -47,7 +47,7 @@ public class LibroTest {
 		if (autor1.existeEn(cookbooks))
 			autor1.borrarDe(cookbooks);
 		autor1.guardarEn(cookbooks);
-		libro1 = new Libro((long) 1, "LIBRO Demo", "AUTOR Demo", "generoDemo",
+		libro1 = new Libro("000000000001", "LIBRO Demo", "AUTOR Demo", "generoDemo",
 				"editorialDemo", "idiomaDemo", "reseñaDemo", "vistazoDemo", 0.0);
 	}
 
@@ -66,12 +66,12 @@ public class LibroTest {
 	@SuppressWarnings("unchecked")
 	public void testCargarCon() {
 		try { // setup
-			libro1 = new Libro((long) 2, "LIBRO Demo2", "AUTOR Demo",
+			libro1 = new Libro("000000000002", "LIBRO Demo2", "AUTOR Demo",
 					"generoDemo", "editorialDemo", "idiomaDemo", "reseñaDemo",
 					"vistazoDemo", 0.0);
 			lista1.add(libro1);
 			libro1.guardarEn(cookbooks);
-			libro1 = new Libro((long) 3, "LIBRO Demo3", "AUTOR Demo",
+			libro1 = new Libro("000000000003", "LIBRO Demo3", "AUTOR Demo",
 					"generoDemo", "editorialDemo", "idiomaDemo", "reseñaDemo",
 					"vistazoDemo", 0.0);
 			lista1.add(libro1);
@@ -236,7 +236,7 @@ public class LibroTest {
 		 */
 
 		try {
-			libro2 = new Libro((long) 1, "LIBRO Demo", "AUTOR Demo",
+			libro2 = new Libro("000000000001", "LIBRO Demo", "AUTOR Demo",
 					"generoDemo", "editorialDemo", "idiomaDemo", "reseñaDemo",
 					"vistazoDemo", 0.0);
 			libro2.guardarEn(cookbooks);
@@ -246,11 +246,11 @@ public class LibroTest {
 		}
 
 		/*
-		 * c) si ya esta invierto el numero y updatea
+		 * c) si ya esta le agrego ! y updatea
 		 */
 		try {
 			libro1.setTitulo("Libro DemoC");
-			libro1.setIsbn(libro1.getIsbn() * -1); // invierto porque modifico
+			libro1.setIsbn(libro1.getIsbn()+"!"); // +! porque modifico
 			libro1.guardarEn(cookbooks);
 			assertTrue("El libro no se cargo", libro1.existeEn(cookbooks));
 			cookbooks.ejecutar(libro1.getBuscador());

@@ -13,7 +13,7 @@ import utilsSQL.ConsultaSelect;
 import utilsSQL.ConsultaUpdate;
 
 public class Libro implements Cargable {
-	private Long isbn;
+	private String isbn;
 	private String titulo;
 	private String autor; // pasar a objeto autor ?
 	private String genero;
@@ -26,7 +26,7 @@ public class Libro implements Cargable {
 	public Libro() {
 	}
 
-	public Libro(Long isbn, String titulo, String autor, String genero,
+	public Libro(String isbn, String titulo, String autor, String genero,
 			String editorial, String idioma, String reseña, String vistaso,
 			Double precio) {
 		super();
@@ -41,11 +41,11 @@ public class Libro implements Cargable {
 		this.precio = precio.doubleValue();
 	}
 
-	public Long getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(Long isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 
@@ -115,8 +115,8 @@ public class Libro implements Cargable {
 
 	public ConsultaSelect getBuscador() {
 		return new ConsultaSelect("*",
-				"libro inner join autor on autor = idAutor", "isbn = "
-						+ this.getIsbn());
+				"libro inner join autor on autor = idAutor", "isbn = '"
+						+ this.getIsbn()+"'");
 	}
 
 	public void guardarEn(Conector base) throws SQLException {
@@ -135,7 +135,7 @@ public class Libro implements Cargable {
 			atributos.add("vistazo");
 			atributos.add("precio");
 			ArrayList<String> valores = new ArrayList<String>();
-			valores.add(isbn.toString());
+			valores.add("'" + isbn + "'");
 			valores.add("'" + titulo + "'");
 			valores.add(subconsultaAutor);
 			valores.add("'" + genero + "'");
@@ -144,16 +144,16 @@ public class Libro implements Cargable {
 			valores.add("'" + reseña + "'");
 			valores.add("'" + vistaso + "'");
 			valores.add(precio.toString());
-			if (isbn >= 0) {
+			if (!isbn.endsWith("!")) {
 				cons = new ConsultaInsert("libro", atributos, valores);
-			} else { // si es negativo viene modificado
-				isbn = -1 * isbn;
-				valores.set(0, isbn.toString());
+			} else { // si termina en ! viene modificado
+				isbn = isbn.replace("!", "");
+				valores.set(0, "'" + isbn +"'"); 
 				cons = new ConsultaUpdate("libro", atributos, valores,
 						"isbn IN ("
 								+ new ConsultaSelect("*", "("
 										+ new ConsultaSelect("isbn", "libro",
-												"isbn =" + isbn) + ")"
+												"isbn = '" + isbn + "'") + ")"
 										+ " as tmp") + ")");
 			}
 			base.ejecutar(cons);
@@ -168,7 +168,7 @@ public class Libro implements Cargable {
 
 	public void cargarCon(ResultSet iterador) throws SQLException {
 		try {
-			isbn = iterador.getLong("isbn");
+			isbn = iterador.getString("isbn");
 			titulo = iterador.getString("titulo");
 			autor = iterador.getString("apNom");
 			genero = iterador.getString("genero");
@@ -203,7 +203,7 @@ public class Libro implements Cargable {
 
 	public boolean existeEn(Conector base) throws SQLException {
 		ConsultaSelect select = new ConsultaSelect("count(*)", "libro",
-				"(isbn = " + isbn + " and titulo='" + titulo + "')");
+				"(isbn = '" + isbn + "' and titulo='" + titulo + "')");
 		base.ejecutar(select);
 		return (base.getFirstInt() != 0);
 	}

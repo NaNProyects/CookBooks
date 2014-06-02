@@ -63,7 +63,7 @@ public class MedioEdicionDeLibro extends JPanel {
 	 * @wbp.parser.constructor
 	 */
 	public MedioEdicionDeLibro(Interface inside2) {
-		this(inside2, new Libro(new Long("-1234567890"), "Titulo", null, "genero",
+		this(inside2, new Libro("-1234567890", "Titulo", null, "genero", //TODO toque aca
 				"editorial", "idioma", "reseña", "vistaso", new Double(-1)));
 	}
 
@@ -118,7 +118,7 @@ public class MedioEdicionDeLibro extends JPanel {
 		isbnLibro_1.setText(libro.getIsbn().toString());
 		isbnLibro_1.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		isbnLibro_1.setBounds(108, 57, 184, 20);
-		if (libro.getIsbn().compareTo(new Long("-1234567890")) != 0) {
+		if (libro.getIsbn().compareTo("-1234567890") != 0) { //TODO toque aca
 			isbnLibro_1.setEditable(false);
 		}
 		add(isbnLibro_1);
@@ -314,7 +314,7 @@ public class MedioEdicionDeLibro extends JPanel {
 		confirmar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (ValidarCampos()) {
-					libro.setIsbn((new Long(isbnLibro_1.getText().replaceAll("-", ""))));
+					libro.setIsbn(isbnLibro_1.getText().replaceAll("-", "")); //TODO toque aca
 					libro.setTitulo((String) tituloLibro.getText());
 					libro.setAutor((String) autorLibro.getSelectedItem());
 					libro.setGenero((String) generoLibro.getText());

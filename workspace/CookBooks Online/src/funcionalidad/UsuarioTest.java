@@ -59,35 +59,93 @@ public class UsuarioTest {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	// asume un insert de la base >> TODO cambiar por insert del test
 	public void testCargarCon() {
+		/*
+		 * depende de que N.G. este en la base try { ConsultaSelect sel = new
+		 * ConsultaSelect("*", "usuario", "dni = 2968741");
+		 * cookbooks.ejecutar(sel); lista2 = new LinkedList<Usuario>(
+		 * (Collection<? extends Usuario>) cookbooks .iterarUn(Usuario.class));
+		 * usuario1 = lista2.element(); assertTrue("El dni no coincide",
+		 * usuario1.getDni().equals(2968741));
+		 * assertTrue("El telefono no coincide", usuario1.getTelefono()
+		 * .equals(4708741)); assertTrue("La tarjeta no coincide",
+		 * usuario1.getTarjeta().equals("2968123456788741"));
+		 * assertTrue("La fecha no coincide", usuario1.getFechaRegistro()
+		 * .equals(Date.valueOf("2006-06-06")));
+		 * assertTrue("La direccion no coincide", usuario1.getDireccion()
+		 * .equals("29 nº741")); assertTrue("La contraseña no coincide",
+		 * usuario1.getHashPass() .equals("d9fd932e114c21309e61c08496bdc78e"));
+		 * assertTrue("El email no coincide",
+		 * usuario1.getEmail().equals("nicolasgaldamez@cookbooks.com"));
+		 * assertTrue("El nombre no coincide",
+		 * usuario1.getNombre().equals("Nicolas"));
+		 * assertTrue("El apellido no coincide", usuario1.getApellido()
+		 * .equals("Galdamez")); } catch (Exception e) { fail("auch. " +
+		 * e.getMessage()); }
+		 */
+
+		try { // setup
+			usuario1 = new Usuario(1, 4241111, "1234567887654321",
+					Date.valueOf("2000-1-1"), "Demo nº000",
+					"76b5e9c04b3c45253bfcde488623a01b",
+					"nombredemoapellidodemo1@cookbooks.com", "NombreDemo1",
+					"ApellidoDemo1");
+			lista1.add(usuario1);
+			usuario1.guardarEn(cookbooks);
+			usuario1 = new Usuario(2, 4241111, "1234567887654321",
+					Date.valueOf("2000-1-1"), "Demo nº000",
+					"76b5e9c04b3c45253bfcde488623a01b",
+					"nombredemoapellidodemo2@cookbooks.com", "NombreDemo2",
+					"ApellidoDemo2");
+			lista1.add(usuario1);
+			usuario1.guardarEn(cookbooks);
+		} catch (SQLException e) {
+			fail("auch. " + e.getMessage());
+		}
+
+		// pruebas
+
 		try {
 			ConsultaSelect sel = new ConsultaSelect("*", "usuario",
-					"dni = 2968741");
+					"nombre LIKE 'NombreDemo%'");
 			cookbooks.ejecutar(sel);
 			lista2 = new LinkedList<Usuario>(
 					(Collection<? extends Usuario>) cookbooks
 							.iterarUn(Usuario.class));
-			usuario1 = lista2.element();
-			assertTrue("El dni no coincide", usuario1.getDni().equals(2968741));
-			assertTrue("El telefono no coincide", usuario1.getTelefono()
-					.equals(4708741));
-			assertTrue("La tarjeta no coincide",
-					usuario1.getTarjeta().equals("2968123456788741"));
-			assertTrue("La fecha no coincide", usuario1.getFechaRegistro()
-					.equals(Date.valueOf("2006-06-06")));
-			assertTrue("La direccion no coincide", usuario1.getDireccion()
-					.equals("29 nº741"));
-			assertTrue("La contraseña no coincide", usuario1.getHashPass()
-					.equals("d9fd932e114c21309e61c08496bdc78e"));
-			assertTrue("El email no coincide",
-					usuario1.getEmail().equals("nicolasgaldamez@cookbooks.com"));
-			assertTrue("El nombre no coincide",
-					usuario1.getNombre().equals("Nicolas"));
-			assertTrue("El apellido no coincide", usuario1.getApellido()
-					.equals("Galdamez"));
 		} catch (Exception e) {
 			fail("auch. " + e.getMessage());
+		}
+
+		assertTrue(
+				"es diferente la cantidad de usuarios que entraron que los que salieron",
+				lista1.size() == lista2.size());
+
+		for (int i = 0; i < lista1.size(); i++) {
+			assertTrue("El dni no coincide",
+					lista1.get(i).getDni().equals(lista2.get(i).getDni()));
+			assertTrue("El telefono no coincide", lista1.get(i).getTelefono()
+					.equals(lista2.get(i).getTelefono()));
+			assertTrue("La tarjeta no coincide",
+					lista1.get(i).getTarjeta().equals(lista2.get(i).getTarjeta()));
+			assertTrue("La fecha no coincide", lista1.get(i).getFechaRegistro()
+					.equals(lista2.get(i).getFechaRegistro()));
+			assertTrue("La direccion no coincide", lista1.get(i).getDireccion()
+					.equals(lista2.get(i).getDireccion()));
+			assertTrue("La contraseña no coincide", lista1.get(i).getHashPass()
+					.equals(lista2.get(i).getHashPass()));
+			assertTrue("El email no coincide",
+					lista1.get(i).getEmail().equals(lista2.get(i).getEmail()));
+			assertTrue("El nombre no coincide",
+					lista1.get(i).getNombre().equals(lista2.get(i).getNombre()));
+			assertTrue("El apellido no coincide", lista1.get(i).getApellido()
+					.equals(lista2.get(i).getApellido()));
+		}
+		for (Usuario u : lista1) {
+			try {
+				u.borrarDe(cookbooks);
+			} catch (SQLException e) {
+				fail("auch. " + e.getMessage());
+			}
 		}
 	}
 
@@ -119,8 +177,6 @@ public class UsuarioTest {
 		} catch (SQLException e) {
 			fail("auch. " + e.getMessage());
 		}
-
-		
 
 		try {
 			cookbooks.ejecutar(usuario1.getBuscador());

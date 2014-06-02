@@ -157,7 +157,7 @@ public class MedioPedidos extends JPanel {
 			model.addRow(new Object[] {					
 					pedido.nro(), 
 					DateFormat.getDateInstance(DateFormat.SHORT).format(pedido.fecha()),
-					pedido.total().toString(), pedido.usuario().getNombre(), botonDetalles,
+					pedido.total().toString(), pedido.getUsuario().getNombre(), botonDetalles,
 					estado(pedido.estado())});
 		}
 		

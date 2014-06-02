@@ -17,7 +17,7 @@ public class CookBooks {
 	// mocks fin
 
 	private Conector base;
-	private Usuario usuario = Usuario.anonimo();
+	private Usuario usuario;
 
 	@SuppressWarnings("unused")
 	private static void IniciarAutores() {
@@ -29,14 +29,14 @@ public class CookBooks {
 
 	@SuppressWarnings("unused")
 	private static void IniciarLibros() {
-		lista.add(new Libro(new Long(11111), "aaaaa", "sssss", "ddddd",
+		lista.add(new Libro("11111", "aaaaa", "sssss", "ddddd",
 				"fffff", "ggggg", "wwwwwww", "eeeeeeee", new Double(12.30)));
-		lista.add(new Libro(new Long(11112), "aaaaa2", "sssss2", "ddddd2",
+		lista.add(new Libro("11112", "aaaaa2", "sssss2", "ddddd2",
 				"fffff2", "ggggg2", "wwwwwww2", "qqqqqqqqq", new Double(13.30)));
 	}
 
 	/**
-	 * Está feito que esté acá la pass peeeero MySQLNonTransientException TODO
+	 * TODO Está feito que esté acá la pass peeeero MySQLNonTransientException 
 	 * Por compatibilidad no tira excepción... todavía
 	 * 
 	 * @throws Exception
@@ -151,8 +151,8 @@ public class CookBooks {
 		}
 	}
 
-	public ArrayList<Pedido> pedidos() {
-		return null;
+	public LinkedList<Pedido> pedidos() {
+		return new LinkedList<Pedido>();
 
 	}
 
@@ -190,7 +190,6 @@ public class CookBooks {
 		 */
 		try {
 			unLibro.guardarEn(base);
-			lista.add(unLibro); // TODO mock mock quien es?
 			return true;
 		} catch (SQLException e) {
 			return false;
@@ -210,7 +209,7 @@ public class CookBooks {
 		/*
 		 * lista.remove(unLibro); lista.add(unLibro); return true;
 		 */
-		unLibro.setIsbn(unLibro.getIsbn() * -1); // invertido = modificado
+		unLibro.setIsbn(unLibro.getIsbn()+"!"); // invertido = modificado
 		try {
 			unLibro.guardarEn(base);
 			return true;
@@ -233,14 +232,13 @@ public class CookBooks {
 		 */
 		try {
 			unLibro.borrarDe(base);
-			lista.remove(unLibro); // TODO mock moock...
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
 
-	public ArrayList<Libro> buscar(String unNombreLibro) {
+	public LinkedList<Libro> buscar(String unNombreLibro) {
 		return null;
 
 	}
@@ -286,7 +284,7 @@ public class CookBooks {
 
 	}
 
-	public ArrayList<Usuario> historialDe(Usuario unUsuario) {
+	public LinkedList<Usuario> historialDe(Usuario unUsuario) {
 		return null;
 
 	}
@@ -312,7 +310,7 @@ public class CookBooks {
 
 	}
 
-	public ArrayList<Usuario> usuariosResgistradosEntre(Date inicio, Date fin) {
+	public LinkedList<Usuario> usuariosResgistradosEntre(Date inicio, Date fin) {
 		return null;
 
 	}

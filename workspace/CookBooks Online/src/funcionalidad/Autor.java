@@ -7,14 +7,14 @@ import utilsSQL.*;
 
 public class Autor implements Cargable {
 	
-	private int id;
+	private Integer id;
 	private String nombre;	
 	
 	public Autor() {
 		super();
 	}
 
-	public Autor(int id, String nombre) {
+	public Autor(Integer id, String nombre) {
 		this.id = id;
 		this.nombre = nombre;
 	}
@@ -24,7 +24,7 @@ public class Autor implements Cargable {
 
 	}
 	
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

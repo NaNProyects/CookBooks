@@ -25,10 +25,11 @@ public class Usuario implements Cargable {
 	private String email;
 	private String nombre;
 	private String apellido;
+	private Integer id; //TODO para permisos
 	
 	public static Usuario anonimo() {
 		Usuario result = new Usuario();
-		result.setDni(-1);
+		result.setId(-1);
 		return result;
 	}
 
@@ -100,6 +101,7 @@ public class Usuario implements Cargable {
 	}
 
 	public void cargarCon(ResultSet iterador) throws SQLException {
+		this.id = iterador.getInt("idUsuario");
 		this.dni = iterador.getInt("dni");
 		this.telefono = iterador.getInt("telefono");
 		this.tarjeta = iterador.getString("tarjeta");
@@ -136,16 +138,21 @@ public class Usuario implements Cargable {
 			valores.add("'" + apellido + "'");
 			if (dni >= 0) {
 				cons = new ConsultaInsert("usuario", atributos, valores);
+				base.ejecutar(cons);
+				base.ejecutar(new ConsultaSelect("idUsuario", "usuario",
+						"email = '" + email + "'"));
+				this.id = base.getFirstInt();
 			} else { // si es negativo viene modificado
 				dni = -1 * dni;
 				valores.set(0, dni.toString());
+				atributos.add("idUsuario"); //como ya existia ya sabemos el id
+				valores.add(id.toString()); //
 				cons = new ConsultaUpdate("usuario", atributos, valores,
 						"dni IN ("
 								+ new ConsultaSelect("*", "(" + new ConsultaSelect("dni", "usuario", "dni = "+dni) + ")"
 										+ " as tmp") + ")");
+				base.ejecutar(cons);
 			}
-			
-			base.ejecutar(cons);
 		} catch (SQLException e) {
 			if (e.getErrorCode() == 1062) {
 				throw new SQLException(
@@ -194,5 +201,13 @@ public class Usuario implements Cargable {
 
 	public ConsultaSelect getBuscador() {
 		return new ConsultaSelect("*", "usuario", "dni = "+dni);
+	}
+
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer i) {
+		id = i;
 	}
 }
