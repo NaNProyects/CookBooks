@@ -21,7 +21,7 @@ public class Interface {
 	public CookBooks contexto = new CookBooks();		
 	protected JPanel center;
 	protected JPanel top;
-	protected JPanel left;
+	protected Lateral left;
 	protected JFrame frmCookbooksOnline;
 
 	/**
@@ -65,6 +65,11 @@ public class Interface {
 		
 		left = new Lateral(this);
 		left.setPreferredSize(new Dimension(96, 10));
+//		left.permisos(contexto.usuarioActual().getId());
+		
+		left.permisos(0);
+		
+		
 		frmCookbooksOnline.getContentPane().add(left, BorderLayout.WEST);
 		
 		top = new Superior(this);
@@ -83,3 +88,4 @@ public class Interface {
 		center.repaint();
 	}
 }
+

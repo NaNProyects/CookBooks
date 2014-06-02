@@ -1,66 +1,114 @@
 package fachade;
 
 import javax.swing.JPanel;
+
 import java.awt.Color;
+
 import javax.swing.JTextField;
-import javax.swing.JTextArea;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
+@SuppressWarnings("serial")
 public class Login extends JPanel {
-	private JTextField txtMailexamplecom;
+	private JTextField campoMail;
 	private JPasswordField passwordField;
-	private JLabel lblNewLabel;
+	private JLabel lblRegistro;
 	private JButton btnEntrar;
+	private JLabel lblMail;
+	private JLabel lblContrasea;
+	private JLabel lblRecuperarClave;
+	private JLabel lblError;
+	private Superior inside;
 
 	/**
 	 * Create the panel.
 	 */
-	public Login(JPanel inside) {
+	public Login(Superior inside2) {
+		inside = inside2;
+		
+		
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
+		setBounds(0, 0, 264, 144);
 		
-		txtMailexamplecom = new JTextField();
-		txtMailexamplecom.setText("mail@example.com");
-		txtMailexamplecom.setBounds(104, 21, 150, 20);
-		add(txtMailexamplecom);
-		txtMailexamplecom.setColumns(10);
+		campoMail = new JTextField();
+		campoMail.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					entrar();
+				   }
+			}
+		});
+		campoMail.setText("mail@example.com");
+		campoMail.setBounds(104, 21, 150, 20);
+		add(campoMail);
+		campoMail.setColumns(10);
 		
 		passwordField = new JPasswordField();
+		passwordField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					entrar();
+				   }
+			}
+		});
 		passwordField.setBounds(104, 44, 150, 20);
 		add(passwordField);
 		
-		JLabel lblMail = new JLabel("Mail:");
-		lblMail.setLabelFor(txtMailexamplecom);
+		lblMail = new JLabel("Mail:");
+		lblMail.setLabelFor(campoMail);
 		lblMail.setToolTipText("");
 		lblMail.setBounds(71, 24, 46, 14);
 		add(lblMail);
 		
-		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
+		lblContrasea = new JLabel("Contrase\u00F1a:");
 		lblContrasea.setLabelFor(passwordField);
 		lblContrasea.setToolTipText("");
 		lblContrasea.setBounds(29, 47, 108, 14);
 		add(lblContrasea);
 		
-		lblNewLabel = new JLabel("Registrarse");
-		lblNewLabel.setForeground(new Color(0, 51, 255));
-		lblNewLabel.setBounds(10, 87, 79, 14);
-		add(lblNewLabel);
+		lblRegistro = new JLabel("Registrarse");
+		lblRegistro.setForeground(new Color(0, 51, 255));
+		lblRegistro.setBounds(10, 87, 79, 14);
+		add(lblRegistro);
 		
 		btnEntrar = new JButton("Entrar");
+		btnEntrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				entrar();
+			}
+		});
 		btnEntrar.setBounds(147, 110, 89, 23);
 		add(btnEntrar);
 		
-		JLabel lblRecuperarClave = new JLabel("Recuperar Clave");
+		lblRecuperarClave = new JLabel("Recuperar Clave");
 		lblRecuperarClave.setForeground(new Color(0, 51, 255));
 		lblRecuperarClave.setBounds(10, 112, 127, 19);
 		add(lblRecuperarClave);
 		
-		JLabel lblDatosDeSecion = new JLabel("Datos de sesion incorrectos");
-		lblDatosDeSecion.setForeground(Color.RED);
-		lblDatosDeSecion.setBounds(71, 65, 183, 19);
-		add(lblDatosDeSecion);
+		lblError = new JLabel("Datos de sesion incorrectos");
+		lblError.setForeground(Color.RED);
+		lblError.setBounds(71, 65, 183, 19);
+		lblError.setVisible(false);
+		add(lblError);
 
+	}
+	public void entrar(){
+		if(inside.getInside().contexto.autenticar(campoMail.getText(),new String(passwordField.getPassword()))){
+			inside.setPanelLog(new Loged(inside));
+		}
+		else{
+			lblError.setVisible(true);
+			lblError.repaint();
+		}
+		
 	}
 }

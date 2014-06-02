@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 
 import java.awt.Color;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
@@ -17,19 +16,31 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+@SuppressWarnings("serial")
 public class Superior extends JPanel {
 	private JTextField txtBusque;
+	private Interface inside;
+	private JPanel panelLog;
 
 	/**
 	 * Create the panel.
 	 */
-	public Superior(Interface inside) {
+	public Superior(Interface inside2) {
+		setInside(inside2);
+		
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 		
+		panelLog = new JPanel();		
+		panelLog.setBackground(new Color(255, 204, 255));
+		panelLog.setBounds(752, 0, 264, 144);
+		add(panelLog);
+		panelLog.setLayout(null);
+		
 		JPanel panel = new Login(this);
-		panel.setBounds(752, 0, 264, 144);
-		add(panel);
+		
+		panelLog.add(panel);
+
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(Superior.class.getResource("/fachade/Image/Logo.png")));
@@ -61,5 +72,20 @@ public class Superior extends JPanel {
 		add(btnNewButton);
 
 
+	}
+
+	public void setPanelLog(JPanel panelLog) {
+		this.panelLog.removeAll();
+		this.panelLog.add(panelLog);
+		this.panelLog.repaint();
+		repaint();
+	}
+
+	public Interface getInside() {
+		return inside;
+	}
+
+	public void setInside(Interface inside) {
+		this.inside = inside;
 	}
 }

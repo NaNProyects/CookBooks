@@ -4,29 +4,22 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.text.MaskFormatter;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import funcionalidad.Autor;
 
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+@SuppressWarnings("serial")
 public class AutorEdit extends JPanel {
 
 	private JLabel labelTituloPanel;

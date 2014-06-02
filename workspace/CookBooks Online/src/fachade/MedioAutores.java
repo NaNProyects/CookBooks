@@ -4,15 +4,12 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
-//import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import funcionalidad.Autor;
 
 import java.awt.Font;
 import java.awt.Color;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JList;
@@ -22,30 +19,26 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-import javax.swing.JFormattedTextField;
-import javax.swing.text.MaskFormatter;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
+@SuppressWarnings("serial")
 public class MedioAutores extends JPanel {
 
 	private JLabel labelTitulo;
-	private JList ListaAutores;
+	private JList<String> ListaAutores;
 	private JButton botonAgregar;
 	private JButton botonModificar;
 	private JButton botonQuitar;
 	protected JPanel panelEdicion;
 	protected Interface inside;
-	protected LinkedList arryAutores;
+	protected LinkedList<Autor> arryAutores;
 	protected Autor selectedAutor = new Autor(000, "");
 	private JLabel labelEliminacionError;
+	private JScrollPane scrollPane;
 	/**
 	 * Create the panel.
 	 */
@@ -55,7 +48,7 @@ public class MedioAutores extends JPanel {
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 
-		ListaAutores = new JList();
+		ListaAutores = new JList<String>();
 		ListaAutores.addFocusListener(new FocusAdapter() {
 			public void focusGained(FocusEvent e) {
 				labelEliminacionError.setVisible(false);
@@ -71,7 +64,7 @@ public class MedioAutores extends JPanel {
 		labelTitulo.setBounds(22, 10, 200, 50);
 		add(labelTitulo);
 
-		JScrollPane scrollPane = new JScrollPane(ListaAutores);
+		scrollPane = new JScrollPane(ListaAutores);
 		scrollPane.setBounds(61, 85, 287, 459);
 		add(scrollPane);
 
@@ -141,14 +134,15 @@ public class MedioAutores extends JPanel {
 
 	}
 
-	private Object[] NombresAutores(LinkedList autores) {
-		ArrayList nombres = new ArrayList();
-		for (Iterator iterator = autores.iterator(); iterator.hasNext();) {
-			nombres.add(((Autor) iterator.next()).nombre());
+	private Object[] NombresAutores(LinkedList<Autor> autores) {
+		ArrayList<String> nombres = new ArrayList<String>();
+		for (Autor element : autores) {
+			nombres.add(element.nombre());
 		}
 		return nombres.toArray();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected void Cargar() {
 		ListaAutores.setModel(new AbstractListModel() {
 			Object[] values = NombresAutores(arryAutores);

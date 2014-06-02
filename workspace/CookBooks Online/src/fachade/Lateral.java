@@ -1,24 +1,22 @@
 package fachade;
 
 import javax.swing.JPanel;
-import javax.swing.BoxLayout;
-
-import java.awt.GridBagLayout;
-
-import javax.swing.SpringLayout;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
 import javax.swing.JButton;
+
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
+@SuppressWarnings("serial")
 public class Lateral extends JPanel {
 	
 	private Interface inside;
+	private JButton botonLibros;
+	private JButton botonAutores;
+	private JButton botonPedidos;
+	private JButton button_2;
 	/**
 	 * Create the panel.
 	 */
@@ -26,61 +24,68 @@ public class Lateral extends JPanel {
 		inside = inside2;
 		
 		setBackground(new Color(255, 204, 255));
-		setLayout(null);
 
-		JButton BotonLibros = new JButton("Libros");
-		BotonLibros.addMouseListener(new MouseAdapter() {
+		
+		
+		// ADMINISTRADORES
+		 botonLibros = new JButton("Libros");
+		botonLibros.setPreferredSize(new Dimension(96, 23));
+		botonLibros.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				inside.centro(new MedioListaDeLibros(inside));
 			}
 		});
-		BotonLibros.setBounds(0, 11, 96, 23);
-		add(BotonLibros);
+		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		add(botonLibros);
 		
-		JButton BotonAutores = new JButton("Autores");
-		BotonAutores.addMouseListener(new MouseAdapter() {
+		 botonAutores = new JButton("Autores");
+		botonAutores.setPreferredSize(new Dimension(96, 23));
+		botonAutores.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				inside.centro(new MedioAutores(inside));
 				
 			}
 		});
-		BotonAutores.setBounds(0, 45, 96, 23);
-		add(BotonAutores);
+		add(botonAutores);
 		
-		JButton button_1 = new JButton("New button");
-		button_1		.addMouseListener(new MouseAdapter() {
+		 botonPedidos = new JButton("Pedidos");
+		botonPedidos.setPreferredSize(new Dimension(96, 23));
+		botonPedidos		.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				inside.centro(new MedioHome(inside));
+				inside.centro(new MedioPedidos(inside));
 			}
 		});
-		button_1.setBounds(0, 79, 96, 23);
 		
-		add(button_1);
+		add(botonPedidos);
 		
-		JButton button_2 = new JButton("New button");
-		button_2.setBounds(0, 113, 96, 23);
+
+		
+		// USUARIOS
+		
+		 button_2 = new JButton("New button");
+		button_2.setPreferredSize(new Dimension(96, 23));
 		add(button_2);
 		
-		JButton button_3 = new JButton("New button");
-		button_3.setBounds(0, 147, 96, 23);
-		add(button_3);
-		
-		JButton button_4 = new JButton("New button");
-		button_4.setBounds(0, 181, 96, 23);
-		add(button_4);
-		
-		JButton button_5 = new JButton("New button");
-		button_5.setBounds(0, 215, 96, 23);
-		add(button_5);
-		
-		JButton button_6 = new JButton("New button");
-		button_6.setBounds(0, 249, 96, 23);
-		add(button_6);
-		
-		JButton button_7 = new JButton("New button");
-		button_7.setBounds(0, 283, 96, 23);
-		add(button_7);
 
+		
+		// NO USUARIOS
+		
+		
+
+	}
+	public void permisos(Integer permisos){
+		// ADMINISTRADORES
+		botonAutores.setVisible(permisos == 0);
+		botonLibros.setVisible(permisos == 0);
+		botonPedidos.setVisible(permisos == 0);
+		
+		// USUARIOS
+		button_2.setVisible(permisos == 1);
+		
+		// NO USUARIOS
+		
+		
+		repaint();
 	}
 
 }
