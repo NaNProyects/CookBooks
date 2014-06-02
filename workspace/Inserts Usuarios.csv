@@ -1,8 +1,10 @@
 ﻿idUsuario, DNI,telefono,tarjeta,fechaRegistro,direccion,contraseña,email,nombre,apellido
-1, 2968741,4708741,2968123456788741,2006-06-06,"29 nº741",d9fd932e114c21309e61c08496bdc78e,nicolasgaldamez@cookbooks.com,Nicolas,Galdamez
+1,7777777,7777777,77777777777,1990-06-10,"21 nº777",21232f297a57a5a743894a0e4a801fc3,admin,Administrador," " 
+
 2, 3478987,4708987,3478123456788987,1999-03-05,"34 nº987",b69eb4ca4b4ae19e8e4f2e3129da7fd3,sebastianeguren@cookbooks.com,Sebastian,Eguren
 3, 10222333,4702333,1022123456782333,2001-08-25,"10 nº2333",7aa99682f9d3a129f54e0eae9ccd3628,robertojuarez@cookbooks.com,Roberto,Juarez
 4, 11454789,4704789,1145123456784789,1983-03-31,"11 nº4789",8fe918632d847e8ea3ebffbd47bd8ca9,carlossanchez@cookbooks.com,Carlos,Sanchez
 5, 12547897,4707897,1254123456787897,2011-02-01,"12 nº897",cbc19b07662418d5f14cc55657295924,marialopez@cookbooks.com,Maria,Lopez
 6, 14879564,4709564,1487123456789564,2012-01-01,"14 nº564",e2e5b404b089ab5a1e153ff87d046567,catalinaperez@cookbooks.com,Catalina,Perez
 7, 30876961,4706961,3087123456786961,2012-07-24,"30 nº961",1f15ab596db50ec96e9b45ed76947c99,arielpasini@cookbooks.com,Ariel,Pasini
+8, 2968741,4708741,2968123456788741,2006-06-06,"29 nº741",d9fd932e114c21309e61c08496bdc78e,nicolasgaldamez@cookbooks.com,Nicolas,Galdamez

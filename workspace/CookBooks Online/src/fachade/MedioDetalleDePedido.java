@@ -30,8 +30,6 @@ public class MedioDetalleDePedido extends JPanel {
 	private Interface inside;
 	private LinkedList<Libro> libros;
 	private JScrollPane scrollPane;
-	private JComboBox<String> comboOrden;
-	private JLabel labelOrdenarPor;
 	private JButton enviarButton;
 	private Pedido pedido;
 	private JButton btnAtras;
@@ -110,16 +108,6 @@ public class MedioDetalleDePedido extends JPanel {
 		scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(24, 19, 812, 501);
 		add(scrollPane);
-		
-		comboOrden = new JComboBox<String>();
-		comboOrden.setModel(new DefaultComboBoxModel<String>(new String[] { "ISBN", "Titulo", "Autor", "Genero", "Idioma",
-				"Editorial", "Precio" }));
-		comboOrden.setBounds(137, 544, 120, 20);
-		add(comboOrden);
-		
-		labelOrdenarPor = new JLabel("Ordenar Por:");
-		labelOrdenarPor.setBounds(61, 547, 103, 14);
-		add(labelOrdenarPor);
 
 		Cargar();
 	}

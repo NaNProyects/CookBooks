@@ -1,7 +1,6 @@
 package fachade;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -9,13 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-import javax.swing.table.TableRowSorter; //TODO JOSE
 
-import funcionalidad.Autor;
 import funcionalidad.Libro;
 
 import javax.swing.JScrollPane;
@@ -23,10 +19,15 @@ import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+@SuppressWarnings("serial")
 public class MedioListaDeLibros extends JPanel {
 	private JTable table;
 	private Interface inside;
-	private LinkedList libros;
+	private LinkedList<Libro> libros;
+	private JButton btnNewButton;
+	private JButton btnEditar;
+	private JButton btnEliminar;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create the panel.
@@ -38,13 +39,16 @@ public class MedioListaDeLibros extends JPanel {
 		setLayout(null);
 
 		table = new JTable();
+		table.setAutoCreateRowSorter(true);
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
 				"ISBN", "Titulo", "Autor", "Genero", "Idioma", "Editorial",
 				"Precio" }) {
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class,
 					String.class, String.class, String.class, String.class,
 					String.class };
 
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
@@ -67,7 +71,7 @@ public class MedioListaDeLibros extends JPanel {
 		table.setBounds(80, 49, 755, 471);
 		add(table);
 
-		JButton btnNewButton = new JButton("Nuevo");
+		btnNewButton = new JButton("Nuevo");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				inside.centro(new MedioEdicionDeLibro(inside));
@@ -80,11 +84,10 @@ public class MedioListaDeLibros extends JPanel {
 		btnNewButton.setBounds(478, 531, 120, 47);
 		add(btnNewButton);
 
-		JButton btnEditar = new JButton("Editar");
+		btnEditar = new JButton("Editar");
 		btnEditar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				inside.centro(new MedioEdicionDeLibro(inside, (Libro) libros
-						.get(table.getSelectedRow())));
+				inside.centro(new MedioEdicionDeLibro(inside, selected()));
 			}
 		});
 		btnEditar.setIcon(new ImageIcon(MedioListaDeLibros.class
@@ -94,11 +97,10 @@ public class MedioListaDeLibros extends JPanel {
 		btnEditar.setBounds(596, 531, 120, 47);
 		add(btnEditar);
 
-		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				inside.contexto.eliminar((Libro) libros.get(table
-						.getSelectedRow()));
+				inside.contexto.eliminar( selected());
 				table.repaint();
 				Cargar();
 			}
@@ -110,7 +112,7 @@ public class MedioListaDeLibros extends JPanel {
 		btnEliminar.setBounds(714, 531, 120, 47);
 		add(btnEliminar);
 
-		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(24, 19, 812, 501);
 		add(scrollPane);
 
@@ -119,14 +121,16 @@ public class MedioListaDeLibros extends JPanel {
 
 	private void Cargar() {
 		libros = inside.contexto.libros();
-		Iterator iterador = libros.iterator();
+		Iterator<Libro> iterador = libros.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
 				new String[] { "ISBN", "Titulo", "Autor", "Genero", "Idioma",
 						"Editorial", "Precio" }) {
+			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class,
 					String.class, String.class, String.class, String.class,
 					String.class };
 
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
@@ -139,7 +143,7 @@ public class MedioListaDeLibros extends JPanel {
 			}
 		};
 		while (iterador.hasNext()) {
-			Libro libro = (Libro) iterador.next();
+			Libro libro = iterador.next();
 			model.addRow(new String[] {
 					libro.getIsbn().toString(), libro.getTitulo(),
 					libro.getAutor(), libro.getGenero(), libro.getIdioma(),
@@ -148,10 +152,19 @@ public class MedioListaDeLibros extends JPanel {
 
 		}
 		table.setModel(model);
-		
-		 TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model); //TODO JOSE
-		 table.setRowSorter(sorter); //TODO JOSE
-
 		table.repaint();
+	}
+	
+	private Libro selected(){
+
+		for (Iterator<Libro> iterator = libros.iterator(); iterator.hasNext();) {
+			Libro iterable_element = iterator.next();
+			if (iterable_element.getIsbn() == table.getValueAt(table.getSelectedRow(), 0) ){
+
+				return iterable_element;
+			}
+		}		
+		return null;
+		
 	}
 }

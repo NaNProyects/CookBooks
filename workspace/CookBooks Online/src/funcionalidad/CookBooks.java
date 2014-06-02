@@ -49,6 +49,7 @@ public class CookBooks {
 		} catch (SQLException e) {
 			// throw new Exception("No se pudo contactar con la base");
 		}
+
 	}
 
 	/**
@@ -302,7 +303,7 @@ public class CookBooks {
 	}
 
 	public void cerrarSesion() {
-
+		this.usuario = Usuario.anonimo();
 	}
 
 	public Libro libroMasVendido() {

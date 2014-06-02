@@ -67,7 +67,7 @@ public class Interface {
 		left.setPreferredSize(new Dimension(96, 10));
 //		left.permisos(contexto.usuarioActual().getId());
 		
-		left.permisos(0);
+		left.permisos(0); // ----------------------------------------------------------------- TODO hardcode
 		
 		
 		frmCookbooksOnline.getContentPane().add(left, BorderLayout.WEST);

@@ -111,7 +111,7 @@ public class AutorEdit extends JPanel {
 	}
 
 	private void confirmar() {
-		if (campoNombre.getText().length() <= 80) {
+		if ((campoNombre.getText().length() <= 80)&&(campoNombre.getText().length() != 0) ){
 			if (selectedAutor.id() == -1) {
 				selectedAutor.nombre(campoNombre.getText());
 				try {
@@ -144,7 +144,7 @@ public class AutorEdit extends JPanel {
 
 			}
 		} else {
-			labelError.setText("El Autor debe contener menos de 80 caracteres");
+			labelError.setText("El Autor debe contener entre 1 y 80 caracteres");
 			labelError.setVisible(true);
 		}
 	}
