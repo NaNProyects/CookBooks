@@ -10,6 +10,7 @@ import funcionalidad.Libro;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.TextField;
 
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
@@ -20,6 +21,7 @@ import javax.swing.ImageIcon;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -35,6 +37,8 @@ import javax.swing.text.BadLocationException;
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class MedioEdicionDeLibro extends JPanel {
@@ -47,7 +51,7 @@ public class MedioEdicionDeLibro extends JPanel {
 	private JTextField idiomaLibro;
 	private JFormattedTextField precioLibro;
 	private Interface inside;
-	private JTextField isbnLibro_1;
+	private TextField isbnLibro_1;
 	private JTextPane reseñaLibro;
 	private JTextPane vistasoLibro;
 	private JLabel lblTitulo;
@@ -81,7 +85,15 @@ public class MedioEdicionDeLibro extends JPanel {
 		labelErrores.setVisible(false);
 		add(labelErrores);
 
-		isbnLibro_1 = new JTextField();
+		isbnLibro_1 = new TextField();
+		isbnLibro_1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				char car = e.getKeyChar();
+				if ((car < '0' || car > '9'))
+					e.consume();
+			}
+		});
 		;
 		isbnLibro_1.setText(libro.getIsbn().toString());
 		isbnLibro_1.addFocusListener(new FocusAdapter() {
@@ -228,6 +240,12 @@ public class MedioEdicionDeLibro extends JPanel {
 		precioLibro = new JFormattedTextField(new Double(libro.getPrecio()));
 		precioLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
+				try {
+					precioLibro.commitEdit();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				labelErrores.setText(labelErrores.getText().replaceAll(
 						"El Precio debe ser mayor a 0 /n".replaceAll("/n",
 								System.getProperty("line.separator")), ""));
@@ -301,7 +319,7 @@ public class MedioEdicionDeLibro extends JPanel {
 		vistasoLabel.setLabelFor(vistasoLibro);
 		vistasoLabel.setBounds(375, 282, 46, 14);
 		add(vistasoLabel);
-		
+
 		JButton confirmar = new JButton("Confirmar");
 		confirmar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -314,10 +332,12 @@ public class MedioEdicionDeLibro extends JPanel {
 					libro.setEditorial((String) editorialLibro.getText());
 					libro.setIdioma((String) idiomaLibro.getText());
 					try {
-						libro.setReseña(reseñaLibro.getDocument().getText(0, reseñaLibro.getDocument().getLength()));
-						libro.setVistaso(vistasoLibro.getDocument().getText(0, vistasoLibro.getDocument().getLength()));
+						libro.setReseña(reseñaLibro.getDocument().getText(0,
+								reseñaLibro.getDocument().getLength()));
+						libro.setVistaso(vistasoLibro.getDocument().getText(0,
+								vistasoLibro.getDocument().getLength()));
 					} catch (BadLocationException e1) {
-						// TODO Auto-generated catch block
+
 						e1.printStackTrace();
 					}
 					libro.setPrecio(((Double) precioLibro.getValue())
@@ -364,7 +384,7 @@ public class MedioEdicionDeLibro extends JPanel {
 		JScrollPane scrollVistaso = new JScrollPane(vistasoLibro);
 		scrollVistaso.setBounds(375, 307, 503, 266);
 		add(scrollVistaso);
-		
+
 		JLabel lblcamposObligatorios = new JLabel("*Campos obligatorios.");
 		lblcamposObligatorios.setBounds(22, 308, 298, 14);
 		add(lblcamposObligatorios);
@@ -400,4 +420,3 @@ public class MedioEdicionDeLibro extends JPanel {
 		return nombres.toArray();
 	}
 }
-
