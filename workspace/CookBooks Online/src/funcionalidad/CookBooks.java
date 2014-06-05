@@ -49,7 +49,6 @@ public class CookBooks {
 		} catch (SQLException e) {
 			// throw new Exception("No se pudo contactar con la base");
 		}
-
 	}
 
 	/**
