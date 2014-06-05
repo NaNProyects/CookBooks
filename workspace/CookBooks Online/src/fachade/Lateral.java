@@ -47,7 +47,7 @@ public class Lateral extends JPanel {
 			}
 		});
 		add(botonAutores);
-
+		
 		 botonPedidos = new JButton("Pedidos");
 		botonPedidos.setPreferredSize(new Dimension(96, 23));
 		botonPedidos		.addMouseListener(new MouseAdapter() {
@@ -77,7 +77,7 @@ public class Lateral extends JPanel {
 		// ADMINISTRADORES
 		botonAutores.setVisible(permisos == 0);
 		botonLibros.setVisible(permisos == 0);
-		botonPedidos.setVisible(permisos == 0); 
+		botonPedidos.setVisible(permisos == 0);
 		
 		// USUARIOS
 		button_2.setVisible(permisos == 1);
