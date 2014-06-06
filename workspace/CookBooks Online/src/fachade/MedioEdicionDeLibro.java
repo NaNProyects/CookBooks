@@ -90,8 +90,11 @@ public class MedioEdicionDeLibro extends JPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isDigit(car) || e.isActionKey())) {
-				e.consume();
+				if (!(Character.isDigit(car) || e.isActionKey()
+						|| e.isControlDown()
+						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+					e.consume();
 				}
 			}
 		});
