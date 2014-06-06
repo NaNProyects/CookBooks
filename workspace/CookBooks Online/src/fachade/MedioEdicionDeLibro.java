@@ -89,9 +89,10 @@ public class MedioEdicionDeLibro extends JPanel {
 		isbnLibro_1.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				char car = e.getKeyChar();
-				if ((car < '0' || car > '9'))
-					e.consume();
+				Character car = e.getKeyChar();
+				if (!(Character.isDigit(car) || e.isActionKey())) {
+				e.consume();
+				}
 			}
 		});
 		;
@@ -132,7 +133,7 @@ public class MedioEdicionDeLibro extends JPanel {
 										System.getProperty("line.separator")),
 						""));
 				if ((tituloLibro.getText().length() >= 45)
-						|| (generoLibro.getText().length() <= 0)) {
+						|| (tituloLibro.getText().length() <= 0)) {
 
 					labelErrores.setText(labelErrores
 							.getText()
@@ -397,15 +398,15 @@ public class MedioEdicionDeLibro extends JPanel {
 	}
 
 	private boolean ValidarCampos() {
-		return (((isbnLibro_1.getText().toString().length() <= 13) || (isbnLibro_1
+		return (((isbnLibro_1.getText().toString().length() <= 13) && (isbnLibro_1
 				.getText().toString().length() > 9))
-				&& ((tituloLibro.getText().length() < 45) || (generoLibro
+				&& ((tituloLibro.getText().length() < 45) && (tituloLibro
 						.getText().length() > 0))
-				&& ((generoLibro.getText().length() < 45) || (generoLibro
+				&& ((generoLibro.getText().length() < 45) && (generoLibro
 						.getText().length() > 0))
-				&& ((editorialLibro.getText().length() < 45) || (editorialLibro
+				&& ((editorialLibro.getText().length() < 45) && (editorialLibro
 						.getText().length() > 0))
-				&& ((idiomaLibro.getText().length() < 45) || (idiomaLibro
+				&& ((idiomaLibro.getText().length() < 45) && (idiomaLibro
 						.getText().length() > 0))
 				&& (((Double) precioLibro.getValue())
 						.compareTo(new Double("0")) >= 0) && (autorLibro
