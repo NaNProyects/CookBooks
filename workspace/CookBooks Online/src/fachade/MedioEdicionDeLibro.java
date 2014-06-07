@@ -334,8 +334,8 @@ public class MedioEdicionDeLibro extends JPanel {
 
 	private boolean ValidarLibro() {
 
-		return (((ValidadISBN() && ValidadTitulo() && ValidadGenero()
-				&& ValidadEditorial() && ValidadIdioma() && ValidadPrecio() && ValidadAutor())));
+		return (((ValidadISBN() & ValidadTitulo() & ValidadGenero()
+				& ValidadEditorial() & ValidadIdioma() & ValidadPrecio() & ValidadAutor())));
 
 	}
 
