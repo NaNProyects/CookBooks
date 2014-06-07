@@ -64,7 +64,7 @@ public class Autor implements Cargable {
 		} catch (SQLException e) {
 			if (e.getErrorCode() == 1062) {
 				throw new SQLException(
-						"ERROR: Ya existe un autor con ese nombre");
+						"Ya existe un autor con ese nombre");
 			}
 			throw e;
 		}

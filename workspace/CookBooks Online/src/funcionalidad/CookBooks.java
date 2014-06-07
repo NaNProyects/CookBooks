@@ -123,7 +123,7 @@ public class CookBooks {
 			autor.guardarEn(base);
 			return autor;
 		} catch (SQLException e) {
-			if (e.getMessage().startsWith("ERROR: Ya existe")) {
+			if (e.getMessage().startsWith("Ya existe")) {
 				throw new Exception(e.getMessage());
 			} else {
 				throw new Exception("Ocurrió un error");

@@ -160,7 +160,7 @@ public class Libro implements Cargable {
 		} catch (SQLException e) {
 			if (e.getErrorCode() == 1062) {
 				throw new SQLException(
-						"ERROR: Ya existe un libro con ese isbn");
+						"Ya existe un libro con ese isbn");
 			}
 			throw e;
 		}

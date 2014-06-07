@@ -156,7 +156,7 @@ public class Usuario implements Cargable {
 		} catch (SQLException e) {
 			if (e.getErrorCode() == 1062) {
 				throw new SQLException(
-						"ERROR: Ya existe un usuario con ese mail/dni");
+						"Ya existe un usuario con ese mail/dni");
 			}
 			throw e;
 		}
