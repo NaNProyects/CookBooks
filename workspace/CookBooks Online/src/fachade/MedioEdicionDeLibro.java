@@ -64,7 +64,7 @@ public class MedioEdicionDeLibro extends JPanel {
 	 */
 	public MedioEdicionDeLibro(Interface inside2) {
 		this(inside2, new Libro("0", "Titulo", null, "genero", "editorial",
-				"idioma", "reseña", "vistaso", new Double(-1)));
+				"idioma", "reseña", "vistaso", new Double(-1.11)));
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -101,21 +101,8 @@ public class MedioEdicionDeLibro extends JPanel {
 		;
 		isbnLibro_1.setText(libro.getIsbn().toString());
 		isbnLibro_1.addFocusListener(new FocusAdapter() {
-			public void focusLost(FocusEvent e) {// REVISAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				labelErrores.setText(labelErrores.getText().replaceAll(
-						"El ISBN debe tener entre 10 y 13 digitos /n"
-								.replaceAll("/n",
-										System.getProperty("line.separator")),
-						""));
-				if ((isbnLibro_1.getText().toString().length() > 13)
-						|| (isbnLibro_1.getText().toString().length() <= 9)) {
-					labelErrores.setText(labelErrores
-							.getText()
-							.concat("El ISBN debe tener entre 10 y 13 digitos /n")
-							.replaceAll("/n",
-									System.getProperty("line.separator")));
-					labelErrores.setVisible(true);
-				}
+			public void focusLost(FocusEvent e) {
+				ValidadISBN();
 			}
 		});
 
@@ -130,21 +117,7 @@ public class MedioEdicionDeLibro extends JPanel {
 		tituloLibro = new JTextField();
 		tituloLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
-				labelErrores.setText(labelErrores.getText().replaceAll(
-						"El Titulo debe tener entre 0 y 45 caracteres /n"
-								.replaceAll("/n",
-										System.getProperty("line.separator")),
-						""));
-				if ((tituloLibro.getText().length() >= 45)
-						|| (tituloLibro.getText().length() <= 0)) {
-
-					labelErrores.setText(labelErrores
-							.getText()
-							.concat("El Titulo debe tener entre 0 y 45 caracteres /n")
-							.replaceAll("/n",
-									System.getProperty("line.separator")));
-					labelErrores.setVisible(true);
-				}
+				ValidadTitulo();
 			}
 		});
 		tituloLibro.setText(libro.getTitulo());
@@ -162,6 +135,12 @@ public class MedioEdicionDeLibro extends JPanel {
 		add(tituloLibro);
 
 		autorLibro = new JComboBox<String>();
+		autorLibro.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				ValidadAutor();
+			}
+		});
 		autorLibro.setModel(new DefaultComboBoxModel(
 				NombresAutores(inside.contexto.autores())));
 		autorLibro.setBounds(108, 119, 184, 20);
@@ -171,21 +150,7 @@ public class MedioEdicionDeLibro extends JPanel {
 		generoLibro = new JTextField();
 		generoLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
-				labelErrores.setText(labelErrores.getText().replaceAll(
-						"El Genero debe tener entre 0 y 45 caracteres /n"
-								.replaceAll("/n",
-										System.getProperty("line.separator")),
-						""));
-				if ((generoLibro.getText().length() >= 45)
-						|| (generoLibro.getText().length() <= 0)) {
-
-					labelErrores.setText(labelErrores
-							.getText()
-							.concat("El Genero debe tener entre 0 y 45 caracteres /n")
-							.replaceAll("/n",
-									System.getProperty("line.separator")));
-					labelErrores.setVisible(true);
-				}
+				ValidadGenero();
 			}
 		});
 		generoLibro.setText(libro.getGenero());
@@ -196,21 +161,7 @@ public class MedioEdicionDeLibro extends JPanel {
 		editorialLibro = new JTextField();
 		editorialLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
-				labelErrores.setText(labelErrores.getText().replaceAll(
-						"La Editorial debe tener entre 0 y 45 caracteres /n"
-								.replaceAll("/n",
-										System.getProperty("line.separator")),
-						""));
-				if ((editorialLibro.getText().length() >= 45)
-						|| (editorialLibro.getText().length() <= 0)) {
-
-					labelErrores.setText(labelErrores
-							.getText()
-							.concat("La Editorial debe tener entre 0 y 45 caracteres /n")
-							.replaceAll("/n",
-									System.getProperty("line.separator")));
-					labelErrores.setVisible(true);
-				}
+				ValidadEditorial();
 			}
 		});
 		editorialLibro.setText(libro.getEditorial());
@@ -220,21 +171,7 @@ public class MedioEdicionDeLibro extends JPanel {
 		idiomaLibro = new JTextField();
 		idiomaLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
-				labelErrores.setText(labelErrores.getText().replaceAll(
-						"El idioma debe tener entre 0 y 45 caracteres /n"
-								.replaceAll("/n",
-										System.getProperty("line.separator")),
-						""));
-				if ((idiomaLibro.getText().length() >= 45)
-						|| (idiomaLibro.getText().length() <= 0)) {
-
-					labelErrores.setText(labelErrores
-							.getText()
-							.concat("El idioma debe tener entre 0 y 45 caracteres /n")
-							.replaceAll("/n",
-									System.getProperty("line.separator")));
-					labelErrores.setVisible(true);
-				}
+				ValidadIdioma();
 			}
 		});
 		idiomaLibro.setText(libro.getIdioma());
@@ -247,22 +184,9 @@ public class MedioEdicionDeLibro extends JPanel {
 				try {
 					precioLibro.commitEdit();
 				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				labelErrores.setText(labelErrores.getText().replaceAll(
-						"El Precio debe ser mayor a 0 /n".replaceAll("/n",
-								System.getProperty("line.separator")), ""));
-				if (((Double) precioLibro.getValue())
-						.compareTo(new Double("0")) < 0) {
-
-					labelErrores.setText(labelErrores
-							.getText()
-							.concat("El Precio debe ser mayor a 0 /n")
-							.replaceAll("/n",
-									System.getProperty("line.separator")));
-					labelErrores.setVisible(true);
-				}
+				ValidadPrecio();
 
 			}
 		});
@@ -275,7 +199,7 @@ public class MedioEdicionDeLibro extends JPanel {
 		add(reseñaLibro);
 
 		vistasoLibro = new JTextPane();
-		vistasoLibro.setText("vistazo");
+		vistasoLibro.setText(libro.getVistaso());
 		vistasoLibro.setBounds(375, 307, 503, 266);
 		add(vistasoLibro);
 
@@ -328,7 +252,7 @@ public class MedioEdicionDeLibro extends JPanel {
 		confirmar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				Boolean error;
-				if (ValidarCampos()) {
+				if (ValidarLibro()) {
 					libro.setIsbn((isbnLibro_1.getText().replaceAll("-", "")));
 					libro.setTitulo((String) tituloLibro.getText());
 					libro.setAutor((String) autorLibro.getSelectedItem());
@@ -342,6 +266,12 @@ public class MedioEdicionDeLibro extends JPanel {
 								vistasoLibro.getDocument().getLength()));
 					} catch (BadLocationException e1) {
 
+						e1.printStackTrace();
+					}
+					try {
+						libro.setVistaso(vistasoLibro.getDocument().getText(0,
+								vistasoLibro.getDocument().getLength()));
+					} catch (BadLocationException e1) {
 						e1.printStackTrace();
 					}
 					libro.setPrecio(((Double) precioLibro.getValue())
@@ -400,20 +330,11 @@ public class MedioEdicionDeLibro extends JPanel {
 
 	}
 
-	private boolean ValidarCampos() {
-		return (((isbnLibro_1.getText().toString().length() <= 13) && (isbnLibro_1
-				.getText().toString().length() > 9))
-				&& ((tituloLibro.getText().length() < 45) && (tituloLibro
-						.getText().length() > 0))
-				&& ((generoLibro.getText().length() < 45) && (generoLibro
-						.getText().length() > 0))
-				&& ((editorialLibro.getText().length() < 45) && (editorialLibro
-						.getText().length() > 0))
-				&& ((idiomaLibro.getText().length() < 45) && (idiomaLibro
-						.getText().length() > 0))
-				&& (((Double) precioLibro.getValue())
-						.compareTo(new Double("0")) >= 0) && (autorLibro
-					.getSelectedIndex() != -1));
+	private boolean ValidarLibro() {
+
+		return (((ValidadISBN() && ValidadTitulo() && ValidadGenero()
+				&& ValidadEditorial() && ValidadIdioma() && ValidadPrecio() && ValidadAutor())));
+
 	}
 
 	private Object[] NombresAutores(LinkedList<Autor> autores) {
@@ -423,4 +344,103 @@ public class MedioEdicionDeLibro extends JPanel {
 		}
 		return nombres.toArray();
 	}
+
+	private Boolean ValidadISBN() {
+		if ((isbnLibro_1.getText().toString().length() <= 13)
+				&& (isbnLibro_1.getText().toString().length() > 9)) {
+			printError("El ISBN debe tener entre 10 y 13 digitos /n", false);
+			return true;
+
+		} else {
+			printError("El ISBN debe tener entre 10 y 13 digitos /n", true);
+			return false;
+		}
+	}
+
+	private Boolean ValidadTitulo() {
+		if ((tituloLibro.getText().length() < 45)
+				&& (tituloLibro.getText().length() > 0)) {
+			printError("El Titulo debe tener entre 0 y 45 caracteres /n", false);
+			return true;
+
+		} else {
+			printError("El Titulo debe tener entre 0 y 45 caracteres /n", true);
+			return false;
+		}
+
+	}
+
+	private Boolean ValidadGenero() {
+		if ((generoLibro.getText().length() < 45)
+				&& (generoLibro.getText().length() > 0)) {
+			printError("El Genero debe tener entre 0 y 45 caracteres /n", false);
+			return true;
+
+		} else {
+			printError("El Genero debe tener entre 0 y 45 caracteres /n", true);
+			return false;
+		}
+	}
+
+	private Boolean ValidadEditorial() {
+		if ((editorialLibro.getText().length() < 45)
+				&& (editorialLibro.getText().length() > 0)) {
+			printError("La Editorial debe tener entre 0 y 45 caracteres /n",
+					false);
+			return true;
+
+		} else {
+			printError("La Editorial debe tener entre 0 y 45 caracteres /n",
+					true);
+			return false;
+		}
+
+	}
+
+	private Boolean ValidadIdioma() {
+		if ((idiomaLibro.getText().length() < 45)
+				&& (idiomaLibro.getText().length() > 0)) {
+			printError("El idioma debe tener entre 0 y 45 caracteres /n", false);
+
+			return true;
+
+		} else {
+			printError("El idioma debe tener entre 0 y 45 caracteres /n", true);
+			return false;
+		}
+
+	}
+
+	private Boolean ValidadAutor() {
+		if (autorLibro.getSelectedIndex() != -1) {
+			return true;
+
+		} else {
+			printError("Debe selecionar un Autor", true);
+			return false;
+		}
+	}
+
+	private Boolean ValidadPrecio() {
+		if (((Double) precioLibro.getValue()).compareTo(new Double("0")) >= 0) {
+			printError("El Precio debe ser mayor a 0 /n", false);
+			return true;
+
+		} else {
+			printError("El Precio debe ser mayor a 0 /n", true);
+			return false;
+		}
+	}
+
+	private void printError(String texto, Boolean condicion) {
+		labelErrores.setText(labelErrores.getText().replaceAll(
+				texto.replaceAll("/n", System.getProperty("line.separator")),
+				""));
+		if (condicion) {
+			labelErrores.setText(labelErrores.getText().concat(texto)
+					.replaceAll("/n", System.getProperty("line.separator")));
+			labelErrores.setVisible(true);
+		}
+	}
+
 }
