@@ -39,7 +39,6 @@ public class MedioListaDeAutores extends JPanel {
 	private JScrollPane scrollPane;
 	private JLabel labelTitulo;
 	private JTextPane labelErrores;
-	private JTextField textField;
 	private JLabel lblBuscarAutor;
 	private JTextField txtBuscarAutor;
 	private JButton botonBuscar;
@@ -259,7 +258,9 @@ public class MedioListaDeAutores extends JPanel {
 			}
 			return null;
 		} catch (Exception e1) {
+
 			throw new Exception("Debe selecionar el Autor a");
+
 
 		}
 	}
