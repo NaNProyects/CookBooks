@@ -426,11 +426,11 @@ public class MedioEdicionDeLibro extends JPanel {
 
 	private Boolean ValidadPrecio() {
 		if ((new Double(precioLibro.getValue().toString()).compareTo(new Double("0")) >= 0)) {
-			printError("El Precio debe ser mayor a 0 /n", false);
+			printError("El Precio debe ser un numero mayor a 0 /n", false);
 			return true;
 
 		} else {
-			printError("El Precio debe ser mayor a 0 /n", true);
+			printError("El Precio debe ser un numero mayor a 0 /n", true);
 			return false;
 		}
 	}
