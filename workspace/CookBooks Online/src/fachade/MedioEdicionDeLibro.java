@@ -276,8 +276,8 @@ public class MedioEdicionDeLibro extends JPanel {
 					} catch (BadLocationException e1) {
 						e1.printStackTrace();
 					}
-					libro.setPrecio(((Double) precioLibro.getValue())
-							.doubleValue());
+					libro.setPrecio((new Double(precioLibro.getValue().toString())
+							.doubleValue()));
 					if (isbnLibro_1.isEditable()) {
 						error = inside.contexto.agregar(libro);
 					} else {
@@ -415,16 +415,17 @@ public class MedioEdicionDeLibro extends JPanel {
 
 	private Boolean ValidadAutor() {
 		if (autorLibro.getSelectedIndex() != -1) {
+			printError("Debe selecionar un Autor /n", false);
 			return true;
 
 		} else {
-			printError("Debe selecionar un Autor", true);
+			printError("Debe selecionar un Autor /n", true);
 			return false;
 		}
 	}
 
 	private Boolean ValidadPrecio() {
-		if (((Double) precioLibro.getValue()).compareTo(new Double("0")) >= 0) {
+		if ((new Double(precioLibro.getValue().toString()).compareTo(new Double("0")) >= 0)) {
 			printError("El Precio debe ser mayor a 0 /n", false);
 			return true;
 
