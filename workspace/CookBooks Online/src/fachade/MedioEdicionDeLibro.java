@@ -21,6 +21,7 @@ import javax.swing.ImageIcon;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -64,7 +65,7 @@ public class MedioEdicionDeLibro extends JPanel {
 	 */
 	public MedioEdicionDeLibro(Interface inside2) {
 		this(inside2, new Libro("0", "Titulo", null, "genero", "editorial",
-				"idioma", "reseña", "vistaso", new Double(-1.11)));
+				"idioma", "reseña", "vistaso", new Double(-1.111111111111111)));
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -178,7 +179,8 @@ public class MedioEdicionDeLibro extends JPanel {
 		idiomaLibro.setBounds(108, 212, 184, 20);
 		add(idiomaLibro);
 
-		precioLibro = new JFormattedTextField(new Double(libro.getPrecio()));
+		precioLibro = new JFormattedTextField(new DecimalFormat("0.00"));
+		precioLibro.setValue(libro.getPrecio());
 		precioLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				try {
