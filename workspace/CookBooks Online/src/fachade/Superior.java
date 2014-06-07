@@ -31,15 +31,15 @@ public class Superior extends JPanel {
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 		
-//		panelLog = new JPanel();		
-//		panelLog.setBackground(new Color(255, 204, 255));
-//		panelLog.setBounds(752, 0, 264, 144);
-//		add(panelLog);
-//		panelLog.setLayout(null);
-//		
-//		JPanel panel = new Login(this);
-//		
-//		panelLog.add(panel);
+		panelLog = new JPanel();		
+		panelLog.setBackground(new Color(255, 204, 255));
+		panelLog.setBounds(752, 0, 264, 144);
+		add(panelLog);
+		panelLog.setLayout(null);
+		
+		JPanel panel = new Login(this);
+		
+		panelLog.add(panel);
 
 		
 		JLabel label = new JLabel("");
@@ -53,29 +53,29 @@ public class Superior extends JPanel {
 		label.setBounds(0, -40, 350, 218);
 		add(label);
 		
-//		txtBusque = new JTextField();
-//		txtBusque.addKeyListener(new KeyAdapter() {
-//			public void keyPressed(KeyEvent e) {
-//				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-//					txtBusque.setText("hola");
-//				   }
-//
-//			}
-//		});
-//		txtBusque.setText("Busque");
-//		txtBusque.setBounds(292, 113, 377, 20);
-//		add(txtBusque);
-//		txtBusque.setColumns(10);
-//		
-//		JButton btnNewButton = new JButton("");
-//		btnNewButton.addMouseListener(new MouseAdapter() {
-//			public void mouseClicked(MouseEvent e) {
-//					txtBusque.setText("hola2");
-//			}
-//		});
-//		btnNewButton.setIcon(new ImageIcon(Superior.class.getResource("/fachade/Image/lupa-icono-3813-16.png")));
-//		btnNewButton.setBounds(677, 113, 36, 23);
-//		add(btnNewButton);
+		txtBusque = new JTextField();
+		txtBusque.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtBusque.setText("hola");
+				   }
+
+			}
+		});
+		txtBusque.setText("Busque");
+		txtBusque.setBounds(292, 113, 377, 20);
+		add(txtBusque);
+		txtBusque.setColumns(10);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+					txtBusque.setText("hola2");
+			}
+		});
+		btnNewButton.setIcon(new ImageIcon(Superior.class.getResource("/fachade/Image/lupa-icono-3813-16.png")));
+		btnNewButton.setBounds(677, 113, 36, 23);
+		add(btnNewButton);
 
 
 	}
