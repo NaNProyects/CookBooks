@@ -89,7 +89,7 @@ public class CookBooks {
 		 * ((aut.nombre().equals(unAutor.nombre())) && (aut.id() !=
 		 * unAutor.id())) { return false; } } return true;
 		 */
-		if (unAutor.id() < 0) { // i told you
+		if (unAutor.id() < 0) { // i told you TODO que?
 			return false;
 		}
 		try {
@@ -108,7 +108,7 @@ public class CookBooks {
 	 * @return objeto autor con id
 	 * @throws Exception
 	 */
-	public Autor agregar(String unNombreAutor) throws Exception {
+	public Autor agregar(String unNombreAutor) throws Exception { //TODO jose pone q resiva un autor para asi poder crearlo pero q no de bola a la id
 		/*
 		 * // Mock temporal Autor aut; for (Iterator<Autor> iterator =
 		 * autores.iterator(); iterator.hasNext();) { aut = (Autor)
@@ -226,7 +226,7 @@ public class CookBooks {
 	 * @param unLibro
 	 * @return si se pudo
 	 */
-	public boolean eliminar(Libro unLibro) {
+	public boolean eliminar(Libro unLibro) { // TODO aca fijate si tiene pedido si podes asi al darle eliminar me tira false si tiene gracias
 		/*
 		 * // Mock lista.remove(unLibro); return true;
 		 */

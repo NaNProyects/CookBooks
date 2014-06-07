@@ -64,8 +64,8 @@ public class MedioEdicionDeLibro extends JPanel {
 	 * @wbp.parser.constructor
 	 */
 	public MedioEdicionDeLibro(Interface inside2) {
-		this(inside2, new Libro("0", "Titulo", null, "genero", "editorial",
-				"idioma", "reseña", "vistaso", new Double(-1.111111111111111)));
+		this(inside2, new Libro("0", "", null, "", "",
+				"", "", "", new Double(0)));
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -83,7 +83,6 @@ public class MedioEdicionDeLibro extends JPanel {
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
 		labelErrores.setBounds(22, 333, 333, 240);
-		labelErrores.setVisible(false);
 		add(labelErrores);
 
 		isbnLibro_1 = new TextField();
@@ -284,14 +283,10 @@ public class MedioEdicionDeLibro extends JPanel {
 						error = inside.contexto.modificar(libro);
 					}
 					if (error) {
+						printError("El ISBN pertenece a un libro existente /n", false);
 						inside.centro(new MedioListaDeLibros(inside));
 					} else {
-						labelErrores.setText(labelErrores
-								.getText()
-								.concat("El ISBN pertenece a un libro existente")
-								.replaceAll("/n",
-										System.getProperty("line.separator")));
-						labelErrores.setVisible(true);
+						printError("El ISBN pertenece a un libro existente /n", true);
 					}
 				}
 			}
