@@ -9,12 +9,14 @@ public class Autor implements Cargable {
 	
 	private Integer id;
 	private String nombre;	
+	private String apellido = "";
 	
 	public Autor() {
 		super();
 	}
 
-	public Autor(Integer id, String nombre) {
+	public Autor(Integer id, String nombre) { //TODO JOSE CAMBIA EL CONSTRUCTOR CUANDO EN LA BASE Y ACA MANEJES EL APELLIDO,
+													//POR AHORA LO MAJENO COMO Q SE INICIE VACIO XD	
 		this.id = id;
 		this.nombre = nombre;
 	}
@@ -109,5 +111,13 @@ public class Autor implements Cargable {
 
 	public ConsultaSelect getBuscador() {
 		return new ConsultaSelect("*","autor","idAutor ="+id);
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 }

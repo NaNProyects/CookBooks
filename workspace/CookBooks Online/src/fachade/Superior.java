@@ -21,6 +21,7 @@ public class Superior extends JPanel {
 	private JTextField txtBusque;
 	private Interface inside;
 	private JPanel panelLog;
+	private JButton botonBuscar;
 
 	/**
 	 * Create the panel.
@@ -67,15 +68,15 @@ public class Superior extends JPanel {
 		add(txtBusque);
 		txtBusque.setColumns(10);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		botonBuscar = new JButton("");
+		botonBuscar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 					txtBusque.setText("hola2");
 			}
 		});
-		btnNewButton.setIcon(new ImageIcon(Superior.class.getResource("/fachade/Image/lupa-icono-3813-16.png")));
-		btnNewButton.setBounds(677, 113, 36, 23);
-		add(btnNewButton);
+		botonBuscar.setIcon(new ImageIcon(Superior.class.getResource("/fachade/Image/lupa-icono-3813-16.png")));
+		botonBuscar.setBounds(677, 113, 36, 23);
+		add(botonBuscar);
 
 
 	}

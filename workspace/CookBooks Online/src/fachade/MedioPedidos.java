@@ -1,6 +1,7 @@
 package fachade;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.text.DateFormat;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -22,6 +23,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+
 @SuppressWarnings("serial")
 public class MedioPedidos extends JPanel {
 	private JTable table;
@@ -32,6 +35,7 @@ public class MedioPedidos extends JPanel {
 	private JButton enviarButton;
 	private JButton btnDetalles;
 	private JScrollPane scrollPane;
+	private JLabel labelTitulo;
 	/**
 	 * Create the panel.
 	 */
@@ -41,6 +45,12 @@ public class MedioPedidos extends JPanel {
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 
+		labelTitulo = DefaultComponentFactory.getInstance().createTitle(
+				"Listado de Pedidos");
+		labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 20));
+		labelTitulo.setBounds(22, 10, 200, 50);
+		add(labelTitulo);
+		
 		table = new JTable();
 		table.setAutoCreateRowSorter(true);
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
@@ -72,7 +82,7 @@ public class MedioPedidos extends JPanel {
 		add(table);
 
 		scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(24, 19, 812, 501);
+		scrollPane.setBounds(24, 78, 812, 442);
 		add(scrollPane);
 		
 		botonEnviar = new JLabel("Enviar");

@@ -42,7 +42,7 @@ public class Lateral extends JPanel {
 		botonAutores.setPreferredSize(new Dimension(96, 23));
 		botonAutores.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				inside.centro(new MedioAutores(inside));
+				inside.centro(new MedioListaDeAutores(inside));
 				
 			}
 		});
