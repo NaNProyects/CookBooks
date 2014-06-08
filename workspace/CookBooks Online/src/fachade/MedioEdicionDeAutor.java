@@ -43,7 +43,7 @@ public class MedioEdicionDeAutor extends JPanel {
 	 * @wbp.parser.constructor
 	 */
 	public MedioEdicionDeAutor(Interface inside2, MedioListaDeAutores listaDeAutores) {
-		this(inside2,listaDeAutores, new Autor(0, "")); //TODO ACA FALTA EL APELLIDO CUANDO LO PONGAS
+		this(inside2,listaDeAutores, new Autor(0, "", "")); //TODO ->puse un blanco en el apellido esta bien?
 	}
 
 
@@ -116,7 +116,7 @@ public class MedioEdicionDeAutor extends JPanel {
 				if (ValidarAutor()) {	
 					if (autor.id()==0) {
 						try {
-							inside.contexto.agregar(autor.nombre());
+							inside.contexto.agregar(autor); //TODO cambie los parametros
 						} catch (Exception e1) {
 							printError(e1.getMessage().concat(" /n"), true);
 						}

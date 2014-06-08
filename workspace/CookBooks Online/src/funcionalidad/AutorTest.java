@@ -27,21 +27,21 @@ public class AutorTest {
 
 	@Before
 	public void setUp() throws Exception {
-		ConsultaSelect sel1 = new ConsultaSelect("apNom", "autor",
-				"apNom = 'AUTOR Demo'");
+		ConsultaSelect sel1 = new ConsultaSelect("idAutor", "autor",
+				"nombre = 'AUTOR' and apellido = 'Demo'");
 		ConsultaSelect sel2 = new ConsultaSelect("*", "(" + sel1 + ") as tmp");
-		ConsultaDelete del = new ConsultaDelete("autor", "apNom IN (" + sel2
+		ConsultaDelete del = new ConsultaDelete("autor", "idAutor IN (" + sel2
 				+ ")");
 		cookbooks.ejecutar(del);
-		autor1 = new Autor(-1, "AUTOR Demo");
+		autor1 = new Autor(-1, "AUTOR", "Demo");
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		ConsultaSelect sel1 = new ConsultaSelect("apNom", "autor",
-				"apNom = 'AUTOR Demo'");
+		ConsultaSelect sel1 = new ConsultaSelect("idAutor", "autor",
+				"nombre = 'AUTOR' and apellido = 'Demo'");
 		ConsultaSelect sel2 = new ConsultaSelect("*", "(" + sel1 + ") as tmp");
-		ConsultaDelete del = new ConsultaDelete("autor", "apNom IN (" + sel2
+		ConsultaDelete del = new ConsultaDelete("autor", "idAutor IN (" + sel2
 				+ ")");
 		try {
 			cookbooks.ejecutar(del);
@@ -59,10 +59,10 @@ public class AutorTest {
 	@Test
 	public void testCargarCon() {
 		try { // setup
-			autor1 = new Autor(-1, "AUTOR Demo2");
+			autor1 = new Autor(-1, "AUTOR", "Demo2");
 			lista1.add(autor1);
 			autor1.guardarEn(cookbooks);
-			autor1 = new Autor(-1, "AUTOR Demo3");
+			autor1 = new Autor(-1, "AUTOR", "Demo3");
 			lista1.add(autor1);
 			autor1.guardarEn(cookbooks);
 		} catch (SQLException e) {
@@ -73,7 +73,7 @@ public class AutorTest {
 
 		try {
 			ConsultaSelect sel = new ConsultaSelect("*", "autor",
-					"apNom LIKE 'AUTOR Demo%'");
+					"apellido LIKE 'Demo%'");
 			cookbooks.ejecutar(sel);
 
 			lista2.addAll((Collection<? extends Autor>) cookbooks
@@ -151,7 +151,7 @@ public class AutorTest {
 		 */
 
 		try {
-			autor2 = new Autor(-1, "AUTOR Demo");
+			autor2 = new Autor(-1, "AUTOR", "Demo");
 			autor2.guardarEn(cookbooks);
 			fail("el autor no se puede guardar dos veces");
 		} catch (SQLException e) {

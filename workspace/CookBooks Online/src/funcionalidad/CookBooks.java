@@ -21,9 +21,9 @@ public class CookBooks {
 
 	@SuppressWarnings("unused")
 	private static void IniciarAutores() {
-		autores.add(new Autor(0, "pepe"));
-		autores.add(new Autor(1, "sssss"));
-		autores.add(new Autor(2, "sssss2"));
+		autores.add(new Autor(0, "pepe", "a"));
+		autores.add(new Autor(1, "sssss", "a"));
+		autores.add(new Autor(2, "sssss2", "a"));
 
 	}
 
@@ -36,7 +36,7 @@ public class CookBooks {
 	}
 
 	/**
-	 * TODO Está feito que esté acá la pass peeeero MySQLNonTransientException 
+	 * Está feito que esté acá la pass peeeero MySQLNonTransientException 
 	 * Por compatibilidad no tira excepción... todavía
 	 * 
 	 * @throws Exception
@@ -89,7 +89,7 @@ public class CookBooks {
 		 * ((aut.nombre().equals(unAutor.nombre())) && (aut.id() !=
 		 * unAutor.id())) { return false; } } return true;
 		 */
-		if (unAutor.id() < 0) { // i told you TODO que?
+		if (unAutor.id() < 0) { // i told you TODO que? ->no puedo actualizar si no viene con id cargado, eso nomas xd
 			return false;
 		}
 		try {
@@ -102,13 +102,13 @@ public class CookBooks {
 	}
 
 	/**
-	 * Guarda el autor en la base. Chequea repetidos.
+	 * Guarda el autor en la base. Chequea repetidos. Ignora id.
 	 * 
 	 * @param unNombreAutor
 	 * @return objeto autor con id
 	 * @throws Exception
 	 */
-	public Autor agregar(String unNombreAutor) throws Exception { //TODO jose pone q resiva un autor para asi poder crearlo pero q no de bola a la id
+	public Autor agregar(Autor autor) throws Exception { //TODO listo
 		/*
 		 * // Mock temporal Autor aut; for (Iterator<Autor> iterator =
 		 * autores.iterator(); iterator.hasNext();) { aut = (Autor)
@@ -118,8 +118,8 @@ public class CookBooks {
 		 * autores.add(aut); return aut;
 		 */
 
-		Autor autor = new Autor(-1, unNombreAutor);
 		try {
+			autor.setId(-1);
 			autor.guardarEn(base);
 			return autor;
 		} catch (SQLException e) {

@@ -43,7 +43,7 @@ public class LibroTest {
 		ConsultaDelete del = new ConsultaDelete("libro", "titulo IN (" + sel2
 				+ ")");
 		cookbooks.ejecutar(del);
-		autor1 = new Autor(-1, "AUTOR Demo");
+		autor1 = new Autor(-1, "AUTOR", "Demo");
 		if (autor1.existeEn(cookbooks))
 			autor1.borrarDe(cookbooks);
 		autor1.guardarEn(cookbooks);
