@@ -18,6 +18,7 @@ public class AutorTest {
 	private Autor autor2;
 	private LinkedList<Autor> lista1 = new LinkedList<Autor>();
 	private LinkedList<Autor> lista2 = new LinkedList<Autor>();
+	private Libro libro1;
 	private static Conector cookbooks;
 
 	@BeforeClass
@@ -34,10 +35,14 @@ public class AutorTest {
 				+ ")");
 		cookbooks.ejecutar(del);
 		autor1 = new Autor(-1, "AUTOR", "Demo");
+		libro1 = new Libro("000000000001", "LIBRO Demo", autor1, "generoDemo",
+				"editorialDemo", "idiomaDemo", "reseñaDemo", "vistazoDemo", 0.0);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		if (libro1.existeEn(cookbooks))
+			libro1.borrarDe(cookbooks);
 		ConsultaSelect sel1 = new ConsultaSelect("idAutor", "autor",
 				"nombre = 'AUTOR' and apellido = 'Demo'");
 		ConsultaSelect sel2 = new ConsultaSelect("*", "(" + sel1 + ") as tmp");
@@ -131,8 +136,6 @@ public class AutorTest {
 			fail("auch. " + e.getMessage());
 		}
 
-		
-
 		try {
 			cookbooks.ejecutar(autor1.getBuscador());
 			lista1 = new LinkedList<Autor>(
@@ -216,6 +219,16 @@ public class AutorTest {
 					autor1.existeEn(cookbooks));
 		} catch (SQLException e) {
 			fail("auch. " + e.getMessage());
+		}
+
+		try {
+			autor1 = new Autor(-1, "AUTOR", "Demo");
+			autor1.guardarEn(cookbooks);
+			libro1.guardarEn(cookbooks); // tiene a este autor
+			autor1.borrarDe(cookbooks);
+			fail("Si tiene libros no se puede borrar");
+		} catch (Exception e) {
+			// OK
 		}
 	}
 

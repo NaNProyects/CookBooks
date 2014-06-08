@@ -2,6 +2,10 @@ package utilsSQL;
 
 import java.util.*;
 
+/**
+ * Representa una consulta SQL de tipo insert.
+ * @author Mokocchi
+ */
 public class ConsultaInsert extends ConsultaABM {
 
 	private ArrayList<String> valores = new ArrayList<String>();

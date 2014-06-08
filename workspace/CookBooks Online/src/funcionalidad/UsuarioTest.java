@@ -270,6 +270,7 @@ public class UsuarioTest {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testBorrarDe() {
 		try {
@@ -298,6 +299,19 @@ public class UsuarioTest {
 					usuario1.existeEn(cookbooks));
 		} catch (SQLException e) {
 			fail("auch. " + e.getMessage());
+		}
+		
+		try { // TODO reemplazar por un pedido temporal
+			ConsultaSelect sel = new ConsultaSelect("*",
+					"usuario inner join Pedido", "idUsuario = 3");
+			cookbooks.ejecutar(sel);
+			lista1 = new LinkedList<Usuario>(
+					(Collection<? extends Usuario>) cookbooks
+							.iterarUn(Usuario.class));
+			lista1.element().borrarDe(cookbooks);
+			fail("Si esta en un pedido no se puede borrar");
+		} catch (Exception e) {
+			// OK
 		}
 	}
 

@@ -2,6 +2,10 @@ package utilsSQL;
 
 import java.sql.SQLException;
 
+/**
+ * Representa una consulta SQL que posiblemente modificará una tabla
+ * @author Mokocchi
+ */
 public class ConsultaABM extends ConsultaSQL {
 
 	public ConsultaABM(String tabla) {

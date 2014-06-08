@@ -4,18 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import utilsSQL.Cargable;
-import utilsSQL.Conector;
-import utilsSQL.ConsultaABM;
-import utilsSQL.ConsultaDelete;
-import utilsSQL.ConsultaInsert;
-import utilsSQL.ConsultaSelect;
-import utilsSQL.ConsultaUpdate;
+import utilsSQL.*;
 
 public class Libro implements Cargable {
 	private String isbn;
 	private String titulo;
-	private String autor; // pasar a objeto autor ?
+	private Autor autor; // TODO OJO, que al reusar autores no caguemos los
+							// libros -> copia?
 	private String genero;
 	private String editorial;
 	private String idioma;
@@ -26,7 +21,7 @@ public class Libro implements Cargable {
 	public Libro() {
 	}
 
-	public Libro(String isbn, String titulo, String autor, String genero,
+	public Libro(String isbn, String titulo, Autor autor, String genero,
 			String editorial, String idioma, String reseña, String vistaso,
 			Double precio) {
 		super();
@@ -58,11 +53,15 @@ public class Libro implements Cargable {
 	}
 
 	public String getAutor() {
-		return autor;
+		return autor.nombre() + " " + autor.getApellido(); // TODO te los
+															// devuelve
+															// concatenados por
+															// ahora
 	}
 
-	public void setAutor(String autor) {
-		this.autor = autor;
+	public void setAutor(String autor) { // TODO aca ya no se que hacer la
+											// verdad xD
+		this.autor = new Autor(-1, autor, "");
 	}
 
 	public String getGenero() {
@@ -116,14 +115,16 @@ public class Libro implements Cargable {
 	public ConsultaSelect getBuscador() {
 		return new ConsultaSelect("*",
 				"libro inner join autor on autor = idAutor", "isbn = '"
-						+ this.getIsbn()+"'");
+						+ this.getIsbn() + "'");
 	}
 
 	public void guardarEn(Conector base) throws SQLException {
 		try {
 			ConsultaABM cons;
-			String subconsultaAutor = "(select idAutor from autor where apNom = '"
-					+ autor + "')";
+			String subconsultaAutor = "(select idAutor from autor where nombre = '"
+					+ autor.nombre()
+					+ "' and apellido = '"
+					+ autor.getApellido() + "')";
 			ArrayList<String> atributos = new ArrayList<String>();
 			atributos.add("isbn");
 			atributos.add("titulo");
@@ -148,7 +149,7 @@ public class Libro implements Cargable {
 				cons = new ConsultaInsert("libro", atributos, valores);
 			} else { // si termina en ! viene modificado
 				isbn = isbn.replace("!", "");
-				valores.set(0, "'" + isbn +"'"); 
+				valores.set(0, "'" + isbn + "'");
 				cons = new ConsultaUpdate("libro", atributos, valores,
 						"isbn IN ("
 								+ new ConsultaSelect("*", "("
@@ -159,8 +160,7 @@ public class Libro implements Cargable {
 			base.ejecutar(cons);
 		} catch (SQLException e) {
 			if (e.getErrorCode() == 1062) {
-				throw new SQLException(
-						"Ya existe un libro con ese isbn");
+				throw new SQLException("Ya existe un libro con ese isbn");
 			}
 			throw e;
 		}
@@ -170,7 +170,10 @@ public class Libro implements Cargable {
 		try {
 			isbn = iterador.getString("isbn");
 			titulo = iterador.getString("titulo");
-			autor = iterador.getString("apNom");
+			String nombre = (iterador.getString("nombre"));
+			String apellido = (iterador.getString("apellido"));
+			autor = new Autor(-1, nombre, apellido); // TODO internamente maneja
+														// un autor
 			genero = iterador.getString("genero");
 			editorial = iterador.getString("editorial");
 			idioma = iterador.getString("idioma");
@@ -186,15 +189,20 @@ public class Libro implements Cargable {
 	}
 
 	public void borrarDe(Conector base) throws SQLException {
-		ConsultaSelect sel1 = new ConsultaSelect("isbn", "libro", "isbn = '"
-				+ isbn + "'");
-		ConsultaSelect sel2 = new ConsultaSelect("*", "(" + sel1 + ") as tmp");
-		ConsultaDelete del = new ConsultaDelete("libro", "isbn IN (" + sel2
-				+ ")");
-		if (this.existeEn(base)) {
-			base.ejecutar(del);
+		if (!esBorrableDe(base)) {
+			throw new SQLException("El libro tiene pedidos");
 		} else {
-			throw new SQLException("El elemento no existe");
+			if (!this.existeEn(base)) {
+				throw new SQLException("El elemento no existe");
+			} else {
+				ConsultaSelect sel1 = new ConsultaSelect("isbn", "libro",
+						"isbn = '" + isbn + "'");
+				ConsultaSelect sel2 = new ConsultaSelect("*", "(" + sel1
+						+ ") as tmp");
+				ConsultaDelete del = new ConsultaDelete("libro", "isbn IN ("
+						+ sel2 + ")");
+				base.ejecutar(del);
+			}
 		}
 		if (this.existeEn(base)) {
 			throw new SQLException("El elemento no se pudo borrar");
@@ -216,8 +224,20 @@ public class Libro implements Cargable {
 			return false;
 	}
 
-	public void terminar() {
+	public void terminarCarga() {
 		// por ahora no es necesario
+	}
+
+	/*
+	 * (non-Javadoc) Un libro no se puede borrar si está en un pedido
+	 * 
+	 * @see utilsSQL.Cargable#esBorrableDe(utilsSQL.Conector)
+	 */
+	public boolean esBorrableDe(Conector base) throws SQLException {
+		ConsultaSelect select = new ConsultaSelect("count(*)",
+				"libro inner join libroPedido", "ISBN = '" + isbn + "'");
+		base.ejecutar(select);
+		return (base.getFirstInt() != 0);
 	};
 
 }

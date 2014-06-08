@@ -47,6 +47,14 @@ public class Autor implements Cargable {
 
 	}
 
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
 	public void cargarCon(ResultSet iterador) throws SQLException {
 		this.id = iterador.getInt("idAutor");
 		this.nombre = iterador.getString("nombre");
@@ -67,15 +75,14 @@ public class Autor implements Cargable {
 				cons = new ConsultaInsert("autor", atr, vals);
 				base.ejecutar(cons);
 				base.ejecutar(new ConsultaSelect("idAutor", "autor",
-						"nombre = '" + nombre + "' and apellido = '" + apellido + "'"));
+						"nombre = '" + nombre + "' and apellido = '" + apellido
+								+ "'"));
 				this.id = base.getFirstInt();
 			} else {
-				cons = new ConsultaUpdate("autor", atr, vals,
-						"idAutor IN ("
-								+ new ConsultaSelect("*", "("
-										+ new ConsultaSelect("idAutor",
-												"autor", "idAutor = " + id)
-										+ ") as tmp") + ")");
+				cons = new ConsultaUpdate("autor", atr, vals, "idAutor IN ("
+						+ new ConsultaSelect("*", "("
+								+ new ConsultaSelect("idAutor", "autor",
+										"idAutor = " + id) + ") as tmp") + ")");
 				base.ejecutar(cons);
 			}
 		} catch (SQLException e) {
@@ -87,16 +94,22 @@ public class Autor implements Cargable {
 	}
 
 	public void borrarDe(Conector base) throws SQLException {
-		ConsultaSelect sel1 = new ConsultaSelect("idAutor", "autor",
-				"nombre = '"+nombre+"' and apellido = '"+apellido+"'");
-		ConsultaSelect sel2 = new ConsultaSelect("*", "(" + sel1 + ") as tmp");
-		ConsultaDelete del = new ConsultaDelete("autor", "idAutor IN (" + sel2
-				+ ")");
-		if (this.existeEn(base)) {
-			base.ejecutar(del);
+		if (!esBorrableDe(base)) {
+			throw new SQLException("El autor posee libros");
 		} else {
-			throw new SQLException("El elemento no existe");
-		}
+			if (!this.existeEn(base)) {
+				throw new SQLException("El elemento no existe");
+			} else {
+			ConsultaSelect sel1 = new ConsultaSelect("idAutor", "autor",
+					"nombre = '" + nombre + "' and apellido = '" + apellido
+							+ "'");
+			ConsultaSelect sel2 = new ConsultaSelect("*", "(" + sel1
+					+ ") as tmp");
+			ConsultaDelete del = new ConsultaDelete("autor", "idAutor IN ("
+					+ sel2 + ")");
+				base.ejecutar(del); //puede tirar un error X
+			}
+		} 
 		if (this.existeEn(base)) {
 			throw new SQLException("El elemento no se pudo borrar");
 		}
@@ -104,7 +117,7 @@ public class Autor implements Cargable {
 
 	public boolean existeEn(Conector base) throws SQLException {
 		ConsultaSelect select = new ConsultaSelect("count(*)", "autor",
-				"nombre = '"+nombre+"' and apellido = '"+apellido+"'");
+				"nombre = '" + nombre + "' and apellido = '" + apellido + "'");
 		base.ejecutar(select);
 		return (base.getFirstInt() != 0);
 	}
@@ -119,7 +132,7 @@ public class Autor implements Cargable {
 		}
 	}
 
-	public void terminar() {
+	public void terminarCarga() {
 		// por ahora no es necesario
 	}
 
@@ -127,11 +140,23 @@ public class Autor implements Cargable {
 		return new ConsultaSelect("*", "autor", "idAutor =" + id);
 	}
 
-	public String getApellido() {
-		return apellido;
+	/**
+	 * @return @ConsultaSelect para buscar en la base todos los objetos de la
+	 *         clase
+	 */
+	public static ConsultaSelect getBuscadorTodos() {
+		return new ConsultaSelect("*", "autor");
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	/*
+	 * (non-Javadoc) Un autor no se puede borrar si tiene algún libro
+	 * 
+	 * @see utilsSQL.Cargable#esBorrable()
+	 */
+	public boolean esBorrableDe(Conector base) throws SQLException {
+		ConsultaSelect select = new ConsultaSelect("count(*)",
+				"autor inner join libro", "idAutor = " + id);
+		base.ejecutar(select);
+		return (base.getFirstInt() != 0);
 	}
 }

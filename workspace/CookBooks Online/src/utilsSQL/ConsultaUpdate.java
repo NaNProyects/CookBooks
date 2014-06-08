@@ -1,6 +1,10 @@
 package utilsSQL;
 import java.util.*;
 
+/**
+ * Representa una consulta SQL de tipo update.
+ * @author Mokocchi
+ */
 public class ConsultaUpdate extends ConsultaABM {
 	
 	private ArrayList<String> valores = new ArrayList<String>();

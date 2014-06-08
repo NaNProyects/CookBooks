@@ -1,6 +1,7 @@
 package funcionalidad;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -125,7 +126,7 @@ public class Pedido implements Cargable{
 		
 	}
 
-	public void terminar() {
+	public void terminarCarga() {
 		// TODO aca cambia los id por libros posta?
 		idLibros = new LinkedList<Integer>();
 		for (Integer i : idLibros) {
@@ -135,5 +136,10 @@ public class Pedido implements Cargable{
 
 	public ConsultaSelect getBuscador() {
 		return null;
+	}
+
+	public boolean esBorrableDe(Conector base) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

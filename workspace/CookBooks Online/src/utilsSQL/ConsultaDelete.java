@@ -4,8 +4,8 @@
 package utilsSQL;
 
 /**
+ * Representa una consulta SQL de tipo delete.
  * @author Mokocchi
- *
  */
 public class ConsultaDelete extends ConsultaABM {
 

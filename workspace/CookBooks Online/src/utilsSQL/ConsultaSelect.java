@@ -3,6 +3,10 @@ package utilsSQL;
 import java.sql.SQLException;
 import java.util.*;
 
+/**
+ * Representa una consulta SQL de tipo select, con condicion opcional
+ * @author Mokocchi
+ */
 public class ConsultaSelect extends ConsultaSQL {
 
 	private ArrayList<String> atributos = new ArrayList<String>();

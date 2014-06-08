@@ -10,20 +10,19 @@ import utilsSQL.ConsultaSelect;
 
 public class CookBooks {
 
-	// mocks
-	private static LinkedList<Autor> autores = new LinkedList<Autor>();
-	private static LinkedList<Libro> lista = new LinkedList<Libro>();
-
-	// mocks fin
-
 	private Conector base;
 	private Usuario usuario;
 
-	@SuppressWarnings("unused")
+	/* //TODO si no se usa no hago mas cambios aca
+ 	// mocks
+	private static LinkedList<Autor> autores = new LinkedList<Autor>();
+	private static LinkedList<Libro> lista = new LinkedList<Libro>();
+
+	@SuppressWarnings("unused") 
 	private static void IniciarAutores() {
-		autores.add(new Autor(0, "pepe", "a"));
-		autores.add(new Autor(1, "sssss", "a"));
-		autores.add(new Autor(2, "sssss2", "a"));
+		autores.add(new Autor(0, "pepe"));
+		autores.add(new Autor(1, "sssss"));
+		autores.add(new Autor(2, "sssss2"));
 
 	}
 
@@ -34,6 +33,7 @@ public class CookBooks {
 		lista.add(new Libro("11112", "aaaaa2", "sssss2", "ddddd2",
 				"fffff2", "ggggg2", "wwwwwww2", "qqqqqqqqq", new Double(13.30)));
 	}
+	*/
 
 	/**
 	 * Está feito que esté acá la pass peeeero MySQLNonTransientException 
@@ -53,7 +53,7 @@ public class CookBooks {
 
 	/**
 	 * Por ahora es un eliminador drástico. <br>
-	 * Ya se verá con borrado lógico
+	 * Ya se verá con borrado lógico. Chequea e informa si tenía libros.
 	 * 
 	 * @param unAutor
 	 * @return si se pudo
@@ -69,7 +69,7 @@ public class CookBooks {
 		try {
 			unAutor.borrarDe(base);
 			return true;
-		} catch (SQLException e) {
+		} catch (SQLException e) { //TODO aca podes ver si fallo porque ya tenia libros, porque no estaba o fue random
 			return false;
 		}
 
@@ -233,7 +233,7 @@ public class CookBooks {
 		try {
 			unLibro.borrarDe(base);
 			return true;
-		} catch (Exception e) {
+		} catch (Exception e) { //TODO tecnicamente tmb puede fallar por otras cosas, ojo
 			return false;
 		}
 	}

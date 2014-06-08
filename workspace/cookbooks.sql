@@ -1,10 +1,10 @@
-﻿CREATE DATABASE  IF NOT EXISTS `cookbooksbase` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE  IF NOT EXISTS `cookbooksbase` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cookbooksbase`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
 -- Host: localhost    Database: cookbooksbase
 -- ------------------------------------------------------
--- Server version	5.6.15
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,10 +26,11 @@ DROP TABLE IF EXISTS `autor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `autor` (
   `idAutor` int(11) NOT NULL AUTO_INCREMENT,
-  `apNom` varchar(80) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `apellido` varchar(45) NOT NULL,
   PRIMARY KEY (`idAutor`),
-  UNIQUE KEY `apNom_UNIQUE` (`apNom`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `apNom` (`nombre`,`apellido`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +39,7 @@ CREATE TABLE `autor` (
 
 LOCK TABLES `autor` WRITE;
 /*!40000 ALTER TABLE `autor` DISABLE KEYS */;
-INSERT INTO `autor` VALUES (1,'Carmen Valldejuli'),(7,'Cecilia Fassardi'),(5,'Christine Bailey'),(2,'Kristen Feodola'),(3,'Mirta G. Carabajal'),(4,'Petrona c. de Gandulfo'),(6,'Toni Rodriguez');
+INSERT INTO `autor` VALUES (1,'Carmen','Valldejuli'),(7,'Cecilia','Fassardi'),(5,'Christine','Bailey'),(2,'Kristen','Feodola'),(3,'Mirta G.','Carabajal'),(4,'Petrona c.','de Gandulfo'),(6,'Toni','Rodriguez');
 /*!40000 ALTER TABLE `autor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,7 +102,7 @@ CREATE TABLE `libropedido` (
 
 LOCK TABLES `libropedido` WRITE;
 /*!40000 ALTER TABLE `libropedido` DISABLE KEYS */;
-INSERT INTO `libropedido` VALUES (1,1,'882894293'),(2,2,'123456789'),(3,3,'879548481'),(4,4,'888444777'),(5,5,'878987655'),(6,6,'1478523698');
+INSERT INTO `libropedido` VALUES (1,1,'8828942931'),(2,2,'1234567890'),(3,3,'8795484816'),(4,4,'8884447779'),(5,5,'8789876554'),(6,6,'1478523698');
 /*!40000 ALTER TABLE `libropedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,4 +180,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-05 10:02:05
+-- Dump completed on 2014-06-08 18:19:35

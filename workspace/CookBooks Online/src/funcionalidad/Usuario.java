@@ -185,7 +185,7 @@ public class Usuario implements Cargable {
 		return (base.getFirstInt() != 0);
 	}
 
-	public void terminar() {
+	public void terminarCarga() {
 		// por ahora no es necesario
 	}
 
@@ -210,4 +210,16 @@ public class Usuario implements Cargable {
 	public void setId(Integer i) {
 		id = i;
 	}
+
+	/*
+	 * (non-Javadoc) Un usuario no se puede borrar si está en un pedido
+	 * 
+	 * @see utilsSQL.Cargable#esBorrableDe(utilsSQL.Conector)
+	 */
+	public boolean esBorrableDe(Conector base) throws SQLException {
+		ConsultaSelect select = new ConsultaSelect("count(*)",
+				"usuario inner join Pedido", "id = " + id);
+		base.ejecutar(select);
+		return (base.getFirstInt() != 0);
+	};
 }
