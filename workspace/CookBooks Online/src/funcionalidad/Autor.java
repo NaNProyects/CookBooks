@@ -10,20 +10,13 @@ public class Autor implements Cargable {
 
 	private Integer id;
 	private String nombre;
-	private String apellido = "";
+	private String apellido;
 
 	public Autor() {
 		super();
 	}
 
-	public Autor(Integer id, String nombre, String apellido) { // TODO JOSE
-																// CAMBIA EL
-																// CONSTRUCTOR
-																// CUANDO EN LA
-																// BASE Y ACA
-																// MANEJES EL
-																// APELLIDO,
-		// POR AHORA LO MAJENO COMO Q SE INICIE VACIO XD
+	public Autor(Integer id, String nombre, String apellido) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -38,11 +31,11 @@ public class Autor implements Cargable {
 		this.id = id;
 	}
 
-	public void nombre(String unNombre) {
+	public void setNombre(String unNombre) {
 		this.nombre = unNombre;
 	}
 
-	public String nombre() {
+	public String getNombre() {
 		return nombre;
 
 	}

@@ -52,16 +52,12 @@ public class Libro implements Cargable {
 		this.titulo = titulo;
 	}
 
-	public String getAutor() {
-		return autor.nombre() + " " + autor.getApellido(); // TODO te los
-															// devuelve
-															// concatenados por
-															// ahora
+	public Autor getAutor() {
+		return autor;
 	}
 
-	public void setAutor(String autor) { // TODO aca ya no se que hacer la
-											// verdad xD
-		this.autor = new Autor(-1, autor, "");
+	public void setAutor(Autor autor) {
+		this.autor = autor;
 	}
 
 	public String getGenero() {
@@ -122,7 +118,7 @@ public class Libro implements Cargable {
 		try {
 			ConsultaABM cons;
 			String subconsultaAutor = "(select idAutor from autor where nombre = '"
-					+ autor.nombre()
+					+ autor.getNombre()
 					+ "' and apellido = '"
 					+ autor.getApellido() + "')";
 			ArrayList<String> atributos = new ArrayList<String>();

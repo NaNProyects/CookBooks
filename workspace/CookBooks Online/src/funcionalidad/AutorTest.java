@@ -144,7 +144,7 @@ public class AutorTest {
 			autor2 = lista1.element();
 			assertTrue("El id no coincide", autor1.id().equals(autor2.id()));
 			assertTrue("El nobmre no coincide",
-					autor1.nombre().equals(autor2.nombre()));
+					autor1.getNombre().equals(autor2.getNombre()));
 		} catch (Exception e) {
 			fail("auch. " + e.getMessage());
 		}
@@ -165,7 +165,7 @@ public class AutorTest {
 		 * c) si ya esta pero tengo el numero updatea
 		 */
 		try {
-			autor1.nombre("AUTOR DemoC");
+			autor1.setNombre("AUTOR DemoC");
 			autor1.guardarEn(cookbooks);
 			assertTrue("El autor no se cargo", autor1.existeEn(cookbooks));
 			cookbooks.ejecutar(autor1.getBuscador());
@@ -175,7 +175,7 @@ public class AutorTest {
 			autor2 = lista1.element();
 			assertTrue("El id no coincide", autor1.id().equals(autor2.id()));
 			assertTrue("El nobmre no coincide",
-					autor1.nombre().equals(autor2.nombre()));
+					autor1.getNombre().equals(autor2.getNombre()));
 		} catch (SQLException e) {
 			fail("auch. " + e.getMessage());
 		} catch (Exception e) {

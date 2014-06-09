@@ -222,7 +222,7 @@ public class MedioListaDeAutores extends JPanel {
 		};
 		while (iterador.hasNext()) {
 			Autor autor = iterador.next();
-			model.addRow(new String[] { autor.nombre(), autor.getApellido() });
+			model.addRow(new String[] { autor.getNombre(), autor.getApellido() });
 
 		}
 		table.setModel(model);
@@ -233,7 +233,7 @@ public class MedioListaDeAutores extends JPanel {
 		LinkedList<Autor> retorno = new LinkedList<Autor>();
 
 		for (Autor autor : inside.contexto.autores()) {
-			if ((autor.nombre().toLowerCase().contains(txtBuscarAutor.getText()
+			if ((autor.getNombre().toLowerCase().contains(txtBuscarAutor.getText()
 					.toLowerCase()))
 					|| (autor.getApellido().toLowerCase()
 							.contains(txtBuscarAutor.getText().toLowerCase()))) {
@@ -249,7 +249,7 @@ public class MedioListaDeAutores extends JPanel {
 			for (Iterator<Autor> iterator = autores.iterator(); iterator
 					.hasNext();) {
 				Autor iterable_element = iterator.next();
-				if ((iterable_element.nombre() == table.getValueAt(
+				if ((iterable_element.getNombre() == table.getValueAt(
 						table.getSelectedRow(), 0))
 						&& (iterable_element.getApellido() == table.getValueAt(
 								table.getSelectedRow(), 1))) {
@@ -273,7 +273,7 @@ public class MedioListaDeAutores extends JPanel {
 	public Boolean existAutor(Autor unAutor) {
 		for (Autor autor : autores) {
 			if ((autor.id().compareTo(unAutor.id()) != 0)
-					&& (autor.nombre().compareToIgnoreCase(unAutor.nombre()) == 0)
+					&& (autor.getNombre().compareToIgnoreCase(unAutor.getNombre()) == 0)
 					&& (autor.getApellido().compareToIgnoreCase(
 							unAutor.getApellido()) == 0)) {
 				return true;

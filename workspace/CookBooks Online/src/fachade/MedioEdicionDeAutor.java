@@ -66,14 +66,14 @@ public class MedioEdicionDeAutor extends JPanel {
 		add(labelErrores);
 
 		nombreAutor = new TextField();
-		nombreAutor.setText(autor.nombre());
+		nombreAutor.setText(autor.getNombre());
 		nombreAutor.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				validarNombre();
 			}
 		});
 
-		nombreAutor.setText(autor.nombre());
+		nombreAutor.setText(autor.getNombre());
 		nombreAutor.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		nombreAutor.setBounds(108, 57, 184, 20);
 		add(nombreAutor);
@@ -111,7 +111,7 @@ public class MedioEdicionDeAutor extends JPanel {
 		JButton confirmar = new JButton("Confirmar");
 		confirmar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				autor.nombre(nombreAutor.getText());
+				autor.setNombre(nombreAutor.getText());
 				autor.setApellido(apellidoAutor.getText());
 				if (ValidarAutor()) {	
 					if (autor.id()==0) {
