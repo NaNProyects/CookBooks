@@ -49,9 +49,13 @@ public interface Cargable {
 	public boolean existeEn(Conector base) throws SQLException;
 
 	/**
-	 * le da los retoques que no se puede en una pasada (xej listas)
+	 * Le da los retoques que no se puede en una pasada (xej listas)
+	 * <p> Lo termina la base en el método {@link Conector.#iterarUn(Class)}
+	 * <p> No me hago cargo de ninguna excepcion por ahora porque es interno
+	 * @param base 
+	 * @throws Exception 
 	 */
-	public void terminarCarga();
+	public void terminarCargaDe(Conector base) throws Exception;
 
 	/**
 	 * @return {@link ConsultaSelect} para buscar el propio objeto en la base.

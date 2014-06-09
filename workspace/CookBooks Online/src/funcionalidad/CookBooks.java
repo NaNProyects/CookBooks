@@ -5,6 +5,8 @@ import java.security.*;
 import java.sql.SQLException;
 import java.math.BigInteger;
 
+import com.mysql.jdbc.exceptions.MySQLNonTransientException;
+
 import utilsSQL.Conector;
 import utilsSQL.ConsultaSelect;
 
@@ -13,41 +15,19 @@ public class CookBooks {
 	private Conector base;
 	private Usuario usuario;
 
-	/* //TODO si no se usa no hago mas cambios aca
- 	// mocks
-	private static LinkedList<Autor> autores = new LinkedList<Autor>();
-	private static LinkedList<Libro> lista = new LinkedList<Libro>();
-
-	@SuppressWarnings("unused") 
-	private static void IniciarAutores() {
-		autores.add(new Autor(0, "pepe"));
-		autores.add(new Autor(1, "sssss"));
-		autores.add(new Autor(2, "sssss2"));
-
-	}
-
-	@SuppressWarnings("unused")
-	private static void IniciarLibros() {
-		lista.add(new Libro("11111", "aaaaa", "sssss", "ddddd",
-				"fffff", "ggggg", "wwwwwww", "eeeeeeee", new Double(12.30)));
-		lista.add(new Libro("11112", "aaaaa2", "sssss2", "ddddd2",
-				"fffff2", "ggggg2", "wwwwwww2", "qqqqqqqqq", new Double(13.30)));
-	}
-	*/
-
 	/**
-	 * Está feito que esté acá la pass peeeero MySQLNonTransientException 
-	 * Por compatibilidad no tira excepción... todavía
+	 * Está feito que esté acá la pass peeeero MySQLNonTransientException Por
+	 * compatibilidad no tira excepción... todavía
 	 * 
 	 * @throws Exception
 	 *             si no conseguimos conectar con la base. Expirará?
 	 * 
 	 */
-	public CookBooks() {
+	public CookBooks() throws Exception {
 		try {
 			base = new Conector("cookbooksbase", "root", "qwerty");
 		} catch (SQLException e) {
-			// throw new Exception("No se pudo contactar con la base");
+			throw new Exception("No se pudo contactar con la base");
 		}
 	}
 
@@ -57,20 +37,21 @@ public class CookBooks {
 	 * 
 	 * @param unAutor
 	 * @return si se pudo
+	 * @throws Exception
+	 *             si paso algo raro o no se pudo reconectar
 	 */
-	public boolean eliminar(Autor unAutor) {
-		/*
-		 * // Mock para Mock XD if (lista.size() == 0) { IniciarLibros(); } //
-		 * Mock temporal for (Iterator<Libro> iterator = lista.iterator();
-		 * iterator.hasNext();) { Libro lib = (Libro) iterator.next(); if
-		 * (lib.getAutor().equals(unAutor.nombre())) { return false; } }
-		 * autores.remove(unAutor); return true;
-		 */
+	public boolean eliminar(Autor unAutor) throws Exception {
 		try {
 			unAutor.borrarDe(base);
 			return true;
-		} catch (SQLException e) { //TODO aca podes ver si fallo porque ya tenia libros, porque no estaba o fue random
+		} catch (MySQLNonTransientException e) {
+			this.reconectar();
 			return false;
+		} catch (SQLException e) {
+			if (e.getMessage().startsWith("El autor posee libros"))
+				return false;
+			else
+				throw e;
 		}
 
 	}
@@ -81,24 +62,22 @@ public class CookBooks {
 	 * 
 	 * @param unAutor
 	 * @return si se pudo o no
+	 * @throws Exception
+	 *             si hubo un error de reconexion
 	 */
-	public boolean actualizar(Autor unAutor) {
-		/*
-		 * // Mock temporal for (Iterator<Autor> iterator = autores.iterator();
-		 * iterator.hasNext();) { Autor aut = (Autor) iterator.next(); if
-		 * ((aut.nombre().equals(unAutor.nombre())) && (aut.id() !=
-		 * unAutor.id())) { return false; } } return true;
-		 */
-		if (unAutor.id() < 0) { // i told you TODO que? ->no puedo actualizar si no viene con id cargado, eso nomas xd
+	public boolean modificar(Autor unAutor) throws Exception {
+		if (unAutor.id() < 0) {
 			return false;
 		}
 		try {
 			unAutor.guardarEn(base);
 			return true;
+		} catch (MySQLNonTransientException e) {
+			this.reconectar();
+			return false;
 		} catch (SQLException e) {
 			return false;
 		}
-
 	}
 
 	/**
@@ -108,20 +87,14 @@ public class CookBooks {
 	 * @return objeto autor con id
 	 * @throws Exception
 	 */
-	public Autor agregar(Autor autor) throws Exception { //TODO listo
-		/*
-		 * // Mock temporal Autor aut; for (Iterator<Autor> iterator =
-		 * autores.iterator(); iterator.hasNext();) { aut = (Autor)
-		 * iterator.next(); if (aut.nombre().equals(unNombreAutor)) { throw new
-		 * Exception("El Autor ya existe"); } } aut = new Autor((((Autor)
-		 * autores.get(autores.size() - 1)).id()) + 1, unNombreAutor);
-		 * autores.add(aut); return aut;
-		 */
-
+	public Autor agregar(Autor autor) throws Exception {
 		try {
 			autor.setId(-1);
 			autor.guardarEn(base);
 			return autor;
+		} catch (MySQLNonTransientException e) {
+			this.reconectar();
+			return null;
 		} catch (SQLException e) {
 			if (e.getMessage().startsWith("Ya existe")) {
 				throw new Exception(e.getMessage());
@@ -133,49 +106,82 @@ public class CookBooks {
 
 	}
 
+	/**
+	 * @return la lista de todos los autores en la base
+	 * @throws Exception
+	 *             si falla la reconexion
+	 */
 	@SuppressWarnings("unchecked")
-	public LinkedList<Autor> autores() {
-		/*
-		 * // Mock temporal
-		 * 
-		 * if (autores.size() == 0) { IniciarAutores(); } return
-		 * (LinkedList<Autor>) autores.clone();
-		 */
+	public LinkedList<Autor> autores() throws Exception {
 		try {
-			ConsultaSelect sel = new ConsultaSelect("*", "autor");
-			base.ejecutar(sel);
+			base.ejecutar(Autor.getBuscadorTodos());
 			return new LinkedList<Autor>(
 					(Collection<? extends Autor>) base.iterarUn(Autor.class));
+		} catch (MySQLNonTransientException e) {
+			this.reconectar();
+			return new LinkedList<Autor>();
 		} catch (Exception e) {
 			return new LinkedList<Autor>();
 		}
 	}
 
-	public LinkedList<Pedido> pedidos() {
-		return new LinkedList<Pedido>();
-
+	/**
+	 * @return la lista de todos los pedidos en la base
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public LinkedList<Pedido> pedidos() throws Exception {
+		try {
+			base.ejecutar(Pedido.getBuscadorTodos());
+			return new LinkedList<Pedido>(
+					(Collection<? extends Pedido>) base.iterarUn(Pedido.class));
+		} catch (MySQLNonTransientException e) {
+			this.reconectar();
+			return new LinkedList<Pedido>();
+		} catch (Exception e) {
+			return new LinkedList<Pedido>();
+		}
 	}
 
-	public void enviar(Pedido unPedido) {
-
+	/**
+	 * Modifica en la base el estado de un pedido pendiente a enviado
+	 * 
+	 * @param unPedido
+	 * @return si se pudo o no
+	 * @throws Exception
+	 *             si paso algo raro
+	 */
+	public boolean enviar(Pedido unPedido) throws Exception {
+		if (unPedido.nro() < 0) {
+			return false; // no puedo enviar un pedido sin numero
+		}
+		try {
+			unPedido.guardarEn(base); // FIXME todavia no implementado
+			return true;
+		} catch (MySQLNonTransientException e) {
+			this.reconectar();
+			return false;
+		} catch (SQLException e) {
+			if (e.getMessage().startsWith("errorConocido")) {
+				return false;
+			} else {
+				throw new Exception("Ocurrió un error");
+			}
+		}
 	}
 
+	/**
+	 * @return la lista de todos los libros en la base
+	 */
 	@SuppressWarnings("unchecked")
 	public LinkedList<Libro> libros() {
-		ConsultaSelect sel = new ConsultaSelect("*",
-				"libro inner join autor on idAutor = autor");
 		try {
-			base.ejecutar(sel);
+			base.ejecutar(Libro.getBuscadorTodos());
 			return new LinkedList<Libro>(
 					(Collection<? extends Libro>) base.iterarUn(Libro.class));
 		} catch (Exception e) {
 			return new LinkedList<Libro>();
 		}
-		// mock temporal
-		/*
-		 * if (lista.size() == 0) { IniciarLibros(); } return
-		 * (LinkedList<Libro>) lista.clone();
-		 */
 	}
 
 	/**
@@ -183,36 +189,36 @@ public class CookBooks {
 	 * 
 	 * @param unLibro
 	 * @return si se pudo o no
+	 * @throws Exception
 	 */
-	public boolean agregar(Libro unLibro) {
-		/*
-		 * // Mock lista.add(unLibro); return true;
-		 */
+	public boolean agregar(Libro unLibro) throws Exception {
 		try {
 			unLibro.guardarEn(base);
 			return true;
+		} catch (MySQLNonTransientException e) {
+			this.reconectar();
+			return false;
 		} catch (SQLException e) {
 			return false;
 		}
 
 	}
 
-	// el tercero en discordia, apenas se pueda renombrar a
-	// public boolean actualizar(Libro unLibro)
 	/**
 	 * Guarda los datos nuevos del libro en la fila con el mismo isbn
 	 * 
 	 * @param unLibro
 	 * @return si se pudo o no
+	 * @throws Exception
 	 */
-	public boolean modificar(Libro unLibro) {
-		/*
-		 * lista.remove(unLibro); lista.add(unLibro); return true;
-		 */
-		unLibro.setIsbn(unLibro.getIsbn()+"!"); // invertido = modificado
+	public boolean modificar(Libro unLibro) throws Exception {
+		unLibro.setIsbn(unLibro.getIsbn() + "!");
 		try {
 			unLibro.guardarEn(base);
 			return true;
+		} catch (MySQLNonTransientException e) {
+			this.reconectar();
+			return false;
 		} catch (SQLException e) {
 			return false;
 		}
@@ -220,21 +226,24 @@ public class CookBooks {
 	}
 
 	/**
-	 * Por ahora es un eliminador drástico. <br>
-	 * Ya se verá con borrado lógico
+	 * Elimina un libro. Si está en algún pedido no se puede.
 	 * 
 	 * @param unLibro
 	 * @return si se pudo
+	 * @throws Exception 
 	 */
-	public boolean eliminar(Libro unLibro) { // TODO aca fijate si tiene pedido si podes asi al darle eliminar me tira false si tiene gracias
-		/*
-		 * // Mock lista.remove(unLibro); return true;
-		 */
+	public boolean eliminar(Libro unLibro) throws Exception {
 		try {
 			unLibro.borrarDe(base);
 			return true;
-		} catch (Exception e) { //TODO tecnicamente tmb puede fallar por otras cosas, ojo
+		} catch (MySQLNonTransientException e) {
+			this.reconectar();
 			return false;
+		} catch (SQLException e) {
+			if (e.getMessage().startsWith("El libro tiene pedidos"))
+				return false;
+			else
+				throw e;
 		}
 	}
 
@@ -265,9 +274,36 @@ public class CookBooks {
 
 	}
 
-	public boolean autenticar(String mail, String pass) {
-		return false;
-
+	/**
+	 * @param mail
+	 *            el mail de alguien
+	 * @param pass
+	 *            como string sin hashear
+	 * @return true si los datos coinciden
+	 * @throws Exception 
+	 * @throws SQLException
+	 *             si paso algo que espero que no
+	 */
+	@SuppressWarnings("unchecked")
+	public boolean autenticar(String mail, String pass) throws Exception {
+		try {
+			ConsultaSelect sel = new ConsultaSelect("*", "usuario", "email = '"
+					+ mail + "'");
+			base.ejecutar(sel);
+			LinkedList<Usuario> lis = new LinkedList<Usuario>(
+					(Collection<? extends Usuario>) base
+							.iterarUn(Usuario.class));
+			if (lis.size() == 0) {
+				return false; // el mail no existe
+			} else {
+				return chequearContraseña(lis.element(), pass);
+			}
+		} catch (MySQLNonTransientException e) {
+			this.reconectar();
+			return false;
+		} catch (Exception e) {
+			return false; // no se pudo por algun error
+		}
 	}
 
 	public Usuario usuarioActual() {
@@ -280,7 +316,7 @@ public class CookBooks {
 	}
 
 	public boolean chequearContraseña(Usuario unUsuario, String pass) {
-		return false;
+		return unUsuario.getHashPass().equals(getMD5(pass));
 
 	}
 
@@ -293,7 +329,7 @@ public class CookBooks {
 
 	}
 
-	public void actualizar(Usuario unUsuario) {
+	public void modificar(Usuario unUsuario) {
 
 	}
 
@@ -337,9 +373,15 @@ public class CookBooks {
 	/**
 	 * Úsese a discreción en caso de emergencia.
 	 * 
+	 * @throws Exception
+	 * 
 	 * @throws SQLException
 	 */
-	public void reconectar() throws SQLException {
-		base.reconectar();
+	public void reconectar() throws Exception {
+		try {
+			base.reconectar();
+		} catch (SQLException e) {
+			throw new Exception("No se pudo reconectar");
+		}
 	}
 }

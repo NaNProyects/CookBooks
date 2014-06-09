@@ -9,8 +9,7 @@ import utilsSQL.*;
 public class Libro implements Cargable {
 	private String isbn;
 	private String titulo;
-	private Autor autor; // TODO OJO, que al reusar autores no caguemos los
-							// libros -> copia?
+	private Autor autor;
 	private String genero;
 	private String editorial;
 	private String idioma;
@@ -108,6 +107,11 @@ public class Libro implements Cargable {
 		this.idioma = idioma;
 	}
 
+	public static ConsultaSelect getBuscadorTodos() {
+		return new ConsultaSelect("*",
+				"libro inner join autor on autor = idAutor");
+	}
+
 	public ConsultaSelect getBuscador() {
 		return new ConsultaSelect("*",
 				"libro inner join autor on autor = idAutor", "isbn = '"
@@ -166,10 +170,8 @@ public class Libro implements Cargable {
 		try {
 			isbn = iterador.getString("isbn");
 			titulo = iterador.getString("titulo");
-			String nombre = (iterador.getString("nombre"));
-			String apellido = (iterador.getString("apellido"));
-			autor = new Autor(-1, nombre, apellido); // TODO internamente maneja
-														// un autor
+			autor = new Autor();
+			autor.cargarCon(iterador);
 			genero = iterador.getString("genero");
 			editorial = iterador.getString("editorial");
 			idioma = iterador.getString("idioma");
@@ -220,10 +222,6 @@ public class Libro implements Cargable {
 			return false;
 	}
 
-	public void terminarCarga() {
-		// por ahora no es necesario
-	}
-
 	/*
 	 * (non-Javadoc) Un libro no se puede borrar si está en un pedido
 	 * 
@@ -234,6 +232,10 @@ public class Libro implements Cargable {
 				"libro inner join libroPedido", "ISBN = '" + isbn + "'");
 		base.ejecutar(select);
 		return (base.getFirstInt() != 0);
+	}
+
+	public void terminarCargaDe(Conector base) {
+		// por ahora no es necesario
 	};
 
 }

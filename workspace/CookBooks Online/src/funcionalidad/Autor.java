@@ -125,7 +125,7 @@ public class Autor implements Cargable {
 		}
 	}
 
-	public void terminarCarga() {
+	public void terminarCargaDe(Conector base) {
 		// por ahora no es necesario
 	}
 

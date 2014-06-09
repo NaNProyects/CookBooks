@@ -2,6 +2,7 @@ package funcionalidad;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,36 +11,29 @@ import utilsSQL.Cargable;
 import utilsSQL.Conector;
 import utilsSQL.ConsultaSelect;
 
-public class Pedido implements Cargable{
+public class Pedido implements Cargable {
 	private Integer nro;
 	private Date fecha;
 	private Boolean estado;
 	private Double total;
-	private LinkedList<Libro> libros = new LinkedList<Libro>();
-	/**
-	 * para carga parcial en {@link Pedido.cargarCon(unIterador)}
-	 * 
-	 */
-	private LinkedList<Integer> idLibros;
+	private LinkedList<Libro> libros;
 	private Usuario usuario;
-	
+
 	public Pedido(Integer nro, Date fecha, Boolean estado, Double total,
-			List<Libro> libros,
-			Usuario usuario) {
+			List<Libro> libros, Usuario usuario) {
 		super();
 		this.nro = nro;
 		this.fecha = fecha;
 		this.estado = estado;
 		this.total = total;
-		this.libros.addAll(libros);
-//		this.idLibros.addAll(idLibros); TODO rever esto jaja
+		this.libros = new LinkedList<Libro>(libros);
 		this.usuario = usuario;
 	}
 
 	public Pedido() {
 		super();
 	}
-	
+
 	public Pedido(Date fecha, LinkedList<Libro> libros, Usuario usuario) {
 		this.nro = -1;
 		this.fecha = fecha;
@@ -48,10 +42,10 @@ public class Pedido implements Cargable{
 		this.usuario = usuario;
 		this.total = 0.0;
 		for (Libro libro : libros) {
-			total+=libro.getPrecio();
+			total += libro.getPrecio();
 		}
 	}
-	
+
 	public Integer getNro() {
 		return nro;
 	}
@@ -78,68 +72,88 @@ public class Pedido implements Cargable{
 
 	public LinkedList<Libro> libros() {
 		return null;
-	
+
 	}
-	
+
 	public Integer nro() {
 		return nro;
-	
+
 	}
-	
+
 	public Double total() {
 		return total;
-	
+
 	}
-	
+
 	public Date fecha() {
 		return fecha;
-	
+
 	}
-	
+
 	public boolean estado() {
 		return estado;
-	
+
 	}
-	
+
 	public void enviar() {
-		estado = true;	
+		estado = true;
 	}
 
-	public void cargarCon(ResultSet iterador) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void guardarEn(Conector base) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void borrarDe(Conector base) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public boolean existeEn(Conector base) {
-		return estado;
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void terminarCarga() {
-		// TODO aca cambia los id por libros posta?
-		idLibros = new LinkedList<Integer>();
-		for (Integer i : idLibros) {
-			System.out.println("cargo un libro "+i);
+	public void cargarCon(ResultSet iterador) throws SQLException {
+		try {
+			this.nro = iterador.getInt("idPedido");
+			this.fecha = iterador.getDate("fecha");
+			this.estado = iterador.getBoolean("estado");
+			this.total = iterador.getDouble("total");
+			this.usuario = new Usuario();
+			this.usuario.cargarCon(iterador);
+		} catch (SQLException e) {
+			if (e.getMessage().startsWith("Column")) {
+				throw new SQLException("Posiblemente falte el inner join");
+			} else
+				throw e;
 		}
 	}
 
+	public void guardarEn(Conector base) throws SQLException {
+		// TODO Pedido.#guardarEn
+
+	}
+
+	public void borrarDe(Conector base) throws SQLException {
+		// TODO Pedido.#borrarDe
+
+	}
+
+	public boolean existeEn(Conector base) throws SQLException {
+		// TODO Pedido.#existeEn
+		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	public void terminarCargaDe(Conector base) throws Exception {
+		ConsultaSelect sel = new ConsultaSelect(
+				"*",
+				"libro inner join libroPedido on libro = isbn inner join autor on autor = idAutor",
+				"pedido = " + nro);
+		base.ejecutar(sel);
+		libros = new LinkedList<Libro>(
+				(Collection<? extends Libro>) base.iterarUn(Libro.class));
+	}
+
+	public static ConsultaSelect getBuscadorTodos() {
+		return new ConsultaSelect("*",
+				"pedido inner join usuario on usuario = DNI");
+	}
+
 	public ConsultaSelect getBuscador() {
-		return null;
+		return new ConsultaSelect("*",
+				"pedido inner join usuario on usuario = DNI", "idPedido = "
+						+ this.nro);
 	}
 
 	public boolean esBorrableDe(Conector base) throws SQLException {
-		// TODO Auto-generated method stub
+		// TODO Pedido.#esBorrableDe
 		return false;
 	}
 }

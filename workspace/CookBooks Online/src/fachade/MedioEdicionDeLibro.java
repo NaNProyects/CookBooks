@@ -65,7 +65,7 @@ public class MedioEdicionDeLibro extends JPanel {
 	 */
 	public MedioEdicionDeLibro(Interface inside2) {
 		this(inside2, new Libro("0", "", null, "", "",
-				"", "", "", new Double(0))); // TODO de pedo esto no se rompio
+				"", "", "", new Double(0))); 
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

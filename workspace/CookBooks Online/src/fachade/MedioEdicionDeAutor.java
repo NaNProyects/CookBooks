@@ -43,7 +43,7 @@ public class MedioEdicionDeAutor extends JPanel {
 	 * @wbp.parser.constructor
 	 */
 	public MedioEdicionDeAutor(Interface inside2, MedioListaDeAutores listaDeAutores) {
-		this(inside2,listaDeAutores, new Autor(0, "", "")); //TODO ->puse un blanco en el apellido esta bien?
+		this(inside2,listaDeAutores, new Autor(0, "", "")); 
 	}
 
 
@@ -116,12 +116,12 @@ public class MedioEdicionDeAutor extends JPanel {
 				if (ValidarAutor()) {	
 					if (autor.id()==0) {
 						try {
-							inside.contexto.agregar(autor); //TODO cambie los parametros
+							inside.contexto.agregar(autor); 
 						} catch (Exception e1) {
 							printError(e1.getMessage().concat(" /n"), true);
 						}
 					} else {
-						inside.contexto.actualizar(autor);
+						inside.contexto.modificar(autor);
 					}
 				inside.centro(new MedioListaDeAutores(inside));					
 				}

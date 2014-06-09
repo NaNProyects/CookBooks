@@ -25,7 +25,7 @@ public class Usuario implements Cargable {
 	private String email;
 	private String nombre;
 	private String apellido;
-	private Integer id; //TODO para permisos
+	private Integer id;
 	
 	public static Usuario anonimo() {
 		Usuario result = new Usuario();
@@ -185,7 +185,7 @@ public class Usuario implements Cargable {
 		return (base.getFirstInt() != 0);
 	}
 
-	public void terminarCarga() {
+	public void terminarCargaDe(Conector base) {
 		// por ahora no es necesario
 	}
 
@@ -199,6 +199,9 @@ public class Usuario implements Cargable {
 			return false;
 	}
 
+	public static ConsultaSelect getBuscadorTodos() {
+		return new ConsultaSelect("*", "usuario");
+	}
 	public ConsultaSelect getBuscador() {
 		return new ConsultaSelect("*", "usuario", "dni = "+dni);
 	}
