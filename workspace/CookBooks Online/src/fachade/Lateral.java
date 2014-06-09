@@ -17,6 +17,7 @@ public class Lateral extends JPanel {
 	private JButton botonAutores;
 	private JButton botonPedidos;
 	private JButton button_2;
+	private JButton inicio;
 	/**
 	 * Create the panel.
 	 */
@@ -25,6 +26,16 @@ public class Lateral extends JPanel {
 		
 		setBackground(new Color(255, 204, 255));
 
+		
+		// NO USUARIOS
+		inicio = new JButton("Inicio");
+		inicio.setPreferredSize(new Dimension(96, 23));
+		inicio.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				inside.centro(new MedioHome(inside));
+			}
+		});
+		add(inicio);
 		
 		
 		// ADMINISTRADORES
@@ -67,9 +78,8 @@ public class Lateral extends JPanel {
 		add(button_2);
 		
 
-		
 		// NO USUARIOS
-		
+;
 		
 
 	}
@@ -77,13 +87,14 @@ public class Lateral extends JPanel {
 		// ADMINISTRADORES
 		botonAutores.setVisible(permisos == 0);
 		botonLibros.setVisible(permisos == 0);
-		botonPedidos.setVisible(permisos == 0);
+//		botonPedidos.setVisible(permisos == 0);
+		botonPedidos.setVisible(false);
 		
 		// USUARIOS
 		button_2.setVisible(permisos == 1);
 		
 		// NO USUARIOS
-		
+		inicio.setVisible(true);
 		
 		repaint();
 	}
