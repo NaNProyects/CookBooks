@@ -152,4 +152,10 @@ public class Autor implements Cargable {
 		base.ejecutar(select);
 		return (base.getFirstInt() != 0);
 	}
+
+	@Override
+	public String toString() {
+		return nombre + " " + apellido;
+	}
+	
 }

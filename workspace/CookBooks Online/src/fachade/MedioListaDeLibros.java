@@ -2,7 +2,6 @@ package fachade;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -200,7 +199,7 @@ public class MedioListaDeLibros extends JPanel {
 			Libro libro = iterador.next();
 			model.addRow(new String[] {
 					libro.getIsbn().toString(), libro.getTitulo(),
-					libro.getAutor(), libro.getGenero(), libro.getIdioma(),
+					libro.getAutor().toString(), libro.getGenero(), libro.getIdioma(),
 					libro.getEditorial(),
 					new Double(libro.getPrecio()).toString() });
 

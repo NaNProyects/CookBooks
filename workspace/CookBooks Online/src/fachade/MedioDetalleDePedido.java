@@ -20,10 +20,6 @@ import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.DefaultComboBoxModel;
-
 @SuppressWarnings("serial")
 public class MedioDetalleDePedido extends JPanel {
 	private JTable table;
@@ -138,7 +134,7 @@ public class MedioDetalleDePedido extends JPanel {
 			Libro libro = iterador.next();
 			model.addRow(new String[] {
 					libro.getIsbn().toString(), libro.getTitulo(),
-					libro.getAutor(), libro.getGenero(), libro.getIdioma(),
+					libro.getAutor().toString(), libro.getGenero(), libro.getIdioma(),
 					libro.getEditorial(),
 					new Double(libro.getPrecio()).toString() });
 

@@ -256,7 +256,7 @@ public class MedioEdicionDeLibro extends JPanel {
 				if (ValidarLibro()) {
 					libro.setIsbn((isbnLibro_1.getText().replaceAll("-", "")));
 					libro.setTitulo((String) tituloLibro.getText());
-					libro.setAutor((String) autorLibro.getSelectedItem());
+					libro.setAutor(selectAutor());
 					libro.setGenero((String) generoLibro.getText());
 					libro.setEditorial((String) editorialLibro.getText());
 					libro.setIdioma((String) idiomaLibro.getText());
@@ -334,10 +334,21 @@ public class MedioEdicionDeLibro extends JPanel {
 
 	}
 
+	private Autor selectAutor() {		
+		autorLibro.getSelectedItem();
+		inside.contexto.autores();
+		for (Autor iterable_element : inside.contexto.autores()) {
+			if(iterable_element.toString().compareTo((String) autorLibro.getSelectedItem()) == 0){
+				return iterable_element;				
+			}
+		}
+		return null;
+	}	
+	
 	private Object[] NombresAutores(LinkedList<Autor> autores) {
 		ArrayList<String> nombres = new ArrayList<String>();
 		for (Autor element : autores) {
-			nombres.add(element.getNombre().concat(" ").concat(element.getApellido()));
+			nombres.add(element.toString());
 		}
 		return nombres.toArray();
 	}
