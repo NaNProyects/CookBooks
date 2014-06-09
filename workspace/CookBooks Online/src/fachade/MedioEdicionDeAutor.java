@@ -100,12 +100,12 @@ public class MedioEdicionDeAutor extends JPanel {
 
 		JLabel nombreLabel = new JLabel("Nombre*");
 		nombreLabel.setLabelFor(nombreAutor);
-		nombreLabel.setBounds(52, 60, 46, 14);
+		nombreLabel.setBounds(32, 60, 66, 14);
 		add(nombreLabel);
 
 		JLabel apellidoLabel = new JLabel("Apellido*");
 		apellidoLabel.setLabelFor(apellidoAutor);
-		apellidoLabel.setBounds(52, 91, 46, 14);
+		apellidoLabel.setBounds(32, 91, 66, 14);
 		add(apellidoLabel);
 
 		JButton confirmar = new JButton("Confirmar");
