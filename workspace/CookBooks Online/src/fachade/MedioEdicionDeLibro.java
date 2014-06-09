@@ -337,7 +337,7 @@ public class MedioEdicionDeLibro extends JPanel {
 	private Object[] NombresAutores(LinkedList<Autor> autores) {
 		ArrayList<String> nombres = new ArrayList<String>();
 		for (Autor element : autores) {
-			nombres.add(element.nombre());
+			nombres.add(element.nombre().concat(" ").concat(element.getApellido()));
 		}
 		return nombres.toArray();
 	}
