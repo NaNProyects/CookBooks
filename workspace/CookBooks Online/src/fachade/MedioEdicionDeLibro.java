@@ -141,8 +141,12 @@ public class MedioEdicionDeLibro extends JPanel {
 				ValidadAutor();
 			}
 		});
-		autorLibro.setModel(new DefaultComboBoxModel(
-				NombresAutores(inside.contexto.autores())));
+		try {
+			autorLibro.setModel(new DefaultComboBoxModel(
+					NombresAutores(inside.contexto.autores())));
+		} catch (Exception e2) {
+			printError(e2.getMessage().concat(" /n"), true);
+		}
 		autorLibro.setBounds(108, 119, 184, 20);
 		autorLibro.setSelectedItem(libro.getAutor());
 		add(autorLibro);
@@ -252,7 +256,7 @@ public class MedioEdicionDeLibro extends JPanel {
 		JButton confirmar = new JButton("Confirmar");
 		confirmar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				Boolean error;
+				Boolean error = null;
 				if (ValidarLibro()) {
 					libro.setIsbn((isbnLibro_1.getText().replaceAll("-", "")));
 					libro.setTitulo((String) tituloLibro.getText());
@@ -277,10 +281,17 @@ public class MedioEdicionDeLibro extends JPanel {
 					}
 					libro.setPrecio((new Double(precioLibro.getValue().toString())
 							.doubleValue()));
+					try {
 					if (isbnLibro_1.isEditable()) {
-						error = inside.contexto.agregar(libro);
+						
+							error = inside.contexto.agregar(libro);
+						
 					} else {
 						error = inside.contexto.modificar(libro);
+					}
+					} catch (Exception e1) {
+
+						printError(e1.getMessage().concat(" /n"), true);
 					}
 					if (error) {
 						printError("El ISBN pertenece a un libro existente /n", false);
@@ -336,12 +347,16 @@ public class MedioEdicionDeLibro extends JPanel {
 
 	private Autor selectAutor() {		
 		autorLibro.getSelectedItem();
-		inside.contexto.autores();
+		try {
+			inside.contexto.autores();
 		for (Autor iterable_element : inside.contexto.autores()) {
 			if(iterable_element.toString().compareTo((String) autorLibro.getSelectedItem()) == 0){
 				return iterable_element;				
 			}
 		}
+	} catch (Exception e) {
+		printError(e.getMessage().concat(" /n"), true);
+	}
 		return null;
 	}	
 	

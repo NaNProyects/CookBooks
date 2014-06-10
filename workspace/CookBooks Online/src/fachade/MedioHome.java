@@ -1,13 +1,10 @@
 package fachade;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import java.awt.Font;
 import java.awt.Color;
 
+import javax.swing.JPanel;
+
+@SuppressWarnings("serial")
 public class MedioHome extends JPanel {
 
 	/**

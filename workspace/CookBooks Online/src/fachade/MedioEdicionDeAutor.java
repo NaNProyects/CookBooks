@@ -114,15 +114,15 @@ public class MedioEdicionDeAutor extends JPanel {
 				autor.setNombre(nombreAutor.getText());
 				autor.setApellido(apellidoAutor.getText());
 				if (ValidarAutor()) {	
+					try {
 					if (autor.id()==0) {
-						try {
 							inside.contexto.agregar(autor); 
-						} catch (Exception e1) {
-							printError(e1.getMessage().concat(" /n"), true);
-						}
 					} else {
 						inside.contexto.modificar(autor);
 					}
+				} catch (Exception e1) {
+					printError(e1.getMessage().concat(" /n"), true);
+				}
 				inside.centro(new MedioListaDeAutores(inside));					
 				}
 			}

@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
@@ -102,12 +103,17 @@ public class Login extends JPanel {
 
 	}
 	public void entrar(){
-		if(inside.getInside().contexto.autenticar(campoMail.getText(),new String(passwordField.getPassword()))){
-			inside.setPanelLog(new Loged(inside));
-		}
-		else{
-			lblError.setVisible(true);
-			lblError.repaint();
+		try {
+			if(inside.getInside().contexto.autenticar(campoMail.getText(),new String(passwordField.getPassword()))){
+				inside.setPanelLog(new Loged(inside));
+			}
+			else{
+				lblError.setVisible(true);
+				lblError.repaint();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}

@@ -89,7 +89,12 @@ public class MedioPedidos extends JPanel {
 		botonEnviar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				inside.contexto.enviar(selected());
+				try {
+					inside.contexto.enviar(selected());
+				} catch (Exception e1) {
+					// TODO agregar panel de errores jony
+					e1.printStackTrace();
+				}
 				table.repaint();
 				Cargar();
 			}
@@ -114,7 +119,12 @@ public class MedioPedidos extends JPanel {
 		enviarButton = new JButton("Enviar");
 		enviarButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				inside.contexto.enviar(selected());
+				try {
+					inside.contexto.enviar(selected());
+				} catch (Exception e1) {
+					// TODO agregar panel de errores jony
+					e1.printStackTrace();
+				}
 				table.repaint();
 				Cargar();
 			}
@@ -141,7 +151,12 @@ public class MedioPedidos extends JPanel {
 	}
 
 	private void Cargar() {
-		pedidos = inside.contexto.pedidos();
+		try {
+			pedidos = inside.contexto.pedidos();
+		} catch (Exception e) {
+			// TODO agregar panel de errores jony
+			e.printStackTrace();
+		}
 		Iterator<Pedido> iterador = pedidos.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
 				new String[] {

@@ -202,7 +202,6 @@ public class MedioListaDeAutores extends JPanel {
 
 	private void Cargar() {
 		autores = filtrar();
-		inside.contexto.autores();
 		Iterator<Autor> iterador = autores.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
 				new String[] { "Nombre", "Apellido" }) {
@@ -232,13 +231,17 @@ public class MedioListaDeAutores extends JPanel {
 	private LinkedList<Autor> filtrar() {
 		LinkedList<Autor> retorno = new LinkedList<Autor>();
 
-		for (Autor autor : inside.contexto.autores()) {
-			if ((autor.getNombre().toLowerCase().contains(txtBuscarAutor.getText()
-					.toLowerCase()))
-					|| (autor.getApellido().toLowerCase()
-							.contains(txtBuscarAutor.getText().toLowerCase()))) {
-				retorno.add(autor);
+		try {
+			for (Autor autor : inside.contexto.autores()) {
+				if ((autor.getNombre().toLowerCase().contains(txtBuscarAutor.getText()
+						.toLowerCase()))
+						|| (autor.getApellido().toLowerCase()
+								.contains(txtBuscarAutor.getText().toLowerCase()))) {
+					retorno.add(autor);
+				}
 			}
+		} catch (Exception e) {
+			printError(e.getMessage().concat(" /n"), true);
 		}
 
 		return retorno;

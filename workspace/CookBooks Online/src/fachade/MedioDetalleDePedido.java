@@ -76,7 +76,12 @@ public class MedioDetalleDePedido extends JPanel {
 		enviarButton = new JButton("Enviar");
 		enviarButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				inside.contexto.enviar(pedido);
+				try {
+					inside.contexto.enviar(pedido);
+				} catch (Exception e1) {
+					// TODO agregar panel de errores jony
+					e1.printStackTrace();
+				}
 				enviarButton.setEnabled(false);
 				enviarButton.repaint();
 			}

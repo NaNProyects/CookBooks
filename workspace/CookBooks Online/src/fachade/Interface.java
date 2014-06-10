@@ -18,7 +18,7 @@ import java.awt.Component;
 import java.awt.Toolkit;
 
 public class Interface {
-	public CookBooks contexto = new CookBooks();		
+	public CookBooks contexto;		
 	protected JPanel center;
 	protected JPanel top;
 	protected Lateral left;
@@ -63,14 +63,7 @@ public class Interface {
 		center.setPreferredSize(new Dimension(904, 601));
 		frmCookbooksOnline.getContentPane().add(center, BorderLayout.CENTER);
 		
-		left = new Lateral(this);
-		left.setPreferredSize(new Dimension(96, 10));
-//		left.permisos(contexto.usuarioActual().getId());
 		
-		left.permisos(0); // ----------------------------------------------------------------- TODO hardcode
-		
-		
-		frmCookbooksOnline.getContentPane().add(left, BorderLayout.WEST);
 		
 		top = new Superior(this);
 		top.setPreferredSize(new Dimension(0, 145));
@@ -78,6 +71,22 @@ public class Interface {
 		
 
 		frmCookbooksOnline.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{left, top, center}));
+		
+		try {
+			contexto = new CookBooks();
+		} catch (Exception e) {
+			// TODO poner advertencia si pasa lo q sea q pase
+			e.printStackTrace();
+		}
+		
+		left = new Lateral(this);
+		left.setPreferredSize(new Dimension(96, 10));
+		left.permisos(contexto.usuarioActual().getId());
+		
+//		left.permisos(0); // ----------------------------------------------------------------- TODO hardcode
+		
+		
+		frmCookbooksOnline.getContentPane().add(left, BorderLayout.WEST);
 	}
 	public void centro(JPanel Centro){
 		frmCookbooksOnline.getContentPane().remove(center);

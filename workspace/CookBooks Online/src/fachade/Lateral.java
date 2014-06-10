@@ -85,12 +85,12 @@ public class Lateral extends JPanel {
 	}
 	public void permisos(Integer permisos){
 		// ADMINISTRADORES
-		botonAutores.setVisible(permisos == 0);
-		botonLibros.setVisible(permisos == 0);
-		botonPedidos.setVisible(permisos == 0);
+		botonAutores.setVisible(permisos == 1);
+		botonLibros.setVisible(permisos == 1);
+		botonPedidos.setVisible(permisos == 1);
 		
 		// USUARIOS
-		button_2.setVisible(permisos == 1);
+		button_2.setVisible(permisos > 1);
 		
 		// NO USUARIOS
 		inicio.setVisible(true);

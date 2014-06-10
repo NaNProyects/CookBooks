@@ -13,7 +13,7 @@ import utilsSQL.ConsultaSelect;
 public class CookBooks {
 
 	private Conector base;
-	private Usuario usuario;
+	private Usuario usuario = Usuario.anonimo();
 
 	/**
 	 * Está feito que esté acá la pass peeeero MySQLNonTransientException Por
@@ -296,7 +296,11 @@ public class CookBooks {
 			if (lis.size() == 0) {
 				return false; // el mail no existe
 			} else {
-				return chequearContraseña(lis.element(), pass);
+				if (chequearContraseña(lis.element(), pass)) {
+					usuario = lis.element(); // TODO jose aca actualice el usuario actual q creoq  te lo olvidaste
+					return true;
+				}
+				return false;
 			}
 		} catch (MySQLNonTransientException e) {
 			this.reconectar();
