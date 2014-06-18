@@ -22,14 +22,29 @@ public class Usuario implements Cargable {
 	private String direccion;
 	// NOTA = EN TODOS LOS INSERTS DEMO LA PASS ES SU "Nombre"
 	private String hashPass;
+
+
 	private String email;
 	private String nombre;
 	private String apellido;
 	private Integer id;
+	private String pin;//TODO agregar pin
+	//TODO AGREGADO SETER DEL HASH y de otros
 	
 	public static Usuario anonimo() {
 		Usuario result = new Usuario();
 		result.setId(-1);
+		//TODO mock?
+		result.setApellido("");
+		result.setDireccion("");
+		result.setDni(0);
+		result.setEmail("");
+		result.setNombre("");
+		result.setPin("");
+		result.setTarjeta("");
+		result.setTelefono(0);
+		//moockfin?
+		
 		return result;
 	}
 
@@ -88,6 +103,22 @@ public class Usuario implements Cargable {
 		return apellido;
 	}
 
+	public void setTelefono(Integer telefono) {
+		this.telefono = telefono;
+	}
+
+	public void setTarjeta(String tarjeta) {
+		this.tarjeta = tarjeta;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
 	public void setDni(Integer dni) {
 		this.dni = dni;
 	}
@@ -98,6 +129,10 @@ public class Usuario implements Cargable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public void setHashPass(String hashPass) {
+		this.hashPass = hashPass;
 	}
 
 	public void cargarCon(ResultSet iterador) throws SQLException {
@@ -224,5 +259,13 @@ public class Usuario implements Cargable {
 				"usuario inner join Pedido", "id = " + id);
 		base.ejecutar(select);
 		return (base.getFirstInt() != 0);
+	}
+
+	public String getPin() {
+		return pin;
+	}
+
+	public void setPin(String pin) {
+		this.pin = pin;
 	};
 }

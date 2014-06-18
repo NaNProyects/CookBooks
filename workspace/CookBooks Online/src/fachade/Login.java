@@ -84,6 +84,12 @@ public class Login extends JPanel {
 		add(lblContrasea);
 		
 		lblRegistro = new JLabel("Registrarse");
+		lblRegistro.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				inside.getInside().centro(new MedioEdicionDeUsuario(inside.getInside()));
+			}
+		});
 		lblRegistro.setForeground(new Color(0, 51, 255));
 		lblRegistro.setBounds(10, 87, 79, 14);
 		add(lblRegistro);

@@ -6,3 +6,23 @@ Funciones del carrito:
 	convertir a pedido
 Interface:
 	comentar si los resultados de busqueda se quiere modificar la presentacion por cada resultado
+	
+Usuario: 
+	Agregar pin
+	Llenar de forma vacia? los campos del anonimo(probablemente nesesario a comprobar)
+	Agregado seter del hash para cuando cambio contraseña o creo usuario
+	Agregado seters varios XD
+	para el telefono alcanzaba con un int? no combiene string por si empieza con 0?
+	que largo de contraseña es el maximo? tenemos 45 para el hash pero en string cuanto seria eso? xD
+	
+	
+Cookbooks:
+	modificar de usuario no devuelve boolean de si se pudo o exite el usuario? o por q si lo devuelve agregar?
+	que campos no se podian repetir, dni y mail nomas no? si son esos podrian agregarse consulta de si tal mail esta registrado o no y lo mismo con el dni?
+	falta agregar usuario.
+	
+	
+Base:
+	tenes q cambiar tambien la base por q a la targeta le pusiste tope 16 y te faltan los 4 del pin y tambien diria 
+		q lo extiendas a un total de 22 por q por ej mi targeta tiene 18 mas 3 de pin y podrian ser 4
+	
