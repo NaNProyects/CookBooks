@@ -1,0 +1,8 @@
+Funciones del carrito:
+	agregar
+	eliminar
+	si esta en el carrito
+	precio
+	convertir a pedido
+Interface:
+	comentar si los resultados de busqueda se quiere modificar la presentacion por cada resultado
