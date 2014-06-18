@@ -15,7 +15,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import funcionalidad.Libro;
 
 @SuppressWarnings("serial")
-public class MedioPerfilDeLibroVistazo extends MedioPanel {
+public class MedioPerfilDeLibroVistazo extends MedioPanel {//TODO agregar imagen a los botones
 	@SuppressWarnings("unused")
 	private String tituloPanel;
 	private Libro libro;

@@ -330,6 +330,11 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			}
 		});
 
+		confirmar.setIcon(new ImageIcon(MedioEdicionDeUsuario.class
+				.getResource("/fachade/Image/Clear Green Button.png")));
+		confirmar.setBounds(593, 562, 144, 31);
+		add(confirmar);
+		
 		JLabel lblcamposObligatorios = new JLabel("*Campos obligatorios.");
 		lblcamposObligatorios.setBounds(22, 329, 298, 14);
 		add(lblcamposObligatorios);
@@ -356,10 +361,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		lblTelefono.setBounds(52, 272, 74, 14);
 		add(lblTelefono);
 
-		confirmar.setIcon(new ImageIcon(MedioEdicionDeUsuario.class
-				.getResource("/fachade/Image/Clear Green Button.png")));
-		confirmar.setBounds(593, 562, 144, 31);
-		add(confirmar);
+
 
 		JButton cancelar = new JButton("Cancelar");
 		cancelar.addMouseListener(new MouseAdapter() {

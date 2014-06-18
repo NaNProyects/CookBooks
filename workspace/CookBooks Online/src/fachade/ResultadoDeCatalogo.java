@@ -18,7 +18,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import funcionalidad.Libro;
 
 @SuppressWarnings("serial")
-public class ResultadoDeCatalogo extends MedioPanel {
+public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los botones
 	private Libro libro;
 	private Interface inside;
 	private JLabel lblTitulo;
@@ -80,11 +80,14 @@ public class ResultadoDeCatalogo extends MedioPanel {
 		botonComprar.setBounds(734, 8, 157, 23);
 		botonComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inside.contexto.agregarAlCarrito(libro);
+				inside.contexto.carrito().agregar(libro);
+//				inside.contexto.agregarAlCarrito(libro);
+				//TODO SETEAR COMO DESACTIVADO CUANDO YA ANDE EL AGREGAR y cuando se desida como manejar el carrito cambiar o no
+				botonComprar.setEnabled(false);
 			}
 		});
 		// TODO agregar si esta en el carrito
-		botonComprar.setEnabled(inside.contexto.usuarioActual().getId() >=1);
+		botonComprar.setEnabled(inside.contexto.usuarioActual().getId() >1);
 		add(botonComprar);
 		
 		botonVerPerfil = new JButton("Ver Perfil");

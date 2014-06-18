@@ -8,6 +8,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class Lateral extends JPanel {
@@ -16,7 +18,7 @@ public class Lateral extends JPanel {
 	private JButton botonLibros;
 	private JButton botonAutores;
 	private JButton botonPedidos;
-	private JButton button_2;
+	private JButton carrito;
 	private JButton inicio;
 	/**
 	 * Create the panel.
@@ -73,9 +75,14 @@ public class Lateral extends JPanel {
 		
 		// USUARIOS
 		
-		 button_2 = new JButton("New button");
-		button_2.setPreferredSize(new Dimension(96, 23));
-		add(button_2);
+		 carrito = new JButton("Carrito");
+		 carrito.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+		 		inside.centro(new MedioCarrito(inside));
+		 	}
+		 });
+		carrito.setPreferredSize(new Dimension(96, 23));
+		add(carrito);
 		
 
 		// NO USUARIOS
@@ -90,7 +97,7 @@ public class Lateral extends JPanel {
 		botonPedidos.setVisible(permisos == 1);
 		
 		// USUARIOS
-		button_2.setVisible(permisos > 1);
+		carrito.setVisible(permisos > 1);
 		
 		// NO USUARIOS
 		inicio.setVisible(true);

@@ -20,9 +20,24 @@ Cookbooks:
 	modificar de usuario no devuelve boolean de si se pudo o exite el usuario? o por q si lo devuelve agregar?
 	que campos no se podian repetir, dni y mail nomas no? si son esos podrian agregarse consulta de si tal mail esta registrado o no y lo mismo con el dni?
 	falta agregar usuario.
+	implementar metodos del carrito
+	
+Carrito:
+	implementar listar,agregar, eliminar, si esta en el carrito, pasar a pedido?
+	en cookbooks tenemos un agregar al carrito un cancelar carrito un comvertirlo a pedido y un coso q nos da el carrino, 
+	no tiene el eliminar del carrito ni el listar, dos opciones o qdarnos solo con el retorno del carrito y operar con el carrito (feo)
+	o agregar metodos a cookbooks que usen delegacion (hasta q decidas me qde con el carrito pero me da lo mismo)(corrijo prefiero charlar con cookbooks)
+	PD:  si queres q solo charle coon cookbooks despeus de implementar los metodos ahi mata al geter del carrito asi me chilla donde cambiar XD
+	PD2: como no me acuerdo como acordamos la vista del carrito la hago como la de los autores y libros sino la cambio despues
+	
+	Como riniciar carrito
+	uso el confirmar carrito de cookbook por q confirmarlo conlleva tambien crear uno nuevo aparte de pasarlo a pedido
 	
 	
 Base:
 	tenes q cambiar tambien la base por q a la targeta le pusiste tope 16 y te faltan los 4 del pin y tambien diria 
 		q lo extiendas a un total de 22 por q por ej mi targeta tiene 18 mas 3 de pin y podrian ser 4
+		
+Botones:
+	encontre una posible solucion despues hago una prueba aver si mejora pero nesesito testeo abro otro branch?
 	

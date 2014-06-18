@@ -14,6 +14,7 @@ public class CookBooks {
 
 	private Conector base;
 	private Usuario usuario = Usuario.anonimo();
+	private Carrito carrito = new Carrito();
 
 	/**
 	 * Está feito que esté acá la pass peeeero MySQLNonTransientException Por
@@ -262,8 +263,8 @@ public class CookBooks {
 
 	}
 
-	public Carrito carrito() {
-		return null;
+	public Carrito carrito() {// TODO AGREGADO COMO VARIABLE Y ACA LO PIDO NO TOCO EL RESTO POR SI ACASO
+		return carrito;
 
 	}
 

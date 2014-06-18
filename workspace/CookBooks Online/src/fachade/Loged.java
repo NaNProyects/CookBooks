@@ -16,7 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
-public class Loged extends JPanel {
+public class Loged extends JPanel {//TODO agregar imagen a los botones
 
 	private Superior inside;
 	private JLabel labelNombre;
@@ -64,6 +64,7 @@ public class Loged extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				inside.setPanelLog(new Login(inside));
 				inside.getInside().contexto.cerrarSesion();
+				//TODO aca riniciar carrito
 				inside.getInside().left.permisos(inside.getInside().contexto
 						.usuarioActual().getId());
 				inside.getInside().center.refresh();
