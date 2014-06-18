@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
@@ -29,7 +28,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class MedioListaDeAutores extends JPanel {
+public class MedioListaDeAutores extends MedioPanel {
 	private JTable table;
 	private Interface inside;
 	private LinkedList<Autor> autores;
@@ -295,5 +294,9 @@ public class MedioListaDeAutores extends JPanel {
 					.replaceAll("/n", System.getProperty("line.separator")));
 			labelErrores.setVisible(true);
 		}
+	}
+
+	protected void refresh() {
+		inside.centro(new MedioHome(inside));
 	}
 }

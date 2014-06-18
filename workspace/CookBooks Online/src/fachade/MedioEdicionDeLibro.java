@@ -1,6 +1,5 @@
 package fachade;
 
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
@@ -42,7 +41,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
-public class MedioEdicionDeLibro extends JPanel {
+public class MedioEdicionDeLibro extends MedioPanel {
 	private String tituloPanel = "Nuevo Libro";
 	private Libro libro;
 	private JTextField tituloLibro;
@@ -465,6 +464,10 @@ public class MedioEdicionDeLibro extends JPanel {
 					.replaceAll("/n", System.getProperty("line.separator")));
 			labelErrores.setVisible(true);
 		}
+	}
+
+	protected void refresh() {
+		inside.centro(new MedioHome(inside));
 	}
 
 }

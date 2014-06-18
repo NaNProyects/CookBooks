@@ -4,12 +4,17 @@ import java.awt.Color;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import javax.swing.JPanel;
+
+
+
+
+
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
 import funcionalidad.Libro;
@@ -21,7 +26,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
-public class MedioDetalleDePedido extends JPanel {
+public class MedioDetalleDePedido extends MedioPanel {
 	private JTable table;
 	private Interface inside;
 	private LinkedList<Libro> libros;
@@ -29,11 +34,12 @@ public class MedioDetalleDePedido extends JPanel {
 	private JButton enviarButton;
 	private Pedido pedido;
 	private JButton btnAtras;
+	private JTextPane labelErrores;
 
 	/**
 	 * Create the panel.
 	 */
-	public MedioDetalleDePedido(Interface inside2, Pedido unPedido) {
+	public MedioDetalleDePedido(Interface inside2, Pedido unPedido) { //TODO CAMBIAR FORMATO AL DEFINIDIO
 		inside = inside2;
 		libros = unPedido.getLibros();
 		pedido = unPedido;
@@ -41,6 +47,14 @@ public class MedioDetalleDePedido extends JPanel {
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 
+		labelErrores = new JTextPane();
+		labelErrores.setBorder(null);
+		labelErrores.setEditable(false);
+		labelErrores.setBackground(new Color(255, 204, 255));
+		labelErrores.setForeground(Color.RED);
+		labelErrores.setBounds(22, 333, 333, 240);
+		add(labelErrores);
+		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
 				"ISBN", "Titulo", "Autor", "Genero", "Idioma", "Editorial",
@@ -79,8 +93,7 @@ public class MedioDetalleDePedido extends JPanel {
 				try {
 					inside.contexto.enviar(pedido);
 				} catch (Exception e1) {
-					// TODO agregar panel de errores jony
-					e1.printStackTrace();
+					printError(e1.getMessage().concat(" /n"), true);
 				}
 				enviarButton.setEnabled(false);
 				enviarButton.repaint();
@@ -147,13 +160,20 @@ public class MedioDetalleDePedido extends JPanel {
 		table.setModel(model);
 		table.repaint();
 	}
-	
-	// averiguar como
-	public void OrdenarPorISBN() {}
-	public void OrdenarPorTitulo() {}
-	public void OrdenarPorAutor() {}
-	public void OrdenarPorGenero() {}
-	public void OrdenarPorIdioma() {}
-	public void OrdenarPorEditorial() {}
-	public void OrdenarPorPrecio() {}
+
+	protected void refresh() {
+		inside.centro(new MedioHome(inside));
+	}
+	private void printError(String texto, Boolean condicion) {
+		labelErrores.setText(labelErrores.getText().replaceAll(
+				texto.replaceAll("/n", System.getProperty("line.separator")),
+				""));
+		if (condicion) {
+			labelErrores.setText(labelErrores.getText().concat(texto)
+					.replaceAll("/n", System.getProperty("line.separator")));
+			labelErrores.setVisible(true);
+		}
+	}
+
+
 }

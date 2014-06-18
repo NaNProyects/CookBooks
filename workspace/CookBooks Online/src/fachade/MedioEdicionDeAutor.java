@@ -1,11 +1,11 @@
 package fachade;
 
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import funcionalidad.Autor;
+
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.TextField;
@@ -17,16 +17,16 @@ import javax.swing.ImageIcon;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import java.awt.Component;
 import java.awt.ComponentOrientation;
-
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 @SuppressWarnings("serial")
-public class MedioEdicionDeAutor extends JPanel {
+public class MedioEdicionDeAutor extends MedioPanel {
 	private String tituloPanel = "Nuevo Autor";
 	private Autor autor;
 	private JTextField apellidoAutor;
@@ -203,6 +203,10 @@ public class MedioEdicionDeAutor extends JPanel {
 					.replaceAll("/n", System.getProperty("line.separator")));
 			labelErrores.setVisible(true);
 		}
+	}
+
+	protected void refresh() {
+		inside.centro(new MedioHome(inside));
 	}
 
 }

@@ -26,7 +26,7 @@ public class Lateral extends JPanel {
 		
 		setBackground(new Color(255, 204, 255));
 
-		
+		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));	
 		// NO USUARIOS
 		inicio = new JButton("Inicio");
 		inicio.setPreferredSize(new Dimension(96, 23));
@@ -46,7 +46,7 @@ public class Lateral extends JPanel {
 				inside.centro(new MedioListaDeLibros(inside));
 			}
 		});
-		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
 		add(botonLibros);
 		
 		 botonAutores = new JButton("Autores");

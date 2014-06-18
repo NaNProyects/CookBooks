@@ -19,7 +19,7 @@ import java.awt.Toolkit;
 
 public class Interface {
 	public CookBooks contexto;		
-	protected JPanel center;
+	protected MedioPanel center;
 	protected JPanel top;
 	protected Lateral left;
 	protected JFrame frmCookbooksOnline;
@@ -83,12 +83,11 @@ public class Interface {
 		left.setPreferredSize(new Dimension(96, 10));
 		left.permisos(contexto.usuarioActual().getId());
 		
-//		left.permisos(0); // ----------------------------------------------------------------- TODO hardcode
 		
 		
 		frmCookbooksOnline.getContentPane().add(left, BorderLayout.WEST);
 	}
-	public void centro(JPanel Centro){
+	public void centro(MedioPanel Centro){
 		frmCookbooksOnline.getContentPane().remove(center);
 		center = Centro;
 		center.setPreferredSize(new Dimension(904, 601));

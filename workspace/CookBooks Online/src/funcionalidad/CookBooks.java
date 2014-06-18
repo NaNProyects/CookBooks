@@ -248,7 +248,13 @@ public class CookBooks {
 	}
 
 	public LinkedList<Libro> buscar(String unNombreLibro) {
-		return null;
+//		TODO mock
+		
+		return libros();
+//		LinkedList<Libro> temp = new LinkedList<Libro>();
+//		temp.add(new Libro("0", "", new Autor(0, "nombre", "apellido"), "", "",
+//				"", "", "", new Double(0)));
+//		return temp;
 
 	}
 

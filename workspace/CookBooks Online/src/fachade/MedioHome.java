@@ -2,10 +2,8 @@ package fachade;
 
 import java.awt.Color;
 
-import javax.swing.JPanel;
-
 @SuppressWarnings("serial")
-public class MedioHome extends JPanel {
+public class MedioHome extends MedioPanel {
 
 	/**
 	 * Create the panel.
@@ -14,6 +12,9 @@ public class MedioHome extends JPanel {
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 
+	}
+
+	protected void refresh() {
 	}
 
 }

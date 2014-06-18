@@ -1,11 +1,9 @@
 package fachade;
 
-import javax.swing.JPanel;
-
 import java.awt.Color;
 
 @SuppressWarnings("serial")
-public class MedioRegistro extends JPanel {
+public class MedioRegistro extends MedioPanel {
 
 	private Interface inside;
 
@@ -18,6 +16,9 @@ public class MedioRegistro extends JPanel {
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 
+	}
+
+	protected void refresh() {
 	}
 
 }

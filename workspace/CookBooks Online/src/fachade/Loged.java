@@ -6,6 +6,7 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JTextPane;
 
 import java.awt.Font;
 
@@ -21,7 +22,9 @@ public class Loged extends JPanel {
 	private JLabel labelNombre;
 	private JButton btnCierre;
 	private JButton btnEdicion;
-
+	private JTextPane labelErrores;
+	
+	
 	/**
 	 * Create the panel.
 	 */
@@ -34,6 +37,14 @@ public class Loged extends JPanel {
 		inside.getInside().left.permisos(inside.getInside().contexto
 				.usuarioActual().getId());
 
+		labelErrores = new JTextPane();
+		labelErrores.setBorder(null);
+		labelErrores.setEditable(false);
+		labelErrores.setBackground(new Color(255, 204, 255));
+		labelErrores.setForeground(Color.RED);
+		labelErrores.setBounds(22, 333, 333, 240);
+		add(labelErrores);
+		
 		labelNombre = new JLabel(inside.getInside().contexto
 				.usuarioActual()
 				.getNombre()
@@ -52,10 +63,10 @@ public class Loged extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				inside.setPanelLog(new Login(inside));
-				inside.getInside().centro(new MedioHome(inside.getInside()));
 				inside.getInside().contexto.cerrarSesion();
 				inside.getInside().left.permisos(inside.getInside().contexto
 						.usuarioActual().getId());
+				inside.getInside().center.refresh();
 			}
 		});
 		btnCierre.setBounds(123, 110, 131, 23);
@@ -74,5 +85,15 @@ public class Loged extends JPanel {
 		add(btnEdicion);
 
 	}
-
+	@SuppressWarnings("unused")
+	private void printError(String texto, Boolean condicion) {
+		labelErrores.setText(labelErrores.getText().replaceAll(
+				texto.replaceAll("/n", System.getProperty("line.separator")),
+				""));
+		if (condicion) {
+			labelErrores.setText(labelErrores.getText().concat(texto)
+					.replaceAll("/n", System.getProperty("line.separator")));
+			labelErrores.setVisible(true);
+		}
+	}
 }

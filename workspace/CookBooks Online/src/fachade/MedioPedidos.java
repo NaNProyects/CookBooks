@@ -6,12 +6,12 @@ import java.text.DateFormat;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
 import funcionalidad.Pedido;
@@ -26,7 +26,7 @@ import javax.swing.JLabel;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 @SuppressWarnings("serial")
-public class MedioPedidos extends JPanel {
+public class MedioPedidos extends MedioPanel {
 	private JTable table;
 	private Interface inside;
 	private LinkedList<Pedido> pedidos;
@@ -36,14 +36,23 @@ public class MedioPedidos extends JPanel {
 	private JButton btnDetalles;
 	private JScrollPane scrollPane;
 	private JLabel labelTitulo;
+	private JTextPane labelErrores;
 	/**
 	 * Create the panel.
 	 */
-	public MedioPedidos(Interface inside2) {
+	public MedioPedidos(Interface inside2) {//TODO EDITAR FORMATO
 		inside = inside2;
 
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
+		
+		labelErrores = new JTextPane();
+		labelErrores.setBorder(null);
+		labelErrores.setEditable(false);
+		labelErrores.setBackground(new Color(255, 204, 255));
+		labelErrores.setForeground(Color.RED);
+		labelErrores.setBounds(22, 333, 333, 240);
+		add(labelErrores);
 
 		labelTitulo = DefaultComponentFactory.getInstance().createTitle(
 				"Listado de Pedidos");
@@ -92,8 +101,7 @@ public class MedioPedidos extends JPanel {
 				try {
 					inside.contexto.enviar(selected());
 				} catch (Exception e1) {
-					// TODO agregar panel de errores jony
-					e1.printStackTrace();
+					printError(e1.getMessage().concat(" /n"), true);
 				}
 				table.repaint();
 				Cargar();
@@ -122,8 +130,7 @@ public class MedioPedidos extends JPanel {
 				try {
 					inside.contexto.enviar(selected());
 				} catch (Exception e1) {
-					// TODO agregar panel de errores jony
-					e1.printStackTrace();
+					printError(e1.getMessage().concat(" /n"), true);
 				}
 				table.repaint();
 				Cargar();
@@ -154,8 +161,7 @@ public class MedioPedidos extends JPanel {
 		try {
 			pedidos = inside.contexto.pedidos();
 		} catch (Exception e) {
-			// TODO agregar panel de errores jony
-			e.printStackTrace();
+			printError(e.getMessage().concat(" /n"), true);
 		}
 		Iterator<Pedido> iterador = pedidos.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
@@ -209,5 +215,18 @@ public class MedioPedidos extends JPanel {
 		}	
 		return null;
 		
+	}
+	private void printError(String texto, Boolean condicion) {
+		labelErrores.setText(labelErrores.getText().replaceAll(
+				texto.replaceAll("/n", System.getProperty("line.separator")),
+				""));
+		if (condicion) {
+			labelErrores.setText(labelErrores.getText().concat(texto)
+					.replaceAll("/n", System.getProperty("line.separator")));
+			labelErrores.setVisible(true);
+		}
+	}
+	protected void refresh() {
+		inside.centro(new MedioHome(inside));
 	}
 }
