@@ -76,7 +76,7 @@ public class ResultadoDeCatalogo extends MedioPanel {
 		lblEditorial.setFont(new Font("Tahoma", Font.BOLD, 13));
 		add(lblEditorial);
 		
-		botonComprar = new JButton("Agregar al Carrito");
+		botonComprar = new JButton("Agregar al Carrito");//TODO AGREGAR IMAGEND E CARRITO O ALGO Y AL DE VER PERFIL TAMBIEN
 		botonComprar.setBounds(734, 8, 157, 23);
 		botonComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -92,6 +92,7 @@ public class ResultadoDeCatalogo extends MedioPanel {
 		botonVerPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				inside.centro(new MedioPerfilDeLibro(inside, libro, inside.center));//TODO ADAPTAR PARA Q CONSERVER LISTA
 			}
 		});
 		add(botonVerPerfil);
