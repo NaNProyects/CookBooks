@@ -199,7 +199,7 @@ public class MedioListaDeAutores extends MedioPanel {
 		Cargar();
 	}
 
-	private void Cargar() {
+	protected void Cargar() {
 		autores = filtrar();
 		Iterator<Autor> iterador = autores.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},

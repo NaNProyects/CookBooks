@@ -176,7 +176,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		Cargar();
 	}
 
-	private void Cargar() {
+	protected void Cargar() {
 		libros = inside.contexto.carrito().getLibros();
 		Iterator<Libro> iterador = libros.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},

@@ -331,8 +331,15 @@ public class CookBooks {
 
 	}
 
-	public LinkedList<Usuario> historialDe(Usuario unUsuario) {
-		return null;
+	public LinkedList<Pedido> historialDe(Usuario unUsuario) {
+		//TODO mock
+		try {
+			return pedidos();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 
 	}
 

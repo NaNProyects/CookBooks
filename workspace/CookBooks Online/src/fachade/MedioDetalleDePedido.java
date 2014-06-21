@@ -1,8 +1,11 @@
 package fachade;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.Iterator;
 import java.util.LinkedList;
+
+
 
 
 
@@ -14,6 +17,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
@@ -21,6 +25,8 @@ import funcionalidad.Libro;
 import funcionalidad.Pedido;
 
 import javax.swing.JScrollPane;
+
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -35,24 +41,34 @@ public class MedioDetalleDePedido extends MedioPanel {
 	private Pedido pedido;
 	private JButton btnAtras;
 	private JTextPane labelErrores;
+	private JLabel labelTitulo;
+	private MedioPanel anterior;
 
 	/**
 	 * Create the panel.
 	 */
-	public MedioDetalleDePedido(Interface inside2, Pedido unPedido) { //TODO CAMBIAR FORMATO AL DEFINIDIO
+	public MedioDetalleDePedido(Interface inside2, Pedido unPedido, MedioPanel ant) { //TODO CAMBIAR FORMATO AL DEFINIDIO
 		inside = inside2;
 		libros = unPedido.getLibros();
 		pedido = unPedido;
+		anterior = ant;
 		
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 
+		labelTitulo = DefaultComponentFactory.getInstance().createTitle(
+				"Listado de Libros");
+		labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 20));
+		labelTitulo.setBounds(22, 10, 200, 50);
+		add(labelTitulo);
+
+		
 		labelErrores = new JTextPane();
 		labelErrores.setBorder(null);
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 333, 333, 240);
+		labelErrores.setBounds(22, 523, 333, 50);
 		add(labelErrores);
 		
 		table = new JTable();
@@ -109,24 +125,24 @@ public class MedioDetalleDePedido extends MedioPanel {
 
 		 btnAtras = new JButton("Atras");
 		 btnAtras.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				inside.centro(new MedioPedidos(inside));
+			public void mouseClicked(MouseEvent e) {//TODO COMO NO HAY BAJADA DE PEDIDO VERIFICAR Q SE CAMBIE EN PEDIDOS COMO ENVIADO SIA APRETO
+				anterior.Cargar();
+				inside.centro(anterior);
 			}
 		});
 		 btnAtras.setIcon(new ImageIcon(MedioDetalleDePedido.class.getResource("/fachade/Image/Import Document.png")));
-		 btnAtras.setToolTipText("Muestra los libros encargados en el pedido.");
 		 btnAtras.setHorizontalAlignment(SwingConstants.LEFT);
 		 btnAtras.setBounds(716, 529, 120, 47);
 		add(btnAtras);
 		
 		scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(24, 19, 812, 501);
+		scrollPane.setBounds(24, 78, 812, 442);
 		add(scrollPane);
 
 		Cargar();
 	}
 
-	private void Cargar() {
+	protected void Cargar() {
 		Iterator<Libro> iterador = libros.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
 				new String[] { "ISBN", "Titulo", "Autor", "Genero", "Idioma",

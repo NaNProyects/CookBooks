@@ -26,11 +26,10 @@ import javax.swing.JLabel;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 @SuppressWarnings("serial")
-public class MedioPedidos extends MedioPanel {
+public class MedioHistorialDeUsuario extends MedioPanel {
 	private JTable table;
 	private Interface inside;
 	private LinkedList<Pedido> pedidos;
-	private JButton enviarButton;
 	private JButton btnDetalles;
 	private JScrollPane scrollPane;
 	private JLabel labelTitulo;
@@ -38,7 +37,7 @@ public class MedioPedidos extends MedioPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MedioPedidos(Interface inside2) {//TODO EDITAR FORMATO
+	public MedioHistorialDeUsuario(Interface inside2) {//TODO EDITAR FORMATO
 		inside = inside2;
 
 		setBackground(new Color(255, 204, 255));
@@ -53,18 +52,18 @@ public class MedioPedidos extends MedioPanel {
 		add(labelErrores);
 
 		labelTitulo = DefaultComponentFactory.getInstance().createTitle(
-				"Listado de Pedidos");
+				"Historial de Compras");
 		labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 20));
-		labelTitulo.setBounds(22, 10, 200, 50);
+		labelTitulo.setBounds(22, 10, 370, 50);
 		add(labelTitulo);
 		
 		table = new JTable();
 		table.setAutoCreateRowSorter(true);
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
-				"Numero", "Fecha", "Monto", "Usuario", "Cantidad de Libros", "Estado"}) {
+				"Numero", "Fecha", "Monto", "Cantidad de Libros", "Estado"}) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { Integer.class, String.class,
-					String.class, String.class, String.class, String.class };
+					String.class, String.class, String.class };
 
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public Class getColumnClass(int columnIndex) {
@@ -72,7 +71,7 @@ public class MedioPedidos extends MedioPanel {
 			}
 
 			boolean[] columnEditables = new boolean[] { false, false, false,
-					false, false, false };
+					false, false };
 
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -83,7 +82,6 @@ public class MedioPedidos extends MedioPanel {
 		table.getColumnModel().getColumn(2).setResizable(false);
 		table.getColumnModel().getColumn(3).setResizable(false);
 		table.getColumnModel().getColumn(4).setResizable(false);
-		table.getColumnModel().getColumn(5).setResizable(false);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setBounds(80, 49, 755, 471);
 		add(table);
@@ -91,32 +89,21 @@ public class MedioPedidos extends MedioPanel {
 		scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(24, 78, 812, 442);
 		add(scrollPane);
-		
-		enviarButton = new JButton("Enviar");
-		enviarButton.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				try {
-					inside.contexto.enviar(selected());
-				} catch (Exception e1) {
-					printError(e1.getMessage().concat(" /n"), true);
-				}
-				table.repaint();
-				Cargar();
-			}
-		});
-		enviarButton.setHorizontalAlignment(SwingConstants.LEFT);
-		enviarButton.setToolTipText("Marca como \"Enviado\" el pedido seleccionado.");
-		enviarButton.setIcon(new ImageIcon(MedioPedidos.class.getResource("/fachade/Image/Clear Green Button.png")));
-		enviarButton.setBounds(598, 529, 120, 47);
-		add(enviarButton);
 
 		btnDetalles = new JButton("Detalles");
 		btnDetalles.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				inside.centro(new MedioDetalleDePedido(inside, selected(), inside.center));
+			public void mouseClicked(MouseEvent e) {try {
+				inside.centro(new MedioHistorialDeUsuarioDetalle(inside, selected(), inside.center));
+				printError("Debe selecionar un pedido /n", false);
+			} catch (Exception e1) {
+				labelErrores.setForeground(Color.RED);
+				printError("Debe selecionar un pedido /n", true);
+
+			}
+
 			}
 		});
-		 btnDetalles.setIcon(new ImageIcon(MedioPedidos.class.getResource("/fachade/Image/Export To Document.png")));
+		 btnDetalles.setIcon(new ImageIcon(MedioHistorialDeUsuario.class.getResource("/fachade/Image/Export To Document.png")));
 		 btnDetalles.setToolTipText("Muestra los libros encargados en el pedido.");
 		 btnDetalles.setHorizontalAlignment(SwingConstants.LEFT);
 		 btnDetalles.setBounds(716, 529, 120, 47);
@@ -127,17 +114,17 @@ public class MedioPedidos extends MedioPanel {
 
 	protected void Cargar() {
 		try {
-			pedidos = inside.contexto.pedidos();
+			pedidos = inside.contexto.historialDe(inside.contexto.usuarioActual());
 		} catch (Exception e) {
 			printError(e.getMessage().concat(" /n"), true);
 		}
 		Iterator<Pedido> iterador = pedidos.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
 				new String[] {
-						"Numero", "Fecha", "Monto", "Usuario", "Cantidad de Libros", "Estado"}) {
+						"Numero", "Fecha", "Monto", "Cantidad de Libros", "Estado"}) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { Integer.class, String.class,
-					String.class, String.class, String.class, String.class };
+					String.class, String.class, String.class };
 
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public Class getColumnClass(int columnIndex) {
@@ -145,7 +132,7 @@ public class MedioPedidos extends MedioPanel {
 			}
 
 			boolean[] columnEditables = new boolean[] { false, false, false,
-					false, false, false};
+					false, false};
 
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -156,7 +143,7 @@ public class MedioPedidos extends MedioPanel {
 			model.addRow(new Object[] {					
 					pedido.nro(), 
 					DateFormat.getDateInstance(DateFormat.SHORT).format(pedido.fecha()),
-					pedido.total().toString(), pedido.getUsuario().getNombre(), pedido.getLibros().size(),
+					pedido.total().toString(), pedido.getLibros().size(),
 					estado(pedido.estado())});
 		}
 		

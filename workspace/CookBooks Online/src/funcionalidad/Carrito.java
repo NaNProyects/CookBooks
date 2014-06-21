@@ -1,7 +1,7 @@
 package funcionalidad;
 
 import java.util.LinkedList;
-import java.util.Random;
+
 
 public class Carrito {
 	// TODO super mock

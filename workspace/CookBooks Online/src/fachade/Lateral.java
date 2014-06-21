@@ -20,6 +20,7 @@ public class Lateral extends JPanel {
 	private JButton botonPedidos;
 	private JButton carrito;
 	private JButton inicio;
+	private JButton historial;
 	/**
 	 * Create the panel.
 	 */
@@ -84,6 +85,15 @@ public class Lateral extends JPanel {
 		carrito.setPreferredSize(new Dimension(96, 23));
 		add(carrito);
 		
+		historial = new JButton("Historial");
+		historial.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+		 		inside.centro(new MedioHistorialDeUsuario(inside));
+		 	}
+		 });
+		historial.setPreferredSize(new Dimension(96, 23));
+		add(historial);
+		
 
 		// NO USUARIOS
 ;
@@ -98,6 +108,8 @@ public class Lateral extends JPanel {
 		
 		// USUARIOS
 		carrito.setVisible(permisos > 1);
+		historial.setVisible(permisos > 1);
+		
 		
 		// NO USUARIOS
 		inicio.setVisible(true);

@@ -24,5 +24,7 @@ public abstract class MedioPanel extends JPanel {
 	}
 
 	abstract void refresh();
+	
+	protected void Cargar(){}
 
 }

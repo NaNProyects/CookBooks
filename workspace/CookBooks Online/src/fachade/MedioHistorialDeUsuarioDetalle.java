@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
 import funcionalidad.Libro;
+import funcionalidad.Pedido;
 
 import javax.swing.JScrollPane;
 
@@ -24,22 +25,24 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
-public class MedioListaDeLibros extends MedioPanel {
+public class MedioHistorialDeUsuarioDetalle extends MedioPanel {
 	private JTable table;
 	private Interface inside;
 	private LinkedList<Libro> libros;
-	private JButton btnNewButton;
-	private JButton btnEditar;
-	private JButton btnEliminar;
+	private JButton btnAtras;
 	private JScrollPane scrollPane;
 	private JLabel labelTitulo;
 	private JTextPane labelErrores;
+	private Pedido pedido;
+	private MedioPanel anterior;
 
 	/**
 	 * Create the panel.
 	 */
-	public MedioListaDeLibros(Interface inside2) {
+	public MedioHistorialDeUsuarioDetalle(Interface inside2, Pedido ped, MedioPanel ant) {
 		inside = inside2;
+		pedido = ped;
+		anterior = ant;
 
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
@@ -83,84 +86,17 @@ public class MedioListaDeLibros extends MedioPanel {
 		table.setBounds(80, 49, 755, 471);
 		add(table);
 
-		btnNewButton = new JButton("Nuevo");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		btnAtras = new JButton("Atras");
+		btnAtras.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				inside.centro(new MedioEdicionDeLibro(inside));
+				inside.centro(anterior);
 			}
 		});
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton.setToolTipText("Agrega un nuevo libro");
-		btnNewButton.setIcon(new ImageIcon(MedioListaDeLibros.class
-				.getResource("/fachade/Image/New Document.png")));
-		btnNewButton.setBounds(478, 531, 120, 47);
-		add(btnNewButton);
-
-		btnEditar = new JButton("Editar");
-		btnEditar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				try {
-					inside.centro(new MedioEdicionDeLibro(inside, selected()));
-				} catch (Exception e1) {
-					if (e1.getMessage().equalsIgnoreCase(
-							"Debe selecionar el Libro a")){
-						labelErrores.setForeground(Color.RED);
-						printError(e1.getMessage().concat(" eliminar /n"), false);
-						printError(e1.getMessage().concat(" modificar /n"), true);
-					}
-				}
-			}
-		});
-		btnEditar.setIcon(new ImageIcon(MedioListaDeLibros.class
-				.getResource("/fachade/Image/Write Document.png")));
-		btnEditar.setToolTipText("Edite datos del libro seleccionado");
-		btnEditar.setHorizontalAlignment(SwingConstants.LEFT);
-		btnEditar.setBounds(596, 531, 120, 47);
-		add(btnEditar);
-
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				try{
-				if (inside.contexto.eliminar(selected())) {
-					libros.remove(selected());
-					table.repaint();
-					Cargar();
-					printError("No se puede eliminar un libro que figure en pedidos /n", false);
-					labelErrores.setForeground(Color.GREEN);
-					printError(
-							"Eliminacion exitosa /n",
-							true);
-				} else {
-					printError(
-							"Eliminacion exitosa /n",
-							false);
-					labelErrores.setForeground(Color.RED);
-					printError("No se puede eliminar un libro que figure en pedidos /n", true);
-				}
-				}
-				catch(Exception e1){
-					if(e1.getMessage().equalsIgnoreCase("Debe selecionar el Libro a")){
-						labelErrores.setForeground(Color.RED);
-						printError(e1.getMessage().concat(" modificar /n"), false);
-						printError(e1.getMessage().concat(" eliminar /n"), true);
-					}
-					else{
-						printError(
-								"Eliminacion exitosa /n",
-								false);
-						labelErrores.setForeground(Color.RED);
-						printError("No se puede eliminar un libro que figure en pedidos /n", true);
-					}
-				}
-			}
-		});
-		btnEliminar.setIcon(new ImageIcon(MedioListaDeLibros.class
-				.getResource("/fachade/Image/Remove Document.png")));
-		btnEliminar.setToolTipText("Elimina libro seleccionado");
-		btnEliminar.setHorizontalAlignment(SwingConstants.LEFT);
-		btnEliminar.setBounds(714, 531, 120, 47);
-		add(btnEliminar);
+		btnAtras.setIcon(new ImageIcon(MedioHistorialDeUsuarioDetalle.class.getResource("/fachade/Image/Import Document.png")));
+		btnAtras.setToolTipText("");
+		btnAtras.setHorizontalAlignment(SwingConstants.LEFT);
+		btnAtras.setBounds(714, 531, 120, 47);
+		add(btnAtras);
 
 		scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(24, 78, 812, 442);
@@ -179,7 +115,7 @@ public class MedioListaDeLibros extends MedioPanel {
 	}
 
 	protected void Cargar() {
-		libros = inside.contexto.libros();
+		libros = pedido.getLibros();
 		Iterator<Libro> iterador = libros.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
 				new String[] { "ISBN", "Titulo", "Autor", "Genero", "Idioma",
@@ -214,33 +150,6 @@ public class MedioListaDeLibros extends MedioPanel {
 		table.repaint();
 	}
 	
-	private Libro selected() throws Exception{
-		try {
-		for (Iterator<Libro> iterator = libros.iterator(); iterator.hasNext();) {
-			Libro iterable_element = iterator.next();
-			if (iterable_element.getIsbn() == table.getValueAt(table.getSelectedRow(), 0) ){
-
-				return iterable_element;
-			}
-		}		
-		return null;
-		}
-		catch(Exception e1){
-			throw new Exception("Debe selecionar el Libro a");
-			
-		}
-	}
-	
-	private void printError(String texto, Boolean condicion) {
-		labelErrores.setText(labelErrores.getText().replaceAll(
-				texto.replaceAll("/n", System.getProperty("line.separator")),
-				""));
-		if (condicion) {
-			labelErrores.setText(labelErrores.getText().concat(texto)
-					.replaceAll("/n", System.getProperty("line.separator")));
-			labelErrores.setVisible(true);
-		}
-	}
 
 	protected void refresh() {
 		inside.centro(new MedioHome(inside));
