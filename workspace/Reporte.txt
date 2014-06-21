@@ -1,5 +1,14 @@
--en Perfil de libro hay que deshabilitar el "agregar al carrito" del admin (debe tener que ver con el juego de login-logout, si es eso no dije nada)
--[Leve] Atrás va con tilde, género también (rastrear)
+-en Perfil de libro hay que deshabilitar el "agregar al carrito" del admin (debe tener que ver con el juego de login-logout, si es eso no dije nada) 
+	esta asi para no tener q logearme con nomrbes largos apralas pruebas de botones igual lo marque apra no olvidarme de desabilitarlo n la demo
+	
+	
+-[Leve] Atrás va con tilde, género también (rastrear) LISTO
+	
+---------------------------rompiste el logeo nose como :S------------------------------------
+no puedo testear el resto
+
+
+
 -[Leve] En autor, si clickeas modificar sin seleccionar nada, el label de "Debe seleccionar" primero le falta una "c" y segundo baja de línea (es distinto al error de si clickeas borrar). En libro también le falta una "c" pero el salto de línea esta bien.
 -[Sugerencia] Y si al admin le ponemos un editar en el perfil de libro? (buscar -> ver el perfil y que de ahí se pueda editar). 
 -el eliminar de carrito funciona aunque no pintes nada (igual todavia no carga nada no se si es por mocks o porque lo rompí xD EDIT: si lo había roto yo :P) 
