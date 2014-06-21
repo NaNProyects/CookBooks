@@ -234,8 +234,6 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 						.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
 					e.consume();
 				}
-				telefonoUsuario.setText(new Integer(telefonoUsuario.getText())
-						.toString());
 			}
 		});
 		telefonoUsuario.addFocusListener(new FocusAdapter() {
@@ -292,8 +290,8 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 					user.setNombre(nombreUsuario.getText());
 					user.setApellido(apellidoUsuario.getText());
 					user.setDireccion(direcUsuario.getText());
-					user.setTelefono(new Integer(telefonoUsuario.getText()
-							.toString()));
+					user.setTelefono(telefonoUsuario.getText()
+							.toString());
 					user.setTarjeta(targetaUsuario.getText().toString());
 					user.setPin(pinTextField.getText().toString()); // TODO
 																	// CUANDO SE

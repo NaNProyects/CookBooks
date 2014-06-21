@@ -82,7 +82,7 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		autorLabel.setBounds(62, 121, 200, 14);
 		add(autorLabel);
 
-		generoLabel = new JLabel("Genero: ".concat(libro.getGenero()));
+		generoLabel = new JLabel("Género: ".concat(libro.getGenero()));
 		generoLabel.setBounds(62, 146, 200, 14);
 		add(generoLabel);
 
@@ -166,7 +166,7 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 	}
 
 	protected void refresh() {
-		Comprar.setEnabled(inside.contexto.usuarioActual().getId() >= 1);
+		Comprar.setEnabled(inside.contexto.usuarioActual().getId() >= 1); // TODO desabilitar sacando = 
 		repaint();
 	}
 }

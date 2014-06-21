@@ -222,7 +222,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		autorLabel.setBounds(52, 122, 46, 14);
 		add(autorLabel);
 
-		JLabel generoLabel = new JLabel("Genero*");
+		JLabel generoLabel = new JLabel("Género*");
 		generoLabel.setLabelFor(generoLibro);
 		generoLabel.setBounds(52, 153, 46, 14);
 		add(generoLabel);
@@ -395,11 +395,11 @@ public class MedioEdicionDeLibro extends MedioPanel {
 	private Boolean ValidadGenero() {
 		if ((generoLibro.getText().length() < 45)
 				&& (generoLibro.getText().length() > 0)) {
-			printError("El Genero debe tener entre 0 y 45 caracteres /n", false);
+			printError("El Género debe tener entre 0 y 45 caracteres /n", false);
 			return true;
 
 		} else {
-			printError("El Genero debe tener entre 0 y 45 caracteres /n", true);
+			printError("El Género debe tener entre 0 y 45 caracteres /n", true);
 			return false;
 		}
 	}

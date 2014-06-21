@@ -61,7 +61,7 @@ public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los
 		lblAutor.setFont(new Font("Tahoma", Font.BOLD, 13));
 		add(lblAutor);
 		
-		lblGenero = DefaultComponentFactory.getInstance().createTitle("Genero: ".concat(libro2.getGenero()));
+		lblGenero = DefaultComponentFactory.getInstance().createTitle("Género: ".concat(libro2.getGenero()));
 		lblGenero.setBounds(32, 67, 283, 17);
 		lblGenero.setFont(new Font("Tahoma", Font.BOLD, 13));
 		add(lblGenero);
@@ -110,7 +110,7 @@ public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los
 	}
 
 	protected void refresh() {
-		botonComprar.setEnabled(inside.contexto.usuarioActual().getId() >=1);
+		botonComprar.setEnabled(inside.contexto.usuarioActual().getId() >=1);// TODO desabilitar sacando = 
 		repaint();
 	}
 

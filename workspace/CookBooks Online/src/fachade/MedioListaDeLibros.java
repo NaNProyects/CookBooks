@@ -53,7 +53,7 @@ public class MedioListaDeLibros extends MedioPanel {
 		table = new JTable();
 		table.setAutoCreateRowSorter(true);
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
-				"ISBN", "Titulo", "Autor", "Genero", "Idioma", "Editorial",
+				"ISBN", "Titulo", "Autor", "Género", "Idioma", "Editorial",
 				"Precio" }) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class,
@@ -182,7 +182,7 @@ public class MedioListaDeLibros extends MedioPanel {
 		libros = inside.contexto.libros();
 		Iterator<Libro> iterador = libros.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
-				new String[] { "ISBN", "Titulo", "Autor", "Genero", "Idioma",
+				new String[] { "ISBN", "Titulo", "Autor", "Género", "Idioma",
 						"Editorial", "Precio" }) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class,
