@@ -1,0 +1,7 @@
+-en Perfil de libro hay que deshabilitar el "agregar al carrito" del admin (debe tener que ver con el juego de login-logout, si es eso no dije nada)
+-[Leve] Atrás va con tilde, género también (rastrear)
+-[Leve] En autor, si clickeas modificar sin seleccionar nada, el label de "Debe seleccionar" primero le falta una "c" y segundo baja de línea (es distinto al error de si clickeas borrar). En libro también le falta una "c" pero el salto de línea esta bien.
+-[Sugerencia] Y si al admin le ponemos un editar en el perfil de libro? (buscar -> ver el perfil y que de ahí se pueda editar). 
+-el eliminar de carrito funciona aunque no pintes nada (igual todavia no carga nada no se si es por mocks o porque lo rompí xD EDIT: si lo había roto yo :P) 
+-al agregar mas de un libro al carrito solo carga uno (por ahi lo rompi)
+-en la lista de pedidos del admin muestra solo el nombre de pila del usuario, debería ser nombre+apellido, y por ahi estaría bueno que también tuviera uno de los datos unicos (DNI o email) 
