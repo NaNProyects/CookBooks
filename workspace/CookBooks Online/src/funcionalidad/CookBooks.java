@@ -347,8 +347,8 @@ public class CookBooks {
 
 	}
 
-	public void modificar(Usuario unUsuario) {
-
+	public boolean modificar(Usuario unUsuario) {
+		return false; //FIXME implementar despues
 	}
 
 	public void recuperarContraseña(String mail, int dni) {

@@ -41,7 +41,7 @@ public class UsuarioTest {
 		ConsultaDelete del = new ConsultaDelete("usuario", "dni IN (" + sel2
 				+ ")");
 		cookbooks.ejecutar(del);
-		usuario1 = new Usuario(1, 4241111, "1234567887654321",
+		usuario1 = new Usuario(1, "4241111", "1234567887654321","0000",
 				Date.valueOf("2000-1-1"), "Demo nº000",
 				"76b5e9c04b3c45253bfcde488623a01b",
 				"nombredemoapellidodemo@cookbooks.com", "NombreDemo",
@@ -85,14 +85,14 @@ public class UsuarioTest {
 		 */
 
 		try { // setup
-			usuario1 = new Usuario(1, 4241111, "1234567887654321",
+			usuario1 = new Usuario(1, "4241111", "1234567887654321","0000",
 					Date.valueOf("2000-1-1"), "Demo nº000",
 					"76b5e9c04b3c45253bfcde488623a01b",
 					"nombredemoapellidodemo1@cookbooks.com", "NombreDemo1",
 					"ApellidoDemo1");
 			lista1.add(usuario1);
 			usuario1.guardarEn(cookbooks);
-			usuario1 = new Usuario(2, 4241111, "1234567887654321",
+			usuario1 = new Usuario(2, "4241111", "1234567887654321","0000",
 					Date.valueOf("2000-1-1"), "Demo nº000",
 					"76b5e9c04b3c45253bfcde488623a01b",
 					"nombredemoapellidodemo2@cookbooks.com", "NombreDemo2",
@@ -127,6 +127,8 @@ public class UsuarioTest {
 					.equals(lista2.get(i).getTelefono()));
 			assertTrue("La tarjeta no coincide",
 					lista1.get(i).getTarjeta().equals(lista2.get(i).getTarjeta()));
+			assertTrue("El pin no coincide",
+					lista1.get(i).getPin().equals(lista2.get(i).getPin()));
 			assertTrue("La fecha no coincide", lista1.get(i).getFechaRegistro()
 					.equals(lista2.get(i).getFechaRegistro()));
 			assertTrue("La direccion no coincide", lista1.get(i).getDireccion()
@@ -190,6 +192,8 @@ public class UsuarioTest {
 					.equals(usuario2.getTelefono()));
 			assertTrue("La tarjeta no coincide",
 					usuario1.getTarjeta().equals(usuario2.getTarjeta()));
+			assertTrue("El pin no coincide",
+					usuario1.getPin().equals(usuario1.getPin()));
 			assertTrue("La fecha no coincide", usuario1.getFechaRegistro()
 					.equals(usuario2.getFechaRegistro()));
 			assertTrue("La direccion no coincide", usuario1.getDireccion()
@@ -212,7 +216,7 @@ public class UsuarioTest {
 		 */
 
 		try {
-			usuario2 = new Usuario(1, 4241111, "1234567887654321",
+			usuario2 = new Usuario(1, "4241111", "1234567887654321","0000",
 					Date.valueOf("2000-1-1"), "Demo nº000",
 					"76b5e9c04b3c45253bfcde488623a01b",
 					"nombredemoapellidodemo@cookbooks.com", "NombreDemo",
@@ -243,6 +247,8 @@ public class UsuarioTest {
 					.equals(usuario2.getTelefono()));
 			assertTrue("La tarjeta no coincide",
 					usuario1.getTarjeta().equals(usuario2.getTarjeta()));
+			assertTrue("El pin no coincide",
+					usuario1.getPin().equals(usuario1.getPin()));
 			assertTrue("La fecha no coincide", usuario1.getFechaRegistro()
 					.equals(usuario2.getFechaRegistro()));
 			assertTrue("La direccion no coincide", usuario1.getDireccion()

@@ -16,11 +16,11 @@ import utilsSQL.ConsultaUpdate;
 public class Usuario implements Cargable {
 
 	private Integer dni;
-	private Integer telefono;
+	private String telefono;
 	private String tarjeta;
 	private Date fechaRegistro;
 	private String direccion;
-	// NOTA = EN TODOS LOS INSERTS DEMO LA PASS ES SU "Nombre"
+	// NOTA = EN TODOS LOS INSERTS DEMO LA PASS ES SU "qwerty"
 	private String hashPass;
 
 
@@ -28,13 +28,11 @@ public class Usuario implements Cargable {
 	private String nombre;
 	private String apellido;
 	private Integer id;
-	private String pin;//TODO agregar pin
-	//TODO AGREGADO SETER DEL HASH y de otros
+	private String pin;
 	
 	public static Usuario anonimo() {
 		Usuario result = new Usuario();
 		result.setId(-1);
-		//TODO mock?
 		result.setApellido("");
 		result.setDireccion("");
 		result.setDni(0);
@@ -42,9 +40,7 @@ public class Usuario implements Cargable {
 		result.setNombre("");
 		result.setPin("");
 		result.setTarjeta("");
-		result.setTelefono(0);
-		//moockfin?
-		
+		result.setTelefono("");
 		return result;
 	}
 
@@ -52,13 +48,14 @@ public class Usuario implements Cargable {
 		super();
 	}
 
-	public Usuario(Integer dni, Integer telefono, String tarjeta,
-			Date fechaRegistro, String direccion, String hashPass,
+	public Usuario(Integer dni, String telefono, String tarjeta,
+			String pin, Date fechaRegistro, String direccion, String hashPass,
 			String email, String nombre, String apellido) {
 		super();
 		this.dni = dni;
 		this.telefono = telefono;
 		this.tarjeta = tarjeta;
+		this.pin = pin;
 		this.fechaRegistro = fechaRegistro;
 		this.direccion = direccion;
 		this.hashPass = hashPass;
@@ -71,7 +68,7 @@ public class Usuario implements Cargable {
 		return dni;
 	}
 
-	public Integer getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
@@ -103,7 +100,7 @@ public class Usuario implements Cargable {
 		return apellido;
 	}
 
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
@@ -138,8 +135,9 @@ public class Usuario implements Cargable {
 	public void cargarCon(ResultSet iterador) throws SQLException {
 		this.id = iterador.getInt("idUsuario");
 		this.dni = iterador.getInt("dni");
-		this.telefono = iterador.getInt("telefono");
+		this.telefono = iterador.getString("telefono");
 		this.tarjeta = iterador.getString("tarjeta");
+		this.pin = iterador.getString("pin");
 		this.fechaRegistro = iterador.getDate("fechaRegistro");
 		this.direccion = iterador.getString("direccion");
 		this.hashPass = iterador.getString("contraseña");
@@ -155,6 +153,7 @@ public class Usuario implements Cargable {
 			atributos.add("dni");
 			atributos.add("telefono");
 			atributos.add("tarjeta");
+			atributos.add("pin");
 			atributos.add("fechaRegistro");
 			atributos.add("direccion");
 			atributos.add("contraseña");
@@ -165,6 +164,7 @@ public class Usuario implements Cargable {
 			valores.add(dni.toString());
 			valores.add(telefono.toString());
 			valores.add("'" + tarjeta + "'");
+			valores.add("'" + pin + "'");
 			valores.add("'" + fechaRegistro.toString() + "'");
 			valores.add("'" + direccion + "'");
 			valores.add("'" + hashPass + "'");
@@ -215,7 +215,7 @@ public class Usuario implements Cargable {
 
 	public boolean existeEn(Conector base) throws SQLException {
 		ConsultaSelect select = new ConsultaSelect("count(*)", "usuario",
-				"(dni = " + dni + " and email='" + email + "')");
+				"(dni = " + dni + " or email='" + email + "')");
 		base.ejecutar(select);
 		return (base.getFirstInt() != 0);
 	}
