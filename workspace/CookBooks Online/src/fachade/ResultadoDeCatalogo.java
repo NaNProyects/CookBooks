@@ -80,7 +80,7 @@ public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los
 		botonComprar.setBounds(734, 8, 157, 23);
 		botonComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inside.contexto.carrito().agregar(libro);
+				inside.contexto.getCarrito().agregar(libro);
 //				inside.contexto.agregarAlCarrito(libro);
 				//TODO SETEAR COMO DESACTIVADO CUANDO YA ANDE EL AGREGAR y cuando se desida como manejar el carrito cambiar o no
 				botonComprar.setEnabled(false);

@@ -1,6 +1,10 @@
 package funcionalidad;
 
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.LinkedList;
+
+import utilsSQL.Conector;
 
 public class Carrito {
 	private LinkedList<Libro> libros;
@@ -13,7 +17,7 @@ public class Carrito {
 		return libros;
 	}
 
-	public boolean agregar(Libro unLibro) {
+	boolean agregar(Libro unLibro) {
 		if (!this.contiene(unLibro)) {
 			libros.add(unLibro);
 			return true;
@@ -22,7 +26,7 @@ public class Carrito {
 		}
 	}
 
-	public void eliminar(Libro unLibro) {
+	void eliminar(Libro unLibro) {
 		libros.remove(unLibro);
 	}
 
@@ -36,5 +40,16 @@ public class Carrito {
 			total += l.getPrecio();
 		}
 		return total;
+	}
+	
+	void vaciar() {
+		libros = new LinkedList<Libro>();
+	}
+	
+	Pedido guardarEn (Conector base, Usuario user) throws SQLException {
+		Pedido result = new Pedido(new Date(), libros, user);
+		result.guardarEn(base);
+		this.vaciar();
+		return result;
 	}
 }

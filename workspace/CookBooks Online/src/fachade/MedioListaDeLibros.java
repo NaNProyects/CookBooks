@@ -179,7 +179,7 @@ public class MedioListaDeLibros extends MedioPanel {
 	}
 
 	protected void Cargar() {
-		libros = inside.contexto.libros();
+		libros = inside.contexto.listarLibros();
 		Iterator<Libro> iterador = libros.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
 				new String[] { "ISBN", "Titulo", "Autor", "Género", "Idioma",

@@ -231,7 +231,7 @@ public class MedioListaDeAutores extends MedioPanel {
 		LinkedList<Autor> retorno = new LinkedList<Autor>();
 
 		try {
-			for (Autor autor : inside.contexto.autores()) {
+			for (Autor autor : inside.contexto.listarAutores()) {
 				if ((autor.getNombre().toLowerCase().contains(txtBuscarAutor.getText()
 						.toLowerCase()))
 						|| (autor.getApellido().toLowerCase()

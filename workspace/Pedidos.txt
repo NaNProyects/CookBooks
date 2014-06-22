@@ -1,11 +1,12 @@
 Funciones del carrito:
-	agregar -> si estaba retorno false? (hace eso) [aunque preguntes vos arriba?]
+	agregar -> si estaba retorno false? en cookbooks o en el carrito? [aunque preguntes vos arriba?]
 	eliminar -> OK (no cambio)
 	si esta en el carrito -> OK (no cambio)
 	precio -> ojo que era un Double. [Lo recalculamos o lo guardamos?]
-	convertir a pedido -> PENDIENTE
+	convertir a pedido -> hecho. llama al guardar pedido que todavia no esta
 Interface:
 	comentar si los resultados de busqueda se quiere modificar la presentacion por cada resultado -> esta perfecto
+	despues tengo que subir el papel de la ultima reunion, me vengo olvidando (correcciones)
 	
 Usuario: 
 	Agregar pin -> modificados metodos de la base y el constructor completo
@@ -19,10 +20,10 @@ Usuario:
 Cookbooks:
 	modificar de usuario no devuelve boolean de si se pudo o exite el usuario? o por q si lo devuelve agregar? --> tenes razon, devuelve un boolean. Falta implementar (FIXME)
 	que campos no se podian repetir, dni y mail nomas no? si son esos podrian agregarse consulta de si tal mail esta registrado o no y lo mismo con el dni? --> el metodo se llama existeEn(base) pero hay hacer el intermediario en cookbooks
-	falta agregar usuario. -->PENDIENTE
-	implementar metodos del carrito -->PENDIENTE
+	falta agregar usuario. -->OK
+	implementar metodos del carrito -->OK (bajar a pedido tiene resguardos que no andan pero esta escrito)
 	
-Carrito: --> PENDIENTE. En general prefiero usar a cookbook de intermediario.
+Carrito: --> Puse los metodos ABM como package para que los maneje cookbooks. A la variable carrito le podes pedir los libros, el contains y el precio (si es incomodo se cambia)
 	implementar listar,agregar, eliminar, si esta en el carrito, pasar a pedido?
 	en cookbooks tenemos un agregar al carrito un cancelar carrito un comvertirlo a pedido y un coso q nos da el carrino, 
 	no tiene el eliminar del carrito ni el listar, dos opciones o qdarnos solo con el retorno del carrito y operar con el carrito (feo)

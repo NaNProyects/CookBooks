@@ -113,7 +113,7 @@ public class CookBooks {
 	 *             si falla la reconexion
 	 */
 	@SuppressWarnings("unchecked")
-	public LinkedList<Autor> autores() throws Exception {
+	public LinkedList<Autor> listarAutores() throws Exception {
 		try {
 			base.ejecutar(Autor.getBuscadorTodos());
 			return new LinkedList<Autor>(
@@ -131,7 +131,7 @@ public class CookBooks {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public LinkedList<Pedido> pedidos() throws Exception {
+	public LinkedList<Pedido> listarPedidos() throws Exception {
 		try {
 			base.ejecutar(Pedido.getBuscadorTodos());
 			return new LinkedList<Pedido>(
@@ -175,7 +175,7 @@ public class CookBooks {
 	 * @return la lista de todos los libros en la base
 	 */
 	@SuppressWarnings("unchecked")
-	public LinkedList<Libro> libros() {
+	public LinkedList<Libro> listarLibros() {
 		try {
 			base.ejecutar(Libro.getBuscadorTodos());
 			return new LinkedList<Libro>(
@@ -248,37 +248,36 @@ public class CookBooks {
 		}
 	}
 
-	public LinkedList<Libro> buscar(String unNombreLibro) {
+	public LinkedList<Libro> buscarLibro(String terminoDeBusqueda) { //FIXME implementar consulta
 //		TODO mock
-		
-		return libros();
-//		LinkedList<Libro> temp = new LinkedList<Libro>();
-//		temp.add(new Libro("0", "", new Autor(0, "nombre", "apellido"), "", "",
-//				"", "", "", new Double(0)));
-//		return temp;
-
+		return listarLibros();
 	}
 
-	public void agregarAlCarrito(Libro unLibro) {
-
+	public boolean agregarAlCarrito(Libro unLibro) {
+		return carrito.agregar(unLibro);
 	}
 
-	public Carrito carrito() {// TODO AGREGADO COMO VARIABLE Y ACA LO PIDO NO TOCO EL RESTO POR SI ACASO
-		return carrito;
-
+	public Carrito getCarrito() {// TODO AGREGADO COMO VARIABLE Y ACA LO PIDO NO TOCO EL RESTO POR SI ACASO
+		return carrito; 
 	}
 
 	public Pedido confirmarCarrito() {
-		return null;
+		try {
+			return carrito.guardarEn(base, usuario);
+		} catch (SQLException e) {
+			// TODO pensar excepciones
+			e.printStackTrace();
+			return new Pedido();
+		}
 
 	}
 
 	public void eliminarDelCarrito(Libro unLibro) {
-
+		carrito.eliminar(unLibro);
 	}
 
-	public void cancelarCarrito() {
-
+	public void vaciarCarrito() {
+		carrito.vaciar();
 	}
 
 	/**
@@ -304,7 +303,7 @@ public class CookBooks {
 				return false; // el mail no existe
 			} else {
 				if (chequearContraseña(lis.element(), pass)) {
-					usuario = lis.element(); // TODO jose aca actualice el usuario actual q creoq  te lo olvidaste
+					usuario = lis.element();
 					return true;
 				}
 				return false;
@@ -321,8 +320,26 @@ public class CookBooks {
 		return usuario;
 	}
 
-	public boolean agregar(Usuario unUsuario, String pass) {
-		return false;
+	/**
+	 * Agrega un usuario ya creado, sin hashPass.
+	 * <br> Falla si el DNI o mail ya estaba.
+	 * 
+	 * @param unUsuario
+	 * @param pass
+	 * @return si se pudo o no
+	 * @throws Exception
+	 */
+	public boolean agregar(Usuario unUsuario, String pass) throws Exception {
+		try {
+			unUsuario.setHashPass(getMD5(pass));
+			unUsuario.guardarEn(base);
+			return true;
+		} catch (MySQLNonTransientException e) {
+			this.reconectar();
+			return false;
+		} catch (SQLException e) {
+			return false;
+		}
 
 	}
 
@@ -331,10 +348,10 @@ public class CookBooks {
 
 	}
 
-	public LinkedList<Pedido> historialDe(Usuario unUsuario) {
+	public LinkedList<Pedido> historialDe(Usuario unUsuario) { //FIXME implementar consultas
 		//TODO mock
 		try {
-			return pedidos();
+			return listarPedidos();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -342,13 +359,49 @@ public class CookBooks {
 		}
 
 	}
-
-	public void eliminar(Usuario unUsuario) {
-
+	
+	/**
+	 * Elimina un usuario. Si está en algún pedido no se puede.
+	 * 
+	 * @param unUsuario
+	 * @return si se pudo
+	 * @throws Exception 
+	 */
+	public boolean eliminar(Usuario unUsuario) throws Exception {
+		try {
+			unUsuario.borrarDe(base);
+			return true;
+		} catch (MySQLNonTransientException e) {
+			this.reconectar();
+			return false;
+		} catch (SQLException e) {
+			if (e.getMessage().startsWith("El libro tiene pedidos"))
+				return false;
+			else
+				throw e;
+		}
 	}
 
-	public boolean modificar(Usuario unUsuario) {
-		return false; //FIXME implementar despues
+	/**
+	 * Guarda los datos nuevos del usuario en la fila con el mismo dni
+	 * 
+	 * @param unUsuario
+	 * @return si se pudo o no
+	 * @throws Exception
+	 */
+	public boolean modificar(Usuario unUsuario) throws Exception {
+		if (unUsuario.getDni() < 0) {
+			return false;
+		}
+		try {
+			unUsuario.guardarEn(base);
+			return true;
+		} catch (MySQLNonTransientException e) {
+			this.reconectar();
+			return false;
+		} catch (SQLException e) {
+			return false;
+		}
 	}
 
 	public void recuperarContraseña(String mail, int dni) {
@@ -357,6 +410,7 @@ public class CookBooks {
 
 	public void cerrarSesion() {
 		this.usuario = Usuario.anonimo();
+		carrito.vaciar();
 	}
 
 	public Libro libroMasVendido() {

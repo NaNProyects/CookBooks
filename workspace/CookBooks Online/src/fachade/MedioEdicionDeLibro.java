@@ -142,7 +142,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		});
 		try {
 			autorLibro.setModel(new DefaultComboBoxModel(
-					NombresAutores(inside.contexto.autores())));
+					NombresAutores(inside.contexto.listarAutores())));
 		} catch (Exception e2) {
 			printError(e2.getMessage().concat(" /n"), true);
 		}
@@ -347,8 +347,8 @@ public class MedioEdicionDeLibro extends MedioPanel {
 	private Autor selectAutor() {		
 		autorLibro.getSelectedItem();
 		try {
-			inside.contexto.autores();
-		for (Autor iterable_element : inside.contexto.autores()) {
+			inside.contexto.listarAutores();
+		for (Autor iterable_element : inside.contexto.listarAutores()) {
 			if(iterable_element.toString().compareTo((String) autorLibro.getSelectedItem()) == 0){
 				return iterable_element;				
 			}

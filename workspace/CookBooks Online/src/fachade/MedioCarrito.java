@@ -166,7 +166,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		
 		valor = new JTextField();
 		valor.setBounds(344, 540, 119, 38);
-		valor.setText(inside.contexto.carrito().getCosto().toString());
+		valor.setText(inside.contexto.getCarrito().getCosto().toString());
 		valor.setEditable(false);
 		valor.setSelectionColor(Color.WHITE);
 		add(valor);
@@ -177,7 +177,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 	}
 
 	protected void Cargar() {
-		libros = inside.contexto.carrito().getLibros();
+		libros = inside.contexto.getCarrito().getLibros();
 		Iterator<Libro> iterador = libros.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
 				new String[] { "ISBN", "Titulo", "Autor", "Género", "Idioma",
@@ -354,8 +354,8 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		JButton confirmar = new JButton("Confirmar");
 		confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inside.contexto.cancelarCarrito();
-				valor.setText(inside.contexto.carrito().getCosto().toString());
+				inside.contexto.vaciarCarrito();
+				valor.setText(inside.contexto.getCarrito().getCosto().toString());
 				valor.repaint();
 				Cargar();
 				labelErrores.setForeground(Color.GREEN);
@@ -413,9 +413,9 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		JButton confirmar = new JButton("Confirmar");
 		confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inside.contexto.carrito().eliminar(libro);
+				inside.contexto.getCarrito().eliminar(libro);
 				Cargar();
-				valor.setText(inside.contexto.carrito().getCosto().toString());
+				valor.setText(inside.contexto.getCarrito().getCosto().toString());
 				valor.repaint();
 				labelErrores.setForeground(Color.GREEN);
 				printError("Libro eliminado", true);

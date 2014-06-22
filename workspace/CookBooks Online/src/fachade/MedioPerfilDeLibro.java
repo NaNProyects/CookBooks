@@ -107,7 +107,7 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		Comprar = new JButton("Agregar al Carrito");
 		Comprar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				inside.contexto.carrito().agregar(libro);
+				inside.contexto.getCarrito().agregar(libro);
 //				inside.contexto.agregarAlCarrito(libro);
 				//TODO SETEAR COMO DESACTIVADO CUANDO YA ANDE EL AGREGAR y cuando se desida como manejar el carrito cambiar o no
 				Comprar.setEnabled(false);

@@ -127,7 +127,7 @@ public class MedioPedidos extends MedioPanel {
 
 	protected void Cargar() {
 		try {
-			pedidos = inside.contexto.pedidos();
+			pedidos = inside.contexto.listarPedidos();
 		} catch (Exception e) {
 			printError(e.getMessage().concat(" /n"), true);
 		}
