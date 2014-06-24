@@ -2,7 +2,6 @@ package funcionalidad;
 
 import static org.junit.Assert.*;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -42,10 +41,9 @@ public class UsuarioTest {
 				+ ")");
 		cookbooks.ejecutar(del);
 		usuario1 = new Usuario(1, "4241111", "1234567887654321","0000",
-				Date.valueOf("2000-1-1"), "Demo nº000",
-				"76b5e9c04b3c45253bfcde488623a01b",
-				"nombredemoapellidodemo@cookbooks.com", "NombreDemo",
-				"ApellidoDemo");
+				"Demo nº000", "76b5e9c04b3c45253bfcde488623a01b",
+				"nombredemoapellidodemo@cookbooks.com",
+				"NombreDemo", "ApellidoDemo");
 	}
 
 	@After
@@ -86,17 +84,15 @@ public class UsuarioTest {
 
 		try { // setup
 			usuario1 = new Usuario(1, "4241111", "1234567887654321","0000",
-					Date.valueOf("2000-1-1"), "Demo nº000",
-					"76b5e9c04b3c45253bfcde488623a01b",
-					"nombredemoapellidodemo1@cookbooks.com", "NombreDemo1",
-					"ApellidoDemo1");
+					"Demo nº000", "76b5e9c04b3c45253bfcde488623a01b",
+					"nombredemoapellidodemo1@cookbooks.com",
+					"NombreDemo1", "ApellidoDemo1");
 			lista1.add(usuario1);
 			usuario1.guardarEn(cookbooks);
 			usuario1 = new Usuario(2, "4241111", "1234567887654321","0000",
-					Date.valueOf("2000-1-1"), "Demo nº000",
-					"76b5e9c04b3c45253bfcde488623a01b",
-					"nombredemoapellidodemo2@cookbooks.com", "NombreDemo2",
-					"ApellidoDemo2");
+					"Demo nº000", "76b5e9c04b3c45253bfcde488623a01b",
+					"nombredemoapellidodemo2@cookbooks.com",
+					"NombreDemo2", "ApellidoDemo2");
 			lista1.add(usuario1);
 			usuario1.guardarEn(cookbooks);
 		} catch (SQLException e) {
@@ -217,10 +213,9 @@ public class UsuarioTest {
 
 		try {
 			usuario2 = new Usuario(1, "4241111", "1234567887654321","0000",
-					Date.valueOf("2000-1-1"), "Demo nº000",
-					"76b5e9c04b3c45253bfcde488623a01b",
-					"nombredemoapellidodemo@cookbooks.com", "NombreDemo",
-					"ApellidoDemo");
+					"Demo nº000", "76b5e9c04b3c45253bfcde488623a01b",
+					"nombredemoapellidodemo@cookbooks.com",
+					"NombreDemo", "ApellidoDemo");
 			usuario2.guardarEn(cookbooks);
 			fail("el usuario no se puede guardar dos veces");
 		} catch (SQLException e) {

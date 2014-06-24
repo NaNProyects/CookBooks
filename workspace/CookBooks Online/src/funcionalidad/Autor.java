@@ -67,9 +67,7 @@ public class Autor implements Cargable {
 			if (id == -1) { // sin nro asignado
 				cons = new ConsultaInsert("autor", atr, vals);
 				base.ejecutar(cons);
-				base.ejecutar(new ConsultaSelect("idAutor", "autor",
-						"nombre = '" + nombre + "' and apellido = '" + apellido
-								+ "'"));
+				base.ejecutar(new ConsultaSelect("LAST_INSERT_ID()"));
 				this.id = base.getFirstInt();
 			} else {
 				cons = new ConsultaUpdate("autor", atr, vals, "idAutor IN ("

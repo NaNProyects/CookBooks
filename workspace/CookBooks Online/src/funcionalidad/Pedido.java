@@ -2,6 +2,7 @@ package funcionalidad;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -9,7 +10,10 @@ import java.util.List;
 
 import utilsSQL.Cargable;
 import utilsSQL.Conector;
+import utilsSQL.ConsultaABM;
+import utilsSQL.ConsultaInsert;
 import utilsSQL.ConsultaSelect;
+import utilsSQL.ConsultaUpdate;
 
 public class Pedido implements Cargable {
 	private Integer nro;
@@ -116,18 +120,67 @@ public class Pedido implements Cargable {
 	}
 
 	public void guardarEn(Conector base) throws SQLException {
-		// TODO Pedido.#guardarEn
+		//ESTADO
+		
+		
+		//FECHA
+		//NRO
+		//TOTAL
+		//USUARIO (link con usuario) OK
+		//LIBROS (link con libropedido)
+		try {
+			ConsultaABM cons;
+			if (!estado) { //no enviado FIXME REFACTORIZAR POR ENVIADO DIOS
+				String subconsultaUsuario = "(select idUsuario from usuario where idUsuario = "
+						+ usuario.getId()+ ")";
+				ArrayList<String> atributos = new ArrayList<String>();
+				atributos.add("fecha");
+				atributos.add("total");
+				atributos.add("usuario");
+				atributos.add("estado");
+				ArrayList<String> valores = new ArrayList<String>();
+				valores.add("'" + fecha.toString() + "'");
+				valores.add("'" + total.toString() + "'");
+				valores.add(subconsultaUsuario);
+				valores.add(estado.toString());
+				cons = new ConsultaInsert("pedido", atributos, valores);
+				this.guardarLibros();
+				base.ejecutar(new ConsultaSelect("LAST_INSERT_ID()"));
+				this.nro = base.getFirstInt();
+			} else { //solo puede cambiar de estado
+				cons = new ConsultaUpdate("pedido", "estado", "true",
+						"nro IN ("
+								+ new ConsultaSelect("*", "("
+										+ new ConsultaSelect("idPedido", "pedido",
+												"nro = " + nro ) + ")"
+										+ " as tmp") + ")");
+			}
+			base.ejecutar(cons);
+		} catch (SQLException e) {
+			if (e.getErrorCode() == 1062) {
+				throw new SQLException("Ya existe un pedido con ese nro (?)");
+			}
+			throw e;
+		}
+		
 
 	}
 
+	private void guardarLibros() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void borrarDe(Conector base) throws SQLException {
-		// TODO Pedido.#borrarDe
+		// no se puede borrar un pedido
 
 	}
 
 	public boolean existeEn(Conector base) throws SQLException {
-		// TODO Pedido.#existeEn
-		return false;
+		ConsultaSelect select = new ConsultaSelect("count(*)", "pedido",
+				"(idPedido = " + nro + ")");
+		base.ejecutar(select);
+		return (base.getFirstInt() != 0);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -49,14 +49,14 @@ public class Usuario implements Cargable {
 	}
 
 	public Usuario(Integer dni, String telefono, String tarjeta,
-			String pin, Date fechaRegistro, String direccion, String hashPass,
-			String email, String nombre, String apellido) {
+			String pin, String direccion, String hashPass, String email,
+			String nombre, String apellido) {
 		super();
 		this.dni = dni;
 		this.telefono = telefono;
 		this.tarjeta = tarjeta;
 		this.pin = pin;
-		this.fechaRegistro = fechaRegistro;
+		this.fechaRegistro = new Date();
 		this.direccion = direccion;
 		this.hashPass = hashPass;
 		this.email = email;
@@ -174,8 +174,7 @@ public class Usuario implements Cargable {
 			if (dni >= 0) {
 				cons = new ConsultaInsert("usuario", atributos, valores);
 				base.ejecutar(cons);
-				base.ejecutar(new ConsultaSelect("idUsuario", "usuario",
-						"email = '" + email + "'"));
+				base.ejecutar(new ConsultaSelect("LAST_INSERT_ID()"));
 				this.id = base.getFirstInt();
 			} else { // si es negativo viene modificado
 				dni = -1 * dni;
