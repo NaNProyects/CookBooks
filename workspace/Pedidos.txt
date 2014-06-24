@@ -8,7 +8,7 @@ Funciones del carrito:
 Interface:
 	comentar si los resultados de busqueda se quiere modificar la presentacion por cada resultado -> esta perfecto
 	despues tengo que subir el papel de la ultima reunion, me vengo olvidando (correcciones)
-	filtrado de libro
+	filtrado de libro -------HECHO
 	iconos a cada boton
 	
 Usuario: 

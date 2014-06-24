@@ -309,11 +309,11 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 				}
 			}
 		});
-
+		
 		panelConfirmacion.add(pin);
 		pin.setColumns(10);
 
-		JButton confirmar = new JButton("Confirmar");
+		final JButton confirmar = new JButton("Confirmar");
 		confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(pin.getText().compareTo(inside.contexto.usuarioActual().getPin())==0){ // TODO Probar con pin andando y con pedido andando
@@ -348,6 +348,14 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 				.getResource("/fachade/Image/Clear Green Button.png")));
 		confirmar.setBounds(78, 151, 144, 31);
 		panelConfirmacion.add(confirmar);
+		pin.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					confirmar.doClick();
+				}
+
+			}
+		});
 		
 		JButton cancelar = new JButton("Cancelar");
 		cancelar.addActionListener(new ActionListener() {

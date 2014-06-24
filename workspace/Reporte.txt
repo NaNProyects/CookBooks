@@ -11,7 +11,7 @@ no puedo testear el resto
 
 -[Leve] En autor, si clickeas modificar sin seleccionar nada, el label de "Debe seleccionar" primero le falta una "c" y segundo baja de línea (es distinto al error de si clickeas borrar). En libro también le falta una "c" pero el salto de línea esta bien.
 		el tema es q el mensaje es mas largo puedo ver de agrandar el lugar para lo errores o no pero en si no es un error y corregido lo de las C
--[Sugerencia] Y si al admin le ponemos un editar en el perfil de libro? (buscar -> ver el perfil y que de ahí se pueda editar). 
+-[Sugerencia] Y si al admin le ponemos un editar en el perfil de libro? (buscar -> ver el perfil y que de ahí se pueda editar). ---- HECHO
 -el eliminar de carrito funciona aunque no pintes nada (igual todavia no carga nada no se si es por mocks o porque lo rompí xD EDIT: si lo había roto yo :P) 
 	Oks corregidas ams cosas de eliminar
 -al agregar mas de un libro al carrito solo carga uno (por ahi lo rompi)
