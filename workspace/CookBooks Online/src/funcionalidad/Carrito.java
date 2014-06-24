@@ -17,16 +17,11 @@ public class Carrito {
 		return libros;
 	}
 
-	boolean agregar(Libro unLibro) {
-//		if (!this.contiene(unLibro)) { FIXME carrito agregar
+	public void agregar(Libro unLibro) {
 			libros.add(unLibro);
-			return true;
-//		} else {
-//			return false;
-//		}
 	}
 
-	void eliminar(Libro unLibro) {
+	public void eliminar(Libro unLibro) {
 		libros.remove(unLibro);
 	}
 
@@ -42,11 +37,11 @@ public class Carrito {
 		return total;
 	}
 	
-	void vaciar() {
+	public void vaciar() {
 		libros = new LinkedList<Libro>();
 	}
 	
-	Pedido guardarEn (Conector base, Usuario user) throws SQLException {
+	public Pedido guardarEn (Conector base, Usuario user) throws SQLException {
 		Pedido result = new Pedido(new Date(), libros, user);
 		result.guardarEn(base);
 		this.vaciar();

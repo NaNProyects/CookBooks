@@ -231,7 +231,7 @@ public class CookBooks {
 	 * 
 	 * @param unLibro
 	 * @return si se pudo
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public boolean eliminar(Libro unLibro) throws Exception {
 		try {
@@ -248,17 +248,28 @@ public class CookBooks {
 		}
 	}
 
-	public LinkedList<Libro> buscarLibro(String terminoDeBusqueda) { //FIXME implementar consulta
-//		TODO mock
+	public LinkedList<Libro> buscarLibro(String terminoDeBusqueda) { // FIXME
+																		// implementar
+																		// consulta
+		// TODO mock
 		return listarLibros();
 	}
 
 	public boolean agregarAlCarrito(Libro unLibro) {
-		return carrito.agregar(unLibro);
+		if (!carrito.contiene(unLibro)) {
+			carrito.agregar(unLibro);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	public Carrito getCarrito() {// TODO AGREGADO COMO VARIABLE Y ACA LO PIDO NO TOCO EL RESTO POR SI ACASO
-		return carrito; 
+	public LinkedList<Libro> getLibrosCarrito() {
+		return carrito.getLibros();
+	}
+	
+	public Double getCostoCarrito() {
+		return carrito.getCosto();
 	}
 
 	public Pedido confirmarCarrito() {
@@ -286,7 +297,7 @@ public class CookBooks {
 	 * @param pass
 	 *            como string sin hashear
 	 * @return true si los datos coinciden
-	 * @throws Exception 
+	 * @throws Exception
 	 * @throws SQLException
 	 *             si paso algo que espero que no
 	 */
@@ -321,8 +332,8 @@ public class CookBooks {
 	}
 
 	/**
-	 * Agrega un usuario ya creado, sin hashPass.
-	 * <br> Falla si el DNI o mail ya estaba.
+	 * Agrega un usuario ya creado, sin hashPass. <br>
+	 * Falla si el DNI o mail ya estaba.
 	 * 
 	 * @param unUsuario
 	 * @param pass
@@ -348,8 +359,10 @@ public class CookBooks {
 
 	}
 
-	public LinkedList<Pedido> historialDe(Usuario unUsuario) { //FIXME implementar consultas
-		//TODO mock
+	public LinkedList<Pedido> historialDe(Usuario unUsuario) { // FIXME
+																// implementar
+																// consultas
+		// TODO mock
 		try {
 			return listarPedidos();
 		} catch (Exception e) {
@@ -359,13 +372,13 @@ public class CookBooks {
 		}
 
 	}
-	
+
 	/**
 	 * Elimina un usuario. Si está en algún pedido no se puede.
 	 * 
 	 * @param unUsuario
 	 * @return si se pudo
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public boolean eliminar(Usuario unUsuario) throws Exception {
 		try {
