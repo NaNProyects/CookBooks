@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -90,9 +88,8 @@ public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los
 		
 		botonVerPerfil = new JButton("Ver Perfil");
 		botonVerPerfil.setBounds(734, 52, 157, 23);
-		botonVerPerfil.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		botonVerPerfil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioPerfilDeLibro(inside, libro, inside.center));//TODO ADAPTAR PARA Q CONSERVER LISTA
 			}
 		});

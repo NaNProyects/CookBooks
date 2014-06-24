@@ -1,20 +1,16 @@
 package fachade;
 
-import javax.swing.JPanel;
-
 import java.awt.Color;
-
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JTextField;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class Superior extends JPanel {
@@ -63,8 +59,8 @@ public class Superior extends JPanel {
 		txtBusque.setColumns(10);
 		
 		botonBuscar = new JButton("");
-		botonBuscar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		botonBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioCatalogoDeLibro(inside, inside.contexto.buscarLibro(txtBusque.getText())));
 			}
 		});

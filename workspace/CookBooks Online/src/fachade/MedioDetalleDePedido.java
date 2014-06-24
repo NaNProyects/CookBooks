@@ -2,34 +2,25 @@ package fachade;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-
-
-
-
-
-
-
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-
-import funcionalidad.Libro;
-import funcionalidad.Pedido;
-
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import funcionalidad.Libro;
+import funcionalidad.Pedido;
 
 @SuppressWarnings("serial")
 public class MedioDetalleDePedido extends MedioPanel {
@@ -104,8 +95,8 @@ public class MedioDetalleDePedido extends MedioPanel {
 		add(table);
 
 		enviarButton = new JButton("Enviar");
-		enviarButton.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		enviarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				try {
 					inside.contexto.enviar(pedido);
 				} catch (Exception e1) {
@@ -124,8 +115,8 @@ public class MedioDetalleDePedido extends MedioPanel {
 		add(enviarButton);
 
 		 btnAtras = new JButton("Atras");
-		 btnAtras.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {//TODO COMO NO HAY BAJADA DE PEDIDO VERIFICAR Q SE CAMBIE EN PEDIDOS COMO ENVIADO SIA APRETO
+		 btnAtras.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {//TODO COMO NO HAY BAJADA DE PEDIDO VERIFICAR Q SE CAMBIE EN PEDIDOS COMO ENVIADO SIA APRETO
 				anterior.Cargar();
 				inside.centro(anterior);
 			}

@@ -5,8 +5,6 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -121,8 +119,8 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		add(Comprar);
 
 		Vistazo = new JButton("Dar un Vistazo");
-		Vistazo.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		Vistazo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioPerfilDeLibroVistazo(inside, libro, inside.center));
 				
 			}
@@ -141,9 +139,8 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		scrollPane.setViewportView(textReseña);
 		
 		atras = new JButton("Atras");
-		atras.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		atras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(anterior);
 				inside.center.refresh();
 			}

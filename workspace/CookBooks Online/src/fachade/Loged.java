@@ -1,19 +1,15 @@
 package fachade;
 
-import javax.swing.JPanel;
-
 import java.awt.Color;
-
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JTextPane;
-
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
 
 @SuppressWarnings("serial")
 public class Loged extends JPanel {//TODO agregar imagen a los botones
@@ -59,9 +55,8 @@ public class Loged extends JPanel {//TODO agregar imagen a los botones
 		add(labelNombre);
 
 		btnCierre = new JButton("Cerrar Sesion");
-		btnCierre.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnCierre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.setPanelLog(new Login(inside));
 				inside.getInside().contexto.cerrarSesion();
 				//TODO aca riniciar carrito
@@ -75,9 +70,8 @@ public class Loged extends JPanel {//TODO agregar imagen a los botones
 		// TODO DESABILITAR PARA ENTREGA
 		btnEdicion = new JButton("Mis\n Datos".replaceAll("/n",
 				System.getProperty("line.separator")));
-		btnEdicion.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnEdicion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnEdicion.setIcon(new ImageIcon(Loged.class

@@ -2,28 +2,25 @@ package fachade;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
 import javax.swing.ImageIcon;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-
-import funcionalidad.Pedido;
-
-import javax.swing.JScrollPane;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import funcionalidad.Pedido;
 
 @SuppressWarnings("serial")
 public class MedioPedidos extends MedioPanel {
@@ -93,8 +90,8 @@ public class MedioPedidos extends MedioPanel {
 		add(scrollPane);
 		
 		enviarButton = new JButton("Enviar");
-		enviarButton.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		enviarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				try {
 					inside.contexto.enviar(selected());
 				} catch (Exception e1) {
@@ -111,8 +108,8 @@ public class MedioPedidos extends MedioPanel {
 		add(enviarButton);
 
 		btnDetalles = new JButton("Detalles");
-		btnDetalles.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		btnDetalles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioDetalleDePedido(inside, selected(), inside.center));
 			}
 		});

@@ -1,44 +1,38 @@
 package fachade;
 
-import javax.swing.JLabel;
-
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import funcionalidad.Autor;
-import funcionalidad.Libro;
-
-import java.awt.Font;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.ComponentOrientation;
+import java.awt.Font;
 import java.awt.TextField;
-
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextPane;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
-import java.awt.Component;
-import java.awt.ComponentOrientation;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.text.BadLocationException;
-
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import funcionalidad.Autor;
+import funcionalidad.Libro;
 
 @SuppressWarnings("serial")
 public class MedioEdicionDeLibro extends MedioPanel {
@@ -253,8 +247,8 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		add(vistasoLabel);
 
 		JButton confirmar = new JButton("Confirmar");
-		confirmar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		confirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				Boolean error = null;
 				if (ValidarLibro()) {
 					libro.setIsbn((isbnLibro_1.getText().replaceAll("-", "")));
@@ -308,8 +302,8 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		add(confirmar);
 
 		JButton cancelar = new JButton("Cancelar");
-		cancelar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		cancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioListaDeLibros(inside));
 			}
 		});

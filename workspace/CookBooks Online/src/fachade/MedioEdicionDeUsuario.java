@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Font;
 import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -279,8 +281,8 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		add(targetaLabel);
 
 		JButton confirmar = new JButton("Confirmar");
-		confirmar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		confirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				Boolean error = null;
 				if (ValidarUsuario()) {
 					user.setDni(new Integer(dniUsuario.getText()));
@@ -362,8 +364,8 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 
 
 		JButton cancelar = new JButton("Cancelar");
-		cancelar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		cancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioHome(inside));
 			}
 		});

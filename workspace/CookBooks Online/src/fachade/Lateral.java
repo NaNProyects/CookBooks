@@ -1,15 +1,13 @@
 package fachade;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class Lateral extends JPanel {
@@ -33,8 +31,8 @@ public class Lateral extends JPanel {
 		// NO USUARIOS
 		inicio = new JButton("Inicio");
 		inicio.setPreferredSize(new Dimension(96, 23));
-		inicio.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		inicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioHome(inside));
 			}
 		});
@@ -44,8 +42,8 @@ public class Lateral extends JPanel {
 		// ADMINISTRADORES
 		 botonLibros = new JButton("Libros");
 		botonLibros.setPreferredSize(new Dimension(96, 23));
-		botonLibros.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		botonLibros.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioListaDeLibros(inside));
 			}
 		});
@@ -54,8 +52,8 @@ public class Lateral extends JPanel {
 		
 		 botonAutores = new JButton("Autores");
 		botonAutores.setPreferredSize(new Dimension(96, 23));
-		botonAutores.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		botonAutores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioListaDeAutores(inside));
 				
 			}
@@ -64,8 +62,8 @@ public class Lateral extends JPanel {
 		
 		 botonPedidos = new JButton("Pedidos");
 		botonPedidos.setPreferredSize(new Dimension(96, 23));
-		botonPedidos		.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		botonPedidos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioPedidos(inside));
 			}
 		});

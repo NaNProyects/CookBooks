@@ -2,8 +2,8 @@ package fachade;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -74,9 +74,8 @@ public class MedioPerfilDeLibroVistazo extends MedioPanel {//TODO agregar imagen
 		scrollPane.setViewportView(textVistazo);
 		
 		atras = new JButton("Atras");
-		atras.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		atras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(anterior);
 				inside.center.refresh();
 			}

@@ -2,26 +2,24 @@ package fachade;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-
-import funcionalidad.Libro;
-
-import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import funcionalidad.Libro;
 
 @SuppressWarnings("serial")
 public class MedioListaDeLibros extends MedioPanel {
@@ -84,8 +82,8 @@ public class MedioListaDeLibros extends MedioPanel {
 		add(table);
 
 		btnNewButton = new JButton("Nuevo");
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioEdicionDeLibro(inside));
 			}
 		});
@@ -97,8 +95,8 @@ public class MedioListaDeLibros extends MedioPanel {
 		add(btnNewButton);
 
 		btnEditar = new JButton("Editar");
-		btnEditar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				try {
 					inside.centro(new MedioEdicionDeLibro(inside, selected()));
 				} catch (Exception e1) {
@@ -119,8 +117,8 @@ public class MedioListaDeLibros extends MedioPanel {
 		add(btnEditar);
 
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				try{
 				if (inside.contexto.eliminar(selected())) {
 					libros.remove(selected());

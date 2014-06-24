@@ -1,6 +1,8 @@
 package fachade;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -95,9 +97,8 @@ public class Login extends JPanel {
 		add(lblRegistro);
 		
 		btnEntrar = new JButton("Entrar");
-		btnEntrar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnEntrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				entrar();
 			}
 		});

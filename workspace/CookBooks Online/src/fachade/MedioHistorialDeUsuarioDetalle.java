@@ -2,27 +2,25 @@ package fachade;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-
-import funcionalidad.Libro;
-import funcionalidad.Pedido;
-
-import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import funcionalidad.Libro;
+import funcionalidad.Pedido;
 
 @SuppressWarnings("serial")
 public class MedioHistorialDeUsuarioDetalle extends MedioPanel {
@@ -87,8 +85,8 @@ public class MedioHistorialDeUsuarioDetalle extends MedioPanel {
 		add(table);
 
 		btnAtras = new JButton("Atras");
-		btnAtras.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(anterior);
 			}
 		});
