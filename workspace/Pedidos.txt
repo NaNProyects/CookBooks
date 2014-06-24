@@ -4,9 +4,12 @@ Funciones del carrito:
 	si esta en el carrito -> OK (no cambio)
 	precio -> ojo que era un Double. [Lo recalculamos o lo guardamos?]
 	convertir a pedido -> hecho. llama al guardar pedido que todavia no esta
+	
 Interface:
 	comentar si los resultados de busqueda se quiere modificar la presentacion por cada resultado -> esta perfecto
 	despues tengo que subir el papel de la ultima reunion, me vengo olvidando (correcciones)
+	filtrado de libro
+	iconos a cada boton
 	
 Usuario: 
 	Agregar pin -> modificados metodos de la base y el constructor completo

@@ -10,13 +10,20 @@ no puedo testear el resto
 
 
 -[Leve] En autor, si clickeas modificar sin seleccionar nada, el label de "Debe seleccionar" primero le falta una "c" y segundo baja de línea (es distinto al error de si clickeas borrar). En libro también le falta una "c" pero el salto de línea esta bien.
+		el tema es q el mensaje es mas largo puedo ver de agrandar el lugar para lo errores o no pero en si no es un error y corregido lo de las C
 -[Sugerencia] Y si al admin le ponemos un editar en el perfil de libro? (buscar -> ver el perfil y que de ahí se pueda editar). 
 -el eliminar de carrito funciona aunque no pintes nada (igual todavia no carga nada no se si es por mocks o porque lo rompí xD EDIT: si lo había roto yo :P) 
+	Oks corregidas ams cosas de eliminar
 -al agregar mas de un libro al carrito solo carga uno (por ahi lo rompi)
+	Corregido si lo rompiste vos te deje un fixme
 -en la lista de pedidos del admin muestra solo el nombre de pila del usuario, debería ser nombre+apellido, y por ahi estaría bueno que también tuviera uno de los datos unicos (DNI o email) 
+	solucionado lo del nombre es q antes no teniamos divididos, y nuevo dato cual? y en otra columna o la misma?
+	
 - desparche el eliminar de libro ahora libro y autor no estan avisando cuando se quiese eliminar si estan con libros o pedidos por q no devuelve el boolean correcto al parecer
-- carrito no verifica si se tiene elemento seleccionado a eliminar
-- carrito no verifica q se contenga al menos un elemento para confirmar el carrito
+
+- carrito no verifica si se tiene elemento seleccionado a eliminar ------- solo pasa con carrito vacio (agregar nuevo error)---- corregido
+- carrito no verifica q se contenga al menos un elemento para confirmar el carrito----- corregido
 - carrito no acepta mas de un libro o no lista mas de uno ------------ el error estaba en carrito en el agregar, pongo un FIXME
 - si reacemos la busqueda los botones no quedan marcados como deshabilitados posible error en el contains del carrito --------- faltaba una comprobacion pero ahora el contains tira false siempre con un solo elemento
-- EL BOTON DESABILITAD DE PERFIL DE LIBRO PERMITE AGREGAR IGUAL AL CARRITO O.O	
+- EL BOTON DESABILITAD DE PERFIL DE LIBRO PERMITE AGREGAR IGUAL AL CARRITO O.O	------ solucionado y DEJO DE SER OPCIONAL SE DEBENR EMPLASAR LOS MOUSECLICLISTENER POR LOS ACTION LISTENER URGENTE
+- botones desabilitados de carrito funcionan raro por comentario anterior igual es posible modificar por manel transparente
