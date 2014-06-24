@@ -309,7 +309,7 @@ public class UsuarioTest {
 		
 		try { // TODO reemplazar por un pedido temporal
 			ConsultaSelect sel = new ConsultaSelect("*",
-					"usuario inner join Pedido", "idUsuario = 3");
+					"usuario inner join Pedido on DNI = usuario", "idUsuario = 3");
 			cookbooks.ejecutar(sel);
 			lista1 = new LinkedList<Usuario>(
 					(Collection<? extends Usuario>) cookbooks

@@ -148,9 +148,9 @@ public class Autor implements Cargable {
 	 */
 	public boolean esBorrableDe(Conector base) throws SQLException {
 		ConsultaSelect select = new ConsultaSelect("count(*)",
-				"autor inner join libro", "idAutor = " + id);
+				"autor inner join libro on idAutor = autor", "idAutor = " + id);
 		base.ejecutar(select);
-		return (base.getFirstInt() != 0);
+		return (base.getFirstInt() == 0);
 	}
 
 	@Override

@@ -153,7 +153,6 @@ public class Pedido implements Cargable {
 	}
 
 	public boolean esBorrableDe(Conector base) throws SQLException {
-		// TODO Pedido.#esBorrableDe
 		return false;
 	}
 }

@@ -229,9 +229,9 @@ public class Libro implements Cargable {
 	 */
 	public boolean esBorrableDe(Conector base) throws SQLException {
 		ConsultaSelect select = new ConsultaSelect("count(*)",
-				"libro inner join libroPedido", "ISBN = '" + isbn + "'");
+				"libro inner join libroPedido on libro = ISBN", "ISBN = '" + isbn + "'");
 		base.ejecutar(select);
-		return (base.getFirstInt() != 0);
+		return (base.getFirstInt() == 0);
 	}
 
 	public void terminarCargaDe(Conector base) {

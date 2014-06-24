@@ -256,9 +256,9 @@ public class Usuario implements Cargable {
 	 */
 	public boolean esBorrableDe(Conector base) throws SQLException {
 		ConsultaSelect select = new ConsultaSelect("count(*)",
-				"usuario inner join Pedido", "id = " + id);
+				"usuario inner join Pedido on DNI = usuario", "id = " + id);
 		base.ejecutar(select);
-		return (base.getFirstInt() != 0);
+		return (base.getFirstInt() == 0);
 	}
 
 	public String getPin() {
