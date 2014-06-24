@@ -157,13 +157,13 @@ public class CookBooks {
 			return false; // no puedo enviar un pedido sin numero
 		}
 		try {
-			unPedido.guardarEn(base); // FIXME todavia no implementado
+			unPedido.guardarEn(base);
 			return true;
 		} catch (MySQLNonTransientException e) {
 			this.reconectar();
 			return false;
 		} catch (SQLException e) {
-			if (e.getMessage().startsWith("errorConocido")) {
+			if (e.getMessage().startsWith("errorConocido")) { //FIXME explota
 				return false;
 			} else {
 				throw new Exception("Ocurrió un error");
@@ -278,7 +278,9 @@ public class CookBooks {
 
 	public Pedido confirmarCarrito() {
 		try {
-			return carrito.guardarEn(base, usuario);
+			Pedido result = carrito.guardarEn(base, usuario);
+			carrito.vaciar();
+			return result;
 		} catch (SQLException e) {
 			// TODO pensar excepciones
 			e.printStackTrace();

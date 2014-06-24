@@ -1,13 +1,11 @@
 package funcionalidad;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
-
 import utilsSQL.Cargable;
 import utilsSQL.Conector;
 import utilsSQL.ConsultaABM;
@@ -23,24 +21,14 @@ public class Pedido implements Cargable {
 	private LinkedList<Libro> libros;
 	private Usuario usuario;
 
-	public Pedido(Integer nro, Date fecha, Boolean estado, Double total,
-			List<Libro> libros, Usuario usuario) {
-		super();
-		this.nro = nro;
-		this.fecha = fecha;
-		this.estado = estado;
-		this.total = total;
-		this.libros = new LinkedList<Libro>(libros);
-		this.usuario = usuario;
-	}
-
 	public Pedido() {
 		super();
 	}
 
-	public Pedido(Date fecha, LinkedList<Libro> libros, Usuario usuario) {
+	public Pedido(LinkedList<Libro> libros, Usuario usuario) {
 		this.nro = -1;
-		this.fecha = fecha;
+		java.util.Date d = new java.util.Date();
+		this.fecha = new Date(d.getTime());
 		this.estado = false;
 		this.libros = libros;
 		this.usuario = usuario;
@@ -131,8 +119,6 @@ public class Pedido implements Cargable {
 		try {
 			ConsultaABM cons;
 			if (!estado) { //no enviado FIXME REFACTORIZAR POR ENVIADO DIOS
-				String subconsultaUsuario = "(select idUsuario from usuario where idUsuario = "
-						+ usuario.getId()+ ")";
 				ArrayList<String> atributos = new ArrayList<String>();
 				atributos.add("fecha");
 				atributos.add("total");
@@ -141,12 +127,13 @@ public class Pedido implements Cargable {
 				ArrayList<String> valores = new ArrayList<String>();
 				valores.add("'" + fecha.toString() + "'");
 				valores.add("'" + total.toString() + "'");
-				valores.add(subconsultaUsuario);
+				valores.add(usuario.getDni().toString());
 				valores.add(estado.toString());
 				cons = new ConsultaInsert("pedido", atributos, valores);
-				this.guardarLibros();
+				base.ejecutar(cons);
 				base.ejecutar(new ConsultaSelect("LAST_INSERT_ID()"));
 				this.nro = base.getFirstInt();
+				this.guardarLibros(base);
 			} else { //solo puede cambiar de estado
 				cons = new ConsultaUpdate("pedido", "estado", "true",
 						"nro IN ("
@@ -154,8 +141,8 @@ public class Pedido implements Cargable {
 										+ new ConsultaSelect("idPedido", "pedido",
 												"nro = " + nro ) + ")"
 										+ " as tmp") + ")");
+				base.ejecutar(cons);
 			}
-			base.ejecutar(cons);
 		} catch (SQLException e) {
 			if (e.getErrorCode() == 1062) {
 				throw new SQLException("Ya existe un pedido con ese nro (?)");
@@ -166,9 +153,17 @@ public class Pedido implements Cargable {
 
 	}
 
-	private void guardarLibros() {
-		// TODO Auto-generated method stub
-		
+	private void guardarLibros(Conector base) throws SQLException {
+		for (Libro l : libros) {
+			ArrayList<String> atr = new ArrayList<String>();
+			atr.add("pedido");
+			atr.add("libro");
+			ArrayList<String> vals = new ArrayList<String>();
+			vals.add(nro.toString());
+			vals.add(l.getIsbn());
+			ConsultaInsert ins = new ConsultaInsert("libroPedido", atr, vals);
+			base.ejecutar(ins);
+			}
 	}
 
 	public void borrarDe(Conector base) throws SQLException {

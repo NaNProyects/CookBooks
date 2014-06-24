@@ -1,7 +1,7 @@
 package funcionalidad;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -56,7 +56,8 @@ public class Usuario implements Cargable {
 		this.telefono = telefono;
 		this.tarjeta = tarjeta;
 		this.pin = pin;
-		this.fechaRegistro = new Date();
+		java.util.Date d = new java.util.Date();
+		this.fechaRegistro = new Date(d.getTime());
 		this.direccion = direccion;
 		this.hashPass = hashPass;
 		this.email = email;

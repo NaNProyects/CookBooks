@@ -125,8 +125,11 @@ public class UsuarioTest {
 					lista1.get(i).getTarjeta().equals(lista2.get(i).getTarjeta()));
 			assertTrue("El pin no coincide",
 					lista1.get(i).getPin().equals(lista2.get(i).getPin()));
+			/* es demasiado exigente
 			assertTrue("La fecha no coincide", lista1.get(i).getFechaRegistro()
-					.equals(lista2.get(i).getFechaRegistro()));
+					.equals(lista2.get(i).getFechaRegistro())); */
+			assertTrue("La fecha no coincide", lista1.get(i).getFechaRegistro().toString()
+					.equals(lista2.get(i).getFechaRegistro().toString()));
 			assertTrue("La direccion no coincide", lista1.get(i).getDireccion()
 					.equals(lista2.get(i).getDireccion()));
 			assertTrue("La contraseña no coincide", lista1.get(i).getHashPass()
@@ -190,8 +193,11 @@ public class UsuarioTest {
 					usuario1.getTarjeta().equals(usuario2.getTarjeta()));
 			assertTrue("El pin no coincide",
 					usuario1.getPin().equals(usuario1.getPin()));
+			/* es demasiado exigente
 			assertTrue("La fecha no coincide", usuario1.getFechaRegistro()
-					.equals(usuario2.getFechaRegistro()));
+					.equals(usuario2.getFechaRegistro())); */
+			assertTrue("La fecha no coincide", usuario1.getFechaRegistro().toString()
+					.equals(usuario2.getFechaRegistro().toString()));
 			assertTrue("La direccion no coincide", usuario1.getDireccion()
 					.equals(usuario2.getDireccion()));
 			assertTrue("La contraseña no coincide", usuario1.getHashPass()
@@ -244,8 +250,11 @@ public class UsuarioTest {
 					usuario1.getTarjeta().equals(usuario2.getTarjeta()));
 			assertTrue("El pin no coincide",
 					usuario1.getPin().equals(usuario1.getPin()));
+			/* es demasiado exigente
 			assertTrue("La fecha no coincide", usuario1.getFechaRegistro()
-					.equals(usuario2.getFechaRegistro()));
+					.equals(usuario2.getFechaRegistro())); */
+			assertTrue("La fecha no coincide", usuario1.getFechaRegistro().toString()
+					.equals(usuario2.getFechaRegistro().toString()));
 			assertTrue("La direccion no coincide", usuario1.getDireccion()
 					.equals(usuario2.getDireccion()));
 			assertTrue("La contraseña no coincide", usuario1.getHashPass()

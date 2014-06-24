@@ -1,7 +1,6 @@
 package funcionalidad;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.LinkedList;
 
 import utilsSQL.Conector;
@@ -42,7 +41,7 @@ public class Carrito {
 	}
 	
 	public Pedido guardarEn (Conector base, Usuario user) throws SQLException {
-		Pedido result = new Pedido(new Date(), libros, user);
+		Pedido result = new Pedido(libros, user);
 		result.guardarEn(base);
 		this.vaciar();
 		return result;
