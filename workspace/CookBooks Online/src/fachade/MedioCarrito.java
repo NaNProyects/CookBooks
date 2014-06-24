@@ -45,6 +45,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 	private JLabel lblPrecio;
 	private JTextField valor;
 	private JPanel panel;
+	private JPanel panelSombra;
 
 	/**
 	 * Create the panel.
@@ -62,6 +63,12 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		panel.setVisible(false);
 		add(panel);
 		panel.setLayout(null);
+		
+		panelSombra = new JPanel();
+		panelSombra.setBackground(new Color(255, 204, 255,125));
+		panelSombra.setBounds(0, 0, 901, 604);
+		panelSombra.setVisible(false);
+		add(panelSombra);
 		//--------------------------------------------------- panel?
 		
 		labelErrores = new JTextPane();
@@ -510,7 +517,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		btnConfirmar.setEnabled(!btnConfirmar.isEnabled());
 		btnEliminar.setEnabled(!btnEliminar.isEnabled());
 		btnVaciar.setEnabled(!btnVaciar.isEnabled());
-		
+//		panelSombra.setVisible(!panelSombra.isVisible());
 	}
 	
 	protected void refresh() {

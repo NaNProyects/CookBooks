@@ -12,12 +12,14 @@ import java.util.LinkedList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
@@ -29,7 +31,7 @@ public class MedioListaDeAutores extends MedioPanel {
 	private JTable table;
 	private Interface inside;
 	private LinkedList<Autor> autores;
-	private JButton btnNewButton;
+	private JButton btnNuevo;
 	private JButton btnEditar;
 	private JButton btnEliminar;
 	private JScrollPane scrollPane;
@@ -38,6 +40,8 @@ public class MedioListaDeAutores extends MedioPanel {
 	private JLabel lblBuscarAutor;
 	private JTextField txtBuscarAutor;
 	private JButton botonBuscar;
+	private JPanel panel;
+	private JPanel panelSombra;
 
 	/**
 	 * Create the panel.
@@ -47,6 +51,22 @@ public class MedioListaDeAutores extends MedioPanel {
 
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
+		
+		//--------------------------------------------------- panel?
+				panel = new JPanel();
+				panel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+				panel.setBackground(new Color(255, 204, 255));
+				panel.setBounds(168, 152, 499, 193);
+				panel.setVisible(false);
+				add(panel);
+				panel.setLayout(null);
+				
+				panelSombra = new JPanel();
+				panelSombra.setBackground(new Color(255, 204, 255,125));
+				panelSombra.setBounds(0, 0, 901, 601);
+				panelSombra.setVisible(false);
+				add(panelSombra);
+				//--------------------------------------------------- panel?
 
 		labelTitulo = DefaultComponentFactory.getInstance().createTitle(
 				"Listado de Autores");
@@ -78,19 +98,19 @@ public class MedioListaDeAutores extends MedioPanel {
 		table.setBounds(80, 49, 755, 471);
 		add(table);
 
-		btnNewButton = new JButton("Nuevo");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNuevo = new JButton("Nuevo");
+		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioEdicionDeAutor(inside,
 						(MedioListaDeAutores) inside.center));
 			}
 		});
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton.setToolTipText("Agrega un nuevo Autor");
-		btnNewButton.setIcon(new ImageIcon(MedioListaDeLibros.class
+		btnNuevo.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNuevo.setToolTipText("Agrega un nuevo Autor");
+		btnNuevo.setIcon(new ImageIcon(MedioListaDeLibros.class
 				.getResource("/fachade/Image/New Document.png")));
-		btnNewButton.setBounds(478, 531, 120, 47);
-		add(btnNewButton);
+		btnNuevo.setBounds(478, 531, 120, 47);
+		add(btnNuevo);
 
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
@@ -118,22 +138,7 @@ public class MedioListaDeAutores extends MedioPanel {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (inside.contexto.eliminar(selected())) {
-						autores.remove(selected());
-						table.repaint();
-						Cargar();
-						printError(
-								"No se puede eliminar un autor que posea libros /n",
-								false);
-						labelErrores.setForeground(Color.GREEN);
-						printError("Eliminacion exitosa /n", true);
-					} else {
-						printError("Eliminacion exitosa /n", false);
-						labelErrores.setForeground(Color.RED);
-						printError(
-								"No se puede eliminar un autor que posea libros /n",
-								true);
-					}
+					validarEliminado(selected());
 				} catch (Exception e1) {
 					if(e1.getMessage().equalsIgnoreCase("Debe seleccionar el Autor a")){
 						labelErrores.setForeground(Color.RED);
@@ -291,6 +296,90 @@ public class MedioListaDeAutores extends MedioPanel {
 					.replaceAll("/n", System.getProperty("line.separator")));
 			labelErrores.setVisible(true);
 		}
+	}
+	
+	private void validarEliminado(Autor unAutor){
+		final Autor autor = unAutor; // TODO aca puede haber un error
+		panel.setVisible(true);
+		
+		JPanel panelConfirmacion = new JPanel();
+		panelConfirmacion.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		panelConfirmacion.setBackground(new Color(255, 204, 255));
+		panelConfirmacion.setBounds(0, 0, 499, 193);
+		panelConfirmacion.setVisible(true);
+		
+		panel.add(panelConfirmacion);
+		panelConfirmacion.setLayout(null);
+		
+		JLabel tituloFlotante = DefaultComponentFactory.getInstance().createLabel("¿Seguro que desea eliminar el libro seleccionado?");
+		tituloFlotante.setFont(new Font("Tahoma", Font.BOLD, 20));
+		tituloFlotante.setBounds(10, 11, 324, 25);
+		panelConfirmacion.add(tituloFlotante);
+
+		JButton confirmar = new JButton("Confirmar");
+		confirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					try {
+						if (inside.contexto.eliminar(autor)) {
+							autores.remove(autor);
+							table.repaint();
+							Cargar();
+							printError(
+									"No se puede eliminar un autor que posea libros /n",
+									false);
+							labelErrores.setForeground(Color.GREEN);
+							printError("Eliminacion exitosa /n", true);
+						} else {
+							printError("Eliminacion exitosa /n", false);
+							labelErrores.setForeground(Color.RED);
+							printError(
+									"No se puede eliminar un autor que posea libros /n",
+									true);
+						}
+					} catch (Exception e1) {
+						printError(
+								"Eliminacion exitosa /n",
+								false);
+					}
+					finally{
+						panel.removeAll();
+						panel.setVisible(false);
+						swichBoton();
+					}
+			}
+		});
+		confirmar.setIcon(new ImageIcon(MedioEdicionDeUsuario.class
+				.getResource("/fachade/Image/Clear Green Button.png")));
+		confirmar.setBounds(78, 151, 144, 31);
+		panelConfirmacion.add(confirmar);
+		
+		JButton cancelar = new JButton("Cancelar");
+		cancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.removeAll();
+				panel.setVisible(false);
+				swichBoton();
+			}
+		});
+		cancelar.setIcon(new ImageIcon(MedioEdicionDeUsuario.class
+				.getResource("/fachade/Image/Cancel Red Button.png")));
+		cancelar.setBounds(301, 151, 144, 31);
+		
+		swichBoton();
+		panelConfirmacion.add(cancelar);
+		panel.repaint();
+		panelConfirmacion.repaint();
+		
+		
+		
+		
+	}
+
+	private void swichBoton(){
+		btnNuevo.setEnabled(!btnNuevo.isEnabled());
+		btnEliminar.setEnabled(!btnEliminar.isEnabled());
+		btnEditar.setEnabled(!btnEditar.isEnabled());
+//		panelSombra.setVisible(!panelSombra.isVisible());
 	}
 
 	protected void refresh() {
