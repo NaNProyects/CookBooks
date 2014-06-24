@@ -374,8 +374,8 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		cancelar.setBounds(747, 562, 144, 31);
 		add(cancelar);
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
-				dniUsuario, mailUsuario, nombreUsuario, apellidoUsuario,
-				direcUsuario, targetaUsuario, confirmar, cancelar }));
+				mailUsuario,passwordField,passwordField_1,dniUsuario, nombreUsuario, apellidoUsuario,
+				direcUsuario,telefonoUsuario, targetaUsuario, pinTextField, confirmar, cancelar }));// TODO arreglar foco
 
 		lblPin.setLabelFor(pinTextField);
 		lblTelefono.setLabelFor(telefonoUsuario);

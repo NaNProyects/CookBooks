@@ -290,7 +290,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 					}
 					if (error) {
 						printError("El ISBN pertenece a un libro existente /n", false);
-						inside.centro(new MedioListaDeLibros(inside));
+						inside.centro(anterior);
 					} else {
 						printError("El ISBN pertenece a un libro existente /n", true);
 					}

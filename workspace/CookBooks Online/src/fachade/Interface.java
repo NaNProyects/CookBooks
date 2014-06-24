@@ -94,6 +94,7 @@ public class Interface {
 		frmCookbooksOnline.getContentPane().add(center, BorderLayout.CENTER);
 		center.revalidate();
 		center.repaint();
+		center.Cargar();
 	}
 }
 
