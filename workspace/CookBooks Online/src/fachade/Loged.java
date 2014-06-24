@@ -72,7 +72,7 @@ public class Loged extends JPanel {//TODO agregar imagen a los botones
 		});
 		btnCierre.setBounds(123, 110, 131, 23);
 		add(btnCierre);
-
+		// TODO DESABILITAR PARA ENTREGA
 		btnEdicion = new JButton("Mis\n Datos".replaceAll("/n",
 				System.getProperty("line.separator")));
 		btnEdicion.addMouseListener(new MouseAdapter() {

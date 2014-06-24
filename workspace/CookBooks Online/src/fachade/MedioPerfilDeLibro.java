@@ -3,6 +3,8 @@ package fachade;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -105,17 +107,17 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		add(reseñaLabel);
 
 		Comprar = new JButton("Agregar al Carrito");
-		Comprar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		Comprar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.contexto.agregarAlCarrito(libro);
 //				inside.contexto.agregarAlCarrito(libro);
 				//TODO SETEAR COMO DESACTIVADO CUANDO YA ANDE EL AGREGAR y cuando se desida como manejar el carrito cambiar o no
-				Comprar.setEnabled(!inside.contexto.getCarrito().contiene(libro));
+				Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.getCarrito().contiene(libro)));
 			}
 		});
 		Comprar.setBounds(385, 542, 144, 31);
-		// TODO agregar si esta en el carrito
-		Comprar.setEnabled(inside.contexto.usuarioActual().getId() > 1);
+
+		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.getCarrito().contiene(libro)) );
 		add(Comprar);
 
 		Vistazo = new JButton("Dar un Vistazo");
@@ -166,7 +168,7 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 	}
 
 	protected void refresh() {
-		Comprar.setEnabled(inside.contexto.usuarioActual().getId() >= 1); // TODO desabilitar sacando = 
+		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.getCarrito().contiene(libro)) ); 
 		repaint();
 	}
 }

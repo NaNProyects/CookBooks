@@ -18,12 +18,12 @@ public class Carrito {
 	}
 
 	boolean agregar(Libro unLibro) {
-		if (!this.contiene(unLibro)) {
+//		if (!this.contiene(unLibro)) { FIXME carrito agregar
 			libros.add(unLibro);
 			return true;
-		} else {
-			return false;
-		}
+//		} else {
+//			return false;
+//		}
 	}
 
 	void eliminar(Libro unLibro) {

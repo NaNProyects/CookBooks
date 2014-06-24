@@ -17,5 +17,6 @@ no puedo testear el resto
 - desparche el eliminar de libro ahora libro y autor no estan avisando cuando se quiese eliminar si estan con libros o pedidos por q no devuelve el boolean correcto al parecer
 - carrito no verifica si se tiene elemento seleccionado a eliminar
 - carrito no verifica q se contenga al menos un elemento para confirmar el carrito
-- carrito no acepta mas de un libro o no lista mas de uno
-- si reacemos la busqueda los botones no quedan marcados como deshabilitados posible error en el contains del carrito
+- carrito no acepta mas de un libro o no lista mas de uno ------------ el error estaba en carrito en el agregar, pongo un FIXME
+- si reacemos la busqueda los botones no quedan marcados como deshabilitados posible error en el contains del carrito --------- faltaba una comprobacion pero ahora el contains tira false siempre con un solo elemento
+- EL BOTON DESABILITAD DE PERFIL DE LIBRO PERMITE AGREGAR IGUAL AL CARRITO O.O	

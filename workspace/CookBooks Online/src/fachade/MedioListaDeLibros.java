@@ -103,7 +103,7 @@ public class MedioListaDeLibros extends MedioPanel {
 					inside.centro(new MedioEdicionDeLibro(inside, selected()));
 				} catch (Exception e1) {
 					if (e1.getMessage().equalsIgnoreCase(
-							"Debe selecionar el Libro a")){
+							"Debe seleccionar el Libro a")){
 						labelErrores.setForeground(Color.RED);
 						printError(e1.getMessage().concat(" eliminar /n"), false);
 						printError(e1.getMessage().concat(" modificar /n"), true);
@@ -141,7 +141,7 @@ public class MedioListaDeLibros extends MedioPanel {
 				}
 				}
 				catch(Exception e1){
-					if(e1.getMessage().equalsIgnoreCase("Debe selecionar el Libro a")){
+					if(e1.getMessage().equalsIgnoreCase("Debe seleccionar el Libro a")){
 						labelErrores.setForeground(Color.RED);
 						printError(e1.getMessage().concat(" modificar /n"), false);
 						printError(e1.getMessage().concat(" eliminar /n"), true);
@@ -227,7 +227,7 @@ public class MedioListaDeLibros extends MedioPanel {
 		return null;
 		}
 		catch(Exception e1){
-			throw new Exception("Debe selecionar el Libro a");
+			throw new Exception("Debe seleccionar el Libro a");
 			
 		}
 	}

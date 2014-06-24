@@ -156,7 +156,7 @@ public class MedioPedidos extends MedioPanel {
 			model.addRow(new Object[] {					
 					pedido.nro(), 
 					DateFormat.getDateInstance(DateFormat.SHORT).format(pedido.fecha()),
-					pedido.total().toString(), pedido.getUsuario().getNombre(), pedido.getLibros().size(),
+					pedido.total().toString(), pedido.getUsuario().getNombre().concat(" ").concat(pedido.getUsuario().getApellido()), pedido.getLibros().size(),
 					estado(pedido.estado())});
 		}
 		

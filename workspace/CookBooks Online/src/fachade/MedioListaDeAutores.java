@@ -102,7 +102,7 @@ public class MedioListaDeAutores extends MedioPanel {
 					inside.centro(new MedioEdicionDeAutor(inside,
 							(MedioListaDeAutores) inside.center, selected()));
 				} catch (Exception e1) {
-					if(e1.getMessage().equalsIgnoreCase("Debe selecionar el Autor a")){
+					if(e1.getMessage().equalsIgnoreCase("Debe seleccionar el Autor a")){
 						labelErrores.setForeground(Color.RED);
 						printError(e1.getMessage().concat(" eliminar /n"), false);
 						printError(e1.getMessage().concat(" modificar /n"), true);
@@ -138,7 +138,7 @@ public class MedioListaDeAutores extends MedioPanel {
 								true);
 					}
 				} catch (Exception e1) {
-					if(e1.getMessage().equalsIgnoreCase("Debe selecionar el Autor a")){
+					if(e1.getMessage().equalsIgnoreCase("Debe seleccionar el Autor a")){
 						labelErrores.setForeground(Color.RED);
 						printError(e1.getMessage().concat(" modificar /n"), false);
 						printError(e1.getMessage().concat(" eliminar /n"), true);
@@ -261,7 +261,7 @@ public class MedioListaDeAutores extends MedioPanel {
 			return null;
 		} catch (Exception e1) {
 
-			throw new Exception("Debe selecionar el Autor a");
+			throw new Exception("Debe seleccionar el Autor a");
 
 
 		}
