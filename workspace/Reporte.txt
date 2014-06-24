@@ -27,3 +27,5 @@ no puedo testear el resto
 - si reacemos la busqueda los botones no quedan marcados como deshabilitados posible error en el contains del carrito --------- faltaba una comprobacion pero ahora el contains tira false siempre con un solo elemento
 - EL BOTON DESABILITAD DE PERFIL DE LIBRO PERMITE AGREGAR IGUAL AL CARRITO O.O	------ solucionado y DEJO DE SER OPCIONAL SE DEBENR EMPLASAR LOS MOUSECLICLISTENER POR LOS ACTION LISTENER URGENTE
 - botones desabilitados de carrito funcionan raro por comentario anterior igual es posible modificar por manel transparente
+
+-error de registro en guardan usuario

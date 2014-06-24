@@ -262,7 +262,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 
 		JLabel nombreLabel = new JLabel("Nombre*");
 		nombreLabel.setLabelFor(nombreUsuario);
-		nombreLabel.setBounds(52, 179, 46, 14);
+		nombreLabel.setBounds(52, 179, 88, 14);
 		add(nombreLabel);
 
 		JLabel apellidoLabel = new JLabel("Apellido*");
@@ -313,7 +313,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 							inside.contexto.modificar(user);
 						}
 					} catch (Exception e1) {
-
+						e1.printStackTrace();
 						printError(e1.getMessage().concat(" /n"), true);
 					}
 					if (error) {
@@ -391,12 +391,12 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	}
 
 	private Boolean ValidadDNI() {
-		if (dniUsuario.getText().toString().length() == 8) {
-			printError("El Dni debe tener 8 digitos /n", false);
+		if ((dniUsuario.getText().toString().length() < 9) && (dniUsuario.getText().toString().length() > 6)) {
+			printError("El Dni debe tener entre 7 y 8 digitos /n", false);
 			return true;
 
 		} else {
-			printError("El Dni debe tener 8 digitos /n", true);
+			printError("El Dni debe tener entre 7 y 8 digitos /n", true);
 			return false;
 		}
 	}
