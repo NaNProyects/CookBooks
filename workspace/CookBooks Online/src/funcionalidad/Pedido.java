@@ -155,4 +155,14 @@ public class Pedido implements Cargable {
 	public boolean esBorrableDe(Conector base) throws SQLException {
 		return false;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Pedido) {
+			Pedido pedido = (Pedido) obj;
+			return (this.nro.equals(pedido.nro));
+		} else {
+			return false;
+		}
+	}
 }

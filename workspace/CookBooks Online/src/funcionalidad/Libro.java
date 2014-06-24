@@ -217,7 +217,7 @@ public class Libro implements Cargable {
 	public boolean equals(Object obj) {
 		if (obj instanceof Libro) {
 			Libro libro = (Libro) obj;
-			return (libro.getIsbn().equals(libro.getIsbn()));
+			return (this.getIsbn().equals(libro.getIsbn()));
 		} else
 			return false;
 	}
