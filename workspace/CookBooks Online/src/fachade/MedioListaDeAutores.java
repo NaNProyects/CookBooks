@@ -311,9 +311,13 @@ public class MedioListaDeAutores extends MedioPanel {
 		panel.add(panelConfirmacion);
 		panelConfirmacion.setLayout(null);
 		
-		JLabel tituloFlotante = DefaultComponentFactory.getInstance().createLabel("¿Seguro que desea eliminar el libro seleccionado?");
+		JTextPane tituloFlotante =	new JTextPane();
+		tituloFlotante.setText("¿Seguro que desea eliminar el autor seleccionado?");
+		tituloFlotante.setBorder(null);
+		tituloFlotante.setEditable(false);
+		tituloFlotante.setBackground(new Color(255, 204, 255));
 		tituloFlotante.setFont(new Font("Tahoma", Font.BOLD, 20));
-		tituloFlotante.setBounds(10, 11, 324, 25);
+		tituloFlotante.setBounds(10, 11, 479, 67);
 		panelConfirmacion.add(tituloFlotante);
 
 		JButton confirmar = new JButton("Confirmar");

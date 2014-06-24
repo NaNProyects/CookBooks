@@ -80,10 +80,10 @@ public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los
 			public void actionPerformed(ActionEvent e) {
 				inside.contexto.agregarAlCarrito(libro);
 
-				botonComprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.getCarrito().contiene(libro)));
+				botonComprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)));
 			}
 		});
-		botonComprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.getCarrito().contiene(libro)) );
+		botonComprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) );
 		add(botonComprar);
 		
 		botonVerPerfil = new JButton("Ver Perfil");
@@ -105,7 +105,7 @@ public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los
 	}
 
 	protected void refresh() {
-		botonComprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.getCarrito().contiene(libro)) );// TODO desabilitar sacando = 
+		botonComprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) );// TODO desabilitar sacando = 
 		repaint();
 	}
 

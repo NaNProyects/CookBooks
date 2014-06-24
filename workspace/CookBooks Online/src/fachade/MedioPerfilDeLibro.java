@@ -111,12 +111,12 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 				inside.contexto.agregarAlCarrito(libro);
 //				inside.contexto.agregarAlCarrito(libro);
 				//TODO SETEAR COMO DESACTIVADO CUANDO YA ANDE EL AGREGAR y cuando se desida como manejar el carrito cambiar o no
-				Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.getCarrito().contiene(libro)));
+				Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)));
 			}
 		});
 		Comprar.setBounds(385, 542, 144, 31);
 
-		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.getCarrito().contiene(libro)) );
+		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) );
 		Comprar.setVisible(!(inside.contexto.usuarioActual().getId() == 1));
 		add(Comprar);
 
@@ -177,7 +177,7 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 	}
 
 	protected void refresh() {
-		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.getCarrito().contiene(libro)) ); 
+		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) ); 
 		repaint();
 	}
 }
