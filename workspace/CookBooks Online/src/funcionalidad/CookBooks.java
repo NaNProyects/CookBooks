@@ -254,6 +254,10 @@ public class CookBooks {
 		// TODO mock
 		return listarLibros();
 	}
+	
+	public boolean estaEnElCarrito(Libro unLibro) {
+		return carrito.contiene(unLibro);
+	}
 
 	public boolean agregarAlCarrito(Libro unLibro) {
 		if (!carrito.contiene(unLibro)) {
