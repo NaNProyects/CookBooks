@@ -14,3 +14,8 @@ no puedo testear el resto
 -el eliminar de carrito funciona aunque no pintes nada (igual todavia no carga nada no se si es por mocks o porque lo rompí xD EDIT: si lo había roto yo :P) 
 -al agregar mas de un libro al carrito solo carga uno (por ahi lo rompi)
 -en la lista de pedidos del admin muestra solo el nombre de pila del usuario, debería ser nombre+apellido, y por ahi estaría bueno que también tuviera uno de los datos unicos (DNI o email) 
+- desparche el eliminar de libro ahora libro y autor no estan avisando cuando se quiese eliminar si estan con libros o pedidos por q no devuelve el boolean correcto al parecer
+- carrito no verifica si se tiene elemento seleccionado a eliminar
+- carrito no verifica q se contenga al menos un elemento para confirmar el carrito
+- carrito no acepta mas de un libro o no lista mas de uno
+- si reacemos la busqueda los botones no quedan marcados como deshabilitados posible error en el contains del carrito

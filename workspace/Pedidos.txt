@@ -23,6 +23,12 @@ Cookbooks:
 	falta agregar usuario. -->OK
 	implementar metodos del carrito -->OK (bajar a pedido tiene resguardos que no andan pero esta escrito)
 	
+	
+	falta precio del carrito y listar libros del carrito, y el contiene cuando esten los 3 sacar el geter del carrito
+	el carrito lo vacias vos al cerrar cecion o yo?
+	
+	
+	
 Carrito: --> Puse los metodos ABM como package para que los maneje cookbooks. A la variable carrito le podes pedir los libros, el contains y el precio (si es incomodo se cambia)
 	implementar listar,agregar, eliminar, si esta en el carrito, pasar a pedido?
 	en cookbooks tenemos un agregar al carrito un cancelar carrito un comvertirlo a pedido y un coso q nos da el carrino, 

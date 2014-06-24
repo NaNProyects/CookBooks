@@ -66,6 +66,14 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		panel.setLayout(null);
 		//--------------------------------------------------- panel?
 		
+		labelErrores = new JTextPane();
+		labelErrores.setBorder(null);
+		labelErrores.setEditable(false);
+		labelErrores.setBackground(new Color(255, 204, 255));
+		labelErrores.setForeground(Color.GREEN);
+		labelErrores.setBounds(22, 531, 312, 63);
+		add(labelErrores);
+		
 		labelTitulo = DefaultComponentFactory.getInstance().createTitle(
 				"Carrito");
 		labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -121,6 +129,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		btnEliminar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				try {
+					selected();
 				validarEliminado(selected());
 				} catch (Exception e1) {
 					if (e1.getMessage().equalsIgnoreCase(
@@ -152,13 +161,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		scrollPane.setBounds(24, 78, 812, 442);
 		add(scrollPane);
 		
-		labelErrores = new JTextPane();
-		labelErrores.setBorder(null);
-		labelErrores.setEditable(false);
-		labelErrores.setBackground(new Color(255, 204, 255));
-		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 531, 312, 63);
-		add(labelErrores);
+
 		
 		lblPrecio = new JLabel("Precio:");
 		lblPrecio.setBounds(345, 526, 46, 14);
@@ -221,7 +224,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 				return iterable_element;
 			}
 		}		
-		return null;
+		return null;// fijarme por q no tira exepcion en eliminar
 		}
 		catch(Exception e1){
 			throw new Exception("Debe selecionar el Libro a");
@@ -289,11 +292,11 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		JButton confirmar = new JButton("Confirmar");
 		confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(pin.getText().compareTo(inside.contexto.usuarioActual().getPin())==0){ // TODO Probar con pin andando
+				if(pin.getText().compareTo(inside.contexto.usuarioActual().getPin())==0){ // TODO Probar con pin andando y con pedido andando
 					inside.contexto.confirmarCarrito();
 					Cargar();
 					labelErrores.setForeground(Color.GREEN);
-					printError("Carrito confirmado por favor revise su historial para informarse del envio", true);
+					printError("Carrito confirmado por favor revise su historial para informarse del envio /n", true);
 					panel.removeAll();
 					panel.setVisible(false);
 					swichBoton();
@@ -413,7 +416,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		JButton confirmar = new JButton("Confirmar");
 		confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inside.contexto.getCarrito().eliminar(libro);
+				inside.contexto.eliminarDelCarrito(libro);
 				Cargar();
 				valor.setText(inside.contexto.getCarrito().getCosto().toString());
 				valor.repaint();

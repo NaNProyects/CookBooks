@@ -131,7 +131,8 @@ public class MedioListaDeLibros extends MedioPanel {
 					printError(
 							"Eliminacion exitosa /n",
 							true);
-				} else {
+				} 
+				else {
 					printError(
 							"Eliminacion exitosa /n",
 							false);
@@ -149,8 +150,8 @@ public class MedioListaDeLibros extends MedioPanel {
 						printError(
 								"Eliminacion exitosa /n",
 								false);
-						labelErrores.setForeground(Color.RED);
-						printError("No se puede eliminar un libro que figure en pedidos /n", true);
+//						labelErrores.setForeground(Color.RED);
+//						printError("No se puede eliminar un libro que figure en pedidos /n", true);
 					}
 				}
 			}
