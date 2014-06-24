@@ -39,6 +39,7 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 	private JTextPane textReseña;
 	private MedioPanel anterior;
 	private JButton atras;
+	private JButton btnModificar;
 
 	/**
 	 * Create the panel.
@@ -116,6 +117,7 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		Comprar.setBounds(385, 542, 144, 31);
 
 		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.getCarrito().contiene(libro)) );
+		Comprar.setVisible(!(inside.contexto.usuarioActual().getId() == 1));
 		add(Comprar);
 
 		Vistazo = new JButton("Dar un Vistazo");
@@ -147,6 +149,16 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		});
 		atras.setBounds(747, 542, 144, 31);
 		add(atras);
+		
+		btnModificar = new JButton("Editar");
+		btnModificar.setBounds(385, 542, 144, 31);
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					inside.centro(new MedioEdicionDeLibro(inside, libro, inside.center));
+			}
+		});
+		btnModificar.setVisible(inside.contexto.usuarioActual().getId() == 1);
+		add(btnModificar);
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
 				Comprar, Vistazo }));
 

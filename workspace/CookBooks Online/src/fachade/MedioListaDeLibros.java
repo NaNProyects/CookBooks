@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -12,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -32,6 +35,9 @@ public class MedioListaDeLibros extends MedioPanel {
 	private JScrollPane scrollPane;
 	private JLabel labelTitulo;
 	private JTextPane labelErrores;
+	private JLabel lblBuscarLibros;
+	private JTextField txtBuscarLibros;
+	private JButton botonBuscar;
 
 	/**
 	 * Create the panel.
@@ -84,7 +90,7 @@ public class MedioListaDeLibros extends MedioPanel {
 		btnNewButton = new JButton("Nuevo");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inside.centro(new MedioEdicionDeLibro(inside));
+				inside.centro(new MedioEdicionDeLibro(inside,inside.center));
 			}
 		});
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -98,7 +104,7 @@ public class MedioListaDeLibros extends MedioPanel {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					inside.centro(new MedioEdicionDeLibro(inside, selected()));
+					inside.centro(new MedioEdicionDeLibro(inside, selected(),inside.center));
 				} catch (Exception e1) {
 					if (e1.getMessage().equalsIgnoreCase(
 							"Debe seleccionar el Libro a")){
@@ -173,12 +179,74 @@ public class MedioListaDeLibros extends MedioPanel {
 		labelErrores.setBounds(61, 531, 333, 63);
 		add(labelErrores);
 		
+		lblBuscarLibros = new JLabel("Buscar Libro");
+		lblBuscarLibros.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblBuscarLibros.setBounds(598, 13, 83, 14);
+		add(lblBuscarLibros);
+
+		txtBuscarLibros = new JTextField();
+		lblBuscarLibros.setLabelFor(txtBuscarLibros);
+		txtBuscarLibros.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					Cargar();
+				}
+
+			}
+		});
+		txtBuscarLibros.setText("");
+		txtBuscarLibros.setBounds(598, 37, 190, 23);
+		add(txtBuscarLibros);
+		txtBuscarLibros.setColumns(10);
+
+		botonBuscar = new JButton("");
+		botonBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Cargar();
+			}
+		});
+		botonBuscar.setIcon(new ImageIcon(Superior.class
+				.getResource("/fachade/Image/lupa-icono-3813-16.png")));
+		botonBuscar.setBounds(798, 37, 36, 23);
+		add(botonBuscar);
+		
 
 		Cargar();
 	}
 
+	private LinkedList<Libro> filtrar() {
+		LinkedList<Libro> retorno = new LinkedList<Libro>();
+
+		try {
+			for (Libro libro : inside.contexto.listarLibros()) {
+				if (
+						(libro.getAutor().getApellido().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))
+						|| 
+						(libro.getAutor().getNombre().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))
+						|| 
+						(libro.getEditorial().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))
+						|| 
+						(libro.getGenero().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))
+						|| 
+						(libro.getIdioma().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))
+						|| 
+						(libro.getTitulo().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))
+						|| 
+						(libro.getIsbn().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))	
+						) {
+					retorno.add(libro);
+				}
+			}
+		} catch (Exception e) {
+			printError(e.getMessage().concat(" /n"), true);
+		}
+
+		return retorno;
+	}
+	
+	
 	protected void Cargar() {
-		libros = inside.contexto.listarLibros();
+		libros = filtrar();
 		Iterator<Libro> iterador = libros.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
 				new String[] { "ISBN", "Titulo", "Autor", "Género", "Idioma",

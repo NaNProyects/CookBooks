@@ -50,23 +50,25 @@ public class MedioEdicionDeLibro extends MedioPanel {
 	private JTextPane vistasoLibro;
 	private JLabel lblTitulo;
 	private JTextPane labelErrores;
+	private MedioPanel anterior;
 
 	/**
 	 * Create the panel.
 	 * 
 	 * @wbp.parser.constructor
 	 */
-	public MedioEdicionDeLibro(Interface inside2) {
+	public MedioEdicionDeLibro(Interface inside2, MedioPanel ant) {
 		this(inside2, new Libro("0", "", null, "", "",
-				"", "", "", new Double(0))); 
+				"", "", "", new Double(0)),ant); 
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public MedioEdicionDeLibro(Interface inside2, Libro libro2) {
+	public MedioEdicionDeLibro(Interface inside2, Libro libro2 , MedioPanel ant) {
 		setFocusTraversalPolicyProvider(true);
 		inside = inside2;
 		libro = libro2;
-
+		anterior = ant;
+		
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 
@@ -304,7 +306,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		JButton cancelar = new JButton("Cancelar");
 		cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inside.centro(new MedioListaDeLibros(inside));
+				inside.centro(anterior);
 			}
 		});
 		cancelar.setIcon(new ImageIcon(MedioEdicionDeLibro.class
