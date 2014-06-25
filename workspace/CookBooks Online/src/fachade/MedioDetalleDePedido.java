@@ -114,7 +114,7 @@ public class MedioDetalleDePedido extends MedioPanel {
 
 		add(enviarButton);
 
-		 btnAtras = new JButton("Atras");
+		 btnAtras = new JButton("Atrás");
 		 btnAtras.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {//TODO COMO NO HAY BAJADA DE PEDIDO VERIFICAR Q SE CAMBIE EN PEDIDOS COMO ENVIADO SIA APRETO
 				anterior.Cargar();

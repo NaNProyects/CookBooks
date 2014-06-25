@@ -1,14 +1,16 @@
 ﻿Interface:
-	>iconos a cada boton
+	>iconos a cada boton ----> no queiro elegir :'(
 Cookbooks:
-	>implementar existeMail(String s):boolean y existeDNI(String dni):boolean ->listo
+	>implementar existeMail(String s):boolean y existeDNI(String dni):boolean ->listo ----> esto apra q era?
 	>busqueda de libro
 	>historial del usuario (lista de pedidos) -> listo!
 
 Excepciones:
 -Confirmar carrito puede tirar una excepcion si se rompe algo (no se qué), ponele un "ocurrio un error" cuando lo atajes
-*historial y busqueda no deberian fallar pero pueden, hago lo mismo que en el item de arriba o devuelvo listas vacias?
+*historial y busqueda no deberian fallar pero pueden, hago lo mismo que en el item de arriba o devuelvo listas vacias? ---> Listas vacias
 	
 Preguntas:
 	>agregar autor devolvia un autor porque recibia un string; ahora que recibe el autor se le setea el id al objeto que recibe. Hacemos que retorne boolean como todos los demas? si es el caso ya no tiraria la excepcion de repetido sino un boolean y habría que escribir el cartel desde la interfaz (si tiraria excepcion para errores)
+			vale la pena editar comportamiento de una historia funcional?
 	>confirmar carrito devuelve el pedido porque nos parecio piola pero no lo usamos, lo puedo pasar a void?
+		vale la pena?, como quieras

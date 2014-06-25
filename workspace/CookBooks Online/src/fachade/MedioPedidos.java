@@ -22,6 +22,9 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import funcionalidad.Pedido;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 @SuppressWarnings("serial")
 public class MedioPedidos extends MedioPanel {
 	private JTable table;
@@ -54,8 +57,18 @@ public class MedioPedidos extends MedioPanel {
 		labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 20));
 		labelTitulo.setBounds(22, 10, 200, 50);
 		add(labelTitulo);
-		
+
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				try{
+				enviarButton.setEnabled(!selected().getEstado());
+				}
+				catch (Exception e1){
+					enviarButton.setEnabled(false);
+				}
+			}
+		});
 		table.setAutoCreateRowSorter(true);
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
 				"Número", "Fecha", "Monto","DNI del Usuario", "Usuario", "Cantidad de Libros", "Estado"}) {
@@ -107,6 +120,7 @@ public class MedioPedidos extends MedioPanel {
 		enviarButton.setToolTipText("Marca como \"Enviado\" el pedido seleccionado.");
 		enviarButton.setIcon(new ImageIcon(MedioPedidos.class.getResource("/fachade/Image/Clear Green Button.png")));
 		enviarButton.setBounds(598, 529, 120, 47);
+		enviarButton.setEnabled(false);
 		add(enviarButton);
 
 		btnDetalles = new JButton("Detalles");

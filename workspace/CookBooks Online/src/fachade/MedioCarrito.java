@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -285,7 +286,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		panel.add(panelConfirmacion);
 		panelConfirmacion.setLayout(null);
 		
-		JLabel tituloFlotante = DefaultComponentFactory.getInstance().createLabel("Validacion de Tarjeta");
+		JLabel tituloFlotante = DefaultComponentFactory.getInstance().createLabel("Validación de Tarjeta");
 		tituloFlotante.setFont(new Font("Tahoma", Font.BOLD, 20));
 		tituloFlotante.setBounds(10, 11, 324, 25);
 		panelConfirmacion.add(tituloFlotante);
@@ -324,7 +325,12 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(pin.getText().compareTo(inside.contexto.usuarioActual().getPin())==0){ // TODO Probar con pin andando y con pedido andando
-					inside.contexto.confirmarCarrito();
+					try {
+						inside.contexto.confirmarCarrito();
+						printError("Ocurrio un error", false);
+					} catch (SQLException e1) {
+						printError("Ocurrio un error", true);
+					}
 					Cargar();
 					labelErrores.setForeground(Color.GREEN);
 					printError("Debe seleccionar el Libro a eliminar /n", false);

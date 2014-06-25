@@ -1,16 +1,14 @@
-- botones desabilitados de carrito funcionan raro por comentario anterior igual es posible modificar por manel transparente ---> solucionado apartir del cambio de botones pero testear >> a mi nunca me paso nada
-
-- a mi me aprese o los pedidos generan siempre numeros discontinuos o le chupa un huevo? osae no qda mal tener el pedido 1 y depsues el 20? o algoa si? >> considerando que tecnicamente no se pueden borrar los del medio esta mal, ya resetee el autoincremental y subi un import nuevo (pasa que borre 13 pedidos en el medio)
-
 [Sugerencias]
--que se bloquee enviar en la lista de pedidos si selecciona uno enviado
--esta bien que el usuario sepa que numero de pedido es? se me hace algo medio administrativo y como son nros saltados por ahi queda feo
+-que se bloquee enviar en la lista de pedidos si selecciona uno enviado ----> que lindo q soy :D osea hecho XD
+-esta bien que el usuario sepa que numero de pedido es? se me hace algo medio administrativo y como son nros saltados por ahi queda feo--
+		-> oks ahi lo s saco, no lo saco me sirve para identificar el pedido en la tabla por q acordate q se pueden ordenar y es el unico dato unico q tienen no?
+
 
 [El rincon de la ortografía y otras pavadas]
 /*Es ridiculo que veas esto en el git sabiendo que las tildes no se ven*/
--> en libro el error de "debe seleccionar" tiene una linea y el de autor dos, mepa que tienen que ser iguales (tienen exactamente el mismo largo)
-	lo q no tiene el mismo tamaño es la caja de errores deja al pobre error en paz XD >> jajaja dios estira el maldito label na borra este item te dejo vivir xD
 
 ->en los detalles del historial, "Atras" va "Atrás" con tilde--> hecho >> en el listado de pedidos no se arregló, no te lo dije porque pense que eran la misma cosa
+	echo
 
 ->en el carrito al confirmar, "Validacion de tarjeta">"Validación" con tilde
+	echo
