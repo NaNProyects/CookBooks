@@ -110,7 +110,7 @@ public class MedioDetalleDePedido extends MedioPanel {
 		enviarButton.setToolTipText("Marca como \"Enviado\" el pedido seleccionado.");
 		enviarButton.setIcon(new ImageIcon(MedioDetalleDePedido.class.getResource("/fachade/Image/Clear Green Button.png")));
 		enviarButton.setBounds(598, 529, 120, 47);
-		enviarButton.setEnabled(!pedido.estado());
+		enviarButton.setEnabled(!pedido.fueEnviado());
 
 		add(enviarButton);
 

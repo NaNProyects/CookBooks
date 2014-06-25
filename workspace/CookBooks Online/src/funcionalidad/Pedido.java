@@ -16,7 +16,7 @@ import utilsSQL.ConsultaUpdate;
 public class Pedido implements Cargable {
 	private Integer nro;
 	private Date fecha;
-	private Boolean estado;
+	private Boolean enviado;
 	private Double total;
 	private LinkedList<Libro> libros;
 	private Usuario usuario;
@@ -29,7 +29,7 @@ public class Pedido implements Cargable {
 		this.nro = -1;
 		java.util.Date d = new java.util.Date();
 		this.fecha = new Date(d.getTime());
-		this.estado = false;
+		this.enviado = false;
 		this.libros = libros;
 		this.usuario = usuario;
 		this.total = 0.0;
@@ -47,7 +47,7 @@ public class Pedido implements Cargable {
 	}
 
 	public Boolean getEstado() {
-		return estado;
+		return enviado;
 	}
 
 	public Double getTotal() {
@@ -82,20 +82,20 @@ public class Pedido implements Cargable {
 
 	}
 
-	public boolean estado() {
-		return estado;
+	public boolean fueEnviado() {
+		return enviado;
 
 	}
 
 	public void enviar() {
-		estado = true;
+		enviado = true;
 	}
 
 	public void cargarCon(ResultSet iterador) throws SQLException {
 		try {
 			this.nro = iterador.getInt("idPedido");
 			this.fecha = iterador.getDate("fecha");
-			this.estado = iterador.getBoolean("estado");
+			this.enviado = iterador.getBoolean("estado");
 			this.total = iterador.getDouble("total");
 			this.usuario = new Usuario();
 			this.usuario.cargarCon(iterador);
@@ -108,17 +108,8 @@ public class Pedido implements Cargable {
 	}
 
 	public void guardarEn(Conector base) throws SQLException {
-		//ESTADO
-		
-		
-		//FECHA
-		//NRO
-		//TOTAL
-		//USUARIO (link con usuario) OK
-		//LIBROS (link con libropedido)
-		try {
 			ConsultaABM cons;
-			if (!estado) { //no enviado FIXME REFACTORIZAR POR ENVIADO DIOS
+			if (!enviado) {
 				ArrayList<String> atributos = new ArrayList<String>();
 				atributos.add("fecha");
 				atributos.add("total");
@@ -128,29 +119,22 @@ public class Pedido implements Cargable {
 				valores.add("'" + fecha.toString() + "'");
 				valores.add("'" + total.toString() + "'");
 				valores.add(usuario.getDni().toString());
-				valores.add(estado.toString());
+				valores.add(enviado.toString());
 				cons = new ConsultaInsert("pedido", atributos, valores);
 				base.ejecutar(cons);
 				base.ejecutar(new ConsultaSelect("LAST_INSERT_ID()"));
 				this.nro = base.getFirstInt();
 				this.guardarLibros(base);
 			} else { //solo puede cambiar de estado
+				//FIXME crea otro??
 				cons = new ConsultaUpdate("pedido", "estado", "true",
-						"nro IN ("
+						"idPedido IN ("
 								+ new ConsultaSelect("*", "("
 										+ new ConsultaSelect("idPedido", "pedido",
-												"nro = " + nro ) + ")"
+												"idPedido = " + nro ) + ")"
 										+ " as tmp") + ")");
 				base.ejecutar(cons);
 			}
-		} catch (SQLException e) {
-			if (e.getErrorCode() == 1062) {
-				throw new SQLException("Ya existe un pedido con ese nro (?)");
-			}
-			throw e;
-		}
-		
-
 	}
 
 	private void guardarLibros(Conector base) throws SQLException {

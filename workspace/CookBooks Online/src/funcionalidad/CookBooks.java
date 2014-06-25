@@ -149,7 +149,7 @@ public class CookBooks {
 	 * Modifica en la base el estado de un pedido pendiente a enviado
 	 * 
 	 * @param unPedido
-	 * @return si se pudo o no
+	 * @return si se pudo o no (falla si no tenia numero)
 	 * @throws Exception
 	 *             si paso algo raro
 	 */
@@ -158,17 +158,14 @@ public class CookBooks {
 			return false; // no puedo enviar un pedido sin numero
 		}
 		try {
+			unPedido.enviar();
 			unPedido.guardarEn(base);
 			return true;
 		} catch (MySQLNonTransientException e) {
 			this.reconectar();
 			return false;
 		} catch (SQLException e) {
-			if (e.getMessage().startsWith("errorConocido")) { //FIXME explota
-				return false;
-			} else {
-				throw new Exception("Ocurrió un error");
-			}
+			throw new Exception("Ocurrió un error");
 		}
 	}
 
@@ -249,9 +246,8 @@ public class CookBooks {
 		}
 	}
 
-	public LinkedList<Libro> buscarLibro(String terminoDeBusqueda) { // FIXME
-																		// implementar
-																		// consulta
+	public LinkedList<Libro> buscarLibro(String terminoDeBusqueda) {
+		// FIXME implementar consulta
 		// TODO mock
 		return listarLibros();
 	}
@@ -368,9 +364,8 @@ public class CookBooks {
 
 	}
 
-	public LinkedList<Pedido> historialDe(Usuario unUsuario) { // FIXME
-																// implementar
-																// consultas
+	public LinkedList<Pedido> historialDe(Usuario unUsuario) {
+		// FIXME implementar consultas
 		// TODO mock
 		try {
 			return listarPedidos();

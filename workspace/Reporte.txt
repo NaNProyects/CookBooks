@@ -14,6 +14,8 @@
 
 -no se puede editar los datos del usuario (Mis Datos no anda)
 
+-el enviar pedido crea uno nuevo, también pendiente -> listo, cookbooks no seteaba el enviado antes de modificar
+
 [Sugerencias]
 -que en la lista de pedidos hubiera una columna de DNI o email por si se repiten los nombres (que esta permitido)
 -que al registrarse quedes logueado
