@@ -359,14 +359,11 @@ public class CookBooks {
 	}
 
 	public LinkedList<Pedido> historialDe(Usuario unUsuario) {
-		// FIXME implementar consultas
-		// TODO mock
 		try {
 			return unUsuario.getHistorial(base);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
+			return new LinkedList<Pedido>(); //XXX o devuelvo vacia o tiro excepcion
 		}
 
 	}

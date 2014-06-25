@@ -4,6 +4,7 @@
 
 [Sugerencias]
 -que se bloquee enviar en la lista de pedidos si selecciona uno enviado
+-esta bien que el usuario sepa que numero de pedido es? se me hace algo medio administrativo y como son nros saltados por ahi queda feo
 
 [El rincon de la ortografía y otras pavadas]
 /*Es ridiculo que veas esto en el git sabiendo que las tildes no se ven*/
