@@ -33,9 +33,13 @@ public class Carrito {
 		for (Libro l : libros) {
 			total += l.getPrecio();
 		}
-		return total;
+		return redondeo(total);
 	}
 	
+	private Double redondeo(double num) {
+		return ((double) Math.round(num*100)) / 100;
+	}
+
 	public void vaciar() {
 		libros = new LinkedList<Libro>();
 	}

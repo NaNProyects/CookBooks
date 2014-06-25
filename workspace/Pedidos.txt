@@ -1,53 +1,6 @@
-Funciones del carrito:
-	agregar -> si estaba retorno false? en cookbooks o en el carrito? [aunque preguntes vos arriba?]
-	eliminar -> OK (no cambio)
-	si esta en el carrito -> OK (no cambio)
-	precio -> ojo que era un Double. [Lo recalculamos o lo guardamos?]
-	convertir a pedido -> hecho. llama al guardar pedido que todavia no esta
-	
-Interface:
-	comentar si los resultados de busqueda se quiere modificar la presentacion por cada resultado -> esta perfecto
-	despues tengo que subir el papel de la ultima reunion, me vengo olvidando (correcciones)
-	filtrado de libro -------HECHO
-	iconos a cada boton
-	
-Usuario: 
-	Agregar pin -> modificados metodos de la base y el constructor completo
-	Llenar de forma vacia? los campos del anonimo(probablemente nesesario a comprobar) -> me parece bien por seguridad. Le saco los carteles de mock
-	Agregado seter del hash para cuando cambio contraseña o creo usuario -> OK (no cambio)
-	Agregado seters varios XD -> OK (no cambio)
-	para el telefono alcanzaba con un int? no combiene string por si empieza con 0? -> lo cambio a string de 20, hay que acordarse de chequear que no haya letras
-	que largo de contraseña es el maximo? tenemos 45 para el hash pero en string cuanto seria eso? xD -> limita si queres a minimo 6 por convecion. MD5 siempre escupe un hash de 16 sin importar que le metas (un string vacio tmb funciona)
-	
-
+﻿Interface:
+	>iconos a cada boton
 Cookbooks:
-	modificar de usuario no devuelve boolean de si se pudo o exite el usuario? o por q si lo devuelve agregar? --> tenes razon, devuelve un boolean. Falta implementar (FIXME)
-	que campos no se podian repetir, dni y mail nomas no? si son esos podrian agregarse consulta de si tal mail esta registrado o no y lo mismo con el dni? --> el metodo se llama existeEn(base) pero hay hacer el intermediario en cookbooks
-	falta agregar usuario. -->OK
-	implementar metodos del carrito -->OK (bajar a pedido tiene resguardos que no andan pero esta escrito)
-	
-	
-	falta precio del carrito y listar libros del carrito, y el contiene cuando esten los 3 sacar el geter del carrito
-	el carrito lo vacias vos al cerrar cecion o yo?
-	
-	
-	
-Carrito: --> Puse los metodos ABM como package para que los maneje cookbooks. A la variable carrito le podes pedir los libros, el contains y el precio (si es incomodo se cambia)
-	implementar listar,agregar, eliminar, si esta en el carrito, pasar a pedido?
-	en cookbooks tenemos un agregar al carrito un cancelar carrito un comvertirlo a pedido y un coso q nos da el carrino, 
-	no tiene el eliminar del carrito ni el listar, dos opciones o qdarnos solo con el retorno del carrito y operar con el carrito (feo)
-	o agregar metodos a cookbooks que usen delegacion (hasta q decidas me qde con el carrito pero me da lo mismo)(corrijo prefiero charlar con cookbooks)
-	PD:  si queres q solo charle coon cookbooks despeus de implementar los metodos ahi mata al geter del carrito asi me chilla donde cambiar XD
-	PD2: como no me acuerdo como acordamos la vista del carrito la hago como la de los autores y libros sino la cambio despues
-	
-	Como riniciar carrito
-	uso el confirmar carrito de cookbook por q confirmarlo conlleva tambien crear uno nuevo aparte de pasarlo a pedido
-	
-	
-Base:
-	tenes q cambiar tambien la base por q a la targeta le pusiste tope 16 y te faltan los 4 del pin y tambien diria 
-		q lo extiendas a un total de 22 por q por ej mi targeta tiene 18 mas 3 de pin y podrian ser 4 --> la tarjeta es varchar de 20 y el pin otro varchar de 4
-		
-Botones:
-	encontre una posible solucion despues hago una prueba aver si mejora pero nesesito testeo abro otro branch? --> hacelo nomas y lo miramos
-	
+	>implementar existeMail(String s):boolean y existeDNI(String dni):boolean
+	>busqueda de libro
+	>historial del usuario (lista de pedidos)

@@ -2,6 +2,7 @@ package funcionalidad;
 
 import java.util.*;
 import java.security.*;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.math.BigInteger;
 
@@ -338,7 +339,7 @@ public class CookBooks {
 	}
 
 	/**
-	 * Agrega un usuario ya creado, sin hashPass. <br>
+	 * Agrega un usuario ya creado, sin hashPass ni fecha de ingreso. <br>
 	 * Falla si el DNI o mail ya estaba.
 	 * 
 	 * @param unUsuario
@@ -349,6 +350,8 @@ public class CookBooks {
 	public boolean agregar(Usuario unUsuario, String pass) throws Exception {
 		try {
 			unUsuario.setHashPass(getMD5(pass));
+			java.util.Date d = new java.util.Date();
+			unUsuario.setFechaRegistro(new Date(d.getTime()));
 			unUsuario.guardarEn(base);
 			return true;
 		} catch (MySQLNonTransientException e) {

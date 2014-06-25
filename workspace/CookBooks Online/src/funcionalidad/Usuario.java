@@ -109,6 +109,10 @@ public class Usuario implements Cargable {
 		this.tarjeta = tarjeta;
 	}
 
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
+
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}

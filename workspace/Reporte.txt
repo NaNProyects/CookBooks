@@ -1,31 +1,33 @@
--en Perfil de libro hay que deshabilitar el "agregar al carrito" del admin (debe tener que ver con el juego de login-logout, si es eso no dije nada) 
-	esta asi para no tener q logearme con nomrbes largos apralas pruebas de botones igual lo marque apra no olvidarme de desabilitarlo n la demo
+-en Perfil de libro hay que deshabilitar el "agregar al carrito" del admin -> agregué a mail@example.com para loguear facil asi lo sacas
 	
-	
--[Leve] Atrás va con tilde, género también (rastrear) LISTO
-	
----------------------------rompiste el logeo nose como :S------------------------------------
-no puedo testear el resto
+-pedidos no ataja el "enviar"/"detalles" si no hay nada seleccionado (para ser exactos enviar tira invalid index en el error y detalles tira por consola)
 
+- desparche el eliminar de libro ahora libro y autor no estan avisando cuando se quiese eliminar si estan con libros o pedidos por q no devuelve el boolean correcto al parecer -> arreglado, tenía el boolean al revés
 
+- EL BOTON DESABILITAD DE PERFIL DE LIBRO PERMITE AGREGAR IGUAL AL CARRITO O.O	------ solucionado y DEJO DE SER OPCIONAL SE DEBENR EMPLASAR LOS MOUSECLICLISTENER POR LOS ACTION LISTENER URGENTE >>esto ya está?
 
--[Leve] En autor, si clickeas modificar sin seleccionar nada, el label de "Debe seleccionar" primero le falta una "c" y segundo baja de línea (es distinto al error de si clickeas borrar). En libro también le falta una "c" pero el salto de línea esta bien.
-		el tema es q el mensaje es mas largo puedo ver de agrandar el lugar para lo errores o no pero en si no es un error y corregido lo de las C
--[Sugerencia] Y si al admin le ponemos un editar en el perfil de libro? (buscar -> ver el perfil y que de ahí se pueda editar). ---- HECHO
--el eliminar de carrito funciona aunque no pintes nada (igual todavia no carga nada no se si es por mocks o porque lo rompí xD EDIT: si lo había roto yo :P) 
-	Oks corregidas ams cosas de eliminar
--al agregar mas de un libro al carrito solo carga uno (por ahi lo rompi)
-	Corregido si lo rompiste vos te deje un fixme
--en la lista de pedidos del admin muestra solo el nombre de pila del usuario, debería ser nombre+apellido, y por ahi estaría bueno que también tuviera uno de los datos unicos (DNI o email) 
-	solucionado lo del nombre es q antes no teniamos divididos, y nuevo dato cual? y en otra columna o la misma?
-	
-- desparche el eliminar de libro ahora libro y autor no estan avisando cuando se quiese eliminar si estan con libros o pedidos por q no devuelve el boolean correcto al parecer
-
-- carrito no verifica si se tiene elemento seleccionado a eliminar ------- solo pasa con carrito vacio (agregar nuevo error)---- corregido
-- carrito no verifica q se contenga al menos un elemento para confirmar el carrito----- corregido
-- carrito no acepta mas de un libro o no lista mas de uno ------------ el error estaba en carrito en el agregar, pongo un FIXME
-- si reacemos la busqueda los botones no quedan marcados como deshabilitados posible error en el contains del carrito --------- faltaba una comprobacion pero ahora el contains tira false siempre con un solo elemento
-- EL BOTON DESABILITAD DE PERFIL DE LIBRO PERMITE AGREGAR IGUAL AL CARRITO O.O	------ solucionado y DEJO DE SER OPCIONAL SE DEBENR EMPLASAR LOS MOUSECLICLISTENER POR LOS ACTION LISTENER URGENTE
 - botones desabilitados de carrito funcionan raro por comentario anterior igual es posible modificar por manel transparente
 
--error de registro en guardan usuario
+-error de registro en guardan usuario -> la fecha quedaba en null (usaba seter, no constructor), arreglado
+
+-al registrar un usuario seguis como anonimo pero te salta el panel de lista de libros que ve el admin (con editar y eso)
+
+-no se puede editar los datos del usuario (Mis Datos no anda)
+
+[Sugerencias]
+-que en la lista de pedidos hubiera una columna de DNI o email por si se repiten los nombres (que esta permitido)
+-que al registrarse quedes logueado
+
+[El rincon de la ortografía y otras pavadas]
+/*Es ridiculo que veas esto en el git sabiendo que las tildes no se ven*/
+-> en libro el error de "debe seleccionar" tiene una linea y el de autor dos, mepa que tienen que ser iguales (tienen exactamente el mismo largo)
+
+->en "Cerrar Sesion" va "Sesión" con tilde. En el error "Datos de sesion incorrectos" tmb falta el tilde
+
+->en los títulos de las tablas de listado de libros, "Titulo" va "Título" con tilde. En la lista de la búsqueda también. Y en el perfil del libro también.
+
+->en los detalles del historial, "Atras" va "Atrás" con tilde
+
+->en Nuevo usuario, "Telefono">"Teléfono" con tilde, "Direccion">"Dirección" con tilde
+
+->en el listado de pedidos (titulo de tabla), "Numero">"Número" con tilde
