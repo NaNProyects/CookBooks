@@ -16,6 +16,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import funcionalidad.Libro;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los botones
@@ -61,7 +62,7 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 529, 333, 63);
+		labelErrores.setBounds(22, 529, 306, 63);
 		add(labelErrores);
 
 		lblTitulo = DefaultComponentFactory.getInstance().createTitle(
@@ -106,6 +107,7 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		add(reseñaLabel);
 
 		Comprar = new JButton("Agregar al Carrito");
+		Comprar.setIcon(new ImageIcon(MedioPerfilDeLibro.class.getResource("/fachade/Image/Add Green Button.png")));
 		Comprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inside.contexto.agregarAlCarrito(libro);
@@ -114,20 +116,21 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 				Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)));
 			}
 		});
-		Comprar.setBounds(385, 542, 144, 31);
+		Comprar.setBounds(338, 542, 171, 31);
 
 		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) );
 		Comprar.setVisible(!(inside.contexto.usuarioActual().getId() == 1));
 		add(Comprar);
 
 		Vistazo = new JButton("Dar un Vistazo");
+		Vistazo.setIcon(new ImageIcon(MedioPerfilDeLibro.class.getResource("/fachade/Image/Export To Document.png")));
 		Vistazo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioPerfilDeLibroVistazo(inside, libro, inside.center));
 				
 			}
 		});
-		Vistazo.setBounds(566, 542, 144, 31);
+		Vistazo.setBounds(539, 542, 171, 31);
 		add(Vistazo);
 
 		scrollPane = new JScrollPane();
@@ -141,17 +144,19 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		scrollPane.setViewportView(textReseña);
 		
 		atras = new JButton("Atras");
+		atras.setIcon(new ImageIcon(MedioPerfilDeLibro.class.getResource("/fachade/Image/Import Document.png")));
 		atras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inside.centro(anterior);
 				inside.center.refresh();
 			}
 		});
-		atras.setBounds(747, 542, 144, 31);
+		atras.setBounds(720, 542, 171, 31);
 		add(atras);
 		
 		btnModificar = new JButton("Editar");
-		btnModificar.setBounds(385, 542, 144, 31);
+		btnModificar.setIcon(new ImageIcon(MedioPerfilDeLibro.class.getResource("/fachade/Image/Write Document.png")));
+		btnModificar.setBounds(338, 542, 171, 31);
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					inside.centro(new MedioEdicionDeLibro(inside, libro, inside.center));

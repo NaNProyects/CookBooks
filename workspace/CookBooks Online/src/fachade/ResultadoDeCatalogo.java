@@ -14,6 +14,7 @@ import javax.swing.border.SoftBevelBorder;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import funcionalidad.Libro;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los botones
@@ -75,7 +76,8 @@ public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los
 		add(lblEditorial);
 		
 		botonComprar = new JButton("Agregar al Carrito");//TODO AGREGAR IMAGEND E CARRITO O ALGO Y AL DE VER PERFIL TAMBIEN
-		botonComprar.setBounds(734, 8, 157, 23);
+		botonComprar.setIcon(new ImageIcon(ResultadoDeCatalogo.class.getResource("/fachade/Image/Add Green Button.png")));
+		botonComprar.setBounds(734, 8, 157, 33);
 		botonComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inside.contexto.agregarAlCarrito(libro);
@@ -87,7 +89,8 @@ public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los
 		add(botonComprar);
 		
 		botonVerPerfil = new JButton("Ver Perfil");
-		botonVerPerfil.setBounds(734, 52, 157, 23);
+		botonVerPerfil.setIcon(new ImageIcon(ResultadoDeCatalogo.class.getResource("/fachade/Image/Export To Document.png")));
+		botonVerPerfil.setBounds(734, 52, 157, 33);
 		botonVerPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioPerfilDeLibro(inside, libro, inside.center));//TODO ADAPTAR PARA Q CONSERVER LISTA

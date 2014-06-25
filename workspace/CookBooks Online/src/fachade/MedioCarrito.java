@@ -120,6 +120,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		add(table);
 
 		btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setIcon(new ImageIcon(MedioCarrito.class.getResource("/fachade/Image/Clear Green Button.png")));
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(table.getModel().getRowCount() > 0){
@@ -141,6 +142,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		add(btnConfirmar);
 
 		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setIcon(new ImageIcon(MedioCarrito.class.getResource("/fachade/Image/Minus Red Button.png")));
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -167,6 +169,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		add(btnEliminar);
 
 		btnVaciar = new JButton("Vaciar");
+		btnVaciar.setIcon(new ImageIcon(MedioCarrito.class.getResource("/fachade/Image/Trash Empty.png")));
 		btnVaciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

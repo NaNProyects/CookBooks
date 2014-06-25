@@ -1,5 +1,14 @@
 ﻿Interface:
 	>iconos a cada boton ----> no queiro elegir :'(
+		medio carrito listo
+		medio perfil libro
+		medio perfil libro vistazo
+		resultado de catalogo
+		medio historial y sud etalle
+		vale la pena ponerle al cerrar session y al entrar icono?
+		
+	> esconder boton de mis datos y de recuperar contraseña
+	
 Cookbooks:
 	>implementar existeMail(String s):boolean y existeDNI(String dni):boolean ->listo ----> esto apra q era?
 	>busqueda de libro
