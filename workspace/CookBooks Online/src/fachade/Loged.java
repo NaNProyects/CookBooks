@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 @SuppressWarnings("serial")
-public class Loged extends JPanel {//TODO agregar imagen a los botones
+public class Loged extends JPanel {
 
 	private Superior inside;
 	private JLabel labelNombre;
@@ -59,7 +59,7 @@ public class Loged extends JPanel {//TODO agregar imagen a los botones
 			public void actionPerformed(ActionEvent e) {
 				inside.setPanelLog(new Login(inside));
 				inside.getInside().contexto.cerrarSesion();
-				//TODO aca riniciar carrito
+				
 				inside.getInside().left.permisos(inside.getInside().contexto
 						.usuarioActual().getId());
 				inside.getInside().center.refresh();

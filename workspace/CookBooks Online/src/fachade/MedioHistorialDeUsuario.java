@@ -34,7 +34,7 @@ public class MedioHistorialDeUsuario extends MedioPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MedioHistorialDeUsuario(Interface inside2) {//TODO EDITAR FORMATO
+	public MedioHistorialDeUsuario(Interface inside2) {
 		inside = inside2;
 
 		setBackground(new Color(255, 204, 255));

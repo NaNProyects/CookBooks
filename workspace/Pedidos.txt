@@ -5,15 +5,13 @@
 	> esconder boton de mis datos y de recuperar contraseña
 	
 Cookbooks:
-	>implementar existeMail(String s):boolean y existeDNI(String dni):boolean ->listo ----> esto apra q era?>> vos lo pedite hacete cargo :P
+	>implementar existeMail(String s):boolean y existeDNI(String dni):boolean ->listo ----> esto apra q era?>> vos lo pedite hacete cargo :P ----> borraste dnde te lo pedi? digo apra saber para q lo pedi xD
+	creo q ya se para que xD
 	>busqueda de libro
-	>historial del usuario (lista de pedidos) -> listo!
-
-Excepciones:
-*historial y busqueda no deberian fallar pero pueden, hago lo mismo que en el item de arriba o devuelvo listas vacias? ---> Listas vacias >>listo
 	
 Preguntas:
 	>agregar(unAutor): autor > agregar(unAutor):boolean ---> vale la pena editar comportamiento de una historia funcional?
 	>confirmarCarrito():Pedido > confirmarCarrito():void 		vale la pena?, como quieras
 
 >>yo lo dejo las dos como estaban porque ya anda, es por cuestiones de uniformidad nomas, vi un TODO que preguntaba por este tema xD
+ ----> borralo? almenos q diga algo mas

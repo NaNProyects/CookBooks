@@ -17,7 +17,7 @@ import funcionalidad.Libro;
 import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
-public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los botones
+public class ResultadoDeCatalogo extends MedioPanel {
 	private Libro libro;
 	private Interface inside;
 	private JLabel lblTitulo;
@@ -75,9 +75,9 @@ public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los
 		lblEditorial.setFont(new Font("Tahoma", Font.BOLD, 13));
 		add(lblEditorial);
 		
-		botonComprar = new JButton("Agregar al Carrito");//TODO AGREGAR IMAGEND E CARRITO O ALGO Y AL DE VER PERFIL TAMBIEN
+		botonComprar = new JButton("Agregar al Carrito");
 		botonComprar.setIcon(new ImageIcon(ResultadoDeCatalogo.class.getResource("/fachade/Image/Add Green Button.png")));
-		botonComprar.setBounds(734, 8, 157, 33);
+		botonComprar.setBounds(720, 8, 171, 33);
 		botonComprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inside.contexto.agregarAlCarrito(libro);
@@ -90,10 +90,10 @@ public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los
 		
 		botonVerPerfil = new JButton("Ver Perfil");
 		botonVerPerfil.setIcon(new ImageIcon(ResultadoDeCatalogo.class.getResource("/fachade/Image/Export To Document.png")));
-		botonVerPerfil.setBounds(734, 52, 157, 33);
+		botonVerPerfil.setBounds(720, 51, 171, 33);
 		botonVerPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inside.centro(new MedioPerfilDeLibro(inside, libro, inside.center));//TODO ADAPTAR PARA Q CONSERVER LISTA
+				inside.centro(new MedioPerfilDeLibro(inside, libro, inside.center));
 			}
 		});
 		add(botonVerPerfil);
@@ -108,7 +108,7 @@ public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los
 	}
 
 	protected void refresh() {
-		botonComprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) );// TODO desabilitar sacando = 
+		botonComprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) ); 
 		repaint();
 	}
 

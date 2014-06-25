@@ -28,7 +28,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import funcionalidad.Libro;
 
 @SuppressWarnings("serial")
-public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botones
+public class MedioCarrito extends MedioPanel {
 	private JTable table;
 	private Interface inside;
 	private LinkedList<Libro> libros;
@@ -138,7 +138,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		});
 		btnConfirmar.setHorizontalAlignment(SwingConstants.LEFT);
 		btnConfirmar.setToolTipText("Confirma el carrito para su compra");
-		btnConfirmar.setBounds(480, 540, 120, 47);
+		btnConfirmar.setBounds(473, 540, 127, 47);
 		add(btnConfirmar);
 
 		btnEliminar = new JButton("Eliminar");
@@ -327,7 +327,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		final JButton confirmar = new JButton("Confirmar");
 		confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(pin.getText().compareTo(inside.contexto.usuarioActual().getPin())==0){ // TODO Probar con pin andando y con pedido andando
+				if(pin.getText().compareTo(inside.contexto.usuarioActual().getPin())==0){ 
 					try {
 						inside.contexto.confirmarCarrito();
 						printError("Ocurrio un error", false);

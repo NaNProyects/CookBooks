@@ -1,8 +1,8 @@
 [Sugerencias]
--que se bloquee enviar en la lista de pedidos si selecciona uno enviado ----> que lindo q soy :D osea hecho XD ->quedo hermoso
--esta bien que el usuario sepa que numero de pedido es? se me hace algo medio administrativo y como son nros saltados por ahi queda feo---> oks ahi lo s saco, no lo saco me sirve para identificar el pedido en la tabla por q acordate q se pueden ordenar y es el unico dato unico q tienen no? -> a esta altura si los numeros son en base al usuario y tenemos que hacer clave compuesta nos matamos me parece xD o agregamos un campo y tenemos los dos, el pedido relativo al usuario y el pedido absoluto, uno para cada tabla (?) si te parece dejarlo aunque queden saltados borra el item nomas, de ultima que nos diga el cliente si no le gusta a mi no me molesta en realidad xD
+-que se bloquee enviar en la lista de pedidos si selecciona uno enviado ----> que lindo q soy :D osea hecho XD ->quedo hermoso -> si lo se :')
 
-->poner arriba mis datos y abajo el cerrar sesion/entrar (para que no quede el agujero en el anonimo)
+
+->poner arriba mis datos y abajo el cerrar sesion/entrar (para que no quede el agujero en el anonimo) ---> eeeh??? no entendi, o si entendi qda muy ensimado al de datos de  session errados
 
 [El rincon de la ortografía y otras pavadas]
 /*Es ridiculo que veas esto en el git sabiendo que las tildes no se ven*/
@@ -10,8 +10,14 @@
 ->en el carrito al confirmar, "Validacion de tarjeta">"Validación" con tilde
 	echo >>no lo pude verificar todavia
 
--> en el perfil del carrito y en el vistazo, "atras">"atrás" (tilde)
+-> en el perfil del carrito y en el vistazo, "atras">"atrás" (tilde) no sera del libro? sie s asi listo
 
-->"confirmar" de confirmar carrito queda cortado. podemos estudiar palabras mas cortas si cambiar de tamaño es muy doloroso
 
-->"agregar al carrito" idem arriba. Podria ser "Al Carrito!"
+->"confirmar" de confirmar carrito queda cortado. podemos estudiar palabras mas cortas si cambiar de tamaño es muy doloroso ---> sutilmente ese boton qdo mas grande si agrando todos vas a llorar por el label de errores
+
+
+->"agregar al carrito" idem arriba. Podria ser "Al Carrito!" --> medio cm mas y listo
+-> descubri un error q si estabas en un perfil de libro y te logeas como admin no se abilitaba el editar y si ya estabas logeado y cerrabas secion no se desabilitaba ni se remplazaba por el comprar, ya lo resolvi igual pero tenes q validarlo vos
+
+>falla mail existe 
+	lo uso para comprobar q no este repetido el mail en el registro probar como dunciona con dni q es igual pero q si anda XD

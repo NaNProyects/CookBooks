@@ -16,7 +16,7 @@ import funcionalidad.Libro;
 import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
-public class MedioPerfilDeLibroVistazo extends MedioPanel {//TODO agregar imagen a los botones
+public class MedioPerfilDeLibroVistazo extends MedioPanel {
 	@SuppressWarnings("unused")
 	private String tituloPanel;
 	private Libro libro;
@@ -74,7 +74,7 @@ public class MedioPerfilDeLibroVistazo extends MedioPanel {//TODO agregar imagen
 		
 		scrollPane.setViewportView(textVistazo);
 		
-		atras = new JButton("Atras");
+		atras = new JButton("Atrás");
 		atras.setIcon(new ImageIcon(MedioPerfilDeLibroVistazo.class.getResource("/fachade/Image/Import Document.png")));
 		atras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

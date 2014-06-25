@@ -38,7 +38,7 @@ public class MedioDetalleDePedido extends MedioPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MedioDetalleDePedido(Interface inside2, Pedido unPedido, MedioPanel ant) { //TODO CAMBIAR FORMATO AL DEFINIDIO
+	public MedioDetalleDePedido(Interface inside2, Pedido unPedido, MedioPanel ant) { 
 		inside = inside2;
 		libros = unPedido.getLibros();
 		pedido = unPedido;
@@ -116,7 +116,7 @@ public class MedioDetalleDePedido extends MedioPanel {
 
 		 btnAtras = new JButton("Atrás");
 		 btnAtras.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {//TODO COMO NO HAY BAJADA DE PEDIDO VERIFICAR Q SE CAMBIE EN PEDIDOS COMO ENVIADO SIA APRETO
+				public void actionPerformed(ActionEvent e) {
 				anterior.Cargar();
 				inside.centro(anterior);
 			}

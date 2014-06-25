@@ -19,7 +19,7 @@ import funcionalidad.Libro;
 import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
-public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los botones
+public class MedioPerfilDeLibro extends MedioPanel {
 	@SuppressWarnings("unused")
 	private String tituloPanel;
 	private Libro libro;
@@ -62,7 +62,7 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 529, 306, 63);
+		labelErrores.setBounds(22, 529, 326, 63);
 		add(labelErrores);
 
 		lblTitulo = DefaultComponentFactory.getInstance().createTitle(
@@ -111,12 +111,10 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		Comprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inside.contexto.agregarAlCarrito(libro);
-//				inside.contexto.agregarAlCarrito(libro);
-				//TODO SETEAR COMO DESACTIVADO CUANDO YA ANDE EL AGREGAR y cuando se desida como manejar el carrito cambiar o no
 				Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)));
 			}
 		});
-		Comprar.setBounds(338, 542, 171, 31);
+		Comprar.setBounds(358, 542, 171, 31);
 
 		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) );
 		Comprar.setVisible(!(inside.contexto.usuarioActual().getId() == 1));
@@ -143,7 +141,7 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		textReseña.setSelectionColor(Color.WHITE);
 		scrollPane.setViewportView(textReseña);
 		
-		atras = new JButton("Atras");
+		atras = new JButton("Atrás");
 		atras.setIcon(new ImageIcon(MedioPerfilDeLibro.class.getResource("/fachade/Image/Import Document.png")));
 		atras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -156,7 +154,7 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		
 		btnModificar = new JButton("Editar");
 		btnModificar.setIcon(new ImageIcon(MedioPerfilDeLibro.class.getResource("/fachade/Image/Write Document.png")));
-		btnModificar.setBounds(338, 542, 171, 31);
+		btnModificar.setBounds(358, 542, 171, 31);
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					inside.centro(new MedioEdicionDeLibro(inside, libro, inside.center));
@@ -183,6 +181,8 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 
 	protected void refresh() {
 		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) ); 
+		Comprar.setVisible(!(inside.contexto.usuarioActual().getId() == 1));
+		btnModificar.setVisible(inside.contexto.usuarioActual().getId() == 1);
 		repaint();
 	}
 }

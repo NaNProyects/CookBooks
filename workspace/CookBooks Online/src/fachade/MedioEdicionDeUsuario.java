@@ -298,11 +298,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 					user.setTelefono(telefonoUsuario.getText()
 							.toString());
 					user.setTarjeta(targetaUsuario.getText().toString());
-					user.setPin(pinTextField.getText().toString()); // TODO
-																	// CUANDO SE
-																	// IMPLEMENTE
-																	// PIN EN
-																	// USUARIO
+					user.setPin(pinTextField.getText().toString()); 
 
 					try {
 						if (user.getId() == -1) {
@@ -313,9 +309,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 								inside.center.refresh();
 								inside.top.setPanelLog(new Loged(inside.top));
 						} else {
-							// error = TODO POR Q EL AGREGAR SI DEVUELVE BOOLEAN
-							// Y EL MODIFICAR NO?
-							inside.contexto.modificar(user);
+							error = inside.contexto.modificar(user);
 						}
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -381,7 +375,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		add(cancelar);
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
 				mailUsuario,passwordField,passwordField_1,dniUsuario, nombreUsuario, apellidoUsuario,
-				direcUsuario,telefonoUsuario, targetaUsuario, pinTextField, confirmar, cancelar }));// TODO arreglar foco
+				direcUsuario,telefonoUsuario, targetaUsuario, pinTextField, confirmar, cancelar }));
 
 		lblPin.setLabelFor(pinTextField);
 		lblTelefono.setLabelFor(telefonoUsuario);
@@ -396,10 +390,25 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 
 	}
 
-	private Boolean ValidadDNI() {
+	private Boolean ValidadDNI() {//TODO validar con existe
 		if ((dniUsuario.getText().toString().length() < 9) && (dniUsuario.getText().toString().length() > 6)) {
 			printError("El Dni debe tener entre 7 y 8 digitos /n", false);
-			return true;
+			try {
+				if(!inside.contexto.existeDNI(dniUsuario.getText().toString())){
+					printError("El Dni pertenece a un usuario existente /n", false);
+					printError("Ocurrio un error /n", false);
+					return true;
+				}
+				else{
+					printError("El Dni pertenece a un usuario existente /n", true);
+					printError("Ocurrio un error /n", false);
+					return false;
+				}
+			} catch (Exception e) {
+				printError("Ocurrio un error /n", true);
+				return false;
+			}
+
 
 		} else {
 			printError("El Dni debe tener entre 7 y 8 digitos /n", true);
@@ -411,8 +420,22 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		if ((mailUsuario.getText().length() < 45)
 				&& (mailUsuario.getText().length() > 0)) {
 			printError("El E-Mail debe tener entre 0 y 45 caracteres /n", false);
-			return true;
-
+			
+			try {
+				if(!inside.contexto.existeMail(mailUsuario.getText().toString())){
+					printError("El E-Mail pertenece a un usuario existente /n", false);
+					printError("Ocurrio un error /n", false);
+					return true;
+				}
+				else{
+					printError("El E-Mail pertenece a un usuario existente /n", true);
+					printError("Ocurrio un error /n", false);
+					return false;
+				}
+			} catch (Exception e) {
+				printError("Ocurrio un error /n", true);
+				return false;
+			}
 		} else {
 			printError("El E-Mail debe tener entre 0 y 45 caracteres /n", true);
 			return false;
@@ -514,7 +537,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		}
 	}
 
-	private Boolean ValidadPass() {// TODO revisar largos
+	private Boolean ValidadPass() {
 		if (user.getId() > 0) {
 			return true;
 		} else {
@@ -542,7 +565,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		}
 	}
 
-	// TODO VALIDAR PASS
+	
 
 	private void printError(String texto, Boolean condicion) {
 		labelErrores.setText(labelErrores.getText().replaceAll(

@@ -38,7 +38,7 @@ public class MedioPedidos extends MedioPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MedioPedidos(Interface inside2) {//TODO EDITAR FORMATO
+	public MedioPedidos(Interface inside2) {
 		inside = inside2;
 
 		setBackground(new Color(255, 204, 255));
