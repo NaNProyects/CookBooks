@@ -1,14 +1,17 @@
 [Sugerencias]
--que se bloquee enviar en la lista de pedidos si selecciona uno enviado ----> que lindo q soy :D osea hecho XD
--esta bien que el usuario sepa que numero de pedido es? se me hace algo medio administrativo y como son nros saltados por ahi queda feo--
-		-> oks ahi lo s saco, no lo saco me sirve para identificar el pedido en la tabla por q acordate q se pueden ordenar y es el unico dato unico q tienen no?
+-que se bloquee enviar en la lista de pedidos si selecciona uno enviado ----> que lindo q soy :D osea hecho XD ->quedo hermoso
+-esta bien que el usuario sepa que numero de pedido es? se me hace algo medio administrativo y como son nros saltados por ahi queda feo---> oks ahi lo s saco, no lo saco me sirve para identificar el pedido en la tabla por q acordate q se pueden ordenar y es el unico dato unico q tienen no? -> a esta altura si los numeros son en base al usuario y tenemos que hacer clave compuesta nos matamos me parece xD o agregamos un campo y tenemos los dos, el pedido relativo al usuario y el pedido absoluto, uno para cada tabla (?) si te parece dejarlo aunque queden saltados borra el item nomas, de ultima que nos diga el cliente si no le gusta a mi no me molesta en realidad xD
 
+->poner arriba mis datos y abajo el cerrar sesion/entrar (para que no quede el agujero en el anonimo)
 
 [El rincon de la ortografía y otras pavadas]
 /*Es ridiculo que veas esto en el git sabiendo que las tildes no se ven*/
 
-->en los detalles del historial, "Atras" va "Atrás" con tilde--> hecho >> en el listado de pedidos no se arregló, no te lo dije porque pense que eran la misma cosa
-	echo
-
 ->en el carrito al confirmar, "Validacion de tarjeta">"Validación" con tilde
-	echo
+	echo >>no lo pude verificar todavia
+
+-> en el perfil del carrito y en el vistazo, "atras">"atrás" (tilde)
+
+->"confirmar" de confirmar carrito queda cortado. podemos estudiar palabras mas cortas si cambiar de tamaño es muy doloroso
+
+->"agregar al carrito" idem arriba. Podria ser "Al Carrito!"

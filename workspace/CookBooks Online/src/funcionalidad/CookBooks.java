@@ -249,7 +249,11 @@ public class CookBooks {
 	public LinkedList<Libro> buscarLibro(String terminoDeBusqueda) {
 		// FIXME implementar consulta
 		// TODO mock
-		return listarLibros();
+		try {
+			return listarLibros();
+		} catch (Exception e) {
+			return new LinkedList<Libro>();
+		}
 	}
 
 	public boolean estaEnElCarrito(Libro unLibro) {
@@ -363,7 +367,7 @@ public class CookBooks {
 			return unUsuario.getHistorial(base);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new LinkedList<Pedido>(); //XXX o devuelvo vacia o tiro excepcion
+			return new LinkedList<Pedido>(); 
 		}
 
 	}

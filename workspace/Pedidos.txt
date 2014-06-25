@@ -1,25 +1,19 @@
 ﻿Interface:
 	>iconos a cada boton ----> no queiro elegir :'(
-		medio carrito listo
-		medio perfil libro
-		medio perfil libro vistazo
-		resultado de catalogo
-		medio historial y sud etalle
-		vale la pena ponerle al cerrar session y al entrar icono?
+		vale la pena ponerle al cerrar session y al entrar icono?>>no, me gusta como queda sencillo
 		
 	> esconder boton de mis datos y de recuperar contraseña
 	
 Cookbooks:
-	>implementar existeMail(String s):boolean y existeDNI(String dni):boolean ->listo ----> esto apra q era?
+	>implementar existeMail(String s):boolean y existeDNI(String dni):boolean ->listo ----> esto apra q era?>> vos lo pedite hacete cargo :P
 	>busqueda de libro
 	>historial del usuario (lista de pedidos) -> listo!
 
 Excepciones:
--Confirmar carrito puede tirar una excepcion si se rompe algo (no se qué), ponele un "ocurrio un error" cuando lo atajes
-*historial y busqueda no deberian fallar pero pueden, hago lo mismo que en el item de arriba o devuelvo listas vacias? ---> Listas vacias
+*historial y busqueda no deberian fallar pero pueden, hago lo mismo que en el item de arriba o devuelvo listas vacias? ---> Listas vacias >>listo
 	
 Preguntas:
-	>agregar autor devolvia un autor porque recibia un string; ahora que recibe el autor se le setea el id al objeto que recibe. Hacemos que retorne boolean como todos los demas? si es el caso ya no tiraria la excepcion de repetido sino un boolean y habría que escribir el cartel desde la interfaz (si tiraria excepcion para errores)
-			vale la pena editar comportamiento de una historia funcional?
-	>confirmar carrito devuelve el pedido porque nos parecio piola pero no lo usamos, lo puedo pasar a void?
-		vale la pena?, como quieras
+	>agregar(unAutor): autor > agregar(unAutor):boolean ---> vale la pena editar comportamiento de una historia funcional?
+	>confirmarCarrito():Pedido > confirmarCarrito():void 		vale la pena?, como quieras
+
+>>yo lo dejo las dos como estaban porque ya anda, es por cuestiones de uniformidad nomas, vi un TODO que preguntaba por este tema xD
