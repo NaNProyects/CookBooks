@@ -1,17 +1,13 @@
 package funcionalidad;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import utilsSQL.Cargable;
-import utilsSQL.Conector;
-import utilsSQL.ConsultaABM;
-import utilsSQL.ConsultaDelete;
-import utilsSQL.ConsultaInsert;
-import utilsSQL.ConsultaSelect;
-import utilsSQL.ConsultaUpdate;
+import utilsSQL.*;
 
 public class Usuario implements Cargable {
 
@@ -23,13 +19,12 @@ public class Usuario implements Cargable {
 	// NOTA = EN TODOS LOS INSERTS DEMO LA PASS ES SU "qwerty"
 	private String hashPass;
 
-
 	private String email;
 	private String nombre;
 	private String apellido;
 	private Integer id;
 	private String pin;
-	
+
 	public static Usuario anonimo() {
 		Usuario result = new Usuario();
 		result.setId(-1);
@@ -48,9 +43,9 @@ public class Usuario implements Cargable {
 		super();
 	}
 
-	public Usuario(Integer dni, String telefono, String tarjeta,
-			String pin, String direccion, String hashPass, String email,
-			String nombre, String apellido) {
+	public Usuario(Integer dni, String telefono, String tarjeta, String pin,
+			String direccion, String hashPass, String email, String nombre,
+			String apellido) {
 		super();
 		this.dni = dni;
 		this.telefono = telefono;
@@ -132,7 +127,7 @@ public class Usuario implements Cargable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public void setHashPass(String hashPass) {
 		this.hashPass = hashPass;
 	}
@@ -184,18 +179,19 @@ public class Usuario implements Cargable {
 			} else { // si es negativo viene modificado
 				dni = -1 * dni;
 				valores.set(0, dni.toString());
-				atributos.add("idUsuario"); //como ya existia ya sabemos el id
+				atributos.add("idUsuario"); // como ya existia ya sabemos el id
 				valores.add(id.toString()); //
 				cons = new ConsultaUpdate("usuario", atributos, valores,
 						"dni IN ("
-								+ new ConsultaSelect("*", "(" + new ConsultaSelect("dni", "usuario", "dni = "+dni) + ")"
+								+ new ConsultaSelect("*", "("
+										+ new ConsultaSelect("dni", "usuario",
+												"dni = " + dni) + ")"
 										+ " as tmp") + ")");
 				base.ejecutar(cons);
 			}
 		} catch (SQLException e) {
 			if (e.getErrorCode() == 1062) {
-				throw new SQLException(
-						"Ya existe un usuario con ese mail/dni");
+				throw new SQLException("Ya existe un usuario con ese mail/dni");
 			}
 			throw e;
 		}
@@ -241,14 +237,15 @@ public class Usuario implements Cargable {
 	public static ConsultaSelect getBuscadorTodos() {
 		return new ConsultaSelect("*", "usuario");
 	}
+
 	public ConsultaSelect getBuscador() {
-		return new ConsultaSelect("*", "usuario", "dni = "+dni);
+		return new ConsultaSelect("*", "usuario", "dni = " + dni);
 	}
 
 	public Integer getId() {
 		return id;
 	}
-	
+
 	public void setId(Integer i) {
 		id = i;
 	}
@@ -272,4 +269,18 @@ public class Usuario implements Cargable {
 	public void setPin(String pin) {
 		this.pin = pin;
 	};
+
+	@SuppressWarnings("unchecked")
+	public LinkedList<Pedido> getHistorial(Conector base) {
+		ConsultaSelect sel = new ConsultaSelect("*", "pedido inner join usuario on usuario = DNI", "usuario = "
+				+ this.dni);
+		try {
+			base.ejecutar(sel);
+			return new LinkedList<Pedido>(
+					(Collection<? extends Pedido>) base.iterarUn(Pedido.class));
+		} catch (Exception e) {
+			e.printStackTrace(); // TODO alindar cuando ande
+			return new LinkedList<Pedido>();
+		}
+	}
 }

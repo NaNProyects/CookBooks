@@ -1,37 +1,15 @@
--en Perfil de libro hay que deshabilitar el "agregar al carrito" del admin -> agregué a mail@example.com para loguear facil asi lo sacas 
-	Lo corregi hace rataso ys e cambio por el editar, verificar
-	
--pedidos no ataja el "enviar"/"detalles" si no hay nada seleccionado (para ser exactos enviar tira invalid index en el error y detalles tira por consola)
-		listo pero me encapriche y ahora quiero que se bloque enviar si selecciona uno enviado podre? :P
+- botones desabilitados de carrito funcionan raro por comentario anterior igual es posible modificar por manel transparente ---> solucionado apartir del cambio de botones pero testear >> a mi nunca me paso nada
 
-- EL BOTON DESABILITAD DE PERFIL DE LIBRO PERMITE AGREGAR IGUAL AL CARRITO O.O	------ solucionado y DEJO DE SER OPCIONAL SE DEBENR EMPLASAR LOS MOUSECLICLISTENER POR LOS ACTION LISTENER URGENTE >>esto ya está?
-	creo q si si no te pasa borralo
-	
-- botones desabilitados de carrito funcionan raro por comentario anterior igual es posible modificar por manel transparente ---> solucionado apartir del cambio de botones pero testear
-
-- a mi me aprese o los pedidos generan siempre numeros discontinuos o le chupa un huevo? osae no qda mal tener el pedido 1 y depsues el 20? o algoa si?
-
--al registrar un usuario seguis como anonimo pero te salta el panel de lista de libros que ve el admin (con editar y eso)---> corregido
-	
--no se puede editar los datos del usuario (Mis Datos no anda)----> es del proximo sprint te olvidaste?
-	
+- a mi me aprese o los pedidos generan siempre numeros discontinuos o le chupa un huevo? osae no qda mal tener el pedido 1 y depsues el 20? o algoa si? >> considerando que tecnicamente no se pueden borrar los del medio esta mal, ya resetee el autoincremental y subi un import nuevo (pasa que borre 13 pedidos en el medio)
 
 [Sugerencias]
--que en la lista de pedidos hubiera una columna de DNI o email por si se repiten los nombres (que esta permitido) ---- > hecho
--que al registrarse quedes logueado ---->listo
+-que se bloquee enviar en la lista de pedidos si selecciona uno enviado
 
 [El rincon de la ortografía y otras pavadas]
 /*Es ridiculo que veas esto en el git sabiendo que las tildes no se ven*/
 -> en libro el error de "debe seleccionar" tiene una linea y el de autor dos, mepa que tienen que ser iguales (tienen exactamente el mismo largo)
-	lo q no tiene el mismo tamaño es la caja de errores deja al pobre error en paz XD
+	lo q no tiene el mismo tamaño es la caja de errores deja al pobre error en paz XD >> jajaja dios estira el maldito label na borra este item te dejo vivir xD
 
-->en "Cerrar Sesion" va "Sesión" con tilde. En el error "Datos de sesion incorrectos" tmb falta el tilde---> hecho
+->en los detalles del historial, "Atras" va "Atrás" con tilde--> hecho >> en el listado de pedidos no se arregló, no te lo dije porque pense que eran la misma cosa
 
-->en los títulos de las tablas de listado de libros, "Titulo" va "Título" con tilde. En la lista de la búsqueda también. Y en el perfil del libro también.---> hecho
-
-
-->en los detalles del historial, "Atras" va "Atrás" con tilde--> hecho
-
-->en Nuevo usuario, "Telefono">"Teléfono" con tilde, "Direccion">"Dirección" con tilde--> hecho
-
-->en el listado de pedidos (titulo de tabla), "Numero">"Número" con tilde-> hecho
+->en el carrito al confirmar, "Validacion de tarjeta">"Validación" con tilde

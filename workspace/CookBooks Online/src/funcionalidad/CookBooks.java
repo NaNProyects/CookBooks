@@ -251,7 +251,7 @@ public class CookBooks {
 		// TODO mock
 		return listarLibros();
 	}
-	
+
 	public boolean estaEnElCarrito(Libro unLibro) {
 		return carrito.contiene(unLibro);
 	}
@@ -268,23 +268,17 @@ public class CookBooks {
 	public LinkedList<Libro> getLibrosCarrito() {
 		return carrito.getLibros();
 	}
-	
+
 	public Double getCostoCarrito() {
 		return carrito.getCosto();
 	}
 
-	public Pedido confirmarCarrito() {
-		try {
+	public Pedido confirmarCarrito() throws SQLException {
 			Pedido result = carrito.guardarEn(base, usuario);
 			carrito.vaciar();
 			return result;
-		} catch (SQLException e) {
-			// TODO pensar excepciones
-			e.printStackTrace();
-			return new Pedido();
-		}
-
 	}
+
 
 	public void eliminarDelCarrito(Libro unLibro) {
 		carrito.eliminar(unLibro);
@@ -368,7 +362,7 @@ public class CookBooks {
 		// FIXME implementar consultas
 		// TODO mock
 		try {
-			return listarPedidos();
+			return unUsuario.getHistorial(base);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -457,6 +451,28 @@ public class CookBooks {
 		} catch (NoSuchAlgorithmException e) {
 			return "";
 		}
+	}
+
+	public boolean existeDNI(String dni) throws Exception {
+		ConsultaSelect select = new ConsultaSelect("count(*)", "usuario",
+				"dni = " + dni);
+		try {
+			base.ejecutar(select);
+		} catch (SQLException e) {
+			throw new Exception("No se pudo completar la operacion");
+		}
+		return (base.getFirstInt() != 0);
+	}
+
+	public boolean existeMail(String mail) throws Exception {
+		ConsultaSelect select = new ConsultaSelect("count(*)", "usuario",
+				"email =' " + mail + "')");
+		try {
+			base.ejecutar(select);
+		} catch (SQLException e) {
+			throw new Exception("No se pudo completar la operacion");
+		}
+		return (base.getFirstInt() != 0);
 	}
 
 	/**

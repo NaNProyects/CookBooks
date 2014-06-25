@@ -126,7 +126,6 @@ public class Pedido implements Cargable {
 				this.nro = base.getFirstInt();
 				this.guardarLibros(base);
 			} else { //solo puede cambiar de estado
-				//FIXME crea otro??
 				cons = new ConsultaUpdate("pedido", "estado", "true",
 						"idPedido IN ("
 								+ new ConsultaSelect("*", "("
