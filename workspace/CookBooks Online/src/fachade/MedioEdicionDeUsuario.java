@@ -45,21 +45,24 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	private JPasswordField passwordField_1;
 	private TextField pinTextField;
 	private TextField telefonoUsuario;
+	private MedioPanel anterior;
 
 	/**
 	 * Create the panel.
 	 * 
 	 * @wbp.parser.constructor
 	 */
-	public MedioEdicionDeUsuario(Interface inside2) {
-		this(inside2, Usuario.anonimo());
+	public MedioEdicionDeUsuario(Interface inside2, MedioPanel ant) {
+		this(inside2, Usuario.anonimo(),ant);
 	}
 
-	public MedioEdicionDeUsuario(Interface inside2, Usuario usuario) {
+	public MedioEdicionDeUsuario(Interface inside2, Usuario usuario, MedioPanel ant) {
 		setFocusTraversalPolicyProvider(true);
 		inside = inside2;
 		user = usuario;
-
+		anterior = ant;
+		
+		
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 
@@ -270,7 +273,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		apellidoLabel.setBounds(52, 210, 88, 14);
 		add(apellidoLabel);
 
-		JLabel direccionLabel = new JLabel("Direccion*");
+		JLabel direccionLabel = new JLabel("Dirección*");
 		direccionLabel.setLabelFor(direcUsuario);
 		direccionLabel.setBounds(52, 241, 74, 14);
 		add(direccionLabel);
@@ -306,7 +309,9 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 
 							error = inside.contexto.agregar(user, new String(
 									passwordField.getPassword()));
-
+							    inside.contexto.autenticar(mailUsuario.getText(),new String(passwordField.getPassword()));
+								inside.center.refresh();
+								inside.top.setPanelLog(new Loged(inside.top));
 						} else {
 							// error = TODO POR Q EL AGREGAR SI DEVUELVE BOOLEAN
 							// Y EL MODIFICAR NO?
@@ -320,7 +325,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 						printError(
 								"El Mail/DNI pertenece a un Usuario existente /n",
 								false);
-						inside.centro(new MedioListaDeLibros(inside));
+						inside.centro(anterior);
 					} else {
 						printError(
 								"El Mail/DNI pertenece a un Usuario existente /n",
@@ -351,13 +356,14 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		cambiarPass.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				//TODO aca va a ir el cambio de contraseña en edicion
 			}
 		});
 		cambiarPass.setForeground(Color.BLUE);
 		cambiarPass.setBounds(210, 86, 121, 14);
 		add(cambiarPass);
 
-		JLabel lblTelefono = new JLabel("Telefono*");
+		JLabel lblTelefono = new JLabel("Teléfono*");
 		lblTelefono.setBounds(52, 272, 74, 14);
 		add(lblTelefono);
 
@@ -366,7 +372,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		JButton cancelar = new JButton("Cancelar");
 		cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inside.centro(new MedioHome(inside));
+				inside.centro(anterior);
 			}
 		});
 		cancelar.setIcon(new ImageIcon(MedioEdicionDeUsuario.class
@@ -444,13 +450,13 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	private Boolean ValidadDireccion() {
 		if ((direcUsuario.getText().length() < 50)
 				&& (direcUsuario.getText().length() > 0)) {
-			printError("La direccion debe tener entre 0 y 50 caracteres /n",
+			printError("La Dirección debe tener entre 0 y 50 caracteres /n",
 					false);
 
 			return true;
 
 		} else {
-			printError("La direccion debe tener entre 0 y 50 caracteres /n",
+			printError("La Dirección debe tener entre 0 y 50 caracteres /n",
 					true);
 			return false;
 		}
@@ -478,14 +484,14 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		if ((telefonoUsuario.getText().length() < 14)
 				&& (telefonoUsuario.getText().length() > 6)) {
 			printError(
-					"El numero de telefono debe tener entre 7 y 13 digitos /n",
+					"El Número de Teléfono debe tener entre 7 y 13 digitos /n",
 					false);
 
 			return true;
 
 		} else {
 			printError(
-					"El numero de telefono debe tener entre 7 y 13 digitos /n",
+					"El Número de Teléfono debe tener entre 7 y 13 digitos /n",
 					true);
 			return false;
 		}
@@ -495,14 +501,14 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		if ((targetaUsuario.getText().length() < 19)
 				&& (targetaUsuario.getText().length() > 15)) {
 			printError(
-					"El numero de tarjeta debe tener entre 16 y 18 digitos /n",
+					"El Número de tarjeta debe tener entre 16 y 18 digitos /n",
 					false);
 
 			return true;
 
 		} else {
 			printError(
-					"El numero de tarjeta debe tener entre 16 y 18 digitos /n",
+					"El Número de tarjeta debe tener entre 16 y 18 digitos /n",
 					true);
 			return false;
 		}

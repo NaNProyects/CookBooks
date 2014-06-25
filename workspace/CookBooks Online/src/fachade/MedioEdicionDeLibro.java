@@ -208,7 +208,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		isbnLabel.setBounds(52, 60, 46, 14);
 		add(isbnLabel);
 
-		JLabel tituloLabel = new JLabel("Titulo*");
+		JLabel tituloLabel = new JLabel("Título*");
 		tituloLabel.setLabelFor(tituloLibro);
 		tituloLabel.setBounds(52, 91, 46, 14);
 		add(tituloLabel);
@@ -378,11 +378,11 @@ public class MedioEdicionDeLibro extends MedioPanel {
 	private Boolean ValidadTitulo() {
 		if ((tituloLibro.getText().length() < 45)
 				&& (tituloLibro.getText().length() > 0)) {
-			printError("El Titulo debe tener entre 0 y 45 caracteres /n", false);
+			printError("El Título debe tener entre 0 y 45 caracteres /n", false);
 			return true;
 
 		} else {
-			printError("El Titulo debe tener entre 0 y 45 caracteres /n", true);
+			printError("El Título debe tener entre 0 y 45 caracteres /n", true);
 			return false;
 		}
 
@@ -442,11 +442,11 @@ public class MedioEdicionDeLibro extends MedioPanel {
 
 	private Boolean ValidadPrecio() {
 		if ((new Double(precioLibro.getValue().toString()).compareTo(new Double("0")) >= 0)) {
-			printError("El Precio debe ser un numero mayor a 0 /n", false);
+			printError("El Precio debe ser un Número mayor a 0 /n", false);
 			return true;
 
 		} else {
-			printError("El Precio debe ser un numero mayor a 0 /n", true);
+			printError("El Precio debe ser un Número mayor a 0 /n", true);
 			return false;
 		}
 	}

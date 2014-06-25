@@ -57,7 +57,7 @@ public class MedioHistorialDeUsuario extends MedioPanel {
 		table = new JTable();
 		table.setAutoCreateRowSorter(true);
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
-				"Numero", "Fecha", "Monto", "Cantidad de Libros", "Estado"}) {
+				"Número", "Fecha", "Monto", "Cantidad de Libros", "Estado"}) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { Integer.class, String.class,
 					String.class, String.class, String.class };
@@ -118,7 +118,7 @@ public class MedioHistorialDeUsuario extends MedioPanel {
 		Iterator<Pedido> iterador = pedidos.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
 				new String[] {
-						"Numero", "Fecha", "Monto", "Cantidad de Libros", "Estado"}) {
+						"Número", "Fecha", "Monto", "Cantidad de Libros", "Estado"}) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { Integer.class, String.class,
 					String.class, String.class, String.class };

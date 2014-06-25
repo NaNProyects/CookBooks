@@ -54,7 +54,7 @@ public class Loged extends JPanel {//TODO agregar imagen a los botones
 		labelNombre.setBounds(10, 31, 244, 32);
 		add(labelNombre);
 
-		btnCierre = new JButton("Cerrar Sesion");
+		btnCierre = new JButton("Cerrar Sesión");
 		btnCierre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inside.setPanelLog(new Login(inside));

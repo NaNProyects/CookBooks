@@ -88,7 +88,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		table = new JTable();
 		table.setAutoCreateRowSorter(true);
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
-				"ISBN", "Titulo", "Autor", "Género", "Idioma", "Editorial",
+				"ISBN", "Título", "Autor", "Género", "Idioma", "Editorial",
 				"Precio" }) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class,
@@ -213,7 +213,7 @@ public class MedioCarrito extends MedioPanel {//TODO agregar imagen a los botone
 		libros = inside.contexto.getLibrosCarrito();
 		Iterator<Libro> iterador = libros.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
-				new String[] { "ISBN", "Titulo", "Autor", "Género", "Idioma",
+				new String[] { "ISBN", "Título", "Autor", "Género", "Idioma",
 						"Editorial", "Precio" }) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class,

@@ -1,26 +1,21 @@
 package fachade;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-
-import java.awt.BorderLayout;
-
-import javax.swing.JPanel;
-
-import java.awt.Dimension;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import funcionalidad.CookBooks;
 
-import java.awt.Component;
-import java.awt.Toolkit;
-
 public class Interface {
 	public CookBooks contexto;		
 	protected MedioPanel center;
-	protected JPanel top;
+	protected Superior top;
 	protected Lateral left;
 	protected JFrame frmCookbooksOnline;
 

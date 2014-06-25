@@ -89,7 +89,7 @@ public class Login extends JPanel {
 		lblRegistro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				inside.getInside().centro(new MedioEdicionDeUsuario(inside.getInside()));
+				inside.getInside().centro(new MedioEdicionDeUsuario(inside.getInside(),inside.getInside().center));
 			}
 		});
 		lblRegistro.setForeground(new Color(0, 51, 255));
@@ -120,7 +120,7 @@ public class Login extends JPanel {
 				inside.setPanelLog(new Loged(inside));
 			}
 			else{
-				printError("Datos de sesion incorrectos".concat(" /n"), true);
+				printError("Datos de Sesión incorrectos".concat(" /n"), true);
 			}
 		} catch (Exception e) {
 			printError(e.getMessage().concat(" /n"), true);

@@ -49,7 +49,7 @@ public class ResultadoDeCatalogo extends MedioPanel {//TODO agregar imagen a los
 		setLayout(null);
 
 		lblTitulo = DefaultComponentFactory.getInstance().createTitle(
-				"Titulo: ".concat(libro2.getTitulo()));
+				"Título: ".concat(libro2.getTitulo()));
 		lblTitulo.setBounds(22, 0, 529, 31);
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 18));
 		add(lblTitulo);

@@ -57,7 +57,7 @@ public class MedioPerfilDeLibroVistazo extends MedioPanel {//TODO agregar imagen
 		lblTitulo.setBounds(22, 10, 200, 50);
 		add(lblTitulo);
 
-		tituloLabel = new JLabel("Titulo: ".concat(libro.getTitulo()));
+		tituloLabel = new JLabel("Título: ".concat(libro.getTitulo()));
 		tituloLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tituloLabel.setBounds(52, 58, 658, 24);
 		add(tituloLabel);

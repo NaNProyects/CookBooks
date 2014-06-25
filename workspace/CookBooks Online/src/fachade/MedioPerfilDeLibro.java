@@ -74,7 +74,7 @@ public class MedioPerfilDeLibro extends MedioPanel {//TODO agregar imagen a los 
 		isbnLabel.setBounds(62, 96, 200, 14);
 		add(isbnLabel);
 
-		tituloLabel = new JLabel("Titulo: ".concat(libro.getTitulo()));
+		tituloLabel = new JLabel("Título: ".concat(libro.getTitulo()));
 		tituloLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tituloLabel.setBounds(52, 58, 658, 24);
 		add(tituloLabel);

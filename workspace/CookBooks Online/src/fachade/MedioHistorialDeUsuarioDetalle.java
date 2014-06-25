@@ -54,7 +54,7 @@ public class MedioHistorialDeUsuarioDetalle extends MedioPanel {
 		table = new JTable();
 		table.setAutoCreateRowSorter(true);
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
-				"ISBN", "Titulo", "Autor", "Género", "Idioma", "Editorial",
+				"ISBN", "Título", "Autor", "Género", "Idioma", "Editorial",
 				"Precio" }) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class,
@@ -84,7 +84,7 @@ public class MedioHistorialDeUsuarioDetalle extends MedioPanel {
 		table.setBounds(80, 49, 755, 471);
 		add(table);
 
-		btnAtras = new JButton("Atras");
+		btnAtras = new JButton("Atrás");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inside.centro(anterior);
@@ -116,7 +116,7 @@ public class MedioHistorialDeUsuarioDetalle extends MedioPanel {
 		libros = pedido.getLibros();
 		Iterator<Libro> iterador = libros.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
-				new String[] { "ISBN", "Titulo", "Autor", "Género", "Idioma",
+				new String[] { "ISBN", "Título", "Autor", "Género", "Idioma",
 						"Editorial", "Precio" }) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class,
