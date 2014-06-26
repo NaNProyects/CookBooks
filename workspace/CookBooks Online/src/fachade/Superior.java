@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 @SuppressWarnings("serial")
 public class Superior extends JPanel {
@@ -45,6 +47,14 @@ public class Superior extends JPanel {
 		add(label);
 		
 		txtBusque = new JTextField();
+		txtBusque.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtBusque.getText().contentEquals("Busque")){
+				txtBusque.setText("");
+				}
+			}
+		});
 		txtBusque.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {

@@ -1,8 +1,7 @@
 ﻿Interface:
-	>iconos a cada boton ----> no queiro elegir :'(
-		vale la pena ponerle al cerrar session y al entrar icono?>>no, me gusta como queda sencillo (si ya esta borralo)
+
 		
 	> esconder boton de mis datos y de recuperar contraseña
 	
 Cookbooks:
-	>busqueda de libro ->hecho
+	>busqueda de libro ->hecho ---> bien igual se extraña que te tire todos los libros

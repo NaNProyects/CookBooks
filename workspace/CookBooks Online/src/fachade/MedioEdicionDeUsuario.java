@@ -392,15 +392,15 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 
 	private Boolean ValidadDNI() {//TODO validar con existe
 		if ((dniUsuario.getText().toString().length() < 9) && (dniUsuario.getText().toString().length() > 6)) {
-			printError("El Dni debe tener entre 7 y 8 digitos /n", false);
+			printError("El DNI debe tener entre 7 y 8 dígitos /n", false);
 			try {
 				if(!inside.contexto.existeDNI(dniUsuario.getText().toString())){
-					printError("El Dni pertenece a un usuario existente /n", false);
+					printError("El DNI pertenece a un usuario existente /n", false);
 					printError("Ocurrio un error /n", false);
 					return true;
 				}
 				else{
-					printError("El Dni pertenece a un usuario existente /n", true);
+					printError("El DNI pertenece a un usuario existente /n", true);
 					printError("Ocurrio un error /n", false);
 					return false;
 				}
@@ -411,7 +411,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 
 
 		} else {
-			printError("El Dni debe tener entre 7 y 8 digitos /n", true);
+			printError("El DNI debe tener entre 7 y 8 dígitos /n", true);
 			return false;
 		}
 	}
@@ -419,7 +419,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	private Boolean ValidadEmail() {
 		if ((mailUsuario.getText().length() < 45)
 				&& (mailUsuario.getText().length() > 0)) {
-			printError("El E-Mail debe tener entre 0 y 45 caracteres /n", false);
+			printError("El E-Mail debe tener entre 1 y 44 caracteres /n", false);
 			
 			try {
 				if(!inside.contexto.existeMail(mailUsuario.getText().toString())){
@@ -437,7 +437,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 				return false;
 			}
 		} else {
-			printError("El E-Mail debe tener entre 0 y 45 caracteres /n", true);
+			printError("El E-Mail debe tener entre 1 y 44 caracteres /n", true);
 			return false;
 		}
 
@@ -446,11 +446,11 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	private Boolean ValidadNombre() {
 		if ((nombreUsuario.getText().length() < 45)
 				&& (nombreUsuario.getText().length() > 0)) {
-			printError("El Nombre debe tener entre 0 y 45 caracteres /n", false);
+			printError("El nombre debe tener entre 1 y 44 caracteres /n", false);
 			return true;
 
 		} else {
-			printError("El Nombre debe tener entre 0 y 45 caracteres /n", true);
+			printError("El nombre debe tener entre 1 y 44 caracteres /n", true);
 			return false;
 		}
 	}
@@ -458,12 +458,12 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	private Boolean ValidadApellido() {
 		if ((apellidoUsuario.getText().length() < 45)
 				&& (apellidoUsuario.getText().length() > 0)) {
-			printError("La Apellido debe tener entre 0 y 45 caracteres /n",
+			printError("El apellido debe tener entre 1 y 44 caracteres /n",
 					false);
 			return true;
 
 		} else {
-			printError("La Apellido debe tener entre 0 y 45 caracteres /n",
+			printError("El apellido debe tener entre 1 y 44 caracteres /n",
 					true);
 			return false;
 		}
@@ -473,13 +473,13 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	private Boolean ValidadDireccion() {
 		if ((direcUsuario.getText().length() < 50)
 				&& (direcUsuario.getText().length() > 0)) {
-			printError("La Dirección debe tener entre 0 y 50 caracteres /n",
+			printError("La dirección debe tener entre 1 y 50 caracteres /n",
 					false);
 
 			return true;
 
 		} else {
-			printError("La Dirección debe tener entre 0 y 50 caracteres /n",
+			printError("La dirección debe tener entre 1 y 50 caracteres /n",
 					true);
 			return false;
 		}
@@ -490,14 +490,14 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		if ((pinTextField.getText().length() < 5)
 				&& (pinTextField.getText().length() > 2)) {
 			printError(
-					"El pin de la tarjeta debe tener entre 3 y 4 digitos /n",
+					"El pin de la tarjeta debe tener entre 3 y 4 dígitos /n",
 					false);
 
 			return true;
 
 		} else {
 			printError(
-					"El pin de la tarjeta debe tener entre 3 y 4 digitos /n",
+					"El pin de la tarjeta debe tener entre 3 y 4 dígitos /n",
 					true);
 			return false;
 		}
@@ -507,14 +507,14 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		if ((telefonoUsuario.getText().length() < 14)
 				&& (telefonoUsuario.getText().length() > 6)) {
 			printError(
-					"El Número de Teléfono debe tener entre 7 y 13 digitos /n",
+					"El número de Teléfono debe tener entre 7 y 13 dígitos /n",
 					false);
 
 			return true;
 
 		} else {
 			printError(
-					"El Número de Teléfono debe tener entre 7 y 13 digitos /n",
+					"El número de Teléfono debe tener entre 7 y 13 dígitos /n",
 					true);
 			return false;
 		}
@@ -524,14 +524,14 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		if ((targetaUsuario.getText().length() < 19)
 				&& (targetaUsuario.getText().length() > 15)) {
 			printError(
-					"El Número de tarjeta debe tener entre 16 y 18 digitos /n",
+					"El número de tarjeta debe tener entre 16 y 18 dígitos /n",
 					false);
 
 			return true;
 
 		} else {
 			printError(
-					"El Número de tarjeta debe tener entre 16 y 18 digitos /n",
+					"El número de tarjeta debe tener entre 16 y 18 dígitos /n",
 					true);
 			return false;
 		}
@@ -543,21 +543,21 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		} else {
 			if (new String(passwordField.getPassword()).compareTo(new String(
 					passwordField_1.getPassword())) != 0) {
-				printError("Las contraseñas no coinsiden /n", true);
+				printError("Las contraseñas no coinciden /n", true);
 				return false;
 			} else {
-				printError("Las contraseñas no coinsiden /n", false);
+				printError("Las contraseñas no coinciden /n", false);
 				if ((new String(passwordField.getPassword()).length() < 21)
 						&& (new String(passwordField.getPassword()).length() > 3)) {
 					printError(
-							"La contraseña debe tener entre 4 y 20 digitos /n",
+							"La contraseña debe tener entre 4 y 20 caracteres /n",
 							false);
 
 					return true;
 
 				} else {
 					printError(
-							"La contraseña debe tener entre 4 y 20 digitos /n",
+							"La contraseña debe tener entre 4 y 20 caracteres /n",
 							true);
 					return false;
 				}

@@ -2,6 +2,7 @@ package fachade;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -42,7 +43,7 @@ public class MedioCarrito extends MedioPanel {
 	private JLabel consinga;
 	private JLabel tarjeta;
 	private JLabel lblPin;
-	private JTextField pin;
+	private TextField pin;
 	private JLabel lblPrecio;
 	private JTextField valor;
 	private JPanel panel;
@@ -303,10 +304,10 @@ public class MedioCarrito extends MedioPanel {
 		panelConfirmacion.add(tarjeta);
 		
 		lblPin = new JLabel("PIN:");
-		lblPin.setBounds(30, 103, 66, 14);
+		lblPin.setBounds(30, 103, 30, 14);
 		panelConfirmacion.add(lblPin);
 		
-		pin = new JTextField();
+		pin = new TextField();
 		pin.setBounds(68, 100, 66, 20);
 		pin.addKeyListener(new KeyAdapter() {
 			@Override
@@ -345,6 +346,7 @@ public class MedioCarrito extends MedioPanel {
 					panel.removeAll();
 					panel.setVisible(false);
 					swichBoton();
+					valor.setText(inside.contexto.getCostoCarrito().toString());
 				}
 				else{
 					labelErrores.setForeground(Color.RED);
