@@ -246,14 +246,51 @@ public class CookBooks {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public LinkedList<Libro> buscarLibro(String terminoDeBusqueda) {
-		// FIXME implementar consulta
-		// TODO mock
-		try {
-			return listarLibros();
-		} catch (Exception e) {
+		if (terminoDeBusqueda.equals("")) {
 			return new LinkedList<Libro>();
+		} else {
+			try {
+				base.ejecutar(this.getBuscador(terminoDeBusqueda));
+				return new LinkedList<Libro>(
+						(Collection<? extends Libro>) base
+								.iterarUn(Libro.class));
+			} catch (Exception e) {
+				return new LinkedList<Libro>();
+			}
 		}
+	}
+
+	private ConsultaSelect getBuscador(String cadena) {
+		ArrayList<String> atributos = new ArrayList<String>();
+		atributos.add("isbn");
+		atributos.add("titulo");
+		atributos.add("nombre");
+		atributos.add("apellido");
+		atributos.add("genero");
+		atributos.add("editorial");
+		atributos.add("idioma");
+		String from = "libro inner join autor on autor = idAutor";
+		String[] palabras = cadena.split("( |,)+");
+		ArrayList<ConsultaSelect> selects = new ArrayList<ConsultaSelect>();
+		for (String pal : palabras) {
+			String where = "";
+			for (int i = 0; i < atributos.size() - 1; i++) {
+				where += "(" + atributos.get(i) + " LIKE " + "'%" + pal
+						+ "%') OR ";
+			}
+			where += "(" + atributos.get(atributos.size() - 1) + " LIKE "
+					+ "'%" + pal + "%')";
+			ConsultaSelect sel = new ConsultaSelect("*", from, where);
+			selects.add(sel);
+		}
+		String fromUnion = "(";
+		for (int i = 0; i < selects.size() - 1; i++) {
+			fromUnion += "(" + selects.get(i) + ") UNION ";
+		}
+		fromUnion += "(" + selects.get(selects.size() - 1) + ")) as tmp";
+		return new ConsultaSelect("*", fromUnion);
 	}
 
 	public boolean estaEnElCarrito(Libro unLibro) {
@@ -278,11 +315,10 @@ public class CookBooks {
 	}
 
 	public Pedido confirmarCarrito() throws SQLException {
-			Pedido result = carrito.guardarEn(base, usuario);
-			carrito.vaciar();
-			return result;
+		Pedido result = carrito.guardarEn(base, usuario);
+		carrito.vaciar();
+		return result;
 	}
-
 
 	public void eliminarDelCarrito(Libro unLibro) {
 		carrito.eliminar(unLibro);
@@ -367,7 +403,7 @@ public class CookBooks {
 			return unUsuario.getHistorial(base);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new LinkedList<Pedido>(); 
+			return new LinkedList<Pedido>();
 		}
 
 	}
@@ -467,7 +503,7 @@ public class CookBooks {
 
 	public boolean existeMail(String mail) throws Exception {
 		ConsultaSelect select = new ConsultaSelect("count(*)", "usuario",
-				"email =' " + mail + "')");
+				"email = '" + mail + "'");
 		try {
 			base.ejecutar(select);
 		} catch (SQLException e) {

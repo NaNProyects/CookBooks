@@ -279,7 +279,6 @@ public class Usuario implements Cargable {
 			return new LinkedList<Pedido>(
 					(Collection<? extends Pedido>) base.iterarUn(Pedido.class));
 		} catch (Exception e) {
-			e.printStackTrace(); // TODO alindar cuando ande
 			return new LinkedList<Pedido>();
 		}
 	}
