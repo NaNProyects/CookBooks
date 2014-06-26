@@ -99,6 +99,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 						throw new Exception();
 					}
 				} catch (Exception e1) {
+					if(dniUsuario.getText().length() !=0)
 					printError("El DNI no puede comenzar con 0 /n", true);
 				}
 				ValidadDNI();

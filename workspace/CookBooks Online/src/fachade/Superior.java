@@ -58,7 +58,7 @@ public class Superior extends JPanel {
 		txtBusque.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					inside.centro(new MedioCatalogoDeLibro(inside, inside.contexto.buscarLibro(txtBusque.getText())));
+					inside.centro(new MedioCatalogoDeLibro(inside, inside.contexto.buscarLibro(txtBusque.getText()),txtBusque.getText()));
 				   }
 
 			}
@@ -71,7 +71,7 @@ public class Superior extends JPanel {
 		botonBuscar = new JButton("");
 		botonBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inside.centro(new MedioCatalogoDeLibro(inside, inside.contexto.buscarLibro(txtBusque.getText())));
+				inside.centro(new MedioCatalogoDeLibro(inside, inside.contexto.buscarLibro(txtBusque.getText()),txtBusque.getText()));
 			}
 		});
 		botonBuscar.setIcon(new ImageIcon(Superior.class.getResource("/fachade/Image/lupa-icono-3813-16.png")));

@@ -24,20 +24,22 @@ public class MedioCatalogoDeLibro extends MedioPanel {
 	private JTextPane labelErrores;
 	private JScrollPane scrollPane;
 	private JPanel panelResultado;
+	private String busqueda;
 	/**
 	 * Create the panel.
 	 * 
 	 * @wbp.parser.constructor
 	 */
-	public MedioCatalogoDeLibro(Interface inside2) {
-		this(inside2, new LinkedList<Libro>());
+	public MedioCatalogoDeLibro(Interface inside2, String busco) {
+		this(inside2, new LinkedList<Libro>(), busco);
 	}
 
-	public MedioCatalogoDeLibro(Interface inside2, LinkedList<Libro> resultado) {
+	public MedioCatalogoDeLibro(Interface inside2, LinkedList<Libro> resultado, String busco) {
 		setFocusTraversalPolicyProvider(true);
 		inside = inside2;
 		resultados = resultado;
-
+		busqueda = busco;
+		
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 
@@ -77,7 +79,7 @@ public class MedioCatalogoDeLibro extends MedioPanel {
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.BLACK);
 
-		printError("Resultados encontrados: ".concat(new Integer(resultados
+		printError("Resultados para \"".concat(busqueda).concat("\" encontrados: ").concat(new Integer(resultados
 				.size()).toString()), true);
 		
 		

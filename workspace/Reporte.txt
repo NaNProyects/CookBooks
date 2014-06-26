@@ -1,5 +1,5 @@
--que diga 'Resultados para "terminoDeBusqueda" ' en los resultados
+-que diga 'Resultados para "terminoDeBusqueda" ' en los resultados --->fijate sit e gusta
 
 <registrar>
--si el DNI campo esta vacio te dice que no puede empezar por cero
+-si el DNI campo esta vacio te dice que no puede empezar por cero ---> listo
 </registrar>
