@@ -391,7 +391,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 
 	}
 
-	private Boolean ValidadDNI() {//TODO validar con existe
+	private Boolean ValidadDNI() {
 		if ((dniUsuario.getText().toString().length() < 9) && (dniUsuario.getText().toString().length() > 6)) {
 			printError("El DNI debe tener entre 7 y 8 dígitos /n", false);
 			try {

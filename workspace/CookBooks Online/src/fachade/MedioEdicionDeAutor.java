@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,6 +34,7 @@ public class MedioEdicionDeAutor extends MedioPanel {
 	private JLabel lblTitulo;
 	private JTextPane labelErrores;
 	private MedioListaDeAutores listaDeAutores;
+	private JButton confirmar;
 
 	/**
 	 * Create the panel.
@@ -81,6 +84,14 @@ public class MedioEdicionDeAutor extends MedioPanel {
 				validarApellido();
 			}
 		});
+		apellidoAutor.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					confirmar.doClick();
+				   }
+
+			}
+		});
 		apellidoAutor.setText(autor.getApellido());
 
 		if (!(autor.id() == 0)) {
@@ -105,7 +116,7 @@ public class MedioEdicionDeAutor extends MedioPanel {
 		apellidoLabel.setBounds(32, 91, 66, 14);
 		add(apellidoLabel);
 
-		JButton confirmar = new JButton("Confirmar");
+		confirmar = new JButton("Confirmar");
 		confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				autor.setNombre(nombreAutor.getText());

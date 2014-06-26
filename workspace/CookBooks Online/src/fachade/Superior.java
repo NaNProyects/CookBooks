@@ -74,6 +74,14 @@ public class Superior extends JPanel {
 				inside.centro(new MedioCatalogoDeLibro(inside, inside.contexto.buscarLibro(txtBusque.getText()),txtBusque.getText()));
 			}
 		});
+		botonBuscar.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtBusque.getText().contentEquals("Busque")){
+				txtBusque.setText("");
+				}
+			}
+		});
 		botonBuscar.setIcon(new ImageIcon(Superior.class.getResource("/fachade/Image/lupa-icono-3813-16.png")));
 		botonBuscar.setBounds(677, 113, 36, 23);
 		add(botonBuscar);

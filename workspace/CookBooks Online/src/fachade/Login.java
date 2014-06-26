@@ -104,11 +104,11 @@ public class Login extends JPanel {
 		});
 		btnEntrar.setBounds(147, 110, 89, 23);
 		add(btnEntrar);
-		
-		lblRecuperarClave = new JLabel("Recuperar Clave"); //TODO esconder para demo 2
-		lblRecuperarClave.setForeground(new Color(0, 51, 255));
-		lblRecuperarClave.setBounds(10, 112, 127, 19);
-		add(lblRecuperarClave);
+//		
+//		lblRecuperarClave = new JLabel("Recuperar Clave"); //TODO esconder para demo 2
+//		lblRecuperarClave.setForeground(new Color(0, 51, 255));
+//		lblRecuperarClave.setBounds(10, 112, 127, 19);
+//		add(lblRecuperarClave);
 		
 
 

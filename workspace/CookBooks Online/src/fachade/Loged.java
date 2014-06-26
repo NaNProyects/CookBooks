@@ -68,16 +68,16 @@ public class Loged extends JPanel {
 		btnCierre.setBounds(123, 110, 131, 23);
 		add(btnCierre);
 		// TODO DESABILITAR PARA ENTREGA
-		btnEdicion = new JButton("Mis\n Datos".replaceAll("/n",
-				System.getProperty("line.separator")));
-		btnEdicion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnEdicion.setIcon(new ImageIcon(Loged.class
-				.getResource("/fachade/Image/Write Document.png")));
-		btnEdicion.setBounds(123, 74, 131, 32);
-		add(btnEdicion);
+//		btnEdicion = new JButton("Mis\n Datos".replaceAll("/n",
+//				System.getProperty("line.separator")));
+//		btnEdicion.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//			}
+//		});
+//		btnEdicion.setIcon(new ImageIcon(Loged.class
+//				.getResource("/fachade/Image/Write Document.png")));
+//		btnEdicion.setBounds(123, 74, 131, 32);
+//		add(btnEdicion);
 
 	}
 	@SuppressWarnings("unused")
