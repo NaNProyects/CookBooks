@@ -1,23 +1,5 @@
--borrar el precio del carrito al confirmarlo --->listo me falto el actualizarlo
--la caja del pin (al validar tarjeta) le comprobamos que no pueda tipear mas de 5 o que sean numeros como haces en el campo del telefono? esta bien que espera un string pero yo para darte mas trabajo nomas :P
-	ya lo habia limitado pero no se activo por un error de tipo
-	
--sacar de busqueda el busque al getfocus ---> solo borra si dice busque :P
+-que diga 'Resultados para "terminoDeBusqueda" ' en los resultados
 
-
-(todo lo que sigue es en los errores del registrar)
 <registrar>
--dice "La Apellido debe..." es "El apellido" ----> aca iva a hacer un chiste pero listo
--si el DNI campo esta vacio te dice que no puede empezar por cero; tmb si tiene mas de 10 digitos, hace falta avisar eso? parece que se come los ceros cuando escribo asi que el usuario parece que no tiene opcion igual
-	hace falta por q el otro dia por no avisar por q borraba las cosas nos dijieron q le faltaba feedback
--En el error "El Dni debe tener entre 7 y 8..." "Dni">"DNI"---> ok
--dice que la contraseña tiene digitos, son caracteres alfanumericos
--en el error del telefono y en el de la tarjeta, "digitos">"dígitos" (tilde)--> listo
--yo dejaria los nombres de los campos en minuscula en los errores salvo DNI, en los labels esta bien la mayuscula porque empieza la linea (hay cosas mezcladas mayus y minus en los errores)
-	E-Mail lo deje asi el resto listo
--en el error de pass que no machean, "coinsiden">"coinciden" ---> esto devuelve false no? y ya esta
--el error de nombre, apellido, direccion y email dice "entre 0 y ..", debería ser "entre 1 y..." no? ---> listo
+-si el DNI campo esta vacio te dice que no puede empezar por cero
 </registrar>
-
--el cartel de "datos de sesion incorrectos" no se va si no te logueas, miras libros, buscas, hojeas y sigue ahi (igual no se me ocurre una condicion para que desaparezca, por ahi que se aprete otro boton?)
- ---> se deja ahi :P

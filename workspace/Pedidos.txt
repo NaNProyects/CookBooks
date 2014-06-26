@@ -1,7 +1,2 @@
 ﻿Interface:
-
-		
-	> esconder boton de mis datos y de recuperar contraseña
-	
-Cookbooks:
-	>busqueda de libro ->hecho ---> bien igual se extraña que te tire todos los libros
+	> esconder boton de mis datos y de recuperar contraseña (demo)
