@@ -110,6 +110,7 @@ public class MedioListaDeLibros extends MedioPanel {
 		btnNuevo = new JButton("Nuevo");
 		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				printError("Eliminacion exitosa /n", false);
 				inside.centro(new MedioEdicionDeLibro(inside,inside.center));
 			}
 		});
@@ -124,6 +125,7 @@ public class MedioListaDeLibros extends MedioPanel {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					printError("Eliminacion exitosa /n", false);
 					inside.centro(new MedioEdicionDeLibro(inside, selected(),inside.center));
 				} catch (Exception e1) {
 					if (e1.getMessage().equalsIgnoreCase(
@@ -146,6 +148,7 @@ public class MedioListaDeLibros extends MedioPanel {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try{
+					printError("Eliminacion exitosa /n", false);
 					validarEliminado(selected());
 				}
 				catch(Exception e1){

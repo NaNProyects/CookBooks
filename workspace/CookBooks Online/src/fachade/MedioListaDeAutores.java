@@ -101,6 +101,7 @@ public class MedioListaDeAutores extends MedioPanel {
 		btnNuevo = new JButton("Nuevo");
 		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				printError("Eliminacion exitosa /n", false);
 				inside.centro(new MedioEdicionDeAutor(inside,
 						(MedioListaDeAutores) inside.center));
 			}
@@ -116,6 +117,7 @@ public class MedioListaDeAutores extends MedioPanel {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					printError("Eliminacion exitosa /n", false);
 					inside.centro(new MedioEdicionDeAutor(inside,
 							(MedioListaDeAutores) inside.center, selected()));
 				} catch (Exception e1) {
@@ -138,6 +140,7 @@ public class MedioListaDeAutores extends MedioPanel {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					printError("Eliminacion exitosa /n", false);
 					validarEliminado(selected());
 				} catch (Exception e1) {
 					if(e1.getMessage().equalsIgnoreCase("Debe seleccionar el Autor a")){
