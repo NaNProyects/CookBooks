@@ -98,6 +98,10 @@ public class MedioCatalogoDeLibro extends MedioPanel {
 
 	@Override
 	void refresh() {
+		if(inside.contexto.usuarioActual().getId() <1){
+			inside.centro(new MedioHome(inside));
+			inside.top.resetBusqueda();
+		}
 		for (Component componente : panelResultado.getComponents()) {
 			((MedioPanel) componente).refresh();
 		}

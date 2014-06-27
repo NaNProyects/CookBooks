@@ -344,7 +344,7 @@ public class MedioListaDeLibros extends MedioPanel {
 							table.repaint();
 							Cargar();
 							printError("No se puede eliminar un libro que figure en pedidos /n", false);
-							labelErrores.setForeground(Color.GREEN);
+							labelErrores.setForeground(new Color(0, 128, 0));
 							printError(
 									"Eliminacion exitosa /n",
 									true);

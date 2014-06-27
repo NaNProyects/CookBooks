@@ -15,7 +15,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -28,7 +27,7 @@ import funcionalidad.Autor;
 public class MedioEdicionDeAutor extends MedioPanel {
 	private String tituloPanel = "Nuevo Autor";
 	private Autor autor;
-	private JTextField apellidoAutor;
+	private TextField apellidoAutor;
 	private Interface inside;
 	private TextField nombreAutor;
 	private JLabel lblTitulo;
@@ -76,20 +75,39 @@ public class MedioEdicionDeAutor extends MedioPanel {
 		nombreAutor.setText(autor.getNombre());
 		nombreAutor.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		nombreAutor.setBounds(108, 57, 184, 20);
+		nombreAutor.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				Character car = e.getKeyChar();
+				if (!(Character.isLetter(car) || e.isActionKey()
+						|| e.isControlDown()
+						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))) {
+					e.consume();
+				}
+			}
+		});
 		add(nombreAutor);
 
-		apellidoAutor = new JTextField();
+		apellidoAutor = new TextField();
 		apellidoAutor.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				validarApellido();
 			}
 		});
 		apellidoAutor.addKeyListener(new KeyAdapter() {
+			@Override
 			public void keyPressed(KeyEvent e) {
+				Character car = e.getKeyChar();
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					confirmar.doClick();
 				   }
-
+				if (!(Character.isLetter(car) || e.isActionKey()
+						|| e.isControlDown()
+						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))) {
+					e.consume();
+				}
 			}
 		});
 		apellidoAutor.setText(autor.getApellido());

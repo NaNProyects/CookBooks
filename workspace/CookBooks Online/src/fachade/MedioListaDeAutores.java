@@ -331,7 +331,7 @@ public class MedioListaDeAutores extends MedioPanel {
 							printError(
 									"No se puede eliminar un autor que posea libros /n",
 									false);
-							labelErrores.setForeground(Color.GREEN);
+							labelErrores.setForeground(new Color(0, 128, 0));
 							printError("Eliminacion exitosa /n", true);
 						} else {
 							printError("Eliminacion exitosa /n", false);

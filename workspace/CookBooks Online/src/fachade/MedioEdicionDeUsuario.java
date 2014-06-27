@@ -33,8 +33,8 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	private String tituloPanel = "Nuevo Usuario";
 	private Usuario user;
 	private JTextField mailUsuario;
-	private JTextField nombreUsuario;
-	private JTextField apellidoUsuario;
+	private TextField nombreUsuario;
+	private TextField apellidoUsuario;
 	private JTextField direcUsuario;
 	private TextField targetaUsuario;
 	private Interface inside;
@@ -132,10 +132,23 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		mailUsuario.setBounds(183, 52, 184, 20);
 		add(mailUsuario);
 
-		nombreUsuario = new JTextField();
+		nombreUsuario = new TextField();
 		nombreUsuario.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				ValidadNombre();
+			}
+		});
+	
+		nombreUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				Character car = e.getKeyChar();
+				if (!(Character.isLetter(car) || e.isActionKey()
+						|| e.isControlDown()
+						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))) {
+					e.consume();
+				}
 			}
 		});
 		nombreUsuario.setText(user.getNombre());
@@ -143,7 +156,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		nombreUsuario.setBounds(183, 173, 184, 20);
 		add(nombreUsuario);
 
-		apellidoUsuario = new JTextField();
+		apellidoUsuario = new TextField();
 		apellidoUsuario.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				ValidadApellido();
@@ -151,6 +164,18 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		});
 		apellidoUsuario.setText(user.getApellido());
 		apellidoUsuario.setBounds(183, 204, 184, 20);
+		apellidoUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				Character car = e.getKeyChar();
+				if (!(Character.isLetter(car) || e.isActionKey()
+						|| e.isControlDown()
+						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))) {
+					e.consume();
+				}
+			}
+		});
 		add(apellidoUsuario);
 
 		direcUsuario = new JTextField();
@@ -392,56 +417,75 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	}
 
 	private Boolean ValidadDNI() {
+		return (ValidarLongitudDNI() && ValidarExistenciaDNI());
+	}
+	private Boolean ValidarLongitudDNI(){
 		if ((dniUsuario.getText().toString().length() < 9) && (dniUsuario.getText().toString().length() > 6)) {
 			printError("El DNI debe tener entre 7 y 8 dígitos /n", false);
-			try {
-				if(!inside.contexto.existeDNI(dniUsuario.getText().toString())){
-					printError("El DNI pertenece a un usuario existente /n", false);
-					printError("Ocurrio un error /n", false);
-					return true;
-				}
-				else{
-					printError("El DNI pertenece a un usuario existente /n", true);
-					printError("Ocurrio un error /n", false);
-					return false;
-				}
-			} catch (Exception e) {
-				printError("Ocurrio un error /n", true);
-				return false;
-			}
-
-
+			return true;
 		} else {
 			printError("El DNI debe tener entre 7 y 8 dígitos /n", true);
 			return false;
 		}
 	}
-
+	private Boolean ValidarExistenciaDNI(){
+		try {
+			if(!inside.contexto.existeDNI(dniUsuario.getText().toString())){
+				printError("El DNI pertenece a un usuario existente /n", false);
+				printError("Ocurrio un error /n", false);
+				return true;
+			}
+			else{
+				printError("El DNI pertenece a un usuario existente /n", true);
+				printError("Ocurrio un error /n", false);
+				return false;
+			}
+		} catch (Exception e) {
+			printError("Ocurrio un error /n", true);
+			return false;
+		}
+	}
 	private Boolean ValidadEmail() {
+			return (ValidarLongitudMail() & ValidarFormatoMail() & ValidarExistenciaMail());
+
+	}
+	private Boolean ValidarLongitudMail(){
 		if ((mailUsuario.getText().length() < 45)
 				&& (mailUsuario.getText().length() > 0)) {
 			printError("El E-Mail debe tener entre 1 y 44 caracteres /n", false);
-			
-			try {
-				if(!inside.contexto.existeMail(mailUsuario.getText().toString())){
-					printError("El E-Mail pertenece a un usuario existente /n", false);
-					printError("Ocurrio un error /n", false);
-					return true;
-				}
-				else{
-					printError("El E-Mail pertenece a un usuario existente /n", true);
-					printError("Ocurrio un error /n", false);
-					return false;
-				}
-			} catch (Exception e) {
-				printError("Ocurrio un error /n", true);
-				return false;
-			}
+			return true;
 		} else {
 			printError("El E-Mail debe tener entre 1 y 44 caracteres /n", true);
 			return false;
 		}
-
+	}
+	private Boolean ValidarExistenciaMail(){
+		try {
+			if(!inside.contexto.existeMail(mailUsuario.getText().toString())){
+				printError("El E-Mail pertenece a un usuario existente /n", false);
+				printError("Ocurrio un error /n", false);
+				return true;
+			}
+			else{
+				printError("El E-Mail pertenece a un usuario existente /n", true);
+				printError("Ocurrio un error /n", false);
+				return false;
+			}
+		} catch (Exception e) {
+			printError("Ocurrio un error /n", true);
+			return false;
+		}
+	}	
+	
+	private Boolean ValidarFormatoMail(){
+		if(CookBooks.esUnMail(mailUsuario.getText().toString())){
+			printError("El formato del E-Mail es invalido /n", false);
+			return true;
+		}
+		else{
+			printError("El formato del E-Mail es invalido /n", true);
+			return false;
+		}
 	}
 
 	private Boolean ValidadNombre() {

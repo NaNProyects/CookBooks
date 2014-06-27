@@ -23,7 +23,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 
@@ -38,11 +37,11 @@ import funcionalidad.Libro;
 public class MedioEdicionDeLibro extends MedioPanel {
 	private String tituloPanel = "Nuevo Libro";
 	private Libro libro;
-	private JTextField tituloLibro;
+	private TextField tituloLibro;
 	private JComboBox<String> autorLibro;
-	private JTextField generoLibro;
-	private JTextField editorialLibro;
-	private JTextField idiomaLibro;
+	private TextField generoLibro;
+	private TextField editorialLibro;
+	private TextField idiomaLibro;
 	private JFormattedTextField precioLibro;
 	private Interface inside;
 	private TextField isbnLibro_1;
@@ -109,7 +108,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		}
 		add(isbnLibro_1);
 
-		tituloLibro = new JTextField();
+		tituloLibro = new TextField();
 		tituloLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				ValidadTitulo();
@@ -146,10 +145,22 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		autorLibro.setSelectedItem(libro.getAutor());
 		add(autorLibro);
 
-		generoLibro = new JTextField();
+		generoLibro = new TextField();
 		generoLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				ValidadGenero();
+			}
+		});
+		generoLibro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				Character car = e.getKeyChar();
+				if (!(Character.isLetter(car) || e.isActionKey()
+						|| e.isControlDown()
+						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))) {
+					e.consume();
+				}
 			}
 		});
 		generoLibro.setText(libro.getGenero());
@@ -157,7 +168,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		generoLibro.setBounds(108, 150, 184, 20);
 		add(generoLibro);
 
-		editorialLibro = new JTextField();
+		editorialLibro = new TextField();
 		editorialLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				ValidadEditorial();
@@ -165,12 +176,37 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		});
 		editorialLibro.setText(libro.getEditorial());
 		editorialLibro.setBounds(108, 181, 184, 20);
+		editorialLibro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				Character car = e.getKeyChar();
+				if (!(Character.isLetter(car) || e.isActionKey()
+						|| e.isControlDown()
+						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))) {
+					e.consume();
+				}
+			}
+		});
 		add(editorialLibro);
+		
 
-		idiomaLibro = new JTextField();
+		idiomaLibro = new TextField();
 		idiomaLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				ValidadIdioma();
+			}
+		});
+		idiomaLibro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				Character car = e.getKeyChar();
+				if (!(Character.isLetter(car) || e.isActionKey()
+						|| e.isControlDown()
+						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))) {
+					e.consume();
+				}
 			}
 		});
 		idiomaLibro.setText(libro.getIdioma());
@@ -178,7 +214,9 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		add(idiomaLibro);
 
 		precioLibro = new JFormattedTextField(new DecimalFormat("0.00"));
-		precioLibro.setValue(libro.getPrecio());
+		if (!isbnLibro_1.isEditable()) {
+			precioLibro.setValue(libro.getPrecio());
+		}
 		precioLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				try {
@@ -441,13 +479,19 @@ public class MedioEdicionDeLibro extends MedioPanel {
 	}
 
 	private Boolean ValidadPrecio() {
-		if ((new Double(precioLibro.getValue().toString()).compareTo(new Double("0")) >= 0)) {
+		try{
+		if ((new Double(precioLibro.getValue().toString()).compareTo(new Double("0")) > 0)) {
 			printError("El Precio debe ser un Número mayor a 0 /n", false);
 			return true;
 
 		} else {
 			printError("El Precio debe ser un Número mayor a 0 /n", true);
 			return false;
+		}
+		}
+		catch(Exception e){
+			printError("El Precio debe ser un Número mayor a 0 /n", true);
+			return true;
 		}
 	}
 

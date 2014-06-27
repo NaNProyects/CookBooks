@@ -77,7 +77,7 @@ public class MedioCarrito extends MedioPanel {
 		labelErrores.setBorder(null);
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
-		labelErrores.setForeground(Color.GREEN);
+		labelErrores.setForeground(new Color(0, 128, 0));
 		labelErrores.setBounds(22, 531, 312, 63);
 		add(labelErrores);
 		
@@ -336,7 +336,7 @@ public class MedioCarrito extends MedioPanel {
 						printError("Ocurrio un error", true);
 					}
 					Cargar();
-					labelErrores.setForeground(Color.GREEN);
+					labelErrores.setForeground(new Color(0, 128, 0));
 					printError("Debe seleccionar el Libro a eliminar /n", false);
 					printError("Pin invalido /n", false);
 					printError("Carrito confirmado por favor revise su historial para informarse del envio /n", true);
@@ -427,7 +427,7 @@ public class MedioCarrito extends MedioPanel {
 				valor.setText(inside.contexto.getCostoCarrito().toString());
 				valor.repaint();
 				Cargar();
-				labelErrores.setForeground(Color.GREEN);
+				labelErrores.setForeground(new Color(0, 128, 0));
 				printError("Debe seleccionar el Libro a eliminar /n", false);
 				printError("Pin invalido /n", false);
 				printError("Carrito confirmado por favor revise su historial para informarse del envio /n", false);
@@ -495,7 +495,7 @@ public class MedioCarrito extends MedioPanel {
 				Cargar();
 				valor.setText(inside.contexto.getCostoCarrito().toString());
 				valor.repaint();
-				labelErrores.setForeground(Color.GREEN);
+				labelErrores.setForeground(new Color(0, 128, 0));
 				printError("Debe seleccionar el Libro a eliminar /n", false);
 				printError("Pin invalido /n", false);
 				printError("Carrito confirmado por favor revise su historial para informarse del envio /n", false);
