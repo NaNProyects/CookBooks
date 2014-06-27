@@ -14,6 +14,7 @@ import javax.swing.border.SoftBevelBorder;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import funcionalidad.Libro;
+
 import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
@@ -28,6 +29,7 @@ public class ResultadoDeCatalogo extends MedioPanel {
 	private JButton botonComprar;
 	private JButton botonVerPerfil;
 	private JLabel lblPrecio;
+	private JButton btnModificar;
 
 	/**
 	 * Create the panel.
@@ -85,8 +87,23 @@ public class ResultadoDeCatalogo extends MedioPanel {
 				botonComprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)));
 			}
 		});
-		botonComprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) );
+		botonComprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) ); 
+		botonComprar.setVisible(!(inside.contexto.usuarioActual().getId() == 1));
 		add(botonComprar);
+		
+		btnModificar = new JButton("Editar");
+		btnModificar.setSize(171, 33);
+		btnModificar.setLocation(720, 8);
+		btnModificar.setIcon(new ImageIcon(MedioPerfilDeLibro.class.getResource("/fachade/Image/Write Document.png")));
+		botonComprar.setBounds(720, 8, 171, 33);
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					inside.centro(new MedioEdicionDeLibro(inside, libro, inside.center));
+			}
+		});
+		btnModificar.setVisible(inside.contexto.usuarioActual().getId() == 1);
+		btnModificar.setEnabled(inside.contexto.usuarioActual().getId() == 1);
+		add(btnModificar);
 		
 		botonVerPerfil = new JButton("Ver Perfil");
 		botonVerPerfil.setIcon(new ImageIcon(ResultadoDeCatalogo.class.getResource("/fachade/Image/Export To Document.png")));
@@ -109,6 +126,9 @@ public class ResultadoDeCatalogo extends MedioPanel {
 
 	protected void refresh() {
 		botonComprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) ); 
+		botonComprar.setVisible(!(inside.contexto.usuarioActual().getId() == 1));
+		btnModificar.setVisible(inside.contexto.usuarioActual().getId() == 1);
+		btnModificar.setEnabled(inside.contexto.usuarioActual().getId() == 1);
 		repaint();
 	}
 
