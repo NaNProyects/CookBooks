@@ -331,7 +331,7 @@ public class MedioCarrito extends MedioPanel {
 				if(pin.getText().compareTo(inside.contexto.usuarioActual().getPin())==0){ 
 					try {
 						inside.contexto.confirmarCarrito();
-						printError("Ocurrio un error", false);
+						printError("Ocurrió un error /n", false);
 						labelErrores.setForeground(new Color(0, 128, 0));
 						printError("Debe seleccionar el Libro a eliminar /n", false);
 						printError("Pin invalido /n", false);
@@ -340,7 +340,8 @@ public class MedioCarrito extends MedioPanel {
 						printError("Libro eliminado /n", false);
 						printError("Debe tener al menos un libro en el carrito /n", false);
 					} catch (SQLException e1) {
-						printError("Ocurrio un error", true);
+						labelErrores.setForeground(Color.RED);
+						printError("Ocurrió un error /n", true);
 					}
 					Cargar();
 					panel.removeAll();
@@ -434,6 +435,7 @@ public class MedioCarrito extends MedioPanel {
 				printError("Carrito vaciado /n", true);
 				printError("Libro eliminado /n", false);
 				printError("Debe tener al menos un libro en el carrito /n", false);
+				printError("Ocurrió un error /n", false);
 				panel.removeAll();
 				panel.setVisible(false);
 				swichBoton();
@@ -502,6 +504,7 @@ public class MedioCarrito extends MedioPanel {
 				printError("Carrito vaciado /n", false);
 				printError("Libro eliminado /n", true);
 				printError("Debe tener al menos un libro en el carrito /n", false);
+				printError("Ocurrió un error /n", false);
 				panel.removeAll();
 				panel.setVisible(false);
 				swichBoton();

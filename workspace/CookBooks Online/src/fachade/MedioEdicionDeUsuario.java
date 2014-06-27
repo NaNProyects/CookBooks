@@ -432,16 +432,16 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		try {
 			if(!inside.contexto.existeDNI(dniUsuario.getText().toString())){
 				printError("El DNI pertenece a un usuario existente /n", false);
-				printError("Ocurrio un error /n", false);
+				printError("Ocurrió un error /n", false);
 				return true;
 			}
 			else{
 				printError("El DNI pertenece a un usuario existente /n", true);
-				printError("Ocurrio un error /n", false);
+				printError("Ocurrió un error /n", false);
 				return false;
 			}
 		} catch (Exception e) {
-			printError("Ocurrio un error /n", true);
+			printError("Ocurrió un error /n", true);
 			return false;
 		}
 	}
@@ -463,16 +463,16 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		try {
 			if(!inside.contexto.existeMail(mailUsuario.getText().toString())){
 				printError("El E-Mail pertenece a un usuario existente /n", false);
-				printError("Ocurrio un error /n", false);
+				printError("Ocurrió un error /n", false);
 				return true;
 			}
 			else{
 				printError("El E-Mail pertenece a un usuario existente /n", true);
-				printError("Ocurrio un error /n", false);
+				printError("Ocurrió un error /n", false);
 				return false;
 			}
 		} catch (Exception e) {
-			printError("Ocurrio un error /n", true);
+			printError("Ocurrió un error /n", true);
 			return false;
 		}
 	}	
