@@ -1,6 +1,5 @@
 package fachade;
 
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
@@ -8,12 +7,16 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import java.awt.Font;
 import java.awt.Color;
 
-public class MedioPerfil extends JPanel {
+@SuppressWarnings("serial")
+public class MedioPerfil extends MedioPanel {
+
+	private Interface inside;
 
 	/**
 	 * Create the panel.
 	 */
-	public MedioPerfil(Interface inside) {
+	public MedioPerfil(Interface inside2) {
+		inside = inside2;
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 		
@@ -22,6 +25,10 @@ public class MedioPerfil extends JPanel {
 		lblNewJgoodiesTitle.setBounds(213, 120, 512, 372);
 		add(lblNewJgoodiesTitle);
 
+	}
+
+	protected void refresh() {
+		inside.centro(new MedioHome(inside));
 	}
 
 }

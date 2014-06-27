@@ -1,14 +1,9 @@
 package fachade;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import java.awt.Font;
 import java.awt.Color;
 
-public class MedioHome extends JPanel {
+@SuppressWarnings("serial")
+public class MedioHome extends MedioPanel {
 
 	/**
 	 * Create the panel.
@@ -17,6 +12,9 @@ public class MedioHome extends JPanel {
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 
+	}
+
+	protected void refresh() {
 	}
 
 }

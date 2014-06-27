@@ -28,27 +28,27 @@ public class PedidoTest {
 
 	@Test
 	public void testCargarCon() {
-		fail("Not yet implemented"); // TODO implementar
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testGuardarEn() {
-		fail("Not yet implemented"); // TODO implementar
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testBorrarDe() {
-		fail("Not yet implemented"); // TODO implementar
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testExisteEn() {
-		fail("Not yet implemented"); // TODO implementar
+		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testTerminar() {
-		fail("Not yet implemented"); // TODO implementar
+		fail("Not yet implemented");
 	}
 
 }

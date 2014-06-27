@@ -23,46 +23,36 @@ import funcionalidad.Libro;
 import funcionalidad.Pedido;
 
 @SuppressWarnings("serial")
-public class MedioDetalleDePedido extends MedioPanel {
+public class MedioHistorialDeUsuarioDetalle extends MedioPanel {
 	private JTable table;
 	private Interface inside;
 	private LinkedList<Libro> libros;
-	private JScrollPane scrollPane;
-	private JButton enviarButton;
-	private Pedido pedido;
 	private JButton btnAtras;
-	private JTextPane labelErrores;
+	private JScrollPane scrollPane;
 	private JLabel labelTitulo;
+	private JTextPane labelErrores;
+	private Pedido pedido;
 	private MedioPanel anterior;
 
 	/**
 	 * Create the panel.
 	 */
-	public MedioDetalleDePedido(Interface inside2, Pedido unPedido, MedioPanel ant) { 
+	public MedioHistorialDeUsuarioDetalle(Interface inside2, Pedido ped, MedioPanel ant) {
 		inside = inside2;
-		libros = unPedido.getLibros();
-		pedido = unPedido;
+		pedido = ped;
 		anterior = ant;
-		
+
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
-
+		
 		labelTitulo = DefaultComponentFactory.getInstance().createTitle(
 				"Listado de Libros");
 		labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 20));
 		labelTitulo.setBounds(22, 10, 200, 50);
 		add(labelTitulo);
 
-		
-		labelErrores = new JTextPane();
-		labelErrores.setBorder(null);
-		labelErrores.setEditable(false);
-		labelErrores.setBackground(new Color(255, 204, 255));
-		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 523, 333, 50);
-		add(labelErrores);
-		
 		table = new JTable();
+		table.setAutoCreateRowSorter(true);
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
 				"ISBN", "Título", "Autor", "Género", "Idioma", "Editorial",
 				"Precio" }) {
@@ -94,46 +84,36 @@ public class MedioDetalleDePedido extends MedioPanel {
 		table.setBounds(80, 49, 755, 471);
 		add(table);
 
-		enviarButton = new JButton("Enviar");
-		enviarButton.addActionListener(new ActionListener() {
+		btnAtras = new JButton("Atrás");
+		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					inside.contexto.enviar(pedido);
-				} catch (Exception e1) {
-					printError(e1.getMessage().concat(" /n"), true);
-				}
-				enviarButton.setEnabled(false);
-				enviarButton.repaint();
-			}
-		});
-		enviarButton.setHorizontalAlignment(SwingConstants.LEFT);
-		enviarButton.setToolTipText("Marca como \"Enviado\" el pedido seleccionado.");
-		enviarButton.setIcon(new ImageIcon(MedioDetalleDePedido.class.getResource("/fachade/Image/Clear Green Button.png")));
-		enviarButton.setBounds(598, 529, 120, 47);
-		enviarButton.setEnabled(!pedido.fueEnviado());
-
-		add(enviarButton);
-
-		 btnAtras = new JButton("Atrás");
-		 btnAtras.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				anterior.Cargar();
 				inside.centro(anterior);
 			}
 		});
-		 btnAtras.setIcon(new ImageIcon(MedioDetalleDePedido.class.getResource("/fachade/Image/Import Document.png")));
-		 btnAtras.setHorizontalAlignment(SwingConstants.LEFT);
-		 btnAtras.setBounds(716, 529, 120, 47);
+		btnAtras.setIcon(new ImageIcon(MedioHistorialDeUsuarioDetalle.class.getResource("/fachade/Image/Import Document.png")));
+		btnAtras.setToolTipText("");
+		btnAtras.setHorizontalAlignment(SwingConstants.LEFT);
+		btnAtras.setBounds(714, 531, 120, 47);
 		add(btnAtras);
-		
+
 		scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(24, 78, 812, 442);
 		add(scrollPane);
+		
+		labelErrores = new JTextPane();
+		labelErrores.setBorder(null);
+		labelErrores.setEditable(false);
+		labelErrores.setBackground(new Color(255, 204, 255));
+		labelErrores.setForeground(Color.RED);
+		labelErrores.setBounds(61, 531, 333, 63);
+		add(labelErrores);
+		
 
 		Cargar();
 	}
 
 	protected void Cargar() {
+		libros = pedido.getLibros();
 		Iterator<Libro> iterador = libros.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
 				new String[] { "ISBN", "Título", "Autor", "Género", "Idioma",
@@ -167,20 +147,9 @@ public class MedioDetalleDePedido extends MedioPanel {
 		table.setModel(model);
 		table.repaint();
 	}
+	
 
 	protected void refresh() {
 		inside.centro(new MedioHome(inside));
 	}
-	private void printError(String texto, Boolean condicion) {
-		labelErrores.setText(labelErrores.getText().replaceAll(
-				texto.replaceAll("/n", System.getProperty("line.separator")),
-				""));
-		if (condicion) {
-			labelErrores.setText(labelErrores.getText().concat(texto)
-					.replaceAll("/n", System.getProperty("line.separator")));
-			labelErrores.setVisible(true);
-		}
-	}
-
-
 }

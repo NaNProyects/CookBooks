@@ -162,7 +162,7 @@ public class LibroTest {
 
 		try { // TODO reemplazar por un pedido temporal
 			ConsultaSelect sel = new ConsultaSelect("*",
-					"pedido inner join libroPedido", "isbn = 8795484816");
+					"pedido inner join libroPedido on pedido = idpedido", "isbn = 8795484816");
 			cookbooks.ejecutar(sel);
 			lista1 = new LinkedList<Libro>(
 					(Collection<? extends Libro>) cookbooks

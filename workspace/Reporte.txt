@@ -1,0 +1,11 @@
+-si buscas con el "Busque" escrito salen los resultados para "Busque", lo dejamos asi o que reemplace por un blanco o que opinas? xD  --->listo si dice busque busca blanco
+-quedaria lindo que si es una lista vacía diga "no hay resultados" :P ---> no
+-cuando le das enviar al pedido el boton sigue habilitado hasta que selecciones otra cosa y vuelvas (ah no, solo lo deselecciona, por ahi lo podes dejar pintado?->debe ser complicado porque lo recarga igual)
+	--->es lo mismo por lo q no puse q sostenga la linea asi q no
+
+
+<comentarios muy muy ignorables>
+-me gustaria que al crear un nuevo autor con enter se guardara---> listo
+-che que molesto que es tener que volver porque te olvidaste de guardar el autor xD si fuera a vender esto (REPITO, SI LO FUERA A VENDER) y tuvieramos genero editorial e idioma en otras tablas le pondría un + al lado de la caja para hacer uno nuevo y que al volver quedara elegido *¬*
+	si seria muy lindo pero no
+

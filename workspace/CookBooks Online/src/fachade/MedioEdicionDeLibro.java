@@ -1,48 +1,41 @@
 package fachade;
 
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.ComponentOrientation;
+import java.awt.Font;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
+
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import funcionalidad.Autor;
 import funcionalidad.Libro;
 
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.TextField;
-
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextPane;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-
-import javax.swing.JScrollPane;
-
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.text.BadLocationException;
-
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
 @SuppressWarnings("serial")
-public class MedioEdicionDeLibro extends JPanel {
+public class MedioEdicionDeLibro extends MedioPanel {
 	private String tituloPanel = "Nuevo Libro";
 	private Libro libro;
 	private JTextField tituloLibro;
@@ -57,23 +50,25 @@ public class MedioEdicionDeLibro extends JPanel {
 	private JTextPane vistasoLibro;
 	private JLabel lblTitulo;
 	private JTextPane labelErrores;
+	private MedioPanel anterior;
 
 	/**
 	 * Create the panel.
 	 * 
 	 * @wbp.parser.constructor
 	 */
-	public MedioEdicionDeLibro(Interface inside2) {
+	public MedioEdicionDeLibro(Interface inside2, MedioPanel ant) {
 		this(inside2, new Libro("0", "", null, "", "",
-				"", "", "", new Double(0))); // TODO de pedo esto no se rompio
+				"", "", "", new Double(0)),ant); 
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public MedioEdicionDeLibro(Interface inside2, Libro libro2) {
+	public MedioEdicionDeLibro(Interface inside2, Libro libro2 , MedioPanel ant) {
 		setFocusTraversalPolicyProvider(true);
 		inside = inside2;
 		libro = libro2;
-
+		anterior = ant;
+		
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 
@@ -141,8 +136,12 @@ public class MedioEdicionDeLibro extends JPanel {
 				ValidadAutor();
 			}
 		});
-		autorLibro.setModel(new DefaultComboBoxModel(
-				NombresAutores(inside.contexto.autores())));
+		try {
+			autorLibro.setModel(new DefaultComboBoxModel(
+					NombresAutores(inside.contexto.listarAutores())));
+		} catch (Exception e2) {
+			printError(e2.getMessage().concat(" /n"), true);
+		}
 		autorLibro.setBounds(108, 119, 184, 20);
 		autorLibro.setSelectedItem(libro.getAutor());
 		add(autorLibro);
@@ -209,7 +208,7 @@ public class MedioEdicionDeLibro extends JPanel {
 		isbnLabel.setBounds(52, 60, 46, 14);
 		add(isbnLabel);
 
-		JLabel tituloLabel = new JLabel("Titulo*");
+		JLabel tituloLabel = new JLabel("Título*");
 		tituloLabel.setLabelFor(tituloLibro);
 		tituloLabel.setBounds(52, 91, 46, 14);
 		add(tituloLabel);
@@ -219,7 +218,7 @@ public class MedioEdicionDeLibro extends JPanel {
 		autorLabel.setBounds(52, 122, 46, 14);
 		add(autorLabel);
 
-		JLabel generoLabel = new JLabel("Genero*");
+		JLabel generoLabel = new JLabel("Género*");
 		generoLabel.setLabelFor(generoLibro);
 		generoLabel.setBounds(52, 153, 46, 14);
 		add(generoLabel);
@@ -250,9 +249,9 @@ public class MedioEdicionDeLibro extends JPanel {
 		add(vistasoLabel);
 
 		JButton confirmar = new JButton("Confirmar");
-		confirmar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				Boolean error;
+		confirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Boolean error = null;
 				if (ValidarLibro()) {
 					libro.setIsbn((isbnLibro_1.getText().replaceAll("-", "")));
 					libro.setTitulo((String) tituloLibro.getText());
@@ -277,14 +276,21 @@ public class MedioEdicionDeLibro extends JPanel {
 					}
 					libro.setPrecio((new Double(precioLibro.getValue().toString())
 							.doubleValue()));
+					try {
 					if (isbnLibro_1.isEditable()) {
-						error = inside.contexto.agregar(libro);
+						
+							error = inside.contexto.agregar(libro);
+						
 					} else {
 						error = inside.contexto.modificar(libro);
 					}
+					} catch (Exception e1) {
+
+						printError(e1.getMessage().concat(" /n"), true);
+					}
 					if (error) {
 						printError("El ISBN pertenece a un libro existente /n", false);
-						inside.centro(new MedioListaDeLibros(inside));
+						inside.centro(anterior);
 					} else {
 						printError("El ISBN pertenece a un libro existente /n", true);
 					}
@@ -298,9 +304,9 @@ public class MedioEdicionDeLibro extends JPanel {
 		add(confirmar);
 
 		JButton cancelar = new JButton("Cancelar");
-		cancelar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				inside.centro(new MedioListaDeLibros(inside));
+		cancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inside.centro(anterior);
 			}
 		});
 		cancelar.setIcon(new ImageIcon(MedioEdicionDeLibro.class
@@ -336,12 +342,16 @@ public class MedioEdicionDeLibro extends JPanel {
 
 	private Autor selectAutor() {		
 		autorLibro.getSelectedItem();
-		inside.contexto.autores();
-		for (Autor iterable_element : inside.contexto.autores()) {
+		try {
+			inside.contexto.listarAutores();
+		for (Autor iterable_element : inside.contexto.listarAutores()) {
 			if(iterable_element.toString().compareTo((String) autorLibro.getSelectedItem()) == 0){
 				return iterable_element;				
 			}
 		}
+	} catch (Exception e) {
+		printError(e.getMessage().concat(" /n"), true);
+	}
 		return null;
 	}	
 	
@@ -368,11 +378,11 @@ public class MedioEdicionDeLibro extends JPanel {
 	private Boolean ValidadTitulo() {
 		if ((tituloLibro.getText().length() < 45)
 				&& (tituloLibro.getText().length() > 0)) {
-			printError("El Titulo debe tener entre 0 y 45 caracteres /n", false);
+			printError("El Título debe tener entre 0 y 45 caracteres /n", false);
 			return true;
 
 		} else {
-			printError("El Titulo debe tener entre 0 y 45 caracteres /n", true);
+			printError("El Título debe tener entre 0 y 45 caracteres /n", true);
 			return false;
 		}
 
@@ -381,11 +391,11 @@ public class MedioEdicionDeLibro extends JPanel {
 	private Boolean ValidadGenero() {
 		if ((generoLibro.getText().length() < 45)
 				&& (generoLibro.getText().length() > 0)) {
-			printError("El Genero debe tener entre 0 y 45 caracteres /n", false);
+			printError("El Género debe tener entre 0 y 45 caracteres /n", false);
 			return true;
 
 		} else {
-			printError("El Genero debe tener entre 0 y 45 caracteres /n", true);
+			printError("El Género debe tener entre 0 y 45 caracteres /n", true);
 			return false;
 		}
 	}
@@ -432,11 +442,11 @@ public class MedioEdicionDeLibro extends JPanel {
 
 	private Boolean ValidadPrecio() {
 		if ((new Double(precioLibro.getValue().toString()).compareTo(new Double("0")) >= 0)) {
-			printError("El Precio debe ser un numero mayor a 0 /n", false);
+			printError("El Precio debe ser un Número mayor a 0 /n", false);
 			return true;
 
 		} else {
-			printError("El Precio debe ser un numero mayor a 0 /n", true);
+			printError("El Precio debe ser un Número mayor a 0 /n", true);
 			return false;
 		}
 	}
@@ -450,6 +460,10 @@ public class MedioEdicionDeLibro extends JPanel {
 					.replaceAll("/n", System.getProperty("line.separator")));
 			labelErrores.setVisible(true);
 		}
+	}
+
+	protected void refresh() {
+		inside.centro(new MedioHome(inside));
 	}
 
 }

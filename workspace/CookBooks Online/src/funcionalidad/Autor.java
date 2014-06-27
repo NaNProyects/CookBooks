@@ -67,9 +67,7 @@ public class Autor implements Cargable {
 			if (id == -1) { // sin nro asignado
 				cons = new ConsultaInsert("autor", atr, vals);
 				base.ejecutar(cons);
-				base.ejecutar(new ConsultaSelect("idAutor", "autor",
-						"nombre = '" + nombre + "' and apellido = '" + apellido
-								+ "'"));
+				base.ejecutar(new ConsultaSelect("LAST_INSERT_ID()"));
 				this.id = base.getFirstInt();
 			} else {
 				cons = new ConsultaUpdate("autor", atr, vals, "idAutor IN ("
@@ -125,7 +123,7 @@ public class Autor implements Cargable {
 		}
 	}
 
-	public void terminarCarga() {
+	public void terminarCargaDe(Conector base) {
 		// por ahora no es necesario
 	}
 
@@ -148,9 +146,9 @@ public class Autor implements Cargable {
 	 */
 	public boolean esBorrableDe(Conector base) throws SQLException {
 		ConsultaSelect select = new ConsultaSelect("count(*)",
-				"autor inner join libro", "idAutor = " + id);
+				"autor inner join libro on idAutor = autor", "idAutor = " + id);
 		base.ejecutar(select);
-		return (base.getFirstInt() != 0);
+		return (base.getFirstInt() == 0);
 	}
 
 	@Override

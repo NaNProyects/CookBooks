@@ -1,13 +1,13 @@
 package fachade;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class Lateral extends JPanel {
@@ -16,8 +16,9 @@ public class Lateral extends JPanel {
 	private JButton botonLibros;
 	private JButton botonAutores;
 	private JButton botonPedidos;
-	private JButton button_2;
+	private JButton carrito;
 	private JButton inicio;
+	private JButton historial;
 	/**
 	 * Create the panel.
 	 */
@@ -26,12 +27,12 @@ public class Lateral extends JPanel {
 		
 		setBackground(new Color(255, 204, 255));
 
-		
+		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));	
 		// NO USUARIOS
 		inicio = new JButton("Inicio");
 		inicio.setPreferredSize(new Dimension(96, 23));
-		inicio.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		inicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioHome(inside));
 			}
 		});
@@ -41,18 +42,18 @@ public class Lateral extends JPanel {
 		// ADMINISTRADORES
 		 botonLibros = new JButton("Libros");
 		botonLibros.setPreferredSize(new Dimension(96, 23));
-		botonLibros.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		botonLibros.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioListaDeLibros(inside));
 			}
 		});
-		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
 		add(botonLibros);
 		
 		 botonAutores = new JButton("Autores");
 		botonAutores.setPreferredSize(new Dimension(96, 23));
-		botonAutores.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		botonAutores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioListaDeAutores(inside));
 				
 			}
@@ -61,8 +62,8 @@ public class Lateral extends JPanel {
 		
 		 botonPedidos = new JButton("Pedidos");
 		botonPedidos.setPreferredSize(new Dimension(96, 23));
-		botonPedidos		.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		botonPedidos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioPedidos(inside));
 			}
 		});
@@ -73,9 +74,23 @@ public class Lateral extends JPanel {
 		
 		// USUARIOS
 		
-		 button_2 = new JButton("New button");
-		button_2.setPreferredSize(new Dimension(96, 23));
-		add(button_2);
+		 carrito = new JButton("Carrito");
+		 carrito.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+		 		inside.centro(new MedioCarrito(inside));
+		 	}
+		 });
+		carrito.setPreferredSize(new Dimension(96, 23));
+		add(carrito);
+		
+		historial = new JButton("Historial");
+		historial.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+		 		inside.centro(new MedioHistorialDeUsuario(inside));
+		 	}
+		 });
+		historial.setPreferredSize(new Dimension(96, 23));
+		add(historial);
 		
 
 		// NO USUARIOS
@@ -85,13 +100,14 @@ public class Lateral extends JPanel {
 	}
 	public void permisos(Integer permisos){
 		// ADMINISTRADORES
-		botonAutores.setVisible(permisos == 0);
-		botonLibros.setVisible(permisos == 0);
-//		botonPedidos.setVisible(permisos == 0);
-		botonPedidos.setVisible(false);
+		botonAutores.setVisible(permisos == 1);
+		botonLibros.setVisible(permisos == 1);
+		botonPedidos.setVisible(permisos == 1);
 		
 		// USUARIOS
-		button_2.setVisible(permisos == 1);
+		carrito.setVisible(permisos > 1);
+		historial.setVisible(permisos > 1);
+		
 		
 		// NO USUARIOS
 		inicio.setVisible(true);

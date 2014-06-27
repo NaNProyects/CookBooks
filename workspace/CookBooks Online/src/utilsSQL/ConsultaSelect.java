@@ -30,11 +30,15 @@ public class ConsultaSelect extends ConsultaSQL {
 	public ConsultaSelect(String atributo, String tabla) {
 		this(atributo, tabla, "");
 	}
+	
+	public ConsultaSelect(String atributo) {
+		this(atributo, "");
+	}
 
 	@Override
 	public String toString() {
-		return "select " + atributos() + "\n" + "from " + tabla + "\n"
-				+ (condicion != "" ? "where " + condicion : "");
+		return "select " + atributos() + "\n" + (tabla.equals("")? "" : "from " + tabla + "\n"
+				+ (condicion != "" ? "where " + condicion : ""));
 	}
 
 	/**

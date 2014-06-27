@@ -2,38 +2,36 @@ package fachade;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-
-import funcionalidad.Autor;
-
-import javax.swing.JScrollPane;
+import javax.swing.border.BevelBorder;
+import javax.swing.table.DefaultTableModel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JTextField;
+import funcionalidad.Autor;
 
 @SuppressWarnings("serial")
-public class MedioListaDeAutores extends JPanel {
+public class MedioListaDeAutores extends MedioPanel {
 	private JTable table;
 	private Interface inside;
 	private LinkedList<Autor> autores;
-	private JButton btnNewButton;
+	private JButton btnNuevo;
 	private JButton btnEditar;
 	private JButton btnEliminar;
 	private JScrollPane scrollPane;
@@ -42,6 +40,8 @@ public class MedioListaDeAutores extends JPanel {
 	private JLabel lblBuscarAutor;
 	private JTextField txtBuscarAutor;
 	private JButton botonBuscar;
+	private JPanel panel;
+	private JPanel panelSombra;
 
 	/**
 	 * Create the panel.
@@ -51,6 +51,22 @@ public class MedioListaDeAutores extends JPanel {
 
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
+		
+		//--------------------------------------------------- panel?
+				panel = new JPanel();
+				panel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+				panel.setBackground(new Color(255, 204, 255));
+				panel.setBounds(168, 152, 499, 193);
+				panel.setVisible(false);
+				add(panel);
+				panel.setLayout(null);
+				
+				panelSombra = new JPanel();
+				panelSombra.setBackground(new Color(255, 204, 255,125));
+				panelSombra.setBounds(0, 0, 901, 601);
+				panelSombra.setVisible(false);
+				add(panelSombra);
+				//--------------------------------------------------- panel?
 
 		labelTitulo = DefaultComponentFactory.getInstance().createTitle(
 				"Listado de Autores");
@@ -82,28 +98,28 @@ public class MedioListaDeAutores extends JPanel {
 		table.setBounds(80, 49, 755, 471);
 		add(table);
 
-		btnNewButton = new JButton("Nuevo");
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		btnNuevo = new JButton("Nuevo");
+		btnNuevo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioEdicionDeAutor(inside,
 						(MedioListaDeAutores) inside.center));
 			}
 		});
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton.setToolTipText("Agrega un nuevo Autor");
-		btnNewButton.setIcon(new ImageIcon(MedioListaDeLibros.class
+		btnNuevo.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNuevo.setToolTipText("Agrega un nuevo Autor");
+		btnNuevo.setIcon(new ImageIcon(MedioListaDeLibros.class
 				.getResource("/fachade/Image/New Document.png")));
-		btnNewButton.setBounds(478, 531, 120, 47);
-		add(btnNewButton);
+		btnNuevo.setBounds(478, 531, 120, 47);
+		add(btnNuevo);
 
 		btnEditar = new JButton("Editar");
-		btnEditar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				try {
 					inside.centro(new MedioEdicionDeAutor(inside,
 							(MedioListaDeAutores) inside.center, selected()));
 				} catch (Exception e1) {
-					if(e1.getMessage().equalsIgnoreCase("Debe selecionar el Autor a")){
+					if(e1.getMessage().equalsIgnoreCase("Debe seleccionar el Autor a")){
 						labelErrores.setForeground(Color.RED);
 						printError(e1.getMessage().concat(" eliminar /n"), false);
 						printError(e1.getMessage().concat(" modificar /n"), true);
@@ -119,27 +135,12 @@ public class MedioListaDeAutores extends JPanel {
 		add(btnEditar);
 
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				try {
-					if (inside.contexto.eliminar(selected())) {
-						autores.remove(selected());
-						table.repaint();
-						Cargar();
-						printError(
-								"No se puede eliminar un autor que posea libros /n",
-								false);
-						labelErrores.setForeground(Color.GREEN);
-						printError("Eliminacion exitosa /n", true);
-					} else {
-						printError("Eliminacion exitosa /n", false);
-						labelErrores.setForeground(Color.RED);
-						printError(
-								"No se puede eliminar un autor que posea libros /n",
-								true);
-					}
+					validarEliminado(selected());
 				} catch (Exception e1) {
-					if(e1.getMessage().equalsIgnoreCase("Debe selecionar el Autor a")){
+					if(e1.getMessage().equalsIgnoreCase("Debe seleccionar el Autor a")){
 						labelErrores.setForeground(Color.RED);
 						printError(e1.getMessage().concat(" modificar /n"), false);
 						printError(e1.getMessage().concat(" eliminar /n"), true);
@@ -187,8 +188,8 @@ public class MedioListaDeAutores extends JPanel {
 		txtBuscarAutor.setColumns(10);
 
 		botonBuscar = new JButton("");
-		botonBuscar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		botonBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				Cargar();
 			}
 		});
@@ -200,9 +201,8 @@ public class MedioListaDeAutores extends JPanel {
 		Cargar();
 	}
 
-	private void Cargar() {
+	protected void Cargar() {
 		autores = filtrar();
-		inside.contexto.autores();
 		Iterator<Autor> iterador = autores.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
 				new String[] { "Nombre", "Apellido" }) {
@@ -232,13 +232,17 @@ public class MedioListaDeAutores extends JPanel {
 	private LinkedList<Autor> filtrar() {
 		LinkedList<Autor> retorno = new LinkedList<Autor>();
 
-		for (Autor autor : inside.contexto.autores()) {
-			if ((autor.getNombre().toLowerCase().contains(txtBuscarAutor.getText()
-					.toLowerCase()))
-					|| (autor.getApellido().toLowerCase()
-							.contains(txtBuscarAutor.getText().toLowerCase()))) {
-				retorno.add(autor);
+		try {
+			for (Autor autor : inside.contexto.listarAutores()) {
+				if ((autor.getNombre().toLowerCase().contains(txtBuscarAutor.getText()
+						.toLowerCase()))
+						|| (autor.getApellido().toLowerCase()
+								.contains(txtBuscarAutor.getText().toLowerCase()))) {
+					retorno.add(autor);
+				}
 			}
+		} catch (Exception e) {
+			printError(e.getMessage().concat(" /n"), true);
 		}
 
 		return retorno;
@@ -259,7 +263,7 @@ public class MedioListaDeAutores extends JPanel {
 			return null;
 		} catch (Exception e1) {
 
-			throw new Exception("Debe selecionar el Autor a");
+			throw new Exception("Debe seleccionar el Autor a");
 
 
 		}
@@ -292,5 +296,97 @@ public class MedioListaDeAutores extends JPanel {
 					.replaceAll("/n", System.getProperty("line.separator")));
 			labelErrores.setVisible(true);
 		}
+	}
+	
+	private void validarEliminado(Autor unAutor){
+		final Autor autor = unAutor; // TODO aca puede haber un error
+		panel.setVisible(true);
+		
+		JPanel panelConfirmacion = new JPanel();
+		panelConfirmacion.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		panelConfirmacion.setBackground(new Color(255, 204, 255));
+		panelConfirmacion.setBounds(0, 0, 499, 193);
+		panelConfirmacion.setVisible(true);
+		
+		panel.add(panelConfirmacion);
+		panelConfirmacion.setLayout(null);
+		
+		JTextPane tituloFlotante =	new JTextPane();
+		tituloFlotante.setText("¿Seguro que desea eliminar el autor seleccionado?");
+		tituloFlotante.setBorder(null);
+		tituloFlotante.setEditable(false);
+		tituloFlotante.setBackground(new Color(255, 204, 255));
+		tituloFlotante.setFont(new Font("Tahoma", Font.BOLD, 20));
+		tituloFlotante.setBounds(10, 11, 479, 67);
+		panelConfirmacion.add(tituloFlotante);
+
+		JButton confirmar = new JButton("Confirmar");
+		confirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					try {
+						if (inside.contexto.eliminar(autor)) {
+							autores.remove(autor);
+							table.repaint();
+							Cargar();
+							printError(
+									"No se puede eliminar un autor que posea libros /n",
+									false);
+							labelErrores.setForeground(Color.GREEN);
+							printError("Eliminacion exitosa /n", true);
+						} else {
+							printError("Eliminacion exitosa /n", false);
+							labelErrores.setForeground(Color.RED);
+							printError(
+									"No se puede eliminar un autor que posea libros /n",
+									true);
+						}
+					} catch (Exception e1) {
+						printError(
+								"Eliminacion exitosa /n",
+								false);
+					}
+					finally{
+						panel.removeAll();
+						panel.setVisible(false);
+						swichBoton();
+					}
+			}
+		});
+		confirmar.setIcon(new ImageIcon(MedioEdicionDeUsuario.class
+				.getResource("/fachade/Image/Clear Green Button.png")));
+		confirmar.setBounds(78, 151, 144, 31);
+		panelConfirmacion.add(confirmar);
+		
+		JButton cancelar = new JButton("Cancelar");
+		cancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.removeAll();
+				panel.setVisible(false);
+				swichBoton();
+			}
+		});
+		cancelar.setIcon(new ImageIcon(MedioEdicionDeUsuario.class
+				.getResource("/fachade/Image/Cancel Red Button.png")));
+		cancelar.setBounds(301, 151, 144, 31);
+		
+		swichBoton();
+		panelConfirmacion.add(cancelar);
+		panel.repaint();
+		panelConfirmacion.repaint();
+		
+		
+		
+		
+	}
+
+	private void swichBoton(){
+		btnNuevo.setEnabled(!btnNuevo.isEnabled());
+		btnEliminar.setEnabled(!btnEliminar.isEnabled());
+		btnEditar.setEnabled(!btnEditar.isEnabled());
+//		panelSombra.setVisible(!panelSombra.isVisible());
+	}
+
+	protected void refresh() {
+		inside.centro(new MedioHome(inside));
 	}
 }

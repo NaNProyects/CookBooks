@@ -2,7 +2,6 @@ package funcionalidad;
 
 import static org.junit.Assert.*;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -41,11 +40,10 @@ public class UsuarioTest {
 		ConsultaDelete del = new ConsultaDelete("usuario", "dni IN (" + sel2
 				+ ")");
 		cookbooks.ejecutar(del);
-		usuario1 = new Usuario(1, 4241111, "1234567887654321",
-				Date.valueOf("2000-1-1"), "Demo nº000",
-				"76b5e9c04b3c45253bfcde488623a01b",
-				"nombredemoapellidodemo@cookbooks.com", "NombreDemo",
-				"ApellidoDemo");
+		usuario1 = new Usuario(1, "4241111", "1234567887654321","0000",
+				"Demo nº000", "76b5e9c04b3c45253bfcde488623a01b",
+				"nombredemoapellidodemo@cookbooks.com",
+				"NombreDemo", "ApellidoDemo");
 	}
 
 	@After
@@ -85,18 +83,16 @@ public class UsuarioTest {
 		 */
 
 		try { // setup
-			usuario1 = new Usuario(1, 4241111, "1234567887654321",
-					Date.valueOf("2000-1-1"), "Demo nº000",
-					"76b5e9c04b3c45253bfcde488623a01b",
-					"nombredemoapellidodemo1@cookbooks.com", "NombreDemo1",
-					"ApellidoDemo1");
+			usuario1 = new Usuario(1, "4241111", "1234567887654321","0000",
+					"Demo nº000", "76b5e9c04b3c45253bfcde488623a01b",
+					"nombredemoapellidodemo1@cookbooks.com",
+					"NombreDemo1", "ApellidoDemo1");
 			lista1.add(usuario1);
 			usuario1.guardarEn(cookbooks);
-			usuario1 = new Usuario(2, 4241111, "1234567887654321",
-					Date.valueOf("2000-1-1"), "Demo nº000",
-					"76b5e9c04b3c45253bfcde488623a01b",
-					"nombredemoapellidodemo2@cookbooks.com", "NombreDemo2",
-					"ApellidoDemo2");
+			usuario1 = new Usuario(2, "4241111", "1234567887654321","0000",
+					"Demo nº000", "76b5e9c04b3c45253bfcde488623a01b",
+					"nombredemoapellidodemo2@cookbooks.com",
+					"NombreDemo2", "ApellidoDemo2");
 			lista1.add(usuario1);
 			usuario1.guardarEn(cookbooks);
 		} catch (SQLException e) {
@@ -127,8 +123,13 @@ public class UsuarioTest {
 					.equals(lista2.get(i).getTelefono()));
 			assertTrue("La tarjeta no coincide",
 					lista1.get(i).getTarjeta().equals(lista2.get(i).getTarjeta()));
+			assertTrue("El pin no coincide",
+					lista1.get(i).getPin().equals(lista2.get(i).getPin()));
+			/* es demasiado exigente
 			assertTrue("La fecha no coincide", lista1.get(i).getFechaRegistro()
-					.equals(lista2.get(i).getFechaRegistro()));
+					.equals(lista2.get(i).getFechaRegistro())); */
+			assertTrue("La fecha no coincide", lista1.get(i).getFechaRegistro().toString()
+					.equals(lista2.get(i).getFechaRegistro().toString()));
 			assertTrue("La direccion no coincide", lista1.get(i).getDireccion()
 					.equals(lista2.get(i).getDireccion()));
 			assertTrue("La contraseña no coincide", lista1.get(i).getHashPass()
@@ -190,8 +191,13 @@ public class UsuarioTest {
 					.equals(usuario2.getTelefono()));
 			assertTrue("La tarjeta no coincide",
 					usuario1.getTarjeta().equals(usuario2.getTarjeta()));
+			assertTrue("El pin no coincide",
+					usuario1.getPin().equals(usuario1.getPin()));
+			/* es demasiado exigente
 			assertTrue("La fecha no coincide", usuario1.getFechaRegistro()
-					.equals(usuario2.getFechaRegistro()));
+					.equals(usuario2.getFechaRegistro())); */
+			assertTrue("La fecha no coincide", usuario1.getFechaRegistro().toString()
+					.equals(usuario2.getFechaRegistro().toString()));
 			assertTrue("La direccion no coincide", usuario1.getDireccion()
 					.equals(usuario2.getDireccion()));
 			assertTrue("La contraseña no coincide", usuario1.getHashPass()
@@ -212,11 +218,10 @@ public class UsuarioTest {
 		 */
 
 		try {
-			usuario2 = new Usuario(1, 4241111, "1234567887654321",
-					Date.valueOf("2000-1-1"), "Demo nº000",
-					"76b5e9c04b3c45253bfcde488623a01b",
-					"nombredemoapellidodemo@cookbooks.com", "NombreDemo",
-					"ApellidoDemo");
+			usuario2 = new Usuario(1, "4241111", "1234567887654321","0000",
+					"Demo nº000", "76b5e9c04b3c45253bfcde488623a01b",
+					"nombredemoapellidodemo@cookbooks.com",
+					"NombreDemo", "ApellidoDemo");
 			usuario2.guardarEn(cookbooks);
 			fail("el usuario no se puede guardar dos veces");
 		} catch (SQLException e) {
@@ -243,8 +248,13 @@ public class UsuarioTest {
 					.equals(usuario2.getTelefono()));
 			assertTrue("La tarjeta no coincide",
 					usuario1.getTarjeta().equals(usuario2.getTarjeta()));
+			assertTrue("El pin no coincide",
+					usuario1.getPin().equals(usuario1.getPin()));
+			/* es demasiado exigente
 			assertTrue("La fecha no coincide", usuario1.getFechaRegistro()
-					.equals(usuario2.getFechaRegistro()));
+					.equals(usuario2.getFechaRegistro())); */
+			assertTrue("La fecha no coincide", usuario1.getFechaRegistro().toString()
+					.equals(usuario2.getFechaRegistro().toString()));
 			assertTrue("La direccion no coincide", usuario1.getDireccion()
 					.equals(usuario2.getDireccion()));
 			assertTrue("La contraseña no coincide", usuario1.getHashPass()
@@ -303,7 +313,7 @@ public class UsuarioTest {
 		
 		try { // TODO reemplazar por un pedido temporal
 			ConsultaSelect sel = new ConsultaSelect("*",
-					"usuario inner join Pedido", "idUsuario = 3");
+					"usuario inner join Pedido on DNI = usuario", "idUsuario = 3");
 			cookbooks.ejecutar(sel);
 			lista1 = new LinkedList<Usuario>(
 					(Collection<? extends Usuario>) cookbooks

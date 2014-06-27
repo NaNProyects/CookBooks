@@ -126,7 +126,7 @@ public class Conector {
 			throw new Exception("No me mandaste una clase compatible");
 		}
 		for (Cargable cargable : result) {
-			cargable.terminarCarga();
+			cargable.terminarCargaDe(this);
 		}
 		return result;
 	}

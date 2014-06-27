@@ -2,39 +2,46 @@ package fachade;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-
-import funcionalidad.Libro;
-
-import javax.swing.JScrollPane;
+import javax.swing.border.BevelBorder;
+import javax.swing.table.DefaultTableModel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import funcionalidad.Libro;
 
 @SuppressWarnings("serial")
-public class MedioListaDeLibros extends JPanel {
+public class MedioListaDeLibros extends MedioPanel {
 	private JTable table;
 	private Interface inside;
 	private LinkedList<Libro> libros;
-	private JButton btnNewButton;
+	private JButton btnNuevo;
 	private JButton btnEditar;
 	private JButton btnEliminar;
 	private JScrollPane scrollPane;
 	private JLabel labelTitulo;
 	private JTextPane labelErrores;
+	private JLabel lblBuscarLibros;
+	private JTextField txtBuscarLibros;
+	private JButton botonBuscar;
+	private JPanel panel;
+	private JPanel panelSombra;
 
 	/**
 	 * Create the panel.
@@ -45,6 +52,22 @@ public class MedioListaDeLibros extends JPanel {
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);
 		
+		//--------------------------------------------------- panel?
+		panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		panel.setBackground(new Color(255, 204, 255));
+		panel.setBounds(168, 152, 499, 193);
+		panel.setVisible(false);
+		add(panel);
+		panel.setLayout(null);
+		
+		panelSombra = new JPanel();
+		panelSombra.setBackground(new Color(255, 204, 255,125));
+		panelSombra.setBounds(0, 0, 901, 601);
+		panelSombra.setVisible(false);
+		add(panelSombra);
+		//--------------------------------------------------- panel?
+		
 		labelTitulo = DefaultComponentFactory.getInstance().createTitle(
 				"Listado de Libros");
 		labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -54,7 +77,7 @@ public class MedioListaDeLibros extends JPanel {
 		table = new JTable();
 		table.setAutoCreateRowSorter(true);
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
-				"ISBN", "Titulo", "Autor", "Genero", "Idioma", "Editorial",
+				"ISBN", "Título", "Autor", "Género", "Idioma", "Editorial",
 				"Precio" }) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class,
@@ -84,27 +107,27 @@ public class MedioListaDeLibros extends JPanel {
 		table.setBounds(80, 49, 755, 471);
 		add(table);
 
-		btnNewButton = new JButton("Nuevo");
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				inside.centro(new MedioEdicionDeLibro(inside));
+		btnNuevo = new JButton("Nuevo");
+		btnNuevo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inside.centro(new MedioEdicionDeLibro(inside,inside.center));
 			}
 		});
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton.setToolTipText("Agrega un nuevo libro");
-		btnNewButton.setIcon(new ImageIcon(MedioListaDeLibros.class
+		btnNuevo.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNuevo.setToolTipText("Agrega un nuevo libro");
+		btnNuevo.setIcon(new ImageIcon(MedioListaDeLibros.class
 				.getResource("/fachade/Image/New Document.png")));
-		btnNewButton.setBounds(478, 531, 120, 47);
-		add(btnNewButton);
+		btnNuevo.setBounds(478, 531, 120, 47);
+		add(btnNuevo);
 
 		btnEditar = new JButton("Editar");
-		btnEditar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				try {
-					inside.centro(new MedioEdicionDeLibro(inside, selected()));
+					inside.centro(new MedioEdicionDeLibro(inside, selected(),inside.center));
 				} catch (Exception e1) {
 					if (e1.getMessage().equalsIgnoreCase(
-							"Debe selecionar el Libro a")){
+							"Debe seleccionar el Libro a")){
 						labelErrores.setForeground(Color.RED);
 						printError(e1.getMessage().concat(" eliminar /n"), false);
 						printError(e1.getMessage().concat(" modificar /n"), true);
@@ -120,31 +143,23 @@ public class MedioListaDeLibros extends JPanel {
 		add(btnEditar);
 
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				try{
-				if (inside.contexto.eliminar(selected())) {
-					libros.remove(selected());
-					table.repaint();
-					Cargar();
-					printError("No se puede eliminar un libro que figure en pedidos /n", false);
-					labelErrores.setForeground(Color.GREEN);
-					printError(
-							"Eliminacion exitosa /n",
-							true);
-				} else {
-					printError(
-							"Eliminacion exitosa /n",
-							false);
-					labelErrores.setForeground(Color.RED);
-					printError("No se puede eliminar un libro que figure en pedidos /n", true);
-				}
+					validarEliminado(selected());
 				}
 				catch(Exception e1){
-					if(e1.getMessage().equalsIgnoreCase("Debe selecionar el Libro a")){
+					if(e1.getMessage().equalsIgnoreCase("Debe seleccionar el Libro a")){
 						labelErrores.setForeground(Color.RED);
 						printError(e1.getMessage().concat(" modificar /n"), false);
 						printError(e1.getMessage().concat(" eliminar /n"), true);
+					}
+					else{
+						printError(
+								"Eliminacion exitosa /n",
+								false);
+//						labelErrores.setForeground(Color.RED);
+//						printError("No se puede eliminar un libro que figure en pedidos /n", true);
 					}
 				}
 			}
@@ -168,15 +183,77 @@ public class MedioListaDeLibros extends JPanel {
 		labelErrores.setBounds(61, 531, 333, 63);
 		add(labelErrores);
 		
+		lblBuscarLibros = new JLabel("Buscar Libro");
+		lblBuscarLibros.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblBuscarLibros.setBounds(598, 13, 83, 14);
+		add(lblBuscarLibros);
+
+		txtBuscarLibros = new JTextField();
+		lblBuscarLibros.setLabelFor(txtBuscarLibros);
+		txtBuscarLibros.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					Cargar();
+				}
+
+			}
+		});
+		txtBuscarLibros.setText("");
+		txtBuscarLibros.setBounds(598, 37, 190, 23);
+		add(txtBuscarLibros);
+		txtBuscarLibros.setColumns(10);
+
+		botonBuscar = new JButton("");
+		botonBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Cargar();
+			}
+		});
+		botonBuscar.setIcon(new ImageIcon(Superior.class
+				.getResource("/fachade/Image/lupa-icono-3813-16.png")));
+		botonBuscar.setBounds(798, 37, 36, 23);
+		add(botonBuscar);
+		
 
 		Cargar();
 	}
 
-	private void Cargar() {
-		libros = inside.contexto.libros();
+	private LinkedList<Libro> filtrar() {
+		LinkedList<Libro> retorno = new LinkedList<Libro>();
+
+		try {
+			for (Libro libro : inside.contexto.listarLibros()) {
+				if (
+						(libro.getAutor().getApellido().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))
+						|| 
+						(libro.getAutor().getNombre().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))
+						|| 
+						(libro.getEditorial().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))
+						|| 
+						(libro.getGenero().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))
+						|| 
+						(libro.getIdioma().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))
+						|| 
+						(libro.getTitulo().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))
+						|| 
+						(libro.getIsbn().toLowerCase().contains(txtBuscarLibros.getText().toLowerCase()))	
+						) {
+					retorno.add(libro);
+				}
+			}
+		} catch (Exception e) {
+			printError(e.getMessage().concat(" /n"), true);
+		}
+
+		return retorno;
+	}
+	
+	
+	protected void Cargar() {
+		libros = filtrar();
 		Iterator<Libro> iterador = libros.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
-				new String[] { "ISBN", "Titulo", "Autor", "Genero", "Idioma",
+				new String[] { "ISBN", "Título", "Autor", "Género", "Idioma",
 						"Editorial", "Precio" }) {
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { String.class, String.class,
@@ -220,7 +297,7 @@ public class MedioListaDeLibros extends JPanel {
 		return null;
 		}
 		catch(Exception e1){
-			throw new Exception("Debe selecionar el Libro a");
+			throw new Exception("Debe seleccionar el Libro a");
 			
 		}
 	}
@@ -234,5 +311,98 @@ public class MedioListaDeLibros extends JPanel {
 					.replaceAll("/n", System.getProperty("line.separator")));
 			labelErrores.setVisible(true);
 		}
+	}
+	
+	private void validarEliminado(Libro unLibro){
+		final Libro libro = unLibro; // TODO aca puede haber un error
+		panel.setVisible(true);
+		
+		JPanel panelConfirmacion = new JPanel();
+		panelConfirmacion.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		panelConfirmacion.setBackground(new Color(255, 204, 255));
+		panelConfirmacion.setBounds(0, 0, 499, 193);
+		panelConfirmacion.setVisible(true);
+		
+		panel.add(panelConfirmacion);
+		panelConfirmacion.setLayout(null);
+		
+		JTextPane tituloFlotante =	new JTextPane();
+		tituloFlotante.setText("¿Seguro que desea eliminar el libro seleccionado?");
+		tituloFlotante.setBorder(null);
+		tituloFlotante.setEditable(false);
+		tituloFlotante.setBackground(new Color(255, 204, 255));
+		tituloFlotante.setFont(new Font("Tahoma", Font.BOLD, 20));
+		tituloFlotante.setBounds(10, 11, 479, 67);
+		panelConfirmacion.add(tituloFlotante);
+
+		JButton confirmar = new JButton("Confirmar");
+		confirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					try {
+						if (inside.contexto.eliminar(libro)) {
+							libros.remove(libro);
+							table.repaint();
+							Cargar();
+							printError("No se puede eliminar un libro que figure en pedidos /n", false);
+							labelErrores.setForeground(Color.GREEN);
+							printError(
+									"Eliminacion exitosa /n",
+									true);
+						} 
+						else {
+							printError(
+									"Eliminacion exitosa /n",
+									false);
+							labelErrores.setForeground(Color.RED);
+							printError("No se puede eliminar un libro que figure en pedidos /n", true);
+						}
+					} catch (Exception e1) {
+						printError(
+								"Eliminacion exitosa /n",
+								false);
+					}
+					finally{
+						panel.removeAll();
+						panel.setVisible(false);
+						swichBoton();
+					}
+			}
+		});
+		confirmar.setIcon(new ImageIcon(MedioEdicionDeUsuario.class
+				.getResource("/fachade/Image/Clear Green Button.png")));
+		confirmar.setBounds(78, 151, 144, 31);
+		panelConfirmacion.add(confirmar);
+		
+		JButton cancelar = new JButton("Cancelar");
+		cancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel.removeAll();
+				panel.setVisible(false);
+				swichBoton();
+			}
+		});
+		cancelar.setIcon(new ImageIcon(MedioEdicionDeUsuario.class
+				.getResource("/fachade/Image/Cancel Red Button.png")));
+		cancelar.setBounds(301, 151, 144, 31);
+		
+		swichBoton();
+		panelConfirmacion.add(cancelar);
+		panel.repaint();
+		panelConfirmacion.repaint();
+		
+		
+		
+		
+	}
+
+	private void swichBoton(){
+		btnNuevo.setEnabled(!btnNuevo.isEnabled());
+		btnEliminar.setEnabled(!btnEliminar.isEnabled());
+		btnEditar.setEnabled(!btnEditar.isEnabled());
+		//panelSombra.setVisible(!panelSombra.isVisible());
+	}
+	
+	protected void refresh() {
+		inside.centro(new MedioHome(inside));
 	}
 }

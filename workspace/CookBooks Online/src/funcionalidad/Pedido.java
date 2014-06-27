@@ -1,57 +1,43 @@
 package funcionalidad;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
-
 import utilsSQL.Cargable;
 import utilsSQL.Conector;
+import utilsSQL.ConsultaABM;
+import utilsSQL.ConsultaInsert;
 import utilsSQL.ConsultaSelect;
+import utilsSQL.ConsultaUpdate;
 
-public class Pedido implements Cargable{
+public class Pedido implements Cargable {
 	private Integer nro;
 	private Date fecha;
-	private Boolean estado;
+	private Boolean enviado;
 	private Double total;
-	private LinkedList<Libro> libros = new LinkedList<Libro>();
-	/**
-	 * para carga parcial en {@link Pedido.cargarCon(unIterador)}
-	 * 
-	 */
-	private LinkedList<Integer> idLibros;
+	private LinkedList<Libro> libros;
 	private Usuario usuario;
-	
-	public Pedido(Integer nro, Date fecha, Boolean estado, Double total,
-			List<Libro> libros,
-			Usuario usuario) {
-		super();
-		this.nro = nro;
-		this.fecha = fecha;
-		this.estado = estado;
-		this.total = total;
-		this.libros.addAll(libros);
-//		this.idLibros.addAll(idLibros); TODO rever esto jaja
-		this.usuario = usuario;
-	}
 
 	public Pedido() {
 		super();
 	}
-	
-	public Pedido(Date fecha, LinkedList<Libro> libros, Usuario usuario) {
+
+	public Pedido(LinkedList<Libro> libros, Usuario usuario) {
 		this.nro = -1;
-		this.fecha = fecha;
-		this.estado = false;
+		java.util.Date d = new java.util.Date();
+		this.fecha = new Date(d.getTime());
+		this.enviado = false;
 		this.libros = libros;
 		this.usuario = usuario;
 		this.total = 0.0;
 		for (Libro libro : libros) {
-			total+=libro.getPrecio();
+			total += libro.getPrecio();
 		}
 	}
-	
+
 	public Integer getNro() {
 		return nro;
 	}
@@ -61,7 +47,7 @@ public class Pedido implements Cargable{
 	}
 
 	public Boolean getEstado() {
-		return estado;
+		return enviado;
 	}
 
 	public Double getTotal() {
@@ -78,68 +64,136 @@ public class Pedido implements Cargable{
 
 	public LinkedList<Libro> libros() {
 		return null;
-	
+
 	}
-	
+
 	public Integer nro() {
 		return nro;
-	
+
 	}
-	
+
 	public Double total() {
 		return total;
-	
+
 	}
-	
+
 	public Date fecha() {
 		return fecha;
-	
+
 	}
-	
-	public boolean estado() {
-		return estado;
-	
+
+	public boolean fueEnviado() {
+		return enviado;
+
 	}
-	
+
 	public void enviar() {
-		estado = true;	
+		enviado = true;
 	}
 
-	public void cargarCon(ResultSet iterador) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void guardarEn(Conector base) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void borrarDe(Conector base) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public boolean existeEn(Conector base) {
-		return estado;
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void terminarCarga() {
-		// TODO aca cambia los id por libros posta?
-		idLibros = new LinkedList<Integer>();
-		for (Integer i : idLibros) {
-			System.out.println("cargo un libro "+i);
+	public void cargarCon(ResultSet iterador) throws SQLException {
+		try {
+			this.nro = iterador.getInt("idPedido");
+			this.fecha = iterador.getDate("fecha");
+			this.enviado = iterador.getBoolean("estado");
+			this.total = iterador.getDouble("total");
+			this.usuario = new Usuario();
+			this.usuario.cargarCon(iterador);
+		} catch (SQLException e) {
+			if (e.getMessage().startsWith("Column")) {
+				throw new SQLException("Posiblemente falte el inner join");
+			} else
+				throw e;
 		}
 	}
 
+	public void guardarEn(Conector base) throws SQLException {
+			ConsultaABM cons;
+			if (!enviado) {
+				ArrayList<String> atributos = new ArrayList<String>();
+				atributos.add("fecha");
+				atributos.add("total");
+				atributos.add("usuario");
+				atributos.add("estado");
+				ArrayList<String> valores = new ArrayList<String>();
+				valores.add("'" + fecha.toString() + "'");
+				valores.add("'" + total.toString() + "'");
+				valores.add(usuario.getDni().toString());
+				valores.add(enviado.toString());
+				cons = new ConsultaInsert("pedido", atributos, valores);
+				base.ejecutar(cons);
+				base.ejecutar(new ConsultaSelect("LAST_INSERT_ID()"));
+				this.nro = base.getFirstInt();
+				this.guardarLibros(base);
+			} else { //solo puede cambiar de estado
+				cons = new ConsultaUpdate("pedido", "estado", "true",
+						"idPedido IN ("
+								+ new ConsultaSelect("*", "("
+										+ new ConsultaSelect("idPedido", "pedido",
+												"idPedido = " + nro ) + ")"
+										+ " as tmp") + ")");
+				base.ejecutar(cons);
+			}
+	}
+
+	private void guardarLibros(Conector base) throws SQLException {
+		for (Libro l : libros) {
+			ArrayList<String> atr = new ArrayList<String>();
+			atr.add("pedido");
+			atr.add("libro");
+			ArrayList<String> vals = new ArrayList<String>();
+			vals.add(nro.toString());
+			vals.add(l.getIsbn());
+			ConsultaInsert ins = new ConsultaInsert("libroPedido", atr, vals);
+			base.ejecutar(ins);
+			}
+	}
+
+	public void borrarDe(Conector base) throws SQLException {
+		// no se puede borrar un pedido
+
+	}
+
+	public boolean existeEn(Conector base) throws SQLException {
+		ConsultaSelect select = new ConsultaSelect("count(*)", "pedido",
+				"(idPedido = " + nro + ")");
+		base.ejecutar(select);
+		return (base.getFirstInt() != 0);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void terminarCargaDe(Conector base) throws Exception {
+		ConsultaSelect sel = new ConsultaSelect(
+				"*",
+				"libro inner join libroPedido on libro = isbn inner join autor on autor = idAutor",
+				"pedido = " + nro);
+		base.ejecutar(sel);
+		libros = new LinkedList<Libro>(
+				(Collection<? extends Libro>) base.iterarUn(Libro.class));
+	}
+
+	public static ConsultaSelect getBuscadorTodos() {
+		return new ConsultaSelect("*",
+				"pedido inner join usuario on usuario = DNI");
+	}
+
 	public ConsultaSelect getBuscador() {
-		return null;
+		return new ConsultaSelect("*",
+				"pedido inner join usuario on usuario = DNI", "idPedido = "
+						+ this.nro);
 	}
 
 	public boolean esBorrableDe(Conector base) throws SQLException {
-		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Pedido) {
+			Pedido pedido = (Pedido) obj;
+			return (this.nro.equals(pedido.nro));
+		} else {
+			return false;
+		}
 	}
 }

@@ -1,32 +1,31 @@
 package fachade;
 
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.ComponentOrientation;
+import java.awt.Font;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import funcionalidad.Autor;
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.TextField;
-
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 @SuppressWarnings("serial")
-public class MedioEdicionDeAutor extends JPanel {
+public class MedioEdicionDeAutor extends MedioPanel {
 	private String tituloPanel = "Nuevo Autor";
 	private Autor autor;
 	private JTextField apellidoAutor;
@@ -35,6 +34,7 @@ public class MedioEdicionDeAutor extends JPanel {
 	private JLabel lblTitulo;
 	private JTextPane labelErrores;
 	private MedioListaDeAutores listaDeAutores;
+	private JButton confirmar;
 
 	/**
 	 * Create the panel.
@@ -43,7 +43,7 @@ public class MedioEdicionDeAutor extends JPanel {
 	 * @wbp.parser.constructor
 	 */
 	public MedioEdicionDeAutor(Interface inside2, MedioListaDeAutores listaDeAutores) {
-		this(inside2,listaDeAutores, new Autor(0, "", "")); //TODO ->puse un blanco en el apellido esta bien?
+		this(inside2,listaDeAutores, new Autor(0, "", "")); 
 	}
 
 
@@ -84,6 +84,14 @@ public class MedioEdicionDeAutor extends JPanel {
 				validarApellido();
 			}
 		});
+		apellidoAutor.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					confirmar.doClick();
+				   }
+
+			}
+		});
 		apellidoAutor.setText(autor.getApellido());
 
 		if (!(autor.id() == 0)) {
@@ -108,21 +116,21 @@ public class MedioEdicionDeAutor extends JPanel {
 		apellidoLabel.setBounds(32, 91, 66, 14);
 		add(apellidoLabel);
 
-		JButton confirmar = new JButton("Confirmar");
-		confirmar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		confirmar = new JButton("Confirmar");
+		confirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				autor.setNombre(nombreAutor.getText());
 				autor.setApellido(apellidoAutor.getText());
 				if (ValidarAutor()) {	
+					try {
 					if (autor.id()==0) {
-						try {
-							inside.contexto.agregar(autor); //TODO cambie los parametros
-						} catch (Exception e1) {
-							printError(e1.getMessage().concat(" /n"), true);
-						}
+							inside.contexto.agregar(autor); 
 					} else {
-						inside.contexto.actualizar(autor);
+						inside.contexto.modificar(autor);
 					}
+				} catch (Exception e1) {
+					printError(e1.getMessage().concat(" /n"), true);
+				}
 				inside.centro(new MedioListaDeAutores(inside));					
 				}
 			}
@@ -134,8 +142,8 @@ public class MedioEdicionDeAutor extends JPanel {
 		add(confirmar);
 
 		JButton cancelar = new JButton("Cancelar");
-		cancelar.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		cancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				inside.centro(new MedioListaDeAutores(inside));
 			}
 		});
@@ -203,6 +211,10 @@ public class MedioEdicionDeAutor extends JPanel {
 					.replaceAll("/n", System.getProperty("line.separator")));
 			labelErrores.setVisible(true);
 		}
+	}
+
+	protected void refresh() {
+		inside.centro(new MedioHome(inside));
 	}
 
 }
