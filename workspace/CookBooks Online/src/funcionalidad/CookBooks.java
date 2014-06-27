@@ -526,4 +526,30 @@ public class CookBooks {
 			throw new Exception("No se pudo reconectar");
 		}
 	}
+
+	public static boolean esUnMail(String string) {
+		if (!string.contains("@"))
+			return false;
+		if (!string.contains("."))
+			return false;
+		if (string.indexOf('@') > string.indexOf('.'))
+			return false;
+		if (!Character.isLetter(string.charAt(0)))
+			return false;
+		String[] partes = string.split("@|\\.");
+		if (partes.length != 3)
+			return false;
+		for (String parte : partes) {
+			if (parte.length() == 0)
+				return false;
+			for (int i = 0; i < parte.length(); i++) {
+				if (((Character) parte.charAt(i)).equals('_'))
+					continue;
+				if (Character.isLetterOrDigit(parte.charAt(i)))
+					continue;
+				return false;
+			}
+		}
+		return true;
+	}
 }

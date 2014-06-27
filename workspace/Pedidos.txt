@@ -1,2 +1,1 @@
-﻿Interface:
-	> esconder boton de mis datos y de recuperar contraseña (demo) ---->listo
+﻿
