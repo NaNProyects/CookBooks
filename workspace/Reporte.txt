@@ -1,0 +1,6 @@
+el enviar del pedido y el registrar me andaban mal porque eran mouseclicked -> les puse mouseRelease y parece en mi maquina ahora andan
+si envias un pedido y despues salta el error de "Debe tener un pedido seleccionado", quedan los dos pegados y en verde -> como es igual que lo que pasaba en libros lo pegue como parche y parece que se arreglo... mas o menos
+(arregle estas dos para el jar nomas, se que odias los parches... si tenes un rato hacelo vos bien :s, deje los FIXME)
+
+Al editar desde el perfil del libro o desde la lista de libros, al volver a la vista de resultados o al catalogo el libro no esta actualizado. yo tiraría la búsqueda otra vez, ponele... (sé que esto es 97% mi culpa por haber pedido los botones ahi)
+igual la historia ya esta... se supone

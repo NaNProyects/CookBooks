@@ -88,7 +88,7 @@ public class Login extends JPanel {
 		lblRegistro = new JLabel("Registrarse");
 		lblRegistro.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) { //FIXME toque aca
 				inside.getInside().centro(new MedioEdicionDeUsuario(inside.getInside(),inside.getInside().center));
 			}
 		});

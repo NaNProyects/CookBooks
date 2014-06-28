@@ -61,7 +61,7 @@ public class MedioPedidos extends MedioPanel {
 
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) { //FIXME toque aca
 				try {
 					enviarButton.setEnabled(!selected().getEstado());
 				} catch (Exception e1) {
@@ -148,7 +148,10 @@ public class MedioPedidos extends MedioPanel {
 					inside.centro(new MedioDetalleDePedido(inside, selected(),
 							inside.center));
 				} catch (Exception e1) {
+					printError("Pedido enviado /n", false); //FIXME toque aca
+					printError("Ocurrió un error /n", false); //FIXME toque aca
 					printError("Debe selecionar un pedido /n", true);
+					labelErrores.setForeground(Color.RED); //FIXME toque aca
 				}
 			}
 		});
