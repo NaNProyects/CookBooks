@@ -25,6 +25,8 @@ import javax.swing.table.DefaultTableModel;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import funcionalidad.Libro;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 @SuppressWarnings("serial")
 public class MedioListaDeLibros extends MedioPanel {
@@ -75,6 +77,12 @@ public class MedioListaDeLibros extends MedioPanel {
 		add(labelTitulo);
 
 		table = new JTable();
+		table.addFocusListener(new FocusAdapter() {
+			public void focusGained(FocusEvent e) {
+				printError("Debe seleccionar el Libro a eliminar /n", false);
+				printError("Debe seleccionar el Libro a modificar /n", false);
+			}
+		});
 		table.setAutoCreateRowSorter(true);
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
 				"ISBN", "Título", "Autor", "Género", "Idioma", "Editorial",

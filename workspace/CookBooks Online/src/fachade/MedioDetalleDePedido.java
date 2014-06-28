@@ -99,11 +99,16 @@ public class MedioDetalleDePedido extends MedioPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					inside.contexto.enviar(pedido);
+					labelErrores.setForeground(new Color(0, 128, 0));
+					printError("Pedido enviado /n", true);
+					printError("Ocurrió un error /n", false);
 				} catch (Exception e1) {
-					printError(e1.getMessage().concat(" /n"), true);
+					printError("Ocurrió un error /n", true);
+					labelErrores.setForeground(Color.RED);
+					printError("Pedido enviado /n", false);
 				}
-				enviarButton.setEnabled(false);
-				enviarButton.repaint();
+				table.repaint();
+				Cargar();
 			}
 		});
 		enviarButton.setHorizontalAlignment(SwingConstants.LEFT);

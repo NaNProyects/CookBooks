@@ -78,7 +78,11 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		labelErrores.setForeground(Color.RED);
 		labelErrores.setBounds(22, 333, 333, 240);
 		add(labelErrores);
-
+		
+		
+		autorLibro = new JComboBox<String>();
+		
+		
 		isbnLibro_1 = new TextField();
 		isbnLibro_1.addKeyListener(new KeyAdapter() {
 			@Override
@@ -128,7 +132,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		tituloLibro.setBounds(108, 88, 184, 20);
 		add(tituloLibro);
 
-		autorLibro = new JComboBox<String>();
+
 		autorLibro.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
