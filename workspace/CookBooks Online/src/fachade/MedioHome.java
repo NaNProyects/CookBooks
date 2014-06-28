@@ -82,6 +82,15 @@ public class MedioHome extends MedioPanel {
 		}
 	}
 
+	protected void Cargar() { //XXX parcheeeeeee, gracias a dios q deje esta funcion suelta
+		libros = inside.contexto.listarLibros();
+		panelResultado.removeAll();
+		for (Libro libro : libros) {
+			panelResultado.add(new ResultadoDeCatalogo(inside, libro));
+		}
+	}
+	
+	
 	@Override
 	void refresh() {
 		for (Component componente : panelResultado.getComponents()) {

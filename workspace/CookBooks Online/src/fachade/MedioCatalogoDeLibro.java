@@ -85,6 +85,19 @@ public class MedioCatalogoDeLibro extends MedioPanel {
 		
 
 	}
+	
+	
+	
+	
+	@Override
+	protected void Cargar() { //XXX parcheeeeeee, gracias a dios q deje esta funcion suelta
+		resultados = inside.contexto.buscarLibro(busqueda);
+		panelResultado.removeAll();
+		for (Libro libro : resultados) {
+			panelResultado.add(new ResultadoDeCatalogo(inside, libro));
+		}
+	}
+
 	private void printError(String texto, Boolean condicion) {
 		labelErrores.setText(labelErrores.getText().replaceAll(
 				texto.replaceAll("/n", System.getProperty("line.separator")),
