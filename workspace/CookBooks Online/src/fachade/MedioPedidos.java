@@ -116,11 +116,14 @@ public class MedioPedidos extends MedioPanel {
 					printError("Ocurrió un error /n", false);
 				} catch (Exception e1) {
 					if(e1.getMessage().contains("ocurrio")){
+						printError("Pedido enviado /n", false);
 						printError("Ocurrió un error /n", true);
 						printError("Debe selecionar un pedido /n", false);
 					}
 					else{
+						printError("Pedido enviado /n", false);
 						printError("Debe selecionar un pedido /n", true);
+						printError("Ocurrió un error /n", false);
 					}
 					labelErrores.setForeground(Color.RED);
 					printError("Pedido enviado /n", false);

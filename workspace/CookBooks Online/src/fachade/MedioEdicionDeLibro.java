@@ -365,8 +365,8 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		add(lblcamposObligatorios);
 
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
-				isbnLibro_1, tituloLibro, autorLibro, generoLibro,
-				editorialLibro, idiomaLibro, precioLibro, confirmar, cancelar,
+				isbnLibro_1, tituloLibro, idiomaLibro, generoLibro,
+				editorialLibro, autorLibro, precioLibro, confirmar, cancelar,
 				scrollReseña, reseñaLibro, scrollVistaso, vistasoLibro }));
 
 	}
