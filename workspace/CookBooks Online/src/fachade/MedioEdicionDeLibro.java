@@ -78,11 +78,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		labelErrores.setForeground(Color.RED);
 		labelErrores.setBounds(22, 333, 333, 240);
 		add(labelErrores);
-		
-		
-		autorLibro = new JComboBox<String>();
-		
-		
+
 		isbnLibro_1 = new TextField();
 		isbnLibro_1.addKeyListener(new KeyAdapter() {
 			@Override
@@ -132,7 +128,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		tituloLibro.setBounds(108, 88, 184, 20);
 		add(tituloLibro);
 
-
+		autorLibro = new JComboBox<String>();
 		autorLibro.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -145,7 +141,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		} catch (Exception e2) {
 			printError(e2.getMessage().concat(" /n"), true);
 		}
-		autorLibro.setBounds(108, 119, 184, 20);
+		autorLibro.setBounds(108, 212, 184, 20);
 		autorLibro.setSelectedItem(libro.getAutor());
 		add(autorLibro);
 
@@ -214,7 +210,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 			}
 		});
 		idiomaLibro.setText(libro.getIdioma());
-		idiomaLibro.setBounds(108, 212, 184, 20);
+		idiomaLibro.setBounds(108, 124, 184, 20);
 		add(idiomaLibro);
 
 		precioLibro = new JFormattedTextField(new DecimalFormat("0.00"));
@@ -257,7 +253,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 
 		JLabel autorLabel = new JLabel("Autor*");
 		autorLabel.setLabelFor(autorLibro);
-		autorLabel.setBounds(52, 122, 46, 14);
+		autorLabel.setBounds(52, 215, 46, 14);
 		add(autorLabel);
 
 		JLabel generoLabel = new JLabel("Género*");
@@ -272,7 +268,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 
 		JLabel idiomaLabel = new JLabel("Idioma*");
 		idiomaLabel.setLabelFor(idiomaLibro);
-		idiomaLabel.setBounds(52, 215, 46, 14);
+		idiomaLabel.setBounds(52, 127, 46, 14);
 		add(idiomaLabel);
 
 		JLabel precioLabel = new JLabel("Precio*");
