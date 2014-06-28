@@ -4,3 +4,10 @@ si envias un pedido y despues salta el error de "Debe tener un pedido selecciona
 
 Al editar desde el perfil del libro o desde la lista de libros, al volver a la vista de resultados o al catalogo el libro no esta actualizado. yo tiraría la búsqueda otra vez, ponele... (sé que esto es 97% mi culpa por haber pedido los botones ahi)
 igual la historia ya esta... se supone
+
+->Busqueda con comillas
+->bug enviado
+->atras en anonimo desde vistazo
+->pasar los avisos arriba
+->en registrar al costado
+->limitar cantidades de campos 

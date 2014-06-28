@@ -181,10 +181,17 @@ public class MedioPerfilDeLibro extends MedioPanel {
 	}
 
 	protected void refresh() {
-		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) ); 
-		Comprar.setVisible(!(inside.contexto.usuarioActual().getId() == 1));
-		btnModificar.setVisible(inside.contexto.usuarioActual().getId() == 1);
-		btnModificar.setEnabled(inside.contexto.usuarioActual().getId() == 1);
-		repaint();
+		if (inside.contexto.usuarioActual().getId() < 1) {
+			inside.centro(new MedioHome(inside));
+		} else {
+			Comprar.setEnabled((inside.contexto.usuarioActual().getId() > 1)
+					&& (!inside.contexto.estaEnElCarrito(libro)));
+			Comprar.setVisible(!(inside.contexto.usuarioActual().getId() == 1));
+			btnModificar
+					.setVisible(inside.contexto.usuarioActual().getId() == 1);
+			btnModificar
+					.setEnabled(inside.contexto.usuarioActual().getId() == 1);
+			repaint();
+		}
 	}
 }
