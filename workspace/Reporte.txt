@@ -6,8 +6,8 @@ Al editar desde el perfil del libro o desde la lista de libros, al volver a la v
 igual la historia ya esta... se supone
 
 ->Busqueda con comillas
-->bug enviado
-->atras en anonimo desde vistazo
-->pasar los avisos arriba
-->en registrar al costado
-->limitar cantidades de campos 
+->bug enviado ---> listo
+->atras en anonimo desde vistazo ---->solucion horrible pero solucion
+->pasar los avisos arriba ---> calculo q listo
+->en registrar al costado ----> echo, se hiso largo 
+->limitar cantidades de campos --->listo 

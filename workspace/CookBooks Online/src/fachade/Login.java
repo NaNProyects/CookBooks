@@ -120,21 +120,21 @@ public class Login extends JPanel {
 				inside.setPanelLog(new Loged(inside));
 			}
 			else{
-				printError("Datos de Sesión incorrectos".concat(" /n"), true);
+				printError("Datos de Sesión incorrectos".concat(" /n"),labelErrores, true);
 			}
 		} catch (Exception e) {
-			printError(e.getMessage().concat(" /n"), true);
+			printError(e.getMessage().concat(" /n"),labelErrores, true);
 		}
 		
 	}
-	private void printError(String texto, Boolean condicion) {
-		labelErrores.setText(labelErrores.getText().replaceAll(
+	protected void printError(String texto, JTextPane label , Boolean condicion ) {
+		label.setText(label.getText().replaceAll(
 				texto.replaceAll("/n", System.getProperty("line.separator")),
 				""));
 		if (condicion) {
-			labelErrores.setText(labelErrores.getText().concat(texto)
+			label.setText(label.getText().concat(texto)
 					.replaceAll("/n", System.getProperty("line.separator")));
-			labelErrores.setVisible(true);
+			label.setVisible(true);
 		}
 	}
 }

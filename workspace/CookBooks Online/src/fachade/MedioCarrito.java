@@ -78,7 +78,7 @@ public class MedioCarrito extends MedioPanel {
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(new Color(0, 128, 0));
-		labelErrores.setBounds(22, 531, 312, 63);
+		labelErrores.setBounds(130, 10, 312, 63);
 		add(labelErrores);
 		
 		labelTitulo = DefaultComponentFactory.getInstance().createTitle(
@@ -128,12 +128,12 @@ public class MedioCarrito extends MedioPanel {
 				validarTarjeta();}
 				else{
 					labelErrores.setForeground(Color.RED);
-					printError("Debe seleccionar el Libro a eliminar /n", false);
-					printError("Pin invalido /n", false);
-					printError("Carrito confirmado por favor revise su historial para informarse del envio /n", false);
-					printError("Carrito vaciado /n", false);
-					printError("Libro eliminado /n", false);
-					printError("Debe tener al menos un libro en el carrito /n", true);
+					printError("Debe seleccionar el Libro a eliminar /n",labelErrores, false);
+					printError("Pin invalido /n",labelErrores, false);
+					printError("Carrito confirmado por favor revise su historial para informarse del envio /n",labelErrores, false);
+					printError("Carrito vaciado /n",labelErrores, false);
+					printError("Libro eliminado /n",labelErrores, false);
+					printError("Debe tener al menos un libro en el carrito /n",labelErrores, true);
 				};
 			}
 		});
@@ -153,12 +153,12 @@ public class MedioCarrito extends MedioPanel {
 					if (e1.getMessage().equalsIgnoreCase(
 							"Debe seleccionar el Libro a")){
 						labelErrores.setForeground(Color.RED);
-						printError(e1.getMessage().concat(" eliminar /n"), true);
-						printError("Pin invalido /n", false);
-						printError("Carrito confirmado por favor revise su historial para informarse del envio /n", false);
-						printError("Carrito vaciado /n", false);
-						printError("Libro eliminado /n", false);
-						printError("Debe tener al menos un libro en el carrito /n", false);
+						printError(e1.getMessage().concat(" eliminar /n"),labelErrores, true);
+						printError("Pin invalido /n",labelErrores, false);
+						printError("Carrito confirmado por favor revise su historial para informarse del envio /n",labelErrores, false);
+						printError("Carrito vaciado /n",labelErrores, false);
+						printError("Libro eliminado /n",labelErrores, false);
+						printError("Debe tener al menos un libro en el carrito /n",labelErrores, false);
 					}
 				}
 			}
@@ -178,12 +178,12 @@ public class MedioCarrito extends MedioPanel {
 					validarVaciado();}
 					else{
 						labelErrores.setForeground(Color.RED);
-						printError("Debe seleccionar el Libro a eliminar /n", false);
-						printError("Pin invalido /n", false);
-						printError("Carrito confirmado por favor revise su historial para informarse del envio /n", false);
-						printError("Carrito vaciado /n", false);
-						printError("Libro eliminado /n", false);
-						printError("Debe tener al menos un libro en el carrito /n", true);
+						printError("Debe seleccionar el Libro a eliminar /n",labelErrores, false);
+						printError("Pin invalido /n",labelErrores, false);
+						printError("Carrito confirmado por favor revise su historial para informarse del envio /n",labelErrores, false);
+						printError("Carrito vaciado /n",labelErrores, false);
+						printError("Libro eliminado /n",labelErrores, false);
+						printError("Debe tener al menos un libro en el carrito /n",labelErrores, true);
 					};
 			}
 		});
@@ -268,16 +268,6 @@ public class MedioCarrito extends MedioPanel {
 		}
 	}
 	
-	private void printError(String texto, Boolean condicion) {
-		labelErrores.setText(labelErrores.getText().replaceAll(
-				texto.replaceAll("/n", System.getProperty("line.separator")),
-				""));
-		if (condicion) {
-			labelErrores.setText(labelErrores.getText().concat(texto)
-					.replaceAll("/n", System.getProperty("line.separator")));
-			labelErrores.setVisible(true);
-		}
-	}
 	private void validarTarjeta(){
 		panel.setVisible(true);
 		
@@ -331,17 +321,17 @@ public class MedioCarrito extends MedioPanel {
 				if(pin.getText().compareTo(inside.contexto.usuarioActual().getPin())==0){ 
 					try {
 						inside.contexto.confirmarCarrito();
-						printError("Ocurrió un error /n", false);
+						printError("Ocurrió un error /n",labelErrores, false);
 						labelErrores.setForeground(new Color(0, 128, 0));
-						printError("Debe seleccionar el Libro a eliminar /n", false);
-						printError("Pin invalido /n", false);
-						printError("Carrito confirmado por favor revise su historial para informarse del envio /n", true);
-						printError("Carrito vaciado /n", false);
-						printError("Libro eliminado /n", false);
-						printError("Debe tener al menos un libro en el carrito /n", false);
+						printError("Debe seleccionar el Libro a eliminar /n",labelErrores, false);
+						printError("Pin invalido /n",labelErrores, false);
+						printError("Carrito confirmado por favor revise su historial para informarse del envio /n",labelErrores, true);
+						printError("Carrito vaciado /n",labelErrores, false);
+						printError("Libro eliminado /n",labelErrores, false);
+						printError("Debe tener al menos un libro en el carrito /n",labelErrores, false);
 					} catch (SQLException e1) {
 						labelErrores.setForeground(Color.RED);
-						printError("Ocurrió un error /n", true);
+						printError("Ocurrió un error /n",labelErrores, true);
 					}
 					Cargar();
 					panel.removeAll();
@@ -351,12 +341,12 @@ public class MedioCarrito extends MedioPanel {
 				}
 				else{
 					labelErrores.setForeground(Color.RED);
-					printError("Debe seleccionar el Libro a eliminar /n", false);
-					printError("Pin invalido /n", true);
-					printError("Carrito confirmado por favor revise su historial para informarse del envio /n", false);
-					printError("Carrito vaciado /n", false);
-					printError("Libro eliminado /n", false);
-					printError("Debe tener al menos un libro en el carrito /n", false);
+					printError("Debe seleccionar el Libro a eliminar /n",labelErrores, false);
+					printError("Pin invalido /n",labelErrores, true);
+					printError("Carrito confirmado por favor revise su historial para informarse del envio /n",labelErrores, false);
+					printError("Carrito vaciado /n",labelErrores, false);
+					printError("Libro eliminado /n",labelErrores, false);
+					printError("Debe tener al menos un libro en el carrito /n",labelErrores, false);
 					panel.removeAll();
 					panel.setVisible(false);
 					swichBoton();
@@ -429,13 +419,13 @@ public class MedioCarrito extends MedioPanel {
 				valor.repaint();
 				Cargar();
 				labelErrores.setForeground(new Color(0, 128, 0));
-				printError("Debe seleccionar el Libro a eliminar /n", false);
-				printError("Pin invalido /n", false);
-				printError("Carrito confirmado por favor revise su historial para informarse del envio /n", false);
-				printError("Carrito vaciado /n", true);
-				printError("Libro eliminado /n", false);
-				printError("Debe tener al menos un libro en el carrito /n", false);
-				printError("Ocurrió un error /n", false);
+				printError("Debe seleccionar el Libro a eliminar /n",labelErrores, false);
+				printError("Pin invalido /n",labelErrores, false);
+				printError("Carrito confirmado por favor revise su historial para informarse del envio /n",labelErrores, false);
+				printError("Carrito vaciado /n",labelErrores, true);
+				printError("Libro eliminado /n",labelErrores, false);
+				printError("Debe tener al menos un libro en el carrito /n",labelErrores, false);
+				printError("Ocurrió un error /n",labelErrores, false);
 				panel.removeAll();
 				panel.setVisible(false);
 				swichBoton();
@@ -498,13 +488,13 @@ public class MedioCarrito extends MedioPanel {
 				valor.setText(inside.contexto.getCostoCarrito().toString());
 				valor.repaint();
 				labelErrores.setForeground(new Color(0, 128, 0));
-				printError("Debe seleccionar el Libro a eliminar /n", false);
-				printError("Pin invalido /n", false);
-				printError("Carrito confirmado por favor revise su historial para informarse del envio /n", false);
-				printError("Carrito vaciado /n", false);
-				printError("Libro eliminado /n", true);
-				printError("Debe tener al menos un libro en el carrito /n", false);
-				printError("Ocurrió un error /n", false);
+				printError("Debe seleccionar el Libro a eliminar /n",labelErrores, false);
+				printError("Pin invalido /n",labelErrores, false);
+				printError("Carrito confirmado por favor revise su historial para informarse del envio /n",labelErrores, false);
+				printError("Carrito vaciado /n",labelErrores, false);
+				printError("Libro eliminado /n",labelErrores, true);
+				printError("Debe tener al menos un libro en el carrito /n",labelErrores, false);
+				printError("Ocurrió un error /n",labelErrores, false);
 				panel.removeAll();
 				panel.setVisible(false);
 				swichBoton();

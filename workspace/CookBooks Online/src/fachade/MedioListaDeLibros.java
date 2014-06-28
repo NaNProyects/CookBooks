@@ -191,7 +191,7 @@ public class MedioListaDeLibros extends MedioPanel {
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(61, 531, 333, 63);
+		labelErrores.setBounds(200, 10, 333, 63);
 		add(labelErrores);
 		
 		lblBuscarLibros = new JLabel("Buscar Libro");

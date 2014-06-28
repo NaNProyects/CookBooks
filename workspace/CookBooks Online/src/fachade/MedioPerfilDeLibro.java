@@ -62,7 +62,7 @@ public class MedioPerfilDeLibro extends MedioPanel {
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 529, 326, 63);
+		labelErrores.setBounds(192, 11, 326, 41);
 		add(labelErrores);
 
 		lblTitulo = DefaultComponentFactory.getInstance().createTitle(
@@ -146,7 +146,7 @@ public class MedioPerfilDeLibro extends MedioPanel {
 		atras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inside.centro(anterior);
-				inside.center.refresh();
+				inside.center.Cargar();
 			}
 		});
 		atras.setBounds(720, 542, 171, 31);
@@ -180,18 +180,23 @@ public class MedioPerfilDeLibro extends MedioPanel {
 		}
 	}
 
+	@Override
+	protected void Cargar() {
+		Comprar.setEnabled((inside.contexto.usuarioActual().getId() > 1)
+				&& (!inside.contexto.estaEnElCarrito(libro)));
+		Comprar.setVisible(!(inside.contexto.usuarioActual().getId() == 1));
+		btnModificar
+				.setVisible(inside.contexto.usuarioActual().getId() == 1);
+		btnModificar
+				.setEnabled(inside.contexto.usuarioActual().getId() == 1);
+		repaint();
+	}
+	
 	protected void refresh() {
 		if (inside.contexto.usuarioActual().getId() < 1) {
 			inside.centro(new MedioHome(inside));
 		} else {
-			Comprar.setEnabled((inside.contexto.usuarioActual().getId() > 1)
-					&& (!inside.contexto.estaEnElCarrito(libro)));
-			Comprar.setVisible(!(inside.contexto.usuarioActual().getId() == 1));
-			btnModificar
-					.setVisible(inside.contexto.usuarioActual().getId() == 1);
-			btnModificar
-					.setEnabled(inside.contexto.usuarioActual().getId() == 1);
-			repaint();
+			Cargar();
 		}
 	}
 }

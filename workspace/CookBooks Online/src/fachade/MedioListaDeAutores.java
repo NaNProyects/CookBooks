@@ -175,7 +175,7 @@ public class MedioListaDeAutores extends MedioPanel {
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 531, 200, 63);
+		labelErrores.setBounds(250, 10, 286, 63);
 		add(labelErrores);
 
 		lblBuscarAutor = new JLabel("Buscar Autor");

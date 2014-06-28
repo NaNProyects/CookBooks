@@ -50,7 +50,7 @@ public class MedioPedidos extends MedioPanel {
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 523, 333, 70);
+		labelErrores.setBounds(222, 10, 333, 59);
 		add(labelErrores);
 
 		labelTitulo = DefaultComponentFactory.getInstance().createTitle(
@@ -61,7 +61,7 @@ public class MedioPedidos extends MedioPanel {
 
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
-			public void mouseReleased(MouseEvent e) { //FIXME toque aca
+			public void mouseReleased(MouseEvent e) { 
 				try {
 					enviarButton.setEnabled(!selected().getEstado());
 				} catch (Exception e1) {
@@ -111,22 +111,22 @@ public class MedioPedidos extends MedioPanel {
 				try {
 					inside.contexto.enviar(selected());
 					labelErrores.setForeground(new Color(0, 128, 0));
-					printError("Pedido enviado /n", true);
-					printError("Debe selecionar un pedido /n", false);
-					printError("Ocurrió un error /n", false);
+					printError("Pedido enviado /n",labelErrores, true);
+					printError("Debe selecionar un pedido /n",labelErrores, false);
+					printError("Ocurrió un error /n",labelErrores, false);
 				} catch (Exception e1) {
 					if(e1.getMessage().contains("ocurrio")){
-						printError("Pedido enviado /n", false);
-						printError("Ocurrió un error /n", true);
-						printError("Debe selecionar un pedido /n", false);
+						printError("Pedido enviado /n",labelErrores, false);
+						printError("Ocurrió un error /n",labelErrores, true);
+						printError("Debe selecionar un pedido /n",labelErrores, false);
 					}
 					else{
-						printError("Pedido enviado /n", false);
-						printError("Debe selecionar un pedido /n", true);
-						printError("Ocurrió un error /n", false);
+						printError("Pedido enviado /n",labelErrores, false);
+						printError("Debe selecionar un pedido /n",labelErrores, true);
+						printError("Ocurrió un error /n",labelErrores, false);
 					}
 					labelErrores.setForeground(Color.RED);
-					printError("Pedido enviado /n", false);
+					printError("Pedido enviado /n",labelErrores, false);
 				}
 				table.repaint();
 				Cargar();
@@ -148,10 +148,10 @@ public class MedioPedidos extends MedioPanel {
 					inside.centro(new MedioDetalleDePedido(inside, selected(),
 							inside.center));
 				} catch (Exception e1) {
-					printError("Pedido enviado /n", false); //FIXME toque aca
-					printError("Ocurrió un error /n", false); //FIXME toque aca
-					printError("Debe selecionar un pedido /n", true);
-					labelErrores.setForeground(Color.RED); //FIXME toque aca
+					printError("Pedido enviado /n",labelErrores, false); 
+					printError("Ocurrió un error /n",labelErrores, false); 
+					printError("Debe selecionar un pedido /n",labelErrores, true);
+					labelErrores.setForeground(Color.RED); 
 				}
 			}
 		});
@@ -170,7 +170,7 @@ public class MedioPedidos extends MedioPanel {
 		try {
 			pedidos = inside.contexto.listarPedidos();
 		} catch (Exception e) {
-			printError(e.getMessage().concat(" /n"), true);
+			printError(e.getMessage().concat(" /n"),labelErrores, true);
 		}
 		Iterator<Pedido> iterador = pedidos.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
@@ -230,16 +230,6 @@ public class MedioPedidos extends MedioPanel {
 
 	}
 
-	private void printError(String texto, Boolean condicion) {
-		labelErrores.setText(labelErrores.getText().replaceAll(
-				texto.replaceAll("/n", System.getProperty("line.separator")),
-				""));
-		if (condicion) {
-			labelErrores.setText(labelErrores.getText().concat(texto)
-					.replaceAll("/n", System.getProperty("line.separator")));
-			labelErrores.setVisible(true);
-		}
-	}
 
 	protected void refresh() {
 		inside.centro(new MedioHome(inside));

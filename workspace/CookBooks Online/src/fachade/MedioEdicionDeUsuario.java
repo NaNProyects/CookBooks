@@ -18,7 +18,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -32,10 +31,10 @@ import funcionalidad.Usuario;
 public class MedioEdicionDeUsuario extends MedioPanel {
 	private String tituloPanel = "Nuevo Usuario";
 	private Usuario user;
-	private JTextField mailUsuario;
+	private TextField mailUsuario;
 	private TextField nombreUsuario;
 	private TextField apellidoUsuario;
-	private JTextField direcUsuario;
+	private TextField direcUsuario;
 	private TextField targetaUsuario;
 	private Interface inside;
 	private TextField dniUsuario;
@@ -46,6 +45,15 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	private TextField pinTextField;
 	private TextField telefonoUsuario;
 	private MedioPanel anterior;
+	private JTextPane errorMail;
+	private JTextPane errorPass;
+	private JTextPane errorPass2;
+	private JTextPane errorDNI;
+	private JTextPane errorNombre;
+	private JTextPane errorApellido;
+	private JTextPane errorDir;
+	private JTextPane errorTel;
+	private JTextPane errorTarjeta;
 
 	/**
 	 * Create the panel.
@@ -71,7 +79,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 350, 333, 213);
+		labelErrores.setBounds(22, 384, 333, 179);
 		add(labelErrores);
 
 		dniUsuario = new TextField();
@@ -82,7 +90,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 				if (!(Character.isDigit(car) || e.isActionKey()
 						|| e.isControlDown()
 						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE)|| dniUsuario.getText().length() == 9) {
 					e.consume();
 				}
 			}
@@ -90,7 +98,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		;
 		dniUsuario.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
-				printError("El DNI no puede comenzar con 0 /n", false);
+				printError("El DNI no puede comenzar con 0 /n",errorDNI, false);
 				try {
 					if (dniUsuario.getText().length() != new Integer(dniUsuario
 							.getText()).toString().length()) {
@@ -100,7 +108,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 					}
 				} catch (Exception e1) {
 					if(dniUsuario.getText().length() !=0)
-					printError("El DNI no puede comenzar con 0 /n", true);
+					printError("El DNI no puede comenzar con 0 /n",errorDNI, true);
 				}
 				ValidadDNI();
 			}
@@ -112,7 +120,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		// }
 		add(dniUsuario);
 
-		mailUsuario = new JTextField();
+		mailUsuario = new TextField();
 		mailUsuario.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				ValidadEmail();
@@ -126,9 +134,19 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		lblTitulo = DefaultComponentFactory.getInstance().createTitle(
 				tituloPanel);
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblTitulo.setBounds(22, 10, 200, 50);
+		lblTitulo.setBounds(22, 10, 200, 36);
 		add(lblTitulo);
 
+		
+		mailUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (mailUsuario.getText().length() == 45) {
+					e.consume();
+				}
+			}
+		});
+		
 		mailUsuario.setBounds(183, 52, 184, 20);
 		add(mailUsuario);
 
@@ -146,7 +164,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 				if (!(Character.isLetter(car) || e.isActionKey()
 						|| e.isControlDown()
 						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))) {
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))|| nombreUsuario.getText().length() == 45) {
 					e.consume();
 				}
 			}
@@ -171,14 +189,14 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 				if (!(Character.isLetter(car) || e.isActionKey()
 						|| e.isControlDown()
 						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))) {
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))|| apellidoUsuario.getText().length() == 45) {
 					e.consume();
 				}
 			}
 		});
 		add(apellidoUsuario);
 
-		direcUsuario = new JTextField();
+		direcUsuario = new TextField();
 		direcUsuario.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				ValidadDireccion();
@@ -186,6 +204,14 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		});
 		direcUsuario.setText(user.getDireccion());
 		direcUsuario.setBounds(183, 235, 184, 20);
+		direcUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (direcUsuario.getText().length() == 45) {
+					e.consume();
+				}
+			}
+		});
 		add(direcUsuario);
 
 		targetaUsuario = new TextField();
@@ -197,7 +223,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 				if (!(Character.isDigit(car) || e.isActionKey()
 						|| e.isControlDown()
 						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE)|| targetaUsuario.getText().length() == 45) {
 					e.consume();
 				}
 			}
@@ -240,7 +266,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 				if (!(Character.isDigit(car) || e.isActionKey()
 						|| e.isControlDown()
 						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE)|| pinTextField.getText().length() == 45) {
 					e.consume();
 				}
 			}
@@ -262,7 +288,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 				if (!(Character.isDigit(car) || e.isActionKey()
 						|| e.isControlDown()
 						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+						.getKeyCode() == KeyEvent.VK_BACK_SPACE)|| telefonoUsuario.getText().length() == 45) {
 					e.consume();
 				}
 			}
@@ -339,16 +365,16 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 						}
 					} catch (Exception e1) {
 						e1.printStackTrace();
-						printError(e1.getMessage().concat(" /n"), true);
+						printError(e1.getMessage().concat(" /n"),labelErrores, true);
 					}
 					if (error) {
 						printError(
-								"El Mail/DNI pertenece a un Usuario existente /n",
+								"El Mail/DNI pertenece a un Usuario existente /n",labelErrores,
 								false);
 						inside.centro(anterior);
 					} else {
 						printError(
-								"El Mail/DNI pertenece a un Usuario existente /n",
+								"El Mail/DNI pertenece a un Usuario existente /n",labelErrores,
 								true);
 					}
 				}
@@ -405,6 +431,78 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 
 		lblPin.setLabelFor(pinTextField);
 		lblTelefono.setLabelFor(telefonoUsuario);
+		
+		 errorMail = new JTextPane();
+		 errorMail.setBorder(null);
+		 errorMail.setEditable(false);
+		 errorMail.setBackground(new Color(255, 204, 255));
+		 errorMail.setForeground(Color.RED);
+		errorMail.setBounds(377, 52, 476, 20);
+		add(errorMail);
+		
+		 errorPass = new JTextPane();
+		 errorPass.setBorder(null);
+		 errorPass.setEditable(false);
+		 errorPass.setBackground(new Color(255, 204, 255));
+		 errorPass.setForeground(Color.RED);
+		errorPass.setBounds(377, 83, 476, 20);
+		add(errorPass);
+		
+		 errorPass2 = new JTextPane();
+		 errorPass2.setBorder(null);
+		 errorPass2.setEditable(false);
+		 errorPass2.setBackground(new Color(255, 204, 255));
+		 errorPass2.setForeground(Color.RED);
+		errorPass2.setBounds(377, 113, 476, 20);
+		add(errorPass2);
+		
+		 errorDNI = new JTextPane();
+		 errorDNI.setBorder(null);
+		 errorDNI.setEditable(false);
+		 errorDNI.setBackground(new Color(255, 204, 255));
+		 errorDNI.setForeground(Color.RED);
+		errorDNI.setBounds(377, 147, 476, 20);
+		add(errorDNI);
+		
+		 errorNombre = new JTextPane();
+		 errorNombre.setBorder(null);
+		 errorNombre.setEditable(false);
+		 errorNombre.setBackground(new Color(255, 204, 255));
+		 errorNombre.setForeground(Color.RED);
+		errorNombre.setBounds(377, 173, 476, 20);
+		add(errorNombre);
+		
+		 errorApellido = new JTextPane();
+		 errorApellido.setBorder(null);
+		 errorApellido.setEditable(false);
+		 errorApellido.setBackground(new Color(255, 204, 255));
+		 errorApellido.setForeground(Color.RED);
+		errorApellido.setBounds(377, 204, 476, 20);
+		add(errorApellido);
+		
+		 errorDir = new JTextPane();
+		 errorDir.setBorder(null);
+		 errorDir.setEditable(false);
+		 errorDir.setBackground(new Color(255, 204, 255));
+		 errorDir.setForeground(Color.RED);
+		errorDir.setBounds(377, 235, 476, 20);
+		add(errorDir);
+		
+		 errorTel = new JTextPane();
+		 errorTel.setBorder(null);
+		 errorTel.setEditable(false);
+		 errorTel.setBackground(new Color(255, 204, 255));
+		 errorTel.setForeground(Color.RED);
+		errorTel.setBounds(377, 266, 476, 20);
+		add(errorTel);
+		
+		 errorTarjeta = new JTextPane();
+		 errorTarjeta.setBorder(null);
+		 errorTarjeta.setEditable(false);
+		 errorTarjeta.setBackground(new Color(255, 204, 255));
+		 errorTarjeta.setForeground(Color.RED);
+		errorTarjeta.setBounds(183, 323, 476, 50);
+		add(errorTarjeta);
 
 	}
 
@@ -421,27 +519,27 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	}
 	private Boolean ValidarLongitudDNI(){
 		if ((dniUsuario.getText().toString().length() < 9) && (dniUsuario.getText().toString().length() > 6)) {
-			printError("El DNI debe tener entre 7 y 8 dígitos /n", false);
+			printError("El DNI debe tener entre 7 y 8 dígitos /n",errorDNI, false);
 			return true;
 		} else {
-			printError("El DNI debe tener entre 7 y 8 dígitos /n", true);
+			printError("El DNI debe tener entre 7 y 8 dígitos /n",errorDNI, true);
 			return false;
 		}
 	}
 	private Boolean ValidarExistenciaDNI(){
 		try {
 			if(!inside.contexto.existeDNI(dniUsuario.getText().toString())){
-				printError("El DNI pertenece a un usuario existente /n", false);
-				printError("Ocurrió un error /n", false);
+				printError("El DNI pertenece a un usuario existente /n",errorDNI, false);
+				printError("Ocurrió un error /n",labelErrores, false);
 				return true;
 			}
 			else{
-				printError("El DNI pertenece a un usuario existente /n", true);
-				printError("Ocurrió un error /n", false);
+				printError("El DNI pertenece a un usuario existente /n",errorDNI, true);
+				printError("Ocurrió un error /n",labelErrores, false);
 				return false;
 			}
 		} catch (Exception e) {
-			printError("Ocurrió un error /n", true);
+			printError("Ocurrió un error /n",labelErrores, true);
 			return false;
 		}
 	}
@@ -452,38 +550,38 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	private Boolean ValidarLongitudMail(){
 		if ((mailUsuario.getText().length() < 45)
 				&& (mailUsuario.getText().length() > 0)) {
-			printError("El E-Mail debe tener entre 1 y 44 caracteres /n", false);
+			printError("El E-Mail debe tener entre 1 y 44 caracteres /n",errorMail, false);
 			return true;
 		} else {
-			printError("El E-Mail debe tener entre 1 y 44 caracteres /n", true);
+			printError("El E-Mail debe tener entre 1 y 44 caracteres /n",errorMail, true);
 			return false;
 		}
 	}
 	private Boolean ValidarExistenciaMail(){
 		try {
 			if(!inside.contexto.existeMail(mailUsuario.getText().toString())){
-				printError("El E-Mail pertenece a un usuario existente /n", false);
-				printError("Ocurrió un error /n", false);
+				printError("El E-Mail pertenece a un usuario existente /n",errorMail, false);
+				printError("Ocurrió un error /n",labelErrores, false);
 				return true;
 			}
 			else{
-				printError("El E-Mail pertenece a un usuario existente /n", true);
-				printError("Ocurrió un error /n", false);
+				printError("El E-Mail pertenece a un usuario existente /n",errorMail, true);
+				printError("Ocurrió un error /n",labelErrores, false);
 				return false;
 			}
 		} catch (Exception e) {
-			printError("Ocurrió un error /n", true);
+			printError("Ocurrió un error /n",labelErrores, true);
 			return false;
 		}
 	}	
 	
 	private Boolean ValidarFormatoMail(){
 		if(CookBooks.esUnMail(mailUsuario.getText().toString())){
-			printError("El formato del E-Mail es invalido /n", false);
+			printError("El formato del E-Mail es invalido /n",errorMail, false);
 			return true;
 		}
 		else{
-			printError("El formato del E-Mail es invalido /n", true);
+			printError("El formato del E-Mail es invalido /n",errorMail, true);
 			return false;
 		}
 	}
@@ -491,11 +589,11 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	private Boolean ValidadNombre() {
 		if ((nombreUsuario.getText().length() < 45)
 				&& (nombreUsuario.getText().length() > 0)) {
-			printError("El nombre debe tener entre 1 y 44 caracteres /n", false);
+			printError("El nombre debe tener entre 1 y 44 caracteres /n",errorNombre, false);
 			return true;
 
 		} else {
-			printError("El nombre debe tener entre 1 y 44 caracteres /n", true);
+			printError("El nombre debe tener entre 1 y 44 caracteres /n",errorNombre, true);
 			return false;
 		}
 	}
@@ -503,12 +601,12 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	private Boolean ValidadApellido() {
 		if ((apellidoUsuario.getText().length() < 45)
 				&& (apellidoUsuario.getText().length() > 0)) {
-			printError("El apellido debe tener entre 1 y 44 caracteres /n",
+			printError("El apellido debe tener entre 1 y 44 caracteres /n",errorApellido,
 					false);
 			return true;
 
 		} else {
-			printError("El apellido debe tener entre 1 y 44 caracteres /n",
+			printError("El apellido debe tener entre 1 y 44 caracteres /n",errorApellido,
 					true);
 			return false;
 		}
@@ -518,13 +616,13 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	private Boolean ValidadDireccion() {
 		if ((direcUsuario.getText().length() < 50)
 				&& (direcUsuario.getText().length() > 0)) {
-			printError("La dirección debe tener entre 1 y 50 caracteres /n",
+			printError("La dirección debe tener entre 1 y 50 caracteres /n",errorDir,
 					false);
 
 			return true;
 
 		} else {
-			printError("La dirección debe tener entre 1 y 50 caracteres /n",
+			printError("La dirección debe tener entre 1 y 50 caracteres /n",errorDir,
 					true);
 			return false;
 		}
@@ -535,14 +633,14 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		if ((pinTextField.getText().length() < 5)
 				&& (pinTextField.getText().length() > 2)) {
 			printError(
-					"El pin de la tarjeta debe tener entre 3 y 4 dígitos /n",
+					"El pin de la tarjeta debe tener entre 3 y 4 dígitos /n",errorTarjeta,
 					false);
 
 			return true;
 
 		} else {
 			printError(
-					"El pin de la tarjeta debe tener entre 3 y 4 dígitos /n",
+					"El pin de la tarjeta debe tener entre 3 y 4 dígitos /n",errorTarjeta,
 					true);
 			return false;
 		}
@@ -552,14 +650,14 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		if ((telefonoUsuario.getText().length() < 14)
 				&& (telefonoUsuario.getText().length() > 6)) {
 			printError(
-					"El número de Teléfono debe tener entre 7 y 13 dígitos /n",
+					"El número de Teléfono debe tener entre 7 y 13 dígitos /n",errorTel,
 					false);
 
 			return true;
 
 		} else {
 			printError(
-					"El número de Teléfono debe tener entre 7 y 13 dígitos /n",
+					"El número de Teléfono debe tener entre 7 y 13 dígitos /n",errorTel,
 					true);
 			return false;
 		}
@@ -569,14 +667,14 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		if ((targetaUsuario.getText().length() < 19)
 				&& (targetaUsuario.getText().length() > 15)) {
 			printError(
-					"El número de tarjeta debe tener entre 16 y 18 dígitos /n",
+					"El número de tarjeta debe tener entre 16 y 18 dígitos /n",errorTarjeta,
 					false);
 
 			return true;
 
 		} else {
 			printError(
-					"El número de tarjeta debe tener entre 16 y 18 dígitos /n",
+					"El número de tarjeta debe tener entre 16 y 18 dígitos /n",errorTarjeta,
 					true);
 			return false;
 		}
@@ -588,21 +686,21 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		} else {
 			if (new String(passwordField.getPassword()).compareTo(new String(
 					passwordField_1.getPassword())) != 0) {
-				printError("Las contraseñas no coinciden /n", true);
+				printError("Las contraseñas no coinciden /n",errorPass2, true);
 				return false;
 			} else {
-				printError("Las contraseñas no coinciden /n", false);
+				printError("Las contraseñas no coinciden /n",errorPass2, false);
 				if ((new String(passwordField.getPassword()).length() < 21)
 						&& (new String(passwordField.getPassword()).length() > 3)) {
 					printError(
-							"La contraseña debe tener entre 4 y 20 caracteres /n",
+							"La contraseña debe tener entre 4 y 20 caracteres /n",errorPass,
 							false);
 
 					return true;
 
 				} else {
 					printError(
-							"La contraseña debe tener entre 4 y 20 caracteres /n",
+							"La contraseña debe tener entre 4 y 20 caracteres /n",errorPass,
 							true);
 					return false;
 				}
@@ -611,17 +709,6 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 	}
 
 	
-
-	private void printError(String texto, Boolean condicion) {
-		labelErrores.setText(labelErrores.getText().replaceAll(
-				texto.replaceAll("/n", System.getProperty("line.separator")),
-				""));
-		if (condicion) {
-			labelErrores.setText(labelErrores.getText().concat(texto)
-					.replaceAll("/n", System.getProperty("line.separator")));
-			labelErrores.setVisible(true);
-		}
-	}
 
 	protected void refresh() {
 		inside.centro(new MedioHome(inside));
