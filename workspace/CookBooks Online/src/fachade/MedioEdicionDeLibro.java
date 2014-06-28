@@ -210,7 +210,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 			}
 		});
 		idiomaLibro.setText(libro.getIdioma());
-		idiomaLibro.setBounds(108, 124, 184, 20);
+		idiomaLibro.setBounds(108, 119, 184, 20);
 		add(idiomaLibro);
 
 		precioLibro = new JFormattedTextField(new DecimalFormat("0.00"));
@@ -268,7 +268,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 
 		JLabel idiomaLabel = new JLabel("Idioma*");
 		idiomaLabel.setLabelFor(idiomaLibro);
-		idiomaLabel.setBounds(52, 127, 46, 14);
+		idiomaLabel.setBounds(52, 122, 46, 14);
 		add(idiomaLabel);
 
 		JLabel precioLabel = new JLabel("Precio*");
