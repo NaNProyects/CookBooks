@@ -303,11 +303,13 @@ public class MedioCarrito extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isDigit(car) || e.isActionKey()
-						|| e.isControlDown()
-						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+				if (!(Character.isDigit(car))|| pin.getText().length() == 4) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
 					e.consume();
+					}
 				}
 			}
 		});

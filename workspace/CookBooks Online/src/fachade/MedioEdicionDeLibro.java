@@ -91,7 +91,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isDigit(car))|| isbnLibro_1.getText().length() == 45) {
+				if (!(Character.isDigit(car))|| isbnLibro_1.getText().length() == 13) {
 					if (!(e.isActionKey()
 							|| e.isControlDown()
 							|| e.getKeyCode() == KeyEvent.VK_DELETE || e

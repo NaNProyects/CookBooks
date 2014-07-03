@@ -87,7 +87,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isDigit(car))|| dniUsuario.getText().length() == 9) {
+				if (!(Character.isDigit(car))|| dniUsuario.getText().length() == 8) {
 					if (!(e.isActionKey()
 							|| e.isControlDown()
 							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
@@ -143,7 +143,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		mailUsuario.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (mailUsuario.getText().length() == 45) {
+				if (mailUsuario.getText().length() == 44) {
 					if (!(e.isActionKey()
 							|| e.isControlDown()
 							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
@@ -168,7 +168,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isLetter(car) || Character.isWhitespace(car))|| nombreUsuario.getText().length() == 45) {
+				if (!(Character.isLetter(car) || Character.isWhitespace(car))|| nombreUsuario.getText().length() == 44) {
 					if (!(e.isActionKey()
 							|| e.isControlDown()
 							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
@@ -195,7 +195,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isLetter(car) || Character.isWhitespace(car))|| apellidoUsuario.getText().length() == 45) {
+				if (!(Character.isLetter(car) || Character.isWhitespace(car))|| apellidoUsuario.getText().length() == 44) {
 					if (!(e.isActionKey()
 							|| e.isControlDown()
 							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
@@ -218,7 +218,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 		direcUsuario.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (direcUsuario.getText().length() == 45) {
+				if (direcUsuario.getText().length() == 50) {
 					e.consume();
 				}
 			}
@@ -231,7 +231,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isDigit(car) )|| targetaUsuario.getText().length() == 45) {
+				if (!(Character.isDigit(car) )|| targetaUsuario.getText().length() == 18) {
 					if (!(e.isActionKey()
 							|| e.isControlDown()
 							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
@@ -276,7 +276,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isDigit(car))|| pinTextField.getText().length() == 45) {
+				if (!(Character.isDigit(car))|| pinTextField.getText().length() == 4) {
 					if (!(e.isActionKey()
 							|| e.isControlDown()
 							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
@@ -300,7 +300,7 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isDigit(car) )|| telefonoUsuario.getText().length() == 45) {
+				if (!(Character.isDigit(car) )|| telefonoUsuario.getText().length() == 13) {
 					if (!(e.isActionKey()
 							|| e.isControlDown()
 							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
