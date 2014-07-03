@@ -1,9 +1,8 @@
-->Busqueda con comillas
-->atras en anonimo desde vistazo ---->solucion horrible pero solucion ->si zafa zafa
-->pasar los avisos arriba ---> calculo q listo -> sos un fuckin dios
-->en registrar al costado ----> echo, se hiso largo ->idem arriba pero con muchos signos de admiracion
+->Busqueda con comillas ->listo
 ->limitar cantidades de campos --->listo BUG: si te pasas despues no podes borrar, y parece que no es la cantidad que dice que cargues (en muchos campos pasa, en los del registro lo vi)
 	listo :P
-->chamigo, ojo que me haces la busqueda dos veces, una en el cargar del catalogo y otra en la barra de busqueda
-	parte A no saque la segunda busqueda por q solo lo hace bajo demanda de tus botoncitos
-	parte B habla bien carajo que no te puedo despedir pero dan ganas de eso como minimo :P
+----->BUGs:
+----->>la contraseña no esta limitada
+----->>el telefono, la tarjeta y el pin definitivamente se pasan de largo, aunque paran en un momento (a los 45 le habras puesto?)
+----->>en la validacion del pin en la compra tampoco esta limitado (no estaba este ya de antes?)
+----->>el isbn en nuevo libro tampoco esta limitado (yappari, esta limitado a 45, fijate que sea la cantidad que pedis en el error, que es 13)
