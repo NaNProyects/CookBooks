@@ -91,7 +91,7 @@ public class MedioCatalogoDeLibro extends MedioPanel {
 	
 	@Override
 	protected void Cargar() { //XXX parcheeeeeee, gracias a dios q deje esta funcion suelta
-		resultados = inside.contexto.buscarLibro(busqueda);
+//		resultados = inside.contexto.buscarLibro(busqueda); TODO ey ponele un if o algo
 		panelResultado.removeAll();
 		for (Libro libro : resultados) {
 			panelResultado.add(new ResultadoDeCatalogo(inside, libro));
