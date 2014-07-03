@@ -81,11 +81,13 @@ public class MedioEdicionDeAutor extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isLetter(car) || e.isActionKey()
-						|| e.isControlDown()
-						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))|| nombreAutor.getText().length() == 45 ) {
+				if (!(Character.isLetter(car)|| Character.isWhitespace(car))|| nombreAutor.getText().length() == 45 ) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
 					e.consume();
+					}
 				}
 			}
 		});
@@ -104,11 +106,13 @@ public class MedioEdicionDeAutor extends MedioPanel {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					confirmar.doClick();
 				   }
-				if (!(Character.isLetter(car) || e.isActionKey()
-						|| e.isControlDown()
-						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))|| apellidoAutor.getText().length() == 45 ) {
+				if (!(Character.isLetter(car) || Character.isWhitespace(car))|| apellidoAutor.getText().length() == 45 ) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
 					e.consume();
+					}
 				}
 			}
 		});

@@ -87,11 +87,13 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isDigit(car) || e.isActionKey()
-						|| e.isControlDown()
-						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE)|| dniUsuario.getText().length() == 9) {
+				if (!(Character.isDigit(car))|| dniUsuario.getText().length() == 9) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
 					e.consume();
+					}
 				}
 			}
 		});
@@ -142,7 +144,12 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (mailUsuario.getText().length() == 45) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
 					e.consume();
+					}
 				}
 			}
 		});
@@ -161,11 +168,13 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isLetter(car) || e.isActionKey()
-						|| e.isControlDown()
-						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))|| nombreUsuario.getText().length() == 45) {
+				if (!(Character.isLetter(car) || Character.isWhitespace(car))|| nombreUsuario.getText().length() == 45) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
 					e.consume();
+					}
 				}
 			}
 		});
@@ -186,11 +195,13 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isLetter(car) || e.isActionKey()
-						|| e.isControlDown()
-						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE || Character.isWhitespace(car))|| apellidoUsuario.getText().length() == 45) {
+				if (!(Character.isLetter(car) || Character.isWhitespace(car))|| apellidoUsuario.getText().length() == 45) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
 					e.consume();
+					}
 				}
 			}
 		});
@@ -220,11 +231,13 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isDigit(car) || e.isActionKey()
-						|| e.isControlDown()
-						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE)|| targetaUsuario.getText().length() == 45) {
+				if (!(Character.isDigit(car) )|| targetaUsuario.getText().length() == 45) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
 					e.consume();
+					}
 				}
 			}
 		});
@@ -263,11 +276,13 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isDigit(car) || e.isActionKey()
-						|| e.isControlDown()
-						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE)|| pinTextField.getText().length() == 45) {
+				if (!(Character.isDigit(car))|| pinTextField.getText().length() == 45) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
 					e.consume();
+					}
 				}
 			}
 		});
@@ -285,11 +300,13 @@ public class MedioEdicionDeUsuario extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isDigit(car) || e.isActionKey()
-						|| e.isControlDown()
-						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE)|| telefonoUsuario.getText().length() == 45) {
+				if (!(Character.isDigit(car) )|| telefonoUsuario.getText().length() == 45) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
 					e.consume();
+					}
 				}
 			}
 		});
