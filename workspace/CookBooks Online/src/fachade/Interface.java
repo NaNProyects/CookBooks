@@ -46,6 +46,14 @@ public class Interface {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		try {
+			contexto = new CookBooks();
+		} catch (Exception e) {
+			// TODO poner advertencia si pasa lo q sea q pase
+			e.printStackTrace();
+		}
+		
+		
 		frmCookbooksOnline = new JFrame();
 		frmCookbooksOnline.setIconImage(Toolkit.getDefaultToolkit().getImage(Interface.class.getResource("/fachade/Image/LogoChico.png")));
 		frmCookbooksOnline.setTitle("CookBooks Online");
@@ -67,12 +75,7 @@ public class Interface {
 
 		frmCookbooksOnline.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{left, top, center}));
 		
-		try {
-			contexto = new CookBooks();
-		} catch (Exception e) {
-			// TODO poner advertencia si pasa lo q sea q pase
-			e.printStackTrace();
-		}
+
 		
 		left = new Lateral(this);
 		left.setPreferredSize(new Dimension(96, 10));

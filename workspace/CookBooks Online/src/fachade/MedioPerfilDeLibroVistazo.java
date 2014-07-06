@@ -49,7 +49,7 @@ public class MedioPerfilDeLibroVistazo extends MedioPanel {
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 529, 333, 63);
+		labelErrores.setBounds(195, 10, 333, 50);
 		add(labelErrores);
 
 		lblTitulo = DefaultComponentFactory.getInstance().createTitle(
@@ -79,7 +79,7 @@ public class MedioPerfilDeLibroVistazo extends MedioPanel {
 		atras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inside.centro(anterior);
-				inside.center.refresh();
+				inside.center.Cargar();
 			}
 		});
 		atras.setBounds(747, 542, 144, 31);

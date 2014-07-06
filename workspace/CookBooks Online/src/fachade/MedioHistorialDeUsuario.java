@@ -45,7 +45,7 @@ public class MedioHistorialDeUsuario extends MedioPanel {
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 523, 333, 70);
+		labelErrores.setBounds(255, 10, 333, 61);
 		add(labelErrores);
 
 		labelTitulo = DefaultComponentFactory.getInstance().createTitle(
@@ -91,10 +91,10 @@ public class MedioHistorialDeUsuario extends MedioPanel {
 		btnDetalles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)  {try {
 				inside.centro(new MedioHistorialDeUsuarioDetalle(inside, selected(), inside.center));
-				printError("Debe selecionar un pedido /n", false);
+				printError("Debe selecionar un pedido /n",labelErrores, false);
 			} catch (Exception e1) {
 				labelErrores.setForeground(Color.RED);
-				printError("Debe selecionar un pedido /n", true);
+				printError("Debe selecionar un pedido /n",labelErrores, true);
 
 			}
 
@@ -113,7 +113,7 @@ public class MedioHistorialDeUsuario extends MedioPanel {
 		try {
 			pedidos = inside.contexto.historialDe(inside.contexto.usuarioActual());
 		} catch (Exception e) {
-			printError(e.getMessage().concat(" /n"), true);
+			printError(e.getMessage().concat(" /n"),labelErrores, true);
 		}
 		Iterator<Pedido> iterador = pedidos.iterator();
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
@@ -168,16 +168,7 @@ public class MedioHistorialDeUsuario extends MedioPanel {
 		return null;
 		
 	}
-	private void printError(String texto, Boolean condicion) {
-		labelErrores.setText(labelErrores.getText().replaceAll(
-				texto.replaceAll("/n", System.getProperty("line.separator")),
-				""));
-		if (condicion) {
-			labelErrores.setText(labelErrores.getText().concat(texto)
-					.replaceAll("/n", System.getProperty("line.separator")));
-			labelErrores.setVisible(true);
-		}
-	}
+
 	protected void refresh() {
 		inside.centro(new MedioHome(inside));
 	}

@@ -59,7 +59,7 @@ public class MedioDetalleDePedido extends MedioPanel {
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 523, 333, 50);
+		labelErrores.setBounds(232, 10, 333, 50);
 		add(labelErrores);
 		
 		table = new JTable();
@@ -99,11 +99,17 @@ public class MedioDetalleDePedido extends MedioPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					inside.contexto.enviar(pedido);
+					labelErrores.setForeground(new Color(0, 128, 0));
+					printError("Pedido enviado /n",labelErrores, true);
+					printError("Ocurrió un error /n",labelErrores, false);
+					enviarButton.setEnabled(false);
 				} catch (Exception e1) {
-					printError(e1.getMessage().concat(" /n"), true);
+					printError("Ocurrió un error /n",labelErrores, true);
+					labelErrores.setForeground(Color.RED);
+					printError("Pedido enviado /n",labelErrores, false);
 				}
-				enviarButton.setEnabled(false);
-				enviarButton.repaint();
+				table.repaint();
+				Cargar();
 			}
 		});
 		enviarButton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -171,16 +177,7 @@ public class MedioDetalleDePedido extends MedioPanel {
 	protected void refresh() {
 		inside.centro(new MedioHome(inside));
 	}
-	private void printError(String texto, Boolean condicion) {
-		labelErrores.setText(labelErrores.getText().replaceAll(
-				texto.replaceAll("/n", System.getProperty("line.separator")),
-				""));
-		if (condicion) {
-			labelErrores.setText(labelErrores.getText().concat(texto)
-					.replaceAll("/n", System.getProperty("line.separator")));
-			labelErrores.setVisible(true);
-		}
-	}
+
 
 
 }

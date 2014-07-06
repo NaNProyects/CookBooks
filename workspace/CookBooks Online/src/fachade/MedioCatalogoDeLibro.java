@@ -80,24 +80,30 @@ public class MedioCatalogoDeLibro extends MedioPanel {
 		labelErrores.setForeground(Color.BLACK);
 
 		printError("Resultados para \"".concat(busqueda).concat("\" encontrados: ").concat(new Integer(resultados
-				.size()).toString()), true);
+				.size()).toString()),labelErrores, true);
 		
 		
 
 	}
-	private void printError(String texto, Boolean condicion) {
-		labelErrores.setText(labelErrores.getText().replaceAll(
-				texto.replaceAll("/n", System.getProperty("line.separator")),
-				""));
-		if (condicion) {
-			labelErrores.setText(labelErrores.getText().concat(texto)
-					.replaceAll("/n", System.getProperty("line.separator")));
-			labelErrores.setVisible(true);
+	
+	
+	
+	
+	@Override
+	protected void Cargar() { //XXX parcheeeeeee, gracias a dios q deje esta funcion suelta
+		resultados = inside.contexto.buscarLibro(busqueda); 
+		panelResultado.removeAll();
+		for (Libro libro : resultados) {
+			panelResultado.add(new ResultadoDeCatalogo(inside, libro));
 		}
 	}
 
 	@Override
 	void refresh() {
+		if(inside.contexto.usuarioActual().getId() <1){
+			inside.centro(new MedioHome(inside));
+			inside.top.resetBusqueda();
+		}
 		for (Component componente : panelResultado.getComponents()) {
 			((MedioPanel) componente).refresh();
 		}

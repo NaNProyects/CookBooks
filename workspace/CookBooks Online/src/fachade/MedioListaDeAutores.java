@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
@@ -96,11 +98,18 @@ public class MedioListaDeAutores extends MedioPanel {
 		table.getColumnModel().getColumn(1).setResizable(false);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setBounds(80, 49, 755, 471);
+		table.addFocusListener(new FocusAdapter() {
+			public void focusGained(FocusEvent e) {
+				printError("Debe seleccionar el Autor a eliminar /n", false);
+				printError("Debe seleccionar el Autor a modificar /n", false);
+			}
+		});
 		add(table);
 
 		btnNuevo = new JButton("Nuevo");
 		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				printError("Eliminacion exitosa /n", false);
 				inside.centro(new MedioEdicionDeAutor(inside,
 						(MedioListaDeAutores) inside.center));
 			}
@@ -116,6 +125,7 @@ public class MedioListaDeAutores extends MedioPanel {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					printError("Eliminacion exitosa /n", false);
 					inside.centro(new MedioEdicionDeAutor(inside,
 							(MedioListaDeAutores) inside.center, selected()));
 				} catch (Exception e1) {
@@ -138,6 +148,7 @@ public class MedioListaDeAutores extends MedioPanel {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					printError("Eliminacion exitosa /n", false);
 					validarEliminado(selected());
 				} catch (Exception e1) {
 					if(e1.getMessage().equalsIgnoreCase("Debe seleccionar el Autor a")){
@@ -164,7 +175,7 @@ public class MedioListaDeAutores extends MedioPanel {
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 531, 200, 63);
+		labelErrores.setBounds(250, 10, 286, 63);
 		add(labelErrores);
 
 		lblBuscarAutor = new JLabel("Buscar Autor");
@@ -331,7 +342,7 @@ public class MedioListaDeAutores extends MedioPanel {
 							printError(
 									"No se puede eliminar un autor que posea libros /n",
 									false);
-							labelErrores.setForeground(Color.GREEN);
+							labelErrores.setForeground(new Color(0, 128, 0));
 							printError("Eliminacion exitosa /n", true);
 						} else {
 							printError("Eliminacion exitosa /n", false);

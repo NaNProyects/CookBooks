@@ -262,7 +262,7 @@ public class CookBooks {
 		}
 	}
 
-	private ConsultaSelect getBuscador(String cadena) {
+	private ConsultaSelect getBuscador(String cadenaIngresada) {
 		ArrayList<String> atributos = new ArrayList<String>();
 		atributos.add("isbn");
 		atributos.add("titulo");
@@ -272,9 +272,21 @@ public class CookBooks {
 		atributos.add("editorial");
 		atributos.add("idioma");
 		String from = "libro inner join autor on autor = idAutor";
-		String[] palabras = cadena.split("( |,)+");
+		/* AQUI EMPIEZAN LAS REPARACIONES */
+		String[] cadenaPorComillas = cadenaIngresada.split("\"");
+		ArrayList<String> terminosAtomicos = new ArrayList<String>();
+		for (int i = 0; i < cadenaPorComillas.length; i++) {
+			if (i % 2 == 0) { // sueltos, los splitteo
+				terminosAtomicos.addAll(Arrays.asList(cadenaPorComillas[i]
+						.split("( |,)+")));
+			} else { // literal, entra derecho
+				terminosAtomicos.add(cadenaPorComillas[i]);
+			}
+		}
+		while(terminosAtomicos.remove(""));
+		/* DE ACA PA ABAJO ANDABA BIEN */
 		ArrayList<ConsultaSelect> selects = new ArrayList<ConsultaSelect>();
-		for (String pal : palabras) {
+		for (String pal : terminosAtomicos) {
 			String where = "";
 			for (int i = 0; i < atributos.size() - 1; i++) {
 				where += "(" + atributos.get(i) + " LIKE " + "'%" + pal
@@ -525,5 +537,31 @@ public class CookBooks {
 		} catch (SQLException e) {
 			throw new Exception("No se pudo reconectar");
 		}
+	}
+
+	public static boolean esUnMail(String string) {
+		if (!string.contains("@"))
+			return false;
+		if (!string.contains("."))
+			return false;
+		if (string.indexOf('@') > string.indexOf('.'))
+			return false;
+		if (!Character.isLetter(string.charAt(0)))
+			return false;
+		String[] partes = string.split("@|\\.");
+		if (partes.length != 3)
+			return false;
+		for (String parte : partes) {
+			if (parte.length() == 0)
+				return false;
+			for (int i = 0; i < parte.length(); i++) {
+				if (((Character) parte.charAt(i)).equals('_'))
+					continue;
+				if (Character.isLetterOrDigit(parte.charAt(i)))
+					continue;
+				return false;
+			}
+		}
+		return true;
 	}
 }

@@ -103,4 +103,7 @@ public class Superior extends JPanel {
 	public void setInside(Interface inside) {
 		this.inside = inside;
 	}
+	public void resetBusqueda(){
+		txtBusque.setText("Busque");
+	}
 }

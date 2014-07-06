@@ -25,6 +25,8 @@ import javax.swing.table.DefaultTableModel;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import funcionalidad.Libro;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 @SuppressWarnings("serial")
 public class MedioListaDeLibros extends MedioPanel {
@@ -75,6 +77,12 @@ public class MedioListaDeLibros extends MedioPanel {
 		add(labelTitulo);
 
 		table = new JTable();
+		table.addFocusListener(new FocusAdapter() {
+			public void focusGained(FocusEvent e) {
+				printError("Debe seleccionar el Libro a eliminar /n", false);
+				printError("Debe seleccionar el Libro a modificar /n", false);
+			}
+		});
 		table.setAutoCreateRowSorter(true);
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
 				"ISBN", "Título", "Autor", "Género", "Idioma", "Editorial",
@@ -110,6 +118,7 @@ public class MedioListaDeLibros extends MedioPanel {
 		btnNuevo = new JButton("Nuevo");
 		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				printError("Eliminacion exitosa /n", false);
 				inside.centro(new MedioEdicionDeLibro(inside,inside.center));
 			}
 		});
@@ -124,6 +133,7 @@ public class MedioListaDeLibros extends MedioPanel {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					printError("Eliminacion exitosa /n", false);
 					inside.centro(new MedioEdicionDeLibro(inside, selected(),inside.center));
 				} catch (Exception e1) {
 					if (e1.getMessage().equalsIgnoreCase(
@@ -146,6 +156,7 @@ public class MedioListaDeLibros extends MedioPanel {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try{
+					printError("Eliminacion exitosa /n", false);
 					validarEliminado(selected());
 				}
 				catch(Exception e1){
@@ -180,7 +191,7 @@ public class MedioListaDeLibros extends MedioPanel {
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(61, 531, 333, 63);
+		labelErrores.setBounds(200, 10, 333, 63);
 		add(labelErrores);
 		
 		lblBuscarLibros = new JLabel("Buscar Libro");
@@ -344,7 +355,7 @@ public class MedioListaDeLibros extends MedioPanel {
 							table.repaint();
 							Cargar();
 							printError("No se puede eliminar un libro que figure en pedidos /n", false);
-							labelErrores.setForeground(Color.GREEN);
+							labelErrores.setForeground(new Color(0, 128, 0));
 							printError(
 									"Eliminacion exitosa /n",
 									true);

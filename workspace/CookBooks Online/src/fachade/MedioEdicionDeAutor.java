@@ -15,7 +15,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -28,13 +27,15 @@ import funcionalidad.Autor;
 public class MedioEdicionDeAutor extends MedioPanel {
 	private String tituloPanel = "Nuevo Autor";
 	private Autor autor;
-	private JTextField apellidoAutor;
+	private TextField apellidoAutor;
 	private Interface inside;
 	private TextField nombreAutor;
 	private JLabel lblTitulo;
 	private JTextPane labelErrores;
 	private MedioListaDeAutores listaDeAutores;
 	private JButton confirmar;
+	private JTextPane errorNombre;
+	private JTextPane errorApellido;
 
 	/**
 	 * Create the panel.
@@ -76,20 +77,43 @@ public class MedioEdicionDeAutor extends MedioPanel {
 		nombreAutor.setText(autor.getNombre());
 		nombreAutor.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		nombreAutor.setBounds(108, 57, 184, 20);
+		nombreAutor.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				Character car = e.getKeyChar();
+				if (!(Character.isLetter(car)|| Character.isWhitespace(car))|| nombreAutor.getText().length() == 45 ) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
+					e.consume();
+					}
+				}
+			}
+		});
 		add(nombreAutor);
 
-		apellidoAutor = new JTextField();
+		apellidoAutor = new TextField();
 		apellidoAutor.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				validarApellido();
 			}
 		});
 		apellidoAutor.addKeyListener(new KeyAdapter() {
+			@Override
 			public void keyPressed(KeyEvent e) {
+				Character car = e.getKeyChar();
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					confirmar.doClick();
 				   }
-
+				if (!(Character.isLetter(car) || Character.isWhitespace(car))|| apellidoAutor.getText().length() == 45 ) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
+					e.consume();
+					}
+				}
 			}
 		});
 		apellidoAutor.setText(autor.getApellido());
@@ -129,7 +153,7 @@ public class MedioEdicionDeAutor extends MedioPanel {
 						inside.contexto.modificar(autor);
 					}
 				} catch (Exception e1) {
-					printError(e1.getMessage().concat(" /n"), true);
+					printError(e1.getMessage().concat(" /n"),labelErrores, true);
 				}
 				inside.centro(new MedioListaDeAutores(inside));					
 				}
@@ -155,6 +179,23 @@ public class MedioEdicionDeAutor extends MedioPanel {
 		JLabel lblcamposObligatorios = new JLabel("*Campos obligatorios.");
 		lblcamposObligatorios.setBounds(22, 119, 298, 14);
 		add(lblcamposObligatorios);
+		
+		 errorNombre = new JTextPane();
+		errorNombre.setBounds(298, 57, 558, 20);
+		errorNombre.setBorder(null);
+		errorNombre.setEditable(false);
+		errorNombre.setBackground(new Color(255, 204, 255));
+		errorNombre.setForeground(Color.RED);
+		add(errorNombre);
+		
+		errorApellido = new JTextPane();
+		errorApellido.setBorder(null);
+		errorApellido.setEditable(false);
+		errorApellido.setBackground(new Color(255, 204, 255));
+		errorApellido.setForeground(Color.RED);
+		errorApellido.setBounds(298, 88, 558, 20);
+		add(errorApellido);
+		
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{nombreAutor, apellidoAutor, confirmar, cancelar}));
 
 	}
@@ -169,11 +210,11 @@ public class MedioEdicionDeAutor extends MedioPanel {
 	private Boolean validarNombre() {
 		if ((nombreAutor.getText().length() <= 45)
 				&& (nombreAutor.getText().length() > 0)) {
-			printError("El nombre del autor debe contener entre 1 y 45 caracteres /n", false);
+			printError("El nombre del autor debe contener entre 1 y 45 caracteres /n",errorNombre, false);
 			return true;
 
 		} else {
-			printError("El nombre del autor debe contener entre 1 y 45 caracteres /n", true);
+			printError("El nombre del autor debe contener entre 1 y 45 caracteres /n",errorNombre, true);
 			return false;
 		}
 
@@ -182,39 +223,29 @@ public class MedioEdicionDeAutor extends MedioPanel {
 	private Boolean validarApellido() {
 		if ((apellidoAutor.getText().length() < 45)
 				&& (apellidoAutor.getText().length() > 0)) {
-			printError("El apellido del autor debe contener entre 1 y 45 caracteres /n", false);
+			printError("El apellido del autor debe contener entre 1 y 45 caracteres /n",errorApellido, false);
 			return true;
 
 		} else {
-			printError("El apellido del autor debe contener entre 1 y 45 caracteres /n", true);
+			printError("El apellido del autor debe contener entre 1 y 45 caracteres /n",errorApellido, true);
 			return false;
 		}
 	}
 
 	private Boolean validarExistencia() {
 		if (!listaDeAutores.existAutor(autor)) {
-			printError("El Autor ya existe /n", false);
+			printError("El Autor ya existe /n",labelErrores,  false);
 			return true;
 
 		} else {
-			printError("El Autor ya existe /n", true);
+			printError("El Autor ya existe /n",labelErrores, true);
 			return false;
 		}
 	}
 
-	private void printError(String texto, Boolean condicion) {
-		labelErrores.setText(labelErrores.getText().replaceAll(
-				texto.replaceAll("/n", System.getProperty("line.separator")),
-				""));
-		if (condicion) {
-			labelErrores.setText(labelErrores.getText().concat(texto)
-					.replaceAll("/n", System.getProperty("line.separator")));
-			labelErrores.setVisible(true);
-		}
-	}
+
 
 	protected void refresh() {
 		inside.centro(new MedioHome(inside));
 	}
-
 }

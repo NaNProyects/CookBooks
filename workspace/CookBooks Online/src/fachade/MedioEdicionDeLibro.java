@@ -23,7 +23,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 
@@ -38,11 +37,11 @@ import funcionalidad.Libro;
 public class MedioEdicionDeLibro extends MedioPanel {
 	private String tituloPanel = "Nuevo Libro";
 	private Libro libro;
-	private JTextField tituloLibro;
+	private TextField tituloLibro;
 	private JComboBox<String> autorLibro;
-	private JTextField generoLibro;
-	private JTextField editorialLibro;
-	private JTextField idiomaLibro;
+	private TextField generoLibro;
+	private TextField editorialLibro;
+	private TextField idiomaLibro;
 	private JFormattedTextField precioLibro;
 	private Interface inside;
 	private TextField isbnLibro_1;
@@ -51,6 +50,13 @@ public class MedioEdicionDeLibro extends MedioPanel {
 	private JLabel lblTitulo;
 	private JTextPane labelErrores;
 	private MedioPanel anterior;
+	private JTextPane errorISBN;
+	private JTextPane errorTitulo;
+	private JTextPane errorIdioma;
+	private JTextPane errorGenero;
+	private JTextPane errorEditorial;
+	private JTextPane errorAutor;
+	private JTextPane errorPrecio;
 
 	/**
 	 * Create the panel.
@@ -77,7 +83,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 333, 333, 240);
+		labelErrores.setBounds(22, 523, 333, 50);
 		add(labelErrores);
 
 		isbnLibro_1 = new TextField();
@@ -85,11 +91,13 @@ public class MedioEdicionDeLibro extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if (!(Character.isDigit(car) || e.isActionKey()
-						|| e.isControlDown()
-						|| e.getKeyCode() == KeyEvent.VK_DELETE || e
-						.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+				if (!(Character.isDigit(car))|| isbnLibro_1.getText().length() == 13) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
 					e.consume();
+					}
 				}
 			}
 		});
@@ -109,7 +117,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		}
 		add(isbnLibro_1);
 
-		tituloLibro = new JTextField();
+		tituloLibro = new TextField();
 		tituloLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				ValidadTitulo();
@@ -126,7 +134,21 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		lblTitulo.setBounds(22, 10, 200, 50);
 		add(lblTitulo);
 
-		tituloLibro.setBounds(108, 88, 184, 20);
+		tituloLibro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (tituloLibro.getText().length() == 45) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
+					e.consume();
+					}
+				}
+			}
+		});
+		
+		tituloLibro.setBounds(108, 109, 184, 20);
 		add(tituloLibro);
 
 		autorLibro = new JComboBox<String>();
@@ -140,45 +162,90 @@ public class MedioEdicionDeLibro extends MedioPanel {
 			autorLibro.setModel(new DefaultComboBoxModel(
 					NombresAutores(inside.contexto.listarAutores())));
 		} catch (Exception e2) {
-			printError(e2.getMessage().concat(" /n"), true);
+			printError(e2.getMessage().concat(" /n"),labelErrores, true);
 		}
-		autorLibro.setBounds(108, 119, 184, 20);
+		autorLibro.setBounds(108, 327, 184, 20);
 		autorLibro.setSelectedItem(libro.getAutor());
 		add(autorLibro);
 
-		generoLibro = new JTextField();
+		generoLibro = new TextField();
 		generoLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				ValidadGenero();
 			}
 		});
+		generoLibro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				Character car = e.getKeyChar();
+				if (!(Character.isLetter(car) || Character.isWhitespace(car))|| generoLibro.getText().length() == 45) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
+					e.consume();
+					}
+				}
+			}
+		});
 		generoLibro.setText(libro.getGenero());
 
-		generoLibro.setBounds(108, 150, 184, 20);
+		generoLibro.setBounds(108, 213, 184, 20);
 		add(generoLibro);
 
-		editorialLibro = new JTextField();
+		editorialLibro = new TextField();
 		editorialLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				ValidadEditorial();
 			}
 		});
 		editorialLibro.setText(libro.getEditorial());
-		editorialLibro.setBounds(108, 181, 184, 20);
+		editorialLibro.setBounds(108, 270, 184, 20);
+		editorialLibro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				Character car = e.getKeyChar();
+				if (!(Character.isLetter(car) || Character.isWhitespace(car))|| editorialLibro.getText().length() == 45) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
+					e.consume();
+					}
+				}
+			}
+		});
 		add(editorialLibro);
+		
 
-		idiomaLibro = new JTextField();
+		idiomaLibro = new TextField();
 		idiomaLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				ValidadIdioma();
 			}
 		});
+		idiomaLibro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				Character car = e.getKeyChar();
+				if (!(Character.isLetter(car) || Character.isWhitespace(car))|| idiomaLibro.getText().length() == 45) {
+					if (!(e.isActionKey()
+							|| e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE )) {			
+					e.consume();
+					}
+				}
+			}
+		});
 		idiomaLibro.setText(libro.getIdioma());
-		idiomaLibro.setBounds(108, 212, 184, 20);
+		idiomaLibro.setBounds(108, 161, 184, 20);
 		add(idiomaLibro);
 
 		precioLibro = new JFormattedTextField(new DecimalFormat("0.00"));
-		precioLibro.setValue(libro.getPrecio());
+		if (!isbnLibro_1.isEditable()) {
+			precioLibro.setValue(libro.getPrecio());
+		}
 		precioLibro.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				try {
@@ -190,7 +257,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 
 			}
 		});
-		precioLibro.setBounds(108, 243, 184, 20);
+		precioLibro.setBounds(108, 389, 184, 20);
 		add(precioLibro);
 
 		reseñaLibro = new JTextPane();
@@ -210,32 +277,32 @@ public class MedioEdicionDeLibro extends MedioPanel {
 
 		JLabel tituloLabel = new JLabel("Título*");
 		tituloLabel.setLabelFor(tituloLibro);
-		tituloLabel.setBounds(52, 91, 46, 14);
+		tituloLabel.setBounds(52, 112, 46, 14);
 		add(tituloLabel);
 
 		JLabel autorLabel = new JLabel("Autor*");
 		autorLabel.setLabelFor(autorLibro);
-		autorLabel.setBounds(52, 122, 46, 14);
+		autorLabel.setBounds(52, 330, 46, 14);
 		add(autorLabel);
 
 		JLabel generoLabel = new JLabel("Género*");
 		generoLabel.setLabelFor(generoLibro);
-		generoLabel.setBounds(52, 153, 46, 14);
+		generoLabel.setBounds(52, 216, 46, 14);
 		add(generoLabel);
 
 		JLabel editorialLabel = new JLabel("Editorial*");
 		editorialLabel.setLabelFor(editorialLibro);
-		editorialLabel.setBounds(52, 184, 88, 14);
+		editorialLabel.setBounds(52, 273, 88, 14);
 		add(editorialLabel);
 
 		JLabel idiomaLabel = new JLabel("Idioma*");
 		idiomaLabel.setLabelFor(idiomaLibro);
-		idiomaLabel.setBounds(52, 215, 46, 14);
+		idiomaLabel.setBounds(52, 164, 46, 14);
 		add(idiomaLabel);
 
 		JLabel precioLabel = new JLabel("Precio*");
 		precioLabel.setLabelFor(precioLibro);
-		precioLabel.setBounds(52, 246, 46, 14);
+		precioLabel.setBounds(52, 392, 46, 14);
 		add(precioLabel);
 
 		JLabel reseñaLabel = new JLabel("Rese\u00F1a");
@@ -286,13 +353,13 @@ public class MedioEdicionDeLibro extends MedioPanel {
 					}
 					} catch (Exception e1) {
 
-						printError(e1.getMessage().concat(" /n"), true);
+						printError(e1.getMessage().concat(" /n"),labelErrores, true);
 					}
 					if (error) {
-						printError("El ISBN pertenece a un libro existente /n", false);
+						printError("El ISBN pertenece a un libro existente /n",labelErrores, false);
 						inside.centro(anterior);
 					} else {
-						printError("El ISBN pertenece a un libro existente /n", true);
+						printError("El ISBN pertenece a un libro existente /n",labelErrores, true);
 					}
 				}
 			}
@@ -300,7 +367,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 
 		confirmar.setIcon(new ImageIcon(MedioEdicionDeLibro.class
 				.getResource("/fachade/Image/Clear Green Button.png")));
-		confirmar.setBounds(22, 274, 144, 31);
+		confirmar.setBounds(22, 464, 144, 31);
 		add(confirmar);
 
 		JButton cancelar = new JButton("Cancelar");
@@ -311,7 +378,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		});
 		cancelar.setIcon(new ImageIcon(MedioEdicionDeLibro.class
 				.getResource("/fachade/Image/Cancel Red Button.png")));
-		cancelar.setBounds(176, 274, 144, 31);
+		cancelar.setBounds(176, 464, 144, 31);
 		add(cancelar);
 
 		JScrollPane scrollReseña = new JScrollPane(reseñaLibro);
@@ -323,12 +390,68 @@ public class MedioEdicionDeLibro extends MedioPanel {
 		add(scrollVistaso);
 
 		JLabel lblcamposObligatorios = new JLabel("*Campos obligatorios.");
-		lblcamposObligatorios.setBounds(22, 308, 298, 14);
+		lblcamposObligatorios.setBounds(22, 498, 298, 14);
 		add(lblcamposObligatorios);
+		
+		 errorISBN = new JTextPane();
+		 errorISBN.setBorder(null);
+		 errorISBN.setEditable(false);
+		 errorISBN.setBackground(new Color(255, 204, 255));
+		 errorISBN.setForeground(Color.RED);
+		errorISBN.setBounds(52, 83, 303, 20);
+		add(errorISBN);
+		
+		 errorTitulo = new JTextPane();
+		 errorTitulo.setBorder(null);
+		 errorTitulo.setEditable(false);
+		 errorTitulo.setBackground(new Color(255, 204, 255));
+		 errorTitulo.setForeground(Color.RED);
+		errorTitulo.setBounds(52, 135, 303, 20);
+		add(errorTitulo);
+		
+		 errorIdioma = new JTextPane();
+		 errorIdioma.setBorder(null);
+		 errorIdioma.setEditable(false);
+		 errorIdioma.setBackground(new Color(255, 204, 255));
+		 errorIdioma.setForeground(Color.RED);
+		errorIdioma.setBounds(52, 187, 303, 20);
+		add(errorIdioma);
+		
+		 errorGenero = new JTextPane();
+		 errorGenero.setBorder(null);
+		 errorGenero.setEditable(false);
+		 errorGenero.setBackground(new Color(255, 204, 255));
+		 errorGenero.setForeground(Color.RED);
+		errorGenero.setBounds(52, 239, 303, 20);
+		add(errorGenero);
+		
+		 errorEditorial = new JTextPane();
+		 errorEditorial.setBorder(null);
+		 errorEditorial.setEditable(false);
+		 errorEditorial.setBackground(new Color(255, 204, 255));
+		 errorEditorial.setForeground(Color.RED);
+		errorEditorial.setBounds(52, 296, 303, 20);
+		add(errorEditorial);
+		
+		 errorAutor = new JTextPane();
+		 errorAutor.setBorder(null);
+		 errorAutor.setEditable(false);
+		 errorAutor.setBackground(new Color(255, 204, 255));
+		 errorAutor.setForeground(Color.RED);
+		errorAutor.setBounds(52, 358, 303, 20);
+		add(errorAutor);
+		
+		 errorPrecio = new JTextPane();
+		 errorPrecio.setBorder(null);
+		 errorPrecio.setEditable(false);
+		 errorPrecio.setBackground(new Color(255, 204, 255));
+		 errorPrecio.setForeground(Color.RED);
+		errorPrecio.setBounds(52, 420, 303, 20);
+		add(errorPrecio);
 
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
-				isbnLibro_1, tituloLibro, autorLibro, generoLibro,
-				editorialLibro, idiomaLibro, precioLibro, confirmar, cancelar,
+				isbnLibro_1, tituloLibro, idiomaLibro, generoLibro,
+				editorialLibro, autorLibro, precioLibro, confirmar, cancelar,
 				scrollReseña, reseñaLibro, scrollVistaso, vistasoLibro }));
 
 	}
@@ -350,7 +473,7 @@ public class MedioEdicionDeLibro extends MedioPanel {
 			}
 		}
 	} catch (Exception e) {
-		printError(e.getMessage().concat(" /n"), true);
+		printError(e.getMessage().concat(" /n"),labelErrores, true);
 	}
 		return null;
 	}	
@@ -366,49 +489,49 @@ public class MedioEdicionDeLibro extends MedioPanel {
 	private Boolean ValidadISBN() {
 		if ((isbnLibro_1.getText().toString().length() <= 13)
 				&& (isbnLibro_1.getText().toString().length() > 9)) {
-			printError("El ISBN debe tener entre 10 y 13 digitos /n", false);
+			printError("El ISBN debe tener entre 10 y 13 digitos /n",errorISBN, false);
 			return true;
 
 		} else {
-			printError("El ISBN debe tener entre 10 y 13 digitos /n", true);
+			printError("El ISBN debe tener entre 10 y 13 digitos /n",errorISBN, true);
 			return false;
 		}
 	}
 
 	private Boolean ValidadTitulo() {
-		if ((tituloLibro.getText().length() < 45)
+		if ((tituloLibro.getText().length() < 46)
 				&& (tituloLibro.getText().length() > 0)) {
-			printError("El Título debe tener entre 0 y 45 caracteres /n", false);
+			printError("El Título debe tener entre 0 y 45 caracteres /n",errorTitulo, false);
 			return true;
 
 		} else {
-			printError("El Título debe tener entre 0 y 45 caracteres /n", true);
+			printError("El Título debe tener entre 0 y 45 caracteres /n",errorTitulo, true);
 			return false;
 		}
 
 	}
 
 	private Boolean ValidadGenero() {
-		if ((generoLibro.getText().length() < 45)
+		if ((generoLibro.getText().length() < 46)
 				&& (generoLibro.getText().length() > 0)) {
-			printError("El Género debe tener entre 0 y 45 caracteres /n", false);
+			printError("El Género debe tener entre 0 y 45 caracteres /n",errorGenero, false);
 			return true;
 
 		} else {
-			printError("El Género debe tener entre 0 y 45 caracteres /n", true);
+			printError("El Género debe tener entre 0 y 45 caracteres /n",errorGenero, true);
 			return false;
 		}
 	}
 
 	private Boolean ValidadEditorial() {
-		if ((editorialLibro.getText().length() < 45)
+		if ((editorialLibro.getText().length() < 46)
 				&& (editorialLibro.getText().length() > 0)) {
-			printError("La Editorial debe tener entre 0 y 45 caracteres /n",
+			printError("La Editorial debe tener entre 0 y 45 caracteres /n",errorEditorial,
 					false);
 			return true;
 
 		} else {
-			printError("La Editorial debe tener entre 0 y 45 caracteres /n",
+			printError("La Editorial debe tener entre 0 y 45 caracteres /n",errorEditorial,
 					true);
 			return false;
 		}
@@ -416,14 +539,14 @@ public class MedioEdicionDeLibro extends MedioPanel {
 	}
 
 	private Boolean ValidadIdioma() {
-		if ((idiomaLibro.getText().length() < 45)
+		if ((idiomaLibro.getText().length() < 46)
 				&& (idiomaLibro.getText().length() > 0)) {
-			printError("El idioma debe tener entre 0 y 45 caracteres /n", false);
+			printError("El idioma debe tener entre 0 y 45 caracteres /n",errorIdioma, false);
 
 			return true;
 
 		} else {
-			printError("El idioma debe tener entre 0 y 45 caracteres /n", true);
+			printError("El idioma debe tener entre 0 y 45 caracteres /n",errorIdioma, true);
 			return false;
 		}
 
@@ -431,36 +554,33 @@ public class MedioEdicionDeLibro extends MedioPanel {
 
 	private Boolean ValidadAutor() {
 		if (autorLibro.getSelectedIndex() != -1) {
-			printError("Debe selecionar un Autor /n", false);
+			printError("Debe selecionar un Autor /n",errorAutor, false);
 			return true;
 
 		} else {
-			printError("Debe selecionar un Autor /n", true);
+			printError("Debe selecionar un Autor /n",errorAutor, true);
 			return false;
 		}
 	}
 
 	private Boolean ValidadPrecio() {
-		if ((new Double(precioLibro.getValue().toString()).compareTo(new Double("0")) >= 0)) {
-			printError("El Precio debe ser un Número mayor a 0 /n", false);
+		try{
+		if ((new Double(precioLibro.getValue().toString()).compareTo(new Double("0")) > 0)) {
+			printError("El Precio debe ser un Número mayor a 0 /n",errorPrecio, false);
 			return true;
 
 		} else {
-			printError("El Precio debe ser un Número mayor a 0 /n", true);
+			printError("El Precio debe ser un Número mayor a 0 /n",errorPrecio, true);
 			return false;
+		}
+		}
+		catch(Exception e){
+			printError("El Precio debe ser un Número mayor a 0 /n",errorPrecio, true);
+			return true;
 		}
 	}
 
-	private void printError(String texto, Boolean condicion) {
-		labelErrores.setText(labelErrores.getText().replaceAll(
-				texto.replaceAll("/n", System.getProperty("line.separator")),
-				""));
-		if (condicion) {
-			labelErrores.setText(labelErrores.getText().concat(texto)
-					.replaceAll("/n", System.getProperty("line.separator")));
-			labelErrores.setVisible(true);
-		}
-	}
+
 
 	protected void refresh() {
 		inside.centro(new MedioHome(inside));

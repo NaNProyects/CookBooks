@@ -62,7 +62,7 @@ public class MedioPerfilDeLibro extends MedioPanel {
 		labelErrores.setEditable(false);
 		labelErrores.setBackground(new Color(255, 204, 255));
 		labelErrores.setForeground(Color.RED);
-		labelErrores.setBounds(22, 529, 326, 63);
+		labelErrores.setBounds(192, 11, 326, 41);
 		add(labelErrores);
 
 		lblTitulo = DefaultComponentFactory.getInstance().createTitle(
@@ -116,7 +116,7 @@ public class MedioPerfilDeLibro extends MedioPanel {
 		});
 		Comprar.setBounds(358, 542, 171, 31);
 
-		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) );
+		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) ); 
 		Comprar.setVisible(!(inside.contexto.usuarioActual().getId() == 1));
 		add(Comprar);
 
@@ -146,7 +146,7 @@ public class MedioPerfilDeLibro extends MedioPanel {
 		atras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inside.centro(anterior);
-				inside.center.refresh();
+				inside.center.Cargar();
 			}
 		});
 		atras.setBounds(720, 542, 171, 31);
@@ -161,6 +161,7 @@ public class MedioPerfilDeLibro extends MedioPanel {
 			}
 		});
 		btnModificar.setVisible(inside.contexto.usuarioActual().getId() == 1);
+		btnModificar.setEnabled(inside.contexto.usuarioActual().getId() == 1);
 		add(btnModificar);
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
 				Comprar, Vistazo }));
@@ -179,10 +180,23 @@ public class MedioPerfilDeLibro extends MedioPanel {
 		}
 	}
 
-	protected void refresh() {
-		Comprar.setEnabled((inside.contexto.usuarioActual().getId() >1) && (!inside.contexto.estaEnElCarrito(libro)) ); 
+	@Override
+	protected void Cargar() {
+		Comprar.setEnabled((inside.contexto.usuarioActual().getId() > 1)
+				&& (!inside.contexto.estaEnElCarrito(libro)));
 		Comprar.setVisible(!(inside.contexto.usuarioActual().getId() == 1));
-		btnModificar.setVisible(inside.contexto.usuarioActual().getId() == 1);
+		btnModificar
+				.setVisible(inside.contexto.usuarioActual().getId() == 1);
+		btnModificar
+				.setEnabled(inside.contexto.usuarioActual().getId() == 1);
 		repaint();
+	}
+	
+	protected void refresh() {
+		if (inside.contexto.usuarioActual().getId() < 1) {
+			inside.centro(new MedioHome(inside));
+		} else {
+			Cargar();
+		}
 	}
 }
