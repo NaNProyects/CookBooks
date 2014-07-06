@@ -1,12 +1,2 @@
-->Busqueda con comillas ->listo
-->limitar cantidades de campos --->listo BUG: si te pasas despues no podes borrar, y parece que no es la cantidad que dice que cargues (en muchos campos pasa, en los del registro lo vi)
-	listo :P
------>BUGs:
------>>la contraseña no esta limitada
-no se puede
------>>el telefono, la tarjeta y el pin definitivamente se pasan de largo, aunque paran en un momento (a los 45 le habras puesto?)
-listo
------>>en la validacion del pin en la compra tampoco esta limitado (no estaba este ya de antes?)
-listo (me lo comi en la ultima revicion)
 ----->>el isbn en nuevo libro tampoco esta limitado (yappari, esta limitado a 45, fijate que sea la cantidad que pedis en el error, que es 13)
-	listo
+	listo >>dejaste de sacarle los ceros 
