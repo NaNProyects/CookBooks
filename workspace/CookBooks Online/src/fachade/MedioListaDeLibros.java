@@ -379,7 +379,7 @@ public class MedioListaDeLibros extends MedioPanel {
 					}
 			}
 		});
-		confirmar.setIcon(new ImageIcon(MedioEdicionDeUsuario.class
+		confirmar.setIcon(new ImageIcon(MedioRegistroDeUsuario.class
 				.getResource("/fachade/Image/Clear Green Button.png")));
 		confirmar.setBounds(78, 151, 144, 31);
 		panelConfirmacion.add(confirmar);
@@ -392,7 +392,7 @@ public class MedioListaDeLibros extends MedioPanel {
 				swichBoton();
 			}
 		});
-		cancelar.setIcon(new ImageIcon(MedioEdicionDeUsuario.class
+		cancelar.setIcon(new ImageIcon(MedioRegistroDeUsuario.class
 				.getResource("/fachade/Image/Cancel Red Button.png")));
 		cancelar.setBounds(301, 151, 144, 31);
 		

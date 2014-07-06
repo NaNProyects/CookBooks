@@ -88,8 +88,8 @@ public class Login extends JPanel {
 		lblRegistro = new JLabel("Registrarse");
 		lblRegistro.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseReleased(MouseEvent e) { //FIXME toque aca
-				inside.getInside().centro(new MedioEdicionDeUsuario(inside.getInside(),inside.getInside().center));
+			public void mouseReleased(MouseEvent e) { 
+				inside.getInside().centro(new MedioRegistroDeUsuario(inside.getInside(),inside.getInside().center));
 			}
 		});
 		lblRegistro.setForeground(new Color(0, 51, 255));
@@ -104,11 +104,17 @@ public class Login extends JPanel {
 		});
 		btnEntrar.setBounds(147, 110, 89, 23);
 		add(btnEntrar);
-//		
-//		lblRecuperarClave = new JLabel("Recuperar Clave"); //TODO esconder para demo 2
-//		lblRecuperarClave.setForeground(new Color(0, 51, 255));
-//		lblRecuperarClave.setBounds(10, 112, 127, 19);
-//		add(lblRecuperarClave);
+		
+		lblRecuperarClave = new JLabel("Recuperar Clave"); 
+		lblRecuperarClave.setForeground(new Color(0, 51, 255));
+		lblRecuperarClave.setBounds(10, 112, 127, 19);
+		lblRecuperarClave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) { 
+				inside.getInside().centro(new MedioRecuperacionDeContraseña(inside.getInside(), inside.getInside().center));
+			}
+		});
+		add(lblRecuperarClave);
 		
 
 

@@ -18,7 +18,7 @@ import java.awt.event.FocusEvent;
 public class Superior extends JPanel {
 	private JTextField txtBusque;
 	private Interface inside;
-	private JPanel panelLog;
+protected JPanel panelLog;
 	private JButton botonBuscar;
 
 	/**
