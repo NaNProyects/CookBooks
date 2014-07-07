@@ -283,7 +283,8 @@ public class CookBooks {
 				terminosAtomicos.add(cadenaPorComillas[i]);
 			}
 		}
-		while(terminosAtomicos.remove(""));
+		while (terminosAtomicos.remove(""))
+			;
 		/* DE ACA PA ABAJO ANDABA BIEN */
 		ArrayList<ConsultaSelect> selects = new ArrayList<ConsultaSelect>();
 		for (String pal : terminosAtomicos) {
@@ -338,6 +339,58 @@ public class CookBooks {
 
 	public void vaciarCarrito() {
 		carrito.vaciar();
+	}
+
+	/**
+	 * Cambia la contraseña del usuario (recibe la nueva en texto plano)
+	 * 
+	 * @param user
+	 *            (el usuario tiene que existir)
+	 * @param pass
+	 * @return
+	 * @throws SQLException
+	 *             si fallo algo
+	 */
+	public boolean cambiarPass(Usuario user, String pass) throws SQLException {
+		user.setHashPass(CookBooks.getMD5(pass));
+		user.setDni(-1*user.getDni());
+		try {
+			user.guardarEn(base);
+			return true;
+		} catch (SQLException e) {
+			throw new SQLException("Ocurrió un error");
+		}
+	}
+
+	public Usuario recuperarContraseña(String mail, String dni)
+			throws Exception {
+		try {
+			if (!existeDNI(dni)) {
+				throw new Exception("El DNI no existe");
+			}
+			if (!existeMail(mail)) {
+				throw new Exception("El email no existe");
+			}
+			return autenticarPorDNI(mail, dni);
+		} catch (Exception e) {
+			if (e.getMessage().startsWith("El")) {
+				throw e;
+			}
+			throw new Exception("Ocurrio un error");
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private Usuario autenticarPorDNI(String mail, String dni) throws Exception {
+		ConsultaSelect sel = new ConsultaSelect("*", "usuario", "email = '"
+				+ mail + "'");
+		base.ejecutar(sel);
+		LinkedList<Usuario> lis = new LinkedList<Usuario>(
+				(Collection<? extends Usuario>) base.iterarUn(Usuario.class));
+		if (lis.element().getDni().toString().equals(dni)) {
+			return lis.element();
+		} else
+			throw new Exception("El mail y el DNI no coinciden");
 	}
 
 	/**
@@ -427,7 +480,7 @@ public class CookBooks {
 	 * @return si se pudo
 	 * @throws Exception
 	 */
-	public boolean eliminar(Usuario unUsuario) throws Exception {
+	public boolean eliminarX(Usuario unUsuario) throws Exception {
 		try {
 			unUsuario.borrarDe(base);
 			return true;
@@ -435,10 +488,19 @@ public class CookBooks {
 			this.reconectar();
 			return false;
 		} catch (SQLException e) {
-			if (e.getMessage().startsWith("El libro tiene pedidos"))
+			if (e.getMessage().startsWith("El usuario tiene pedidos"))
 				return false;
 			else
 				throw e;
+		}
+	}
+	
+	public boolean eliminar(Usuario unUsuario) throws Exception {
+		if(unUsuario.esBorrableDe(base)) {
+			cambiarPass(unUsuario, "");
+			return true;
+		} else {
+			return false;
 		}
 	}
 

@@ -198,6 +198,8 @@ public class Usuario implements Cargable {
 	}
 
 	public void borrarDe(Conector base) throws SQLException {
+		if (!this.esBorrableDe(base))
+			throw new SQLException("El usuario tiene pedidos");
 		ConsultaSelect sel1 = new ConsultaSelect("dni", "usuario", "dni = '"
 				+ dni + "'");
 		ConsultaSelect sel2 = new ConsultaSelect("*", "(" + sel1 + ") as tmp");
@@ -257,7 +259,7 @@ public class Usuario implements Cargable {
 	 */
 	public boolean esBorrableDe(Conector base) throws SQLException {
 		ConsultaSelect select = new ConsultaSelect("count(*)",
-				"usuario inner join Pedido on DNI = usuario", "id = " + id);
+				"usuario inner join Pedido on DNI = usuario", "idUsuario = " + id);
 		base.ejecutar(select);
 		return (base.getFirstInt() == 0);
 	}
@@ -272,8 +274,9 @@ public class Usuario implements Cargable {
 
 	@SuppressWarnings("unchecked")
 	public LinkedList<Pedido> getHistorial(Conector base) {
-		ConsultaSelect sel = new ConsultaSelect("*", "pedido inner join usuario on usuario = DNI", "usuario = "
-				+ this.dni);
+		ConsultaSelect sel = new ConsultaSelect("*",
+				"pedido inner join usuario on usuario = DNI", "usuario = "
+						+ this.dni);
 		try {
 			base.ejecutar(sel);
 			return new LinkedList<Pedido>(

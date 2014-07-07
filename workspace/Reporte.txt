@@ -1,7 +1,8 @@
------>>el isbn en nuevo libro tampoco esta limitado (yappari, esta limitado a 45, fijate que sea la cantidad que pedis en el error, que es 13)
-	listo >>dejaste de sacarle los ceros 
+----->>el isbn acepta ceros
 
------>> jose cuando un usuario tiene pedidos en ves de tirarme false q no se puede eliminar me tiras la exepcion XD
+----->> jose cuando un usuario tiene pedidos en ves de tirarme false q no se puede eliminar me tiras la exepcion XD >> listo, ahora me queda cambiar el borrado hardcore por el cambio de pass >Yay! ya esta
+
 ----->> podes poner una funcion de cambio de contraseña q resiva un usuario y un string o un hash y le cambie la pass?(cambiar pass no funciona por ahora solo es grafico)
------>> recuperar contraseña no tendria q devolver algo como el usuario? y q levante una exepcion si no lo encontro o los datos estan mal y si puede resivir al dni como string mejor
-
+>>listo, cambiarPass
+----->> recuperar contraseña no tendria q devolver algo como el usuario? >>te lo devuelvo solo porque lo necesitas para cambiarPass
+y q levante una exepcion si no lo encontro o los datos estan mal y si puede resivir al dni como string mejor >>te tiro -> "El mail no existe", "El DNI no existe" y "Ocurrió un error" (random de la base) y "El mail y el DNI no coinciden" (si queres te junto las tres primeras bajo "datos incorrectos")
