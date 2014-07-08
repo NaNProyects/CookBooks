@@ -113,11 +113,16 @@ public class MedioRecuperacionDeContraseña extends MedioPanel {
 		Botonconfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					//inside.centro(new MedioCambioDeContraseña(inside, inside.contexto.recuperarContraseña(campoMail.getText(), campoDNI.getText()), anterior));
+					inside.centro(new MedioCambioDeContraseña(inside, inside.contexto.recuperarContraseña(campoMail.getText(), campoDNI.getText()), anterior));
 					printError("Datos Incorrectos /n", labelErrores, false);
+					printError("Ocurrio un error /n", labelErrores, false);
 				} catch (Exception e2) {
-					// TODO poner informe de cosas
+					if(e2.getMessage().contains("no existe")){
 					printError("Datos Incorrectos /n", labelErrores, true);
+					}
+					else{
+						printError("Ocurrio un error /n", labelErrores, true);
+					}
 				}
 			}
 		});

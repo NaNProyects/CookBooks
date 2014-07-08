@@ -6,3 +6,9 @@
 >>listo, cambiarPass
 ----->> recuperar contraseña no tendria q devolver algo como el usuario? >>te lo devuelvo solo porque lo necesitas para cambiarPass
 y q levante una exepcion si no lo encontro o los datos estan mal y si puede resivir al dni como string mejor >>te tiro -> "El mail no existe", "El DNI no existe" y "Ocurrió un error" (random de la base) y "El mail y el DNI no coinciden" (si queres te junto las tres primeras bajo "datos incorrectos")
+   nono esta bien
+   
+---->> cambiar metodo a los libros mas vendidos y que resiva una cantidad de libros asi se puede cambiar facil y que reciva dos date 
+		algo asi como   librosMasVendido(Date desde,Date hasta,Integer cantidad);
+---->> el date que resive el de los usuarios registrados es el date de sql cambialo al normal q son los objetos q te mando
+---->> queda limitar el tamaño de la imagen en ancho pero hay q acordar cosas de la ayuda

@@ -285,4 +285,16 @@ public class Usuario implements Cargable {
 			return new LinkedList<Pedido>();
 		}
 	}
+
+	@Override
+	public String toString() {
+		if(id.compareTo(-1) == 0){
+			return "";
+		}
+		else{
+			return nombre.concat(" ").concat(apellido);
+		}
+	}
+	
+	
 }

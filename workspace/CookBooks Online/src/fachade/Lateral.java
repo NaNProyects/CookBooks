@@ -19,6 +19,10 @@ public class Lateral extends JPanel {
 	private JButton carrito;
 	private JButton inicio;
 	private JButton historial;
+	private JButton topTres;
+	private JButton botonUsuarios;
+	private JButton contacto;
+	private JButton ayuda;
 	/**
 	 * Create the panel.
 	 */
@@ -38,6 +42,32 @@ public class Lateral extends JPanel {
 		});
 		add(inicio);
 		
+		topTres = new JButton("Top 3");
+		topTres.setPreferredSize(new Dimension(96, 23));
+		topTres.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inside.centro(new MedioTopDeLibros(inside,3));
+			}
+		});
+		add(topTres);		
+		
+		contacto = new JButton("Contacto");
+		contacto.setPreferredSize(new Dimension(96, 23));
+		contacto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inside.centro(new MedioContacto(inside));
+			}
+		});
+		add(contacto);	
+		
+		ayuda = new JButton("Ayuda");
+		ayuda.setPreferredSize(new Dimension(96, 23));
+		ayuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inside.centro(new MedioIndiceAyuda(inside));
+			}
+		});
+		add(ayuda);			
 		
 		// ADMINISTRADORES
 		 botonLibros = new JButton("Libros");
@@ -70,7 +100,15 @@ public class Lateral extends JPanel {
 		
 		add(botonPedidos);
 		
-
+		 botonUsuarios = new JButton("Usuarios");
+		 botonUsuarios.setPreferredSize(new Dimension(96, 23));
+		 botonUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inside.centro(new MedioUsuariosDeUnPeriodo(inside));
+			}
+		});
+		
+		add(botonUsuarios);
 		
 		// USUARIOS
 		
@@ -103,6 +141,7 @@ public class Lateral extends JPanel {
 		botonAutores.setVisible(permisos == 1);
 		botonLibros.setVisible(permisos == 1);
 		botonPedidos.setVisible(permisos == 1);
+		botonUsuarios.setVisible(permisos == 1);
 		
 		// USUARIOS
 		carrito.setVisible(permisos > 1);
@@ -111,7 +150,9 @@ public class Lateral extends JPanel {
 		
 		// NO USUARIOS
 		inicio.setVisible(true);
-		
+		topTres.setVisible(true);	
+		contacto.setVisible(true);
+		ayuda.setVisible(true);
 		repaint();
 	}
 
