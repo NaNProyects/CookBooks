@@ -9,7 +9,7 @@ BEGIN
 	select isbn, titulo, precio, genero, reseña, vistazo, editorial, idioma, nombre, apellido, idAutor
 	from libro inner join autor on idautor = autor
 			inner join libroPedido on libro = isbn
-	where pedido in (select idPedido from pedido where fecha between (entre) and (hasta))
+	where pedido in (select idPedido from pedido where fecha between (desde) and (hasta))
 	group by isbn
 	order by count(*) desc
 	LIMIT cantidad;

@@ -540,34 +540,37 @@ public class CookBooks {
 	}
 
 	@SuppressWarnings("unchecked")
-	public LinkedList<Libro> librosMasVendidosEntre(java.util.Date inicio,
-			java.util.Date fin, Integer cantidad) {
+	public LinkedList<Libro> librosMasVendidosEntre(java.util.Date desde,
+			java.util.Date hasta, Integer cantidad) {
 		LinkedList<String> params = new LinkedList<String>();
-		params.add("'"+inicio.toString()+"'");
-		params.add("'"+fin.toString()+"'");
+		params.add("'" + (new Date(desde.getTime())).toString() + "'");
+		params.add("'" + (new Date(hasta.getTime())).toString() + "'");
 		params.add(cantidad.toString());
-		LlamadaProcedimiento call = new LlamadaProcedimiento("librosMasVendidos",
-				params);
+		LlamadaProcedimiento call = new LlamadaProcedimiento(
+				"librosMasVendidos", params);
 		try {
-		base.ejecutar(call, false);
-		return new LinkedList<Libro>(
-				(Collection<? extends Libro>) base.iterarUn(Libro.class));
+			base.ejecutar(call, false);
+			LinkedList<Libro> temp = new LinkedList<Libro>(
+					(Collection<? extends Libro>) base.iterarUn(Libro.class));
+			return temp;
 		} catch (Exception e) {
 			return new LinkedList<Libro>();
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	public LinkedList<Usuario> usuariosResgistradosEntre(java.util.Date date, java.util.Date date2) {
+	public LinkedList<Usuario> usuariosResgistradosEntre(java.util.Date desde,
+			java.util.Date hasta) {
 		LinkedList<String> params = new LinkedList<String>();
-		params.add("'"+date.toString()+"'");
-		params.add("'"+date2.toString()+"'");
+		params.add("'" + (new Date(desde.getTime())).toString() + "'");
+		params.add("'" + (new Date(hasta.getTime())).toString() + "'");
 		LlamadaProcedimiento call = new LlamadaProcedimiento("usuariosEntre",
 				params);
 		try {
-		base.ejecutar(call, false);
-		return new LinkedList<Usuario>(
-				(Collection<? extends Usuario>) base.iterarUn(Usuario.class));
+			base.ejecutar(call, false);
+			return new LinkedList<Usuario>(
+					(Collection<? extends Usuario>) base
+							.iterarUn(Usuario.class));
 		} catch (Exception e) {
 			return new LinkedList<Usuario>();
 		}
