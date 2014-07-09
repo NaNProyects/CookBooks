@@ -558,10 +558,10 @@ public class CookBooks {
 	}
 
 	@SuppressWarnings("unchecked")
-	public LinkedList<Usuario> usuariosResgistradosEntre(Date inicio, Date fin) {
+	public LinkedList<Usuario> usuariosResgistradosEntre(java.util.Date date, java.util.Date date2) {
 		LinkedList<String> params = new LinkedList<String>();
-		params.add("'"+inicio.toString()+"'");
-		params.add("'"+fin.toString()+"'");
+		params.add("'"+date.toString()+"'");
+		params.add("'"+date2.toString()+"'");
 		LlamadaProcedimiento call = new LlamadaProcedimiento("usuariosEntre",
 				params);
 		try {

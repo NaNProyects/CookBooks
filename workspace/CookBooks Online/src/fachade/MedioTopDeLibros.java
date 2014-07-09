@@ -126,7 +126,7 @@ public class MedioTopDeLibros extends MedioPanel {
 	}
 
 	private void listar(){
-		//libros = inside.contexto.librosMasVendido(desde.getValue(),hasta.getValue(),cantidad); TODO esperar implementacion
+		libros = inside.contexto.librosMasVendidosEntre((Date)desde.getValue(),(Date)hasta.getValue(),cantidad); 
 		Cargar();
 	}
 	

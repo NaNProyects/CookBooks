@@ -140,9 +140,7 @@ public class MedioUsuariosDeUnPeriodo extends MedioPanel {
 	}
 
 	private void listar() {
-		// usuarios
-		// =inside.contexto.usuariosResgistradosEntre((Date)desde.getValue(),
-		// (Date)hasta.getValue()); TODO esperar implementacion
+		 usuarios= inside.contexto.usuariosResgistradosEntre((Date)desde.getValue(),(Date)hasta.getValue()); 
 		Cargar();
 	}
 

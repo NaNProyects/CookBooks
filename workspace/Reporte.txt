@@ -10,6 +10,7 @@ y q levante una exepcion si no lo encontro o los datos estan mal y si puede resi
    
 ---->> cambiar metodo a los libros mas vendidos y que resiva una cantidad de libros asi se puede cambiar facil y que reciva dos date 
 		algo asi como   librosMasVendido(Date desde,Date hasta,Integer cantidad); >>librosMasVendidosEntre
+		>>> falla entra en el catch de ejecutar
 ---->> el date que resive el de los usuarios registrados es el date de sql cambialo al normal q son los objetos q te mando >>te recibo java.util.Date, despues me arreglo
-
+		>>>> idem ald e arriba pone breacks en los procesos listar de top de libros y usuarios registrados para verlo
 ---->> queda limitar el tamaño de la imagen en ancho pero hay q acordar cosas de la ayuda >tranca que no voy a poner nada mas ancho que el frame
