@@ -1,10 +1,10 @@
-﻿CREATE DATABASE IF NOT EXISTS `cookbooksbase` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE  IF NOT EXISTS `cookbooksbase` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `cookbooksbase`;
--- MySQL dump 10.13 Distrib 5.6.13, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: localhost Database: cookbooksbase
+-- Host: localhost    Database: cookbooksbase
 -- ------------------------------------------------------
--- Server version 5.6.17
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -22,7 +22,7 @@ USE `cookbooksbase`;
 --
 
 DROP TABLE IF EXISTS `autor`;
-/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `autor` (
   `idAutor` int(11) NOT NULL AUTO_INCREMENT,
@@ -48,7 +48,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `libro`;
-/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `libro` (
   `ISBN` varchar(15) NOT NULL,
@@ -82,7 +82,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `libropedido`;
-/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `libropedido` (
   `idLibroPedido` int(11) NOT NULL AUTO_INCREMENT,
@@ -93,7 +93,7 @@ CREATE TABLE `libropedido` (
   KEY `libroPedidoLibro_idx` (`libro`),
   CONSTRAINT `libroPedidoLibro` FOREIGN KEY (`libro`) REFERENCES `libro` (`ISBN`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `pedidoPedidoLibro` FOREIGN KEY (`pedido`) REFERENCES `pedido` (`idPedido`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +102,7 @@ CREATE TABLE `libropedido` (
 
 LOCK TABLES `libropedido` WRITE;
 /*!40000 ALTER TABLE `libropedido` DISABLE KEYS */;
-INSERT INTO `libropedido` VALUES (1,1,'8828942931'),(2,2,'1234567890'),(3,3,'8795484816'),(4,4,'8884447779'),(5,5,'8789876554'),(6,6,'1478523698'),(7,7,'8521479632');
+INSERT INTO `libropedido` VALUES (1,1,'8828942931'),(2,2,'1234567890'),(3,3,'8795484816'),(4,4,'8884447779'),(5,5,'8789876554'),(6,6,'1478523698'),(7,7,'8521479632'),(8,8,'8884447779'),(9,8,'8828942931'),(10,8,'8795484816'),(11,9,'8828942931'),(12,9,'8795484816'),(13,10,'8828942931');
 /*!40000 ALTER TABLE `libropedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +111,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `pedido`;
-/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pedido` (
   `idPedido` int(11) NOT NULL AUTO_INCREMENT,
@@ -123,7 +123,7 @@ CREATE TABLE `pedido` (
   UNIQUE KEY `idPedido_UNIQUE` (`idPedido`),
   KEY `pedidoUsuario_idx` (`usuario`),
   CONSTRAINT `pedidoUsuario` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`DNI`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,7 +132,7 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-INSERT INTO `pedido` VALUES (1,58.99,0,'2013-03-31',11454789),(2,69,0,'2013-08-25',10222333),(3,87.45,0,'2013-07-24',30876961),(4,152.21,0,'2013-06-06',2968741),(5,99.99,0,'2013-05-03',3478987),(6,47.8,1,'2011-01-02',12547897),(7,79.84,1,'2012-01-01',14879564);
+INSERT INTO `pedido` VALUES (1,58.99,0,'2013-03-31',11454789),(2,69,0,'2013-08-25',10222333),(3,87.45,0,'2013-07-24',30876961),(4,152.21,0,'2013-06-06',2968741),(5,99.99,0,'2013-05-03',3478987),(6,47.8,1,'2011-01-02',12547897),(7,79.84,1,'2012-01-01',14879564),(8,298.65,0,'2014-07-09',12345678),(9,146.44,0,'2014-07-09',12345678),(10,58.99,0,'2014-07-09',12345678);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,7 +141,7 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `usuario`;
-/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
   `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
@@ -181,4 +181,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-25 0:53:44
+-- Dump completed on 2014-07-09  3:47:42

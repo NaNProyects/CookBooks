@@ -110,8 +110,6 @@ public class MedioTopDeLibros extends MedioPanel {
 		hasta.setBounds(265, 71, 107, 20);
 		add(hasta);
 		
-		System.out.println(hasta.getValue().getClass().toString()	);
-
 		btnListar = new JButton("Listar");
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
