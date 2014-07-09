@@ -40,6 +40,15 @@ public class MedioTopDeLibros extends MedioPanel {
 	private JButton btnListar;
 	private Integer cantidad;
 
+	public MedioTopDeLibros(Interface inside2, Integer cant,LinkedList<Libro> lib, JSpinner hast,JSpinner desd){
+		this(inside2,cant);
+		libros = lib;
+		hasta.setValue(hast.getValue());
+
+		desde.setValue(desd.getValue());
+
+	}	
+
 	public MedioTopDeLibros(Interface inside2, Integer cant) {
 		setFocusTraversalPolicyProvider(true);
 		inside = inside2;
@@ -126,8 +135,10 @@ public class MedioTopDeLibros extends MedioPanel {
 	}
 
 	private void listar(){
-		libros = inside.contexto.librosMasVendidosEntre((Date)desde.getValue(),(Date)hasta.getValue(),cantidad); 
-		Cargar();
+		inside.centro(new MedioTopDeLibros(inside, cantidad, inside.contexto.librosMasVendidosEntre((Date)desde.getValue(),(Date)hasta.getValue(),cantidad),hasta,desde));
+//		libros = inside.contexto.librosMasVendidosEntre((Date)desde.getValue(),(Date)hasta.getValue(),cantidad); 
+//		Cargar();
+//		inside.center.refresh();
 	}
 	
 	protected void Cargar() { 
@@ -143,6 +154,5 @@ public class MedioTopDeLibros extends MedioPanel {
 		for (Component componente : panelResultado.getComponents()) {
 			((MedioPanel) componente).refresh();
 		}
-		
 	}
 }
