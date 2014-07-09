@@ -1,15 +1,20 @@
 package funcionalidad;
 
-import java.util.*;
-import java.security.*;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.math.BigInteger;
-
-import com.mysql.jdbc.exceptions.MySQLNonTransientException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 
 import utilsSQL.Conector;
 import utilsSQL.ConsultaSelect;
+import utilsSQL.LlamadaProcedimiento;
+
+import com.mysql.jdbc.exceptions.MySQLNonTransientException;
 
 public class CookBooks {
 
@@ -200,7 +205,6 @@ public class CookBooks {
 		} catch (SQLException e) {
 			return false;
 		}
-
 	}
 
 	/**
@@ -353,7 +357,7 @@ public class CookBooks {
 	 */
 	public boolean cambiarPass(Usuario user, String pass) throws SQLException {
 		user.setHashPass(CookBooks.getMD5(pass));
-		user.setDni(-1*user.getDni());
+		user.setDni(-1 * user.getDni());
 		try {
 			user.guardarEn(base);
 			return true;
@@ -494,9 +498,9 @@ public class CookBooks {
 				throw e;
 		}
 	}
-	
+
 	public boolean eliminar(Usuario unUsuario) throws Exception {
-		if(unUsuario.esBorrableDe(base)) {
+		if (unUsuario.esBorrableDe(base)) {
 			cambiarPass(unUsuario, "");
 			return true;
 		} else {
@@ -535,14 +539,38 @@ public class CookBooks {
 		carrito.vaciar();
 	}
 
-	public Libro libroMasVendido() {
-		return null;
-
+	@SuppressWarnings("unchecked")
+	public LinkedList<Libro> librosMasVendidosEntre(java.util.Date inicio,
+			java.util.Date fin, Integer cantidad) {
+		LinkedList<String> params = new LinkedList<String>();
+		params.add("'"+inicio.toString()+"'");
+		params.add("'"+fin.toString()+"'");
+		params.add(cantidad.toString());
+		LlamadaProcedimiento call = new LlamadaProcedimiento("librosMasVendidos",
+				params);
+		try {
+		base.ejecutar(call, false);
+		return new LinkedList<Libro>(
+				(Collection<? extends Libro>) base.iterarUn(Libro.class));
+		} catch (Exception e) {
+			return new LinkedList<Libro>();
+		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public LinkedList<Usuario> usuariosResgistradosEntre(Date inicio, Date fin) {
-		return null;
-
+		LinkedList<String> params = new LinkedList<String>();
+		params.add("'"+inicio.toString()+"'");
+		params.add("'"+fin.toString()+"'");
+		LlamadaProcedimiento call = new LlamadaProcedimiento("usuariosEntre",
+				params);
+		try {
+		base.ejecutar(call, false);
+		return new LinkedList<Usuario>(
+				(Collection<? extends Usuario>) base.iterarUn(Usuario.class));
+		} catch (Exception e) {
+			return new LinkedList<Usuario>();
+		}
 	}
 
 	/**

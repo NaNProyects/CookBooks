@@ -1,7 +1,7 @@
 package utilsSQL;
 
-import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Representa una consulta SQL de tipo select, con condicion opcional
@@ -46,9 +46,5 @@ public class ConsultaSelect extends ConsultaSQL {
 	 */
 	protected String atributos() {
 		return listarSeparandoPor(atributos, ", ");
-	}
-	
-	public void ejecutame(Conector consultor) throws SQLException{
-		consultor.ejecutar(this);
 	}
 }

@@ -20,8 +20,7 @@ public class Conector {
 	private Statement consultor;
 	private ResultSet iterador;
 	public String ultimoError;
-	private String url; //para reconectar
-
+	private String url; // para reconectar
 
 	/**
 	 * @param baseAConectar
@@ -31,8 +30,7 @@ public class Conector {
 	 */
 	public Conector(String baseAConectar, String user, String pass)
 			throws SQLException {
-		url = Conector
-				.urlDesde(baseAConectar) + Conector.llaveCon(user, pass);
+		url = Conector.urlDesde(baseAConectar) + Conector.llaveCon(user, pass);
 		objetoConexion = DriverManager.getConnection(url);
 		consultor = objetoConexion.createStatement();
 	}
@@ -51,7 +49,7 @@ public class Conector {
 			throw e;
 		}
 	}
-	
+
 	public void reconectar() throws SQLException {
 		objetoConexion = DriverManager.getConnection(url);
 		consultor = objetoConexion.createStatement();
@@ -82,36 +80,30 @@ public class Conector {
 
 	/**
 	 * @param consulta
-	 * @return
-	 * @throws SQLException 
-	 * @throws Exception 
+	 * @throws SQLException
 	 */
 	public void ejecutar(ConsultaSelect consulta) throws SQLException {
-		try {
-			iterador = consultor.executeQuery(consulta.toString());
-		} catch (SQLException e) {
-			this.ultimoError = e.getMessage();
-			throw e;
-		}
+		ejecutar(consulta.toString(), false);
 	}
 
 	/**
 	 * @param consulta
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public void ejecutar(ConsultaABM consulta) throws SQLException {
-		try {
-			consultor.execute(consulta.toString());
-		} catch (SQLException e) {
-			this.ultimoError = e.getMessage();
-			throw e;
-		}
+		ejecutar(consulta.toString(), true);
 	}
 
-	public LinkedList<Cargable> iterarUn(Class<? extends Cargable> c) throws Exception {
+	public void ejecutar(LlamadaProcedimiento call, boolean esABM)
+			throws SQLException {
+		ejecutar(call.toString(), esABM);
+	}
+
+	public LinkedList<Cargable> iterarUn(Class<? extends Cargable> c)
+			throws Exception {
 		LinkedList<Cargable> result = new LinkedList<Cargable>();
 		try {
-			while (iterador.next()) //itera por filas
+			while (iterador.next()) // itera por filas
 			{
 				Cargable item = c.newInstance();
 				item.cargarCon(iterador);
@@ -130,29 +122,41 @@ public class Conector {
 		}
 		return result;
 	}
-	
+
 	public Integer getFirstInt() throws SQLException {
-		if(iterador.first()) {
+		if (iterador.first()) {
 			return iterador.getInt(1);
 		} else {
 			return null;
 		}
 	}
-	
+
 	public Long getFirstLong() throws SQLException {
-		if(iterador.first()) {
+		if (iterador.first()) {
 			return iterador.getLong(1);
 		} else {
 			return null;
 		}
 	}
-	
+
 	public String getFirstString() throws SQLException {
-		if(iterador.first()) {
+		if (iterador.first()) {
 			return iterador.getString(1);
 		} else {
 			return null;
 		}
-	} 
-	
+	}
+
+	private void ejecutar(String sentencia, boolean esABM) throws SQLException {
+		try {
+			if (esABM) {
+				consultor.execute(sentencia);
+			} else {
+				iterador = consultor.executeQuery(sentencia);
+			}
+		} catch (SQLException e) {
+			this.ultimoError = e.getMessage();
+			throw e;
+		}
+	}
 }

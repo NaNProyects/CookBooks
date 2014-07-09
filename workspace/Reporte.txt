@@ -9,6 +9,7 @@ y q levante una exepcion si no lo encontro o los datos estan mal y si puede resi
    nono esta bien
    
 ---->> cambiar metodo a los libros mas vendidos y que resiva una cantidad de libros asi se puede cambiar facil y que reciva dos date 
-		algo asi como   librosMasVendido(Date desde,Date hasta,Integer cantidad);
----->> el date que resive el de los usuarios registrados es el date de sql cambialo al normal q son los objetos q te mando
----->> queda limitar el tamaño de la imagen en ancho pero hay q acordar cosas de la ayuda
+		algo asi como   librosMasVendido(Date desde,Date hasta,Integer cantidad); >>librosMasVendidosEntre
+---->> el date que resive el de los usuarios registrados es el date de sql cambialo al normal q son los objetos q te mando >>te recibo java.util.Date, despues me arreglo
+
+---->> queda limitar el tamaño de la imagen en ancho pero hay q acordar cosas de la ayuda >tranca que no voy a poner nada mas ancho que el frame
