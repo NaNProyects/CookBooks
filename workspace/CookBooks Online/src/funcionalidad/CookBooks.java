@@ -516,10 +516,8 @@ public class CookBooks {
 	 * @throws Exception
 	 */
 	public boolean modificar(Usuario unUsuario) throws Exception {
-		if (unUsuario.getDni() < 0) {
-			return false;
-		}
 		try {
+			unUsuario.setDni(unUsuario.getDni() * -1);
 			unUsuario.guardarEn(base);
 			return true;
 		} catch (MySQLNonTransientException e) {
