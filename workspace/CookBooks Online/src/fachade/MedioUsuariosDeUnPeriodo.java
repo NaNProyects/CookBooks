@@ -93,7 +93,7 @@ public class MedioUsuariosDeUnPeriodo extends MedioPanel {
 		add(lblDesde);
 
 		desde = new JSpinner();
-		desde.setModel(new SpinnerDateModel(new Date(1404702000000L), null,
+		desde.setModel(new SpinnerDateModel(new Date(), null,
 				null, Calendar.WEEK_OF_YEAR));
 		desde.setEditor(new JSpinner.DateEditor(desde, "dd/MM/yyyy"));
 		desde.setBounds(93, 71, 107, 20);
@@ -104,7 +104,7 @@ public class MedioUsuariosDeUnPeriodo extends MedioPanel {
 		add(lblHasta);
 
 		hasta = new JSpinner();
-		hasta.setModel(new SpinnerDateModel(new Date(1404702000000L), null,
+		hasta.setModel(new SpinnerDateModel(new Date(), null,
 				null, Calendar.WEEK_OF_YEAR));
 		hasta.setEditor(new JSpinner.DateEditor(hasta, "dd/MM/yyyy"));
 		hasta.setBounds(265, 71, 107, 20);

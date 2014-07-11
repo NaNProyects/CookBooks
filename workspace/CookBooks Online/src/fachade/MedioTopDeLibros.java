@@ -95,7 +95,7 @@ public class MedioTopDeLibros extends MedioPanel {
 		add(lblDesde);
 		
 		 desde = new JSpinner();
-		desde.setModel(new SpinnerDateModel(new Date(1404702000000L), null, null, Calendar.WEEK_OF_YEAR));
+		desde.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.WEEK_OF_YEAR));
 		desde.setEditor(new JSpinner.DateEditor(desde, "dd/MM/yyyy"));
 		desde.setBounds(92, 71, 107, 20);
 		add(desde);
@@ -105,7 +105,7 @@ public class MedioTopDeLibros extends MedioPanel {
 		add(lblHasta);
 		
 		hasta = new JSpinner();
-		hasta.setModel(new SpinnerDateModel(new Date(1404702000000L), null, null, Calendar.WEEK_OF_YEAR));
+		hasta.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.WEEK_OF_YEAR));
 		hasta.setEditor(new JSpinner.DateEditor(hasta, "dd/MM/yyyy"));
 		hasta.setBounds(265, 71, 107, 20);
 		add(hasta);

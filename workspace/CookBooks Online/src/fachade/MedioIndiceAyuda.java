@@ -35,13 +35,22 @@ public class MedioIndiceAyuda extends MedioPanel {
 		inside = inside2;
 		
 		//TODO Mock
-		manuales.add("elemento1");
-		manuales.add("elemento2");
+		manuales.add("1. Vistazo general de la aplicación");
+		manuales.add("2. Cómo busco un libro");
+		manuales.add("3. Cómo me registro");
+		manuales.add("4. Cómo incio mi sesión");
 		LinkedList<String> lista = new LinkedList<String>();
-		lista.add("/fachade/Image/Manual/elemento 2.png");
+		lista.add("/fachade/Image/Manual/Vistazo_general_de_la_aplicación.png");
 		imagenes.add((LinkedList<String>) lista.clone());
-		lista.add("/fachade/Image/Manual/elemento 1.png");
-		imagenes.add(lista);
+		lista = new LinkedList<String>();
+		lista.add("/fachade/Image/Manual/Como_busco_un_libro.png");
+		imagenes.add((LinkedList<String>) lista.clone());
+		lista = new LinkedList<String>();
+		lista.add("/fachade/Image/Manual/Como_me_registro.png");
+		imagenes.add((LinkedList<String>) lista.clone());
+		lista = new LinkedList<String>();
+		lista.add("/fachade/Image/Manual/Como_incio_mi_sesión.png");
+		imagenes.add((LinkedList<String>) lista.clone());
 		//--------------
 		setBackground(new Color(255, 204, 255));
 		setLayout(null);

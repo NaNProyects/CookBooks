@@ -22,6 +22,8 @@ import javax.swing.text.Document;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import funcionalidad.CookBooks;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 @SuppressWarnings("serial")
 public class MedioContacto extends MedioPanel {
@@ -89,7 +91,7 @@ public class MedioContacto extends MedioPanel {
 		errorMail.setEditable(false);
 		errorMail.setBackground(new Color(255, 204, 255));
 		errorMail.setForeground(Color.RED);
-		errorMail.setBounds(317, 66, 476, 20);
+		errorMail.setBounds(345, 66, 448, 20);
 		add(errorMail);
 
 		nombreUsuario = new TextField();
@@ -128,7 +130,7 @@ public class MedioContacto extends MedioPanel {
 		errorNombre.setEditable(false);
 		errorNombre.setBackground(new Color(255, 204, 255));
 		errorNombre.setForeground(Color.RED);
-		errorNombre.setBounds(317, 97, 476, 20);
+		errorNombre.setBounds(345, 97, 448, 20);
 		add(errorNombre);
 
 		labelErrores = new JTextPane();
@@ -200,6 +202,10 @@ public class MedioContacto extends MedioPanel {
 				if (Validar()) {
 					labelErrores.setForeground(new Color(0, 128, 0));
 					printError("Mensaje Enviado /n", labelErrores, true);
+					mailUsuario.setText("");
+					nombreUsuario.setText("");
+					contenido.setDocument(contenido.getEditorKit().createDefaultDocument());
+					caracteres.setText("140");
 				}
 			}
 		});
@@ -219,6 +225,7 @@ public class MedioContacto extends MedioPanel {
 				.getResource("/fachade/Image/Cancel Red Button.png")));
 		cancelar.setBounds(233, 500, 144, 31);
 		add(cancelar);
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{mailUsuario, nombreUsuario, contenido, Botonconfirmar, cancelar}));
 
 	}
 
