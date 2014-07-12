@@ -399,10 +399,10 @@ public class MedioRegistroDeUsuario extends MedioPanel {
 							inside.contexto.autenticar(mailUsuario.getText(),
 									new String(passwordField.getPassword()));
 							inside.center.refresh();
-							inside.top.setPanelLog(new Loged(inside.top));
 						} else {
-							error = inside.contexto.modificar(user);
+							error = inside.contexto.modificar(user);		
 						}
+						inside.top.setPanelLog(new Loged(inside.top));
 					} catch (Exception e1) {
 						e1.printStackTrace();
 						printError(e1.getMessage().concat(" /n"), labelErrores,

@@ -120,6 +120,7 @@ public class Login extends JPanel {
 
 	}
 	public void entrar(){
+		if(new String(passwordField.getPassword()).length() != 0){
 		try {
 			if(inside.getInside().contexto.autenticar(campoMail.getText(),new String(passwordField.getPassword()))){
 				inside.getInside().center.refresh();
@@ -127,9 +128,14 @@ public class Login extends JPanel {
 			}
 			else{
 				printError("Datos de Sesión incorrectos".concat(" /n"),labelErrores, true);
+				printError("La contraseña no puede estar vacia".concat(" /n"),labelErrores, false);
 			}
 		} catch (Exception e) {
 			printError(e.getMessage().concat(" /n"),labelErrores, true);
+		}}
+		else{
+			printError("Datos de Sesión incorrectos".concat(" /n"),labelErrores, false);
+			printError("La contraseña no puede estar vacia".concat(" /n"),labelErrores, true);
 		}
 		
 	}

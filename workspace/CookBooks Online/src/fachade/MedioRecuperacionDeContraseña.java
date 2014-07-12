@@ -18,6 +18,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import funcionalidad.CookBooks;
 import funcionalidad.Usuario;
 
 @SuppressWarnings("serial")
@@ -29,12 +30,12 @@ public class MedioRecuperacionDeContraseña extends MedioPanel {
 	private TextField campoMail;
 	private TextField campoDNI;
 	private MedioPanel anterior;
-	private JTextPane errorPass;
-	private JTextPane errorPass2;
 	private JButton Botonconfirmar;
 	private JButton cancelar;
 	private JLabel lblConfirmarContrasea;
 	private JLabel mailLabel;
+	private JTextPane errorMail;
+	private JTextPane errorDNI;
 
 	/**
 	 * Create the panel.
@@ -76,9 +77,16 @@ public class MedioRecuperacionDeContraseña extends MedioPanel {
 		campoMail.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					Botonconfirmar.doClick();
-				   }
+				}
+				if (campoMail.getText().length() == 44) {
+					if (!(e.isActionKey() || e.isControlDown()
+							|| e.getKeyCode() == KeyEvent.VK_DELETE || e
+							.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+						e.consume();
+					}
+				}
 			}
 		});
 		campoMail.setBounds(183, 83, 184, 20);
@@ -89,9 +97,9 @@ public class MedioRecuperacionDeContraseña extends MedioPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Character car = e.getKeyChar();
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					Botonconfirmar.doClick();
-				   }
+				}
 				if (!(Character.isDigit(car))
 						|| campoDNI.getText().length() == 8) {
 					if (!(e.isActionKey() || e.isControlDown()
@@ -105,30 +113,38 @@ public class MedioRecuperacionDeContraseña extends MedioPanel {
 		campoDNI.setBounds(183, 113, 184, 20);
 		add(campoDNI);
 
-		 mailLabel = new JLabel("Mail*");
+		mailLabel = new JLabel("Mail*");
 		mailLabel.setBounds(52, 91, 88, 14);
 		add(mailLabel);
 
 		Botonconfirmar = new JButton("Confirmar");
 		Botonconfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					inside.centro(new MedioCambioDeContraseña(inside, inside.contexto.recuperarContraseña(campoMail.getText(), campoDNI.getText()), anterior));
-					printError("Datos Incorrectos /n", labelErrores, false);
-					printError("Ocurrio un error /n", labelErrores, false);
-				} catch (Exception e2) {
-					if(e2.getMessage().contains("no existe")){
-					printError("Datos Incorrectos /n", labelErrores, true);
-					}
-					else{
-						printError("Ocurrio un error /n", labelErrores, true);
+				if (Validar()) {
+					try {
+						inside.centro(new MedioCambioDeContraseña(
+								inside,
+								inside.contexto.recuperarContraseña(
+										campoMail.getText(), campoDNI.getText()),
+								anterior));
+						printError("Datos Incorrectos /n", labelErrores, false);
+						printError("Ocurrio un error /n", labelErrores, false);
+					} catch (Exception e2) {
+						if (e2.getMessage().contains("no existe")) {
+							printError("Datos Incorrectos /n", labelErrores,
+									true);
+						} else {
+							printError("Ocurrio un error /n", labelErrores,
+									true);
+						}
 					}
 				}
 			}
 		});
 
-		Botonconfirmar.setIcon(new ImageIcon(MedioRecuperacionDeContraseña.class
-				.getResource("/fachade/Image/Clear Green Button.png")));
+		Botonconfirmar.setIcon(new ImageIcon(
+				MedioRecuperacionDeContraseña.class
+						.getResource("/fachade/Image/Clear Green Button.png")));
 		Botonconfirmar.setBounds(593, 562, 144, 31);
 		add(Botonconfirmar);
 
@@ -136,7 +152,7 @@ public class MedioRecuperacionDeContraseña extends MedioPanel {
 		lblcamposObligatorios.setBounds(22, 152, 298, 14);
 		add(lblcamposObligatorios);
 
-		 lblConfirmarContrasea = new JLabel("Contrase\u00F1a*");
+		lblConfirmarContrasea = new JLabel("DNI*");
 		lblConfirmarContrasea.setBounds(52, 120, 133, 14);
 		add(lblConfirmarContrasea);
 
@@ -151,25 +167,67 @@ public class MedioRecuperacionDeContraseña extends MedioPanel {
 		cancelar.setBounds(747, 562, 144, 31);
 		add(cancelar);
 
-		errorPass = new JTextPane();
-		errorPass.setBorder(null);
-		errorPass.setEditable(false);
-		errorPass.setBackground(new Color(255, 204, 255));
-		errorPass.setForeground(Color.RED);
-		errorPass.setBounds(377, 83, 476, 20);
-		add(errorPass);
+		errorMail = new JTextPane();
+		errorMail.setBorder(null);
+		errorMail.setEditable(false);
+		errorMail.setBackground(new Color(255, 204, 255));
+		errorMail.setForeground(Color.RED);
+		errorMail.setBounds(373, 83, 480, 20);
+		add(errorMail);
 
-		errorPass2 = new JTextPane();
-		errorPass2.setBorder(null);
-		errorPass2.setEditable(false);
-		errorPass2.setBackground(new Color(255, 204, 255));
-		errorPass2.setForeground(Color.RED);
-		errorPass2.setBounds(377, 113, 476, 20);
-		add(errorPass2);
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{campoMail, campoDNI, Botonconfirmar, cancelar}));
+		errorDNI = new JTextPane();
+		errorDNI.setBorder(null);
+		errorDNI.setEditable(false);
+		errorDNI.setBackground(new Color(255, 204, 255));
+		errorDNI.setForeground(Color.RED);
+		errorDNI.setBounds(373, 113, 490, 20);
+		add(errorDNI);
+
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
+				campoMail, campoDNI, Botonconfirmar, cancelar }));
 
 	}
-	
+
+	private Boolean ValidarLongitudDNI() {
+		if ((campoDNI.getText().toString().length() < 9)
+				&& (campoDNI.getText().toString().length() > 6)) {
+			printError("El DNI debe tener entre 7 y 8 dígitos /n", errorDNI,
+					false);
+			return true;
+		} else {
+			printError("El DNI debe tener entre 7 y 8 dígitos /n", errorDNI,
+					true);
+			return false;
+		}
+	}
+
+	private Boolean Validar() {
+		return (ValidarLongitudMail() & ValidarFormatoMail() & ValidarLongitudDNI());
+
+	}
+
+	private Boolean ValidarLongitudMail() {
+		if ((campoMail.getText().length() < 45)
+				&& (campoMail.getText().length() > 0)) {
+			printError("El E-Mail debe tener entre 1 y 44 caracteres /n",
+					errorMail, false);
+			return true;
+		} else {
+			printError("El E-Mail debe tener entre 1 y 44 caracteres /n",
+					errorMail, true);
+			return false;
+		}
+	}
+
+	private Boolean ValidarFormatoMail() {
+		if (CookBooks.esUnMail(campoMail.getText().toString())) {
+			printError("El formato del E-Mail es invalido /n", errorMail, false);
+			return true;
+		} else {
+			printError("El formato del E-Mail es invalido /n", errorMail, true);
+			return false;
+		}
+	}
 
 	protected void refresh() {
 		inside.centro(new MedioHome(inside));

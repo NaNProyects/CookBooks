@@ -78,6 +78,7 @@ public class Loged extends JPanel {
 		btnEdicion.setIcon(new ImageIcon(Loged.class
 				.getResource("/fachade/Image/Write Document.png")));
 		btnEdicion.setBounds(123, 74, 131, 32);
+		btnEdicion.setVisible(inside.getInside().contexto.usuarioActual().getId() > 1);
 		add(btnEdicion);
 
 	}

@@ -39,7 +39,7 @@ public class MedioAyuda extends MedioPanel {
 
 		lblTitulo = DefaultComponentFactory.getInstance().createTitle(
 				titulo);
-		lblTitulo.setBounds(22, 10, 200, 50);
+		lblTitulo.setBounds(22, 10, 833, 50);
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 20));
 		add(lblTitulo);
 
