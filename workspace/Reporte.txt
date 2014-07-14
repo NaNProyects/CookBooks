@@ -1,16 +1,7 @@
------>>el isbn acepta ceros
+>El isbn acepta ceros. OJO
+>En el indice de manuales "Seccion">"Sección" (en el botón), "Indice">"Índice"
+>Mientras se ve un manual, "Atras">"Atrás" (en el botón)
 
------>> jose cuando un usuario tiene pedidos en ves de tirarme false q no se puede eliminar me tiras la exepcion XD >> listo, ahora me queda cambiar el borrado hardcore por el cambio de pass >Yay! ya esta
-
------>> podes poner una funcion de cambio de contraseña q resiva un usuario y un string o un hash y le cambie la pass?(cambiar pass no funciona por ahora solo es grafico)
->>listo, cambiarPass
------>> recuperar contraseña no tendria q devolver algo como el usuario? >>te lo devuelvo solo porque lo necesitas para cambiarPass
-y q levante una exepcion si no lo encontro o los datos estan mal y si puede resivir al dni como string mejor >>te tiro -> "El mail no existe", "El DNI no existe" y "Ocurrió un error" (random de la base) y "El mail y el DNI no coinciden" (si queres te junto las tres primeras bajo "datos incorrectos")
-   nono esta bien
-   
----->> cambiar metodo a los libros mas vendidos y que resiva una cantidad de libros asi se puede cambiar facil y que reciva dos date 
-		algo asi como   librosMasVendido(Date desde,Date hasta,Integer cantidad); >>librosMasVendidosEntre
-		>>> falla entra en el catch de ejecutar
----->> el date que resive el de los usuarios registrados es el date de sql cambialo al normal q son los objetos q te mando >>te recibo java.util.Date, despues me arreglo
-		>>>> idem ald e arriba pone breacks en los procesos listar de top de libros y usuarios registrados para verlo
----->> queda limitar el tamaño de la imagen en ancho pero hay q acordar cosas de la ayuda >tranca que no voy a poner nada mas ancho que el frame
+*Vacíos legales discutibles* (por mi que quede asi)
+>El admin no puede recuperar su cuenta porque su mail no es valido (tampoco la puede cambiar porque no tiene perfil pero eso es mi culpa)
+>Un usuario solo se puede eliminar si no hizo nada, ok. Queda baneado de por vida. Igual nos dijeron eso :P
