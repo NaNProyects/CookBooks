@@ -1,7 +1,7 @@
->El isbn acepta ceros. OJO
+>El isbn acepta ceros. OJO -----> esto es como de 20 historias atras lo cuento?
 >En el indice de manuales "Seccion">"Sección" (en el botón), "Indice">"Índice"
 >Mientras se ve un manual, "Atras">"Atrás" (en el botón)
 
-*Vacíos legales discutibles* (por mi que quede asi)
+*Vacíos legales discutibles* (por mi que quede asi) ----> yo lo dejaria asi a lo sumo si nos dicen algo lo cambiamos y listo
 >El admin no puede recuperar su cuenta porque su mail no es valido (tampoco la puede cambiar porque no tiene perfil pero eso es mi culpa)
 >Un usuario solo se puede eliminar si no hizo nada, ok. Queda baneado de por vida. Igual nos dijeron eso :P

@@ -96,7 +96,7 @@ public class MedioIndiceAyuda extends MedioPanel {
 		setLayout(null);
 
 		lblTitulo = DefaultComponentFactory.getInstance().createTitle(
-				"Indice de Ayuda");
+				"Índice de Ayuda");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblTitulo.setBounds(22, 10, 200, 50);
 		add(lblTitulo);
@@ -129,7 +129,7 @@ public class MedioIndiceAyuda extends MedioPanel {
 		list.setSelectedIndex(0);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		ver = new JButton("Ver Seccion");
+		ver = new JButton("Ver Sección");
 		ver.setIcon(new ImageIcon(MedioPerfilDeLibro.class.getResource("/fachade/Image/Export To Document.png")));
 		ver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

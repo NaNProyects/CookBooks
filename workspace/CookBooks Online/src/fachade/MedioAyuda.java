@@ -65,7 +65,7 @@ public class MedioAyuda extends MedioPanel {
 		}
 
 		
-		atras = new JButton("Atras");
+		atras = new JButton("Atrás");
 		atras.setIcon(new ImageIcon(MedioAyuda.class.getResource("/fachade/Image/Import Document.png")));
 		atras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
